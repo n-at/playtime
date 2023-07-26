@@ -11,13 +11,13 @@ import (
 	"os"
 )
 
-var (
-	TemplatesRoot      = "templates"
-	TemplatesExtension = "twig"
-	TemplatesDebug     = false
-)
+type pongo2Renderer struct {
+	config *Configuration
+}
 
-type pongo2Renderer struct{}
+func newPongo2Renderer(config *Configuration) pongo2Renderer {
+	return pongo2Renderer{config: config}
+}
 
 func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c echo.Context) error {
 	var ctx pongo2.Context
@@ -31,10 +31,10 @@ func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c ech
 
 	var t *pongo2.Template
 	var err error
-	if TemplatesDebug {
-		t, err = pongo2.FromFile(resolveTemplateName(name))
+	if r.config.TemplatesDebug {
+		t, err = pongo2.FromFile(r.resolveTemplateName(name))
 	} else {
-		t, err = pongo2.FromCache(resolveTemplateName(name))
+		t, err = pongo2.FromCache(r.resolveTemplateName(name))
 	}
 	if err != nil {
 		return err
@@ -43,8 +43,8 @@ func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c ech
 	return t.ExecuteWriter(ctx, w)
 }
 
-func resolveTemplateName(n string) string {
-	return fmt.Sprintf("%s%c%s.%s", TemplatesRoot, os.PathSeparator, n, TemplatesExtension)
+func (r pongo2Renderer) resolveTemplateName(n string) string {
+	return fmt.Sprintf("%s%c%s.%s", r.config.TemplatesRoot, os.PathSeparator, n, r.config.TemplatesExtension)
 }
 
 func httpErrorHandler(e error, c echo.Context) {

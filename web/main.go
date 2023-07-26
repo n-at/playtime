@@ -4,18 +4,29 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	log "github.com/sirupsen/logrus"
+	"playtime/storage"
 )
 
-var (
-	AssetsWebRoot = "/assets"
-	AssetsRoot    = "assets"
-)
+type Configuration struct {
+	AssetsWebRoot      string
+	AssetsRoot         string
+	Listen             string
+	TemplatesDebug     bool
+	TemplatesRoot      string
+	TemplatesExtension string
+}
 
-func New() *echo.Echo {
+type Web struct {
+	e       *echo.Echo
+	config  *Configuration
+	storage *storage.Storage
+}
+
+func New(config *Configuration, storage *storage.Storage) *Web {
 	e := echo.New()
-	e.Renderer = pongo2Renderer{}
+	e.Renderer = newPongo2Renderer(config)
 	e.HTTPErrorHandler = httpErrorHandler
-	e.Static(AssetsWebRoot, AssetsRoot)
+	e.Static(config.AssetsWebRoot, config.AssetsRoot)
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
 		LogStatus: true,
@@ -33,5 +44,13 @@ func New() *echo.Echo {
 
 	//
 
-	return e
+	return &Web{
+		e:       e,
+		config:  config,
+		storage: storage,
+	}
+}
+
+func (w *Web) Start() error {
+	return w.e.Start(w.config.Listen)
 }

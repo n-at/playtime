@@ -4,22 +4,30 @@ import (
 	"flag"
 	log "github.com/sirupsen/logrus"
 	"os"
+	"playtime/storage"
 	"playtime/web"
 )
 
 var (
-	Listen = ":3000"
+	storageConfig *storage.Configuration
+	webConfig     *web.Configuration
 )
 
 func main() {
-	e := web.New()
-	log.Fatal(e.Start(Listen))
+	s, err := storage.New(storageConfig)
+	if err != nil {
+		log.Fatalf("unable to open storage db: %s", err)
+	}
+
+	w := web.New(webConfig, s)
+	log.Fatal(w.Start())
 }
 
 func init() {
 	verbosePtr := flag.Bool("verbose", false, "show debug output")
 	templatesDebugPtr := flag.Bool("templates-debug", false, "debug page templates (do not cache)")
 	listenPtr := flag.String("listen", ":3000", "address and port to listen")
+	storePathPtr := flag.String("storage-path", "data/bolt.db", "storage db path")
 	flag.Parse()
 
 	log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
@@ -30,6 +38,15 @@ func init() {
 		log.SetLevel(log.InfoLevel)
 	}
 
-	web.TemplatesDebug = *templatesDebugPtr
-	Listen = *listenPtr
+	storageConfig = &storage.Configuration{
+		Path: *storePathPtr,
+	}
+	webConfig = &web.Configuration{
+		AssetsWebRoot:      "/assets",
+		AssetsRoot:         "assets",
+		TemplatesDebug:     *templatesDebugPtr,
+		TemplatesRoot:      "templates",
+		TemplatesExtension: "twig",
+		Listen:             *listenPtr,
+	}
 }
