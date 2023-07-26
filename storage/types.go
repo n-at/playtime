@@ -21,11 +21,12 @@ type Settings struct {
 }
 
 type Game struct {
-	Id               string `boltholdKey:"Id"`
-	UserId           string `boltholdIndex:"UserId"`
-	Name             string
-	Type             string `boltholdIndex:"Type"`
-	EmulatorSettings EmulatorSettings
+	Id                       string `boltholdKey:"Id"`
+	UserId                   string `boltholdIndex:"UserId"`
+	Name                     string
+	Type                     string `boltholdIndex:"Type"`
+	OverrideEmulatorSettings bool
+	EmulatorSettings         EmulatorSettings
 }
 
 type SaveState struct {
@@ -33,6 +34,13 @@ type SaveState struct {
 	UserId  string `boltholdIndex:"UserId"`
 	GameId  string `boltholdIndex:"GameId"`
 	Created time.Time
+}
+
+type LoadBatch struct {
+	Id      string `boltholdKey:"Id"`
+	UserId  string `boltholdIndex:"UserId"`
+	Created time.Time
+	GameIds []string
 }
 
 type EmulatorSettings struct {
