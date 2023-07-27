@@ -10,6 +10,8 @@ import (
 type Configuration struct {
 	AssetsWebRoot      string
 	AssetsRoot         string
+	UploadsWebRoot     string
+	UploadsRoot        string
 	Listen             string
 	TemplatesDebug     bool
 	TemplatesRoot      string
@@ -27,6 +29,7 @@ func New(config *Configuration, storage *storage.Storage) *Web {
 	e.Renderer = newPongo2Renderer(config)
 	e.HTTPErrorHandler = httpErrorHandler
 	e.Static(config.AssetsWebRoot, config.AssetsRoot)
+	e.Static(config.UploadsWebRoot, config.UploadsRoot)
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
 		LogStatus: true,

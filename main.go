@@ -27,7 +27,8 @@ func init() {
 	verbosePtr := flag.Bool("verbose", false, "show debug output")
 	templatesDebugPtr := flag.Bool("templates-debug", false, "debug page templates (do not cache)")
 	listenPtr := flag.String("listen", ":3000", "address and port to listen")
-	storePathPtr := flag.String("storage-path", "data/bolt.db", "storage db path")
+	dbPathPtr := flag.String("db-path", "data/bolt.db", "db path")
+	uploadsPathPtr := flag.String("uploads-path", "uploads", "uploads path")
 	flag.Parse()
 
 	log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
@@ -39,11 +40,13 @@ func init() {
 	}
 
 	storageConfig = &storage.Configuration{
-		Path: *storePathPtr,
+		Path: *dbPathPtr,
 	}
 	webConfig = &web.Configuration{
 		AssetsWebRoot:      "/assets",
 		AssetsRoot:         "assets",
+		UploadsWebRoot:     "/uploads",
+		UploadsRoot:        *uploadsPathPtr,
 		TemplatesDebug:     *templatesDebugPtr,
 		TemplatesRoot:      "templates",
 		TemplatesExtension: "twig",
