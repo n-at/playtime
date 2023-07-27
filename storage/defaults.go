@@ -169,6 +169,12 @@ var (
 		},
 		"gba": {
 			Bios{
+				Name:        "gba_bios.bin",
+				Url:         "/assets/bios/gba/gba_bios.bin",
+				Hash:        "a860e8c0b6d573d191e4ec7db1b1e4f6",
+				Description: "Game Boy Advance BIOS",
+			},
+			Bios{
 				Name:        "gb_bios.bin",
 				Url:         "/assets/bios/gba/gb_bios.bin",
 				Hash:        "32fbbd84168d3482956eb3c5051637f5",
@@ -179,12 +185,6 @@ var (
 				Url:         "/assets/bios/gba/gbc_bios.bin",
 				Hash:        "dbfce9db9deaa2567f6a84fde55f9680",
 				Description: "Game Boy Color BIOS",
-			},
-			Bios{
-				Name:        "gba_bios.bin",
-				Url:         "/assets/bios/gba/gba_bios.bin",
-				Hash:        "a860e8c0b6d573d191e4ec7db1b1e4f6",
-				Description: "Game Boy Advance BIOS",
 			},
 			Bios{
 				Name:        "sgb_bios.bin",
@@ -249,10 +249,10 @@ var (
 		"arcade":   {},
 		"psx": {
 			Bios{
-				Name:        "scph5500.bin",
-				Url:         "/assets/bios/psx/scph5500.bin",
-				Hash:        "8dd7d5296a650fac7319bce665a6a53c",
-				Description: "PS1 JP BIOS",
+				Name:        "PSXONPSP660.bin",
+				Url:         "/assets/bios/psx/PSXONPSP660.bin",
+				Hash:        "c53ca5908936d412331790f4426c6c33",
+				Description: "Extracted from a PSP",
 			},
 			Bios{
 				Name:        "scph5501.bin",
@@ -261,16 +261,16 @@ var (
 				Description: "PS1 US BIOS",
 			},
 			Bios{
+				Name:        "scph5500.bin",
+				Url:         "/assets/bios/psx/scph5500.bin",
+				Hash:        "8dd7d5296a650fac7319bce665a6a53c",
+				Description: "PS1 JP BIOS",
+			},
+			Bios{
 				Name:        "scph5502.bin",
 				Url:         "/assets/bios/psx/scph5502.bin",
 				Hash:        "32736f17079d0b2b7024407c39bd3050",
 				Description: "PS1 EU BIOS",
-			},
-			Bios{
-				Name:        "PSXONPSP660.bin",
-				Url:         "/assets/bios/psx/PSXONPSP660.bin",
-				Hash:        "c53ca5908936d412331790f4426c6c33",
-				Description: "Extracted from a PSP",
 			},
 			Bios{
 				Name:        "scph101.bin",
@@ -310,16 +310,16 @@ var (
 		},
 		"segaMS": {
 			Bios{
-				Name:        "bios_E.sms",
-				Url:         "/assets/bios/segaMS/bios_E.sms",
-				Hash:        "840481177270d5642a14ca71ee72844c",
-				Description: "MasterSystem EU BIOS",
-			},
-			Bios{
 				Name:        "bios_U.sms",
 				Url:         "/assets/bios/segaMS/bios_U.sms",
 				Hash:        "840481177270d5642a14ca71ee72844c",
 				Description: "MasterSystem US BIOS",
+			},
+			Bios{
+				Name:        "bios_E.sms",
+				Url:         "/assets/bios/segaMS/bios_E.sms",
+				Hash:        "840481177270d5642a14ca71ee72844c",
+				Description: "MasterSystem EU BIOS",
 			},
 			Bios{
 				Name:        "bios_J.sms",
@@ -346,16 +346,16 @@ var (
 		},
 		"segaCD": {
 			Bios{
+				Name:        "bios_CD_U.bin",
+				Url:         "/assets/bios/segaCD/bios_CD_U.bin",
+				Hash:        "2efd74e3232ff260e371b99f84024f7f",
+				Description: "SegaCD US BIOS",
+			},
+			Bios{
 				Name:        "bios_CD_E.bin",
 				Url:         "/assets/bios/segaCD/bios_CD_E.bin",
 				Hash:        "e66fa1dc5820d254611fdcdba0662372",
 				Description: "MegaCD EU BIOS",
-			},
-			Bios{
-				Name:        "bios_CD_U.bin",
-				Url:         "/assets/bios/segaCD/bios_CD_U.bin",
-				Hash:        "2efd74e3232ff260e371b99f84024f7f\n",
-				Description: "SegaCD US BIOS",
 			},
 			Bios{
 				Name:        "bios_CD_J.bin",
@@ -439,7 +439,63 @@ var (
 		"atari2600": {},
 	}
 
-	DefaultControls = EmulatorControlsMapping{
+	DefaultControlsNes = EmulatorControlsMapping{
+		A:      "z",
+		B:      "x",
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+	}
+
+	DefaultControlsSnes = EmulatorControlsMapping{
+		A:      "z",
+		B:      "x",
+		X:      "a",
+		Y:      "s",
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+		L:      "q",
+		R:      "w",
+	}
+
+	DefaultControlsNds = EmulatorControlsMapping{
+		A:      "z",
+		B:      "x",
+		X:      "a",
+		Y:      "s",
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+		L:      "q",
+		R:      "w",
+		L3:     "",
+	}
+
+	DefaultControlsSegaMD = EmulatorControlsMapping{
+		Y:     "z", //A
+		B:     "x", //B
+		A:     "c", //C
+		L:     "a", //X
+		X:     "s", //Y
+		R:     "d", //Z
+		Start: "enter",
+		Up:    "arrowup",
+		Down:  "arrowdown",
+		Left:  "arrowleft",
+		Right: "arrowright",
+	}
+
+	DefaultControlsOther = EmulatorControlsMapping{
 		B:               "x",
 		Y:               "s",
 		Select:          "v",
@@ -451,9 +507,9 @@ var (
 		A:               "z",
 		X:               "a",
 		L:               "q",
-		R:               "t",
+		R:               "w",
 		L2:              "e",
-		R2:              "w",
+		R2:              "r",
 		L3:              "",
 		R3:              "",
 		LStickUp:        "t",
@@ -490,6 +546,433 @@ var (
 	}
 )
 
-func DefaultEmulatorSettings(t string) EmulatorSettings {
-	return EmulatorSettings{} //TODO
+const (
+	DefaultColorScheme = "#1AAFFF"
+	DefaultCacheLimit  = 1073741824
+	DefaultVolume      = 0.5
+)
+
+func DefaultEmulatorSettings(systemType string) EmulatorSettings {
+	switch systemType {
+
+	case "nes":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["nes"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNes,
+				},
+			},
+		}
+
+	case "snes":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["snes"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsSnes,
+				},
+			},
+		}
+
+	case "gb":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["gb"][0],
+			Bios:                   Bioses["gb"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNes,
+				},
+			},
+		}
+
+	case "gba":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["gba"][0],
+			Bios:                   Bioses["gba"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNes,
+				},
+			},
+		}
+
+	case "vb":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["vb"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "nds":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["nds"][0],
+			Bios:                   Bioses["nds"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNds,
+				},
+			},
+		}
+
+	case "a5200":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["a5200"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "mame2003":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["mame2003"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "arcade":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["arcade"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "psx":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["psx"][0],
+			Bios:                   Bioses["psx"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "jaguar":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["jaguar"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "lynx":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["lynx"][0],
+			Bios:                   Bioses["lynx"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "segaSaturn":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["segaSaturn"][0],
+			Bios:                   Bioses["segaSaturn"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsSegaMD,
+				},
+			},
+		}
+
+	case "segaMS":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["segaMS"][0],
+			Bios:                   Bioses["segaMS"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNes,
+				},
+			},
+		}
+
+	case "segaMD":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["segaMD"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsSegaMD,
+				},
+			},
+		}
+
+	case "segaGG":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["segaGG"][0],
+			Bios:                   Bioses["segaGG"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNes,
+				},
+			},
+		}
+
+	case "segaCD":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["segaCD"][0],
+			Bios:                   Bioses["segaCD"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsSegaMD,
+				},
+			},
+		}
+
+	case "sega32x":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["sega32x"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsSegaMD,
+				},
+			},
+		}
+
+	case "n64":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["n64"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "3do":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["3do"][0],
+			Bios:                   Bioses["3do"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "atari7800":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["atari7800"][0],
+			Bios:                   Bioses["atari7800"][0].Name,
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+
+	case "atari2600":
+		return EmulatorSettings{
+			OldCores:               false,
+			Core:                   Cores["atari2600"][0],
+			Bios:                   "",
+			ColorScheme:            DefaultColorScheme,
+			CacheLimit:             DefaultCacheLimit,
+			Volume:                 DefaultVolume,
+			Shader:                 Shaders[0],
+			FPS:                    false,
+			VirtualGamepadLeftHand: false,
+			Buttons:                DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsOther,
+				},
+			},
+		}
+	}
+
+	return EmulatorSettings{}
 }

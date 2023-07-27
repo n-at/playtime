@@ -65,33 +65,33 @@ type EmulatorControls struct {
 }
 
 type EmulatorControlsMapping struct {
-	B               string
-	Y               string
-	Select          string
-	Start           string
-	Up              string
-	Down            string
-	Left            string
-	Right           string
-	A               string
-	X               string
-	L               string
-	R               string
-	L2              string
-	R2              string
-	L3              string
-	R3              string
-	LStickUp        string
-	LStickDown      string
-	LStickLeft      string
-	LStickRight     string
-	RStickUp        string
-	RStickDown      string
-	RStickLeft      string
-	RStickRight     string
-	QuickSaveState  string
-	QuickLoadState  string
-	ChangeStateSlot string
+	B               string //0
+	Y               string //1
+	Select          string //2
+	Start           string //3
+	Up              string //4
+	Down            string //5
+	Left            string //6
+	Right           string //7
+	A               string //8
+	X               string //9
+	L               string //10
+	R               string //11
+	L2              string //12
+	R2              string //13
+	L3              string //14
+	R3              string //15
+	LStickUp        string //19
+	LStickDown      string //18
+	LStickLeft      string //17
+	LStickRight     string //16
+	RStickUp        string //23
+	RStickDown      string //22
+	RStickLeft      string //21
+	RStickRight     string //20
+	QuickSaveState  string //24
+	QuickLoadState  string //25
+	ChangeStateSlot string //26
 }
 
 type EmulatorButtons struct {
