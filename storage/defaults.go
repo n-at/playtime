@@ -1,6 +1,23 @@
 package storage
 
 var (
+	Languages = []string{
+		"en-US",
+		"ru-RU",
+		"af-FR",
+		"ar-AR",
+		"ben-BEN",
+		"de-GER",
+		"el-GR",
+		"es-ES",
+		"hl-HL",
+		"ja-JA",
+		"jv-JV",
+		"ko-KO",
+		"pt-BR",
+		"zh-CN",
+	}
+
 	Shaders = []string{
 		"disabled",
 		"2xScaleHQ.glslp",

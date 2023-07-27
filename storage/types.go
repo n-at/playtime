@@ -6,6 +6,8 @@ type User struct {
 	Id       string `boltholdKey:"Id"`
 	Login    string `boltholdIndex:"Login"`
 	Password string
+	Admin    bool
+	Active   bool
 }
 
 type Session struct {
