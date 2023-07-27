@@ -24,6 +24,8 @@ type Game struct {
 	Id                       string `boltholdKey:"Id"`
 	UserId                   string `boltholdIndex:"UserId"`
 	Name                     string
+	OriginalFileName         string
+	OriginalFileExtension    string
 	Type                     string `boltholdIndex:"Type"`
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings

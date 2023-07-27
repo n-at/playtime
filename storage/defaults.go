@@ -41,7 +41,7 @@ var (
 			Name: "Nintendo Famicom / NES",
 		},
 		"snes": {
-			Name: "Nintendo SuperFamicom / SNES",
+			Name: "Nintendo Super Famicom / SNES",
 		},
 		"gb": {
 			Name: "Nintendo Game Boy",
@@ -108,7 +108,7 @@ var (
 	Cores = map[string][]string{
 		"nes":        {"fceumm", "nestopia"},
 		"snes":       {"snes9x"},
-		"gb":         {"gambatte"},
+		"gb":         {"gambatte", "mgba"},
 		"gba":        {"mgba"},
 		"vb":         {"beetle_vb"},
 		"nds":        {"melonds", "desmume2015"},
@@ -137,12 +137,6 @@ var (
 				Url:         "/assets/bios/nes/disksys.rom",
 				Hash:        "ca30b50f880eb660a320674ed365ef7a",
 				Description: "Family Computer Disk System BIOS",
-			},
-			Bios{
-				Name:        "gamegenie.nes",
-				Url:         "/assets/bios/nes/gamegenie.nes",
-				Hash:        "7f98d77d7a094ad7d069b74bd553ec98",
-				Description: "Game Genie add-on cartridge",
 			},
 		},
 		"snes": {
