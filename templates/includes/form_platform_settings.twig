@@ -223,34 +223,34 @@
         </li>
     </ul>
     <div class="tab-content" id="controls-keyboard">
-        <div class="tab-pane fade show active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
-            {% set platform_id="{{ platform.Id }}" %}
-            {% set input="keyboard" %}
-            {% set player="0" %}
+        <div class="tab-pane active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
+            {% set platform_id = platform.Id %}
+            {% set input = "keyboard" %}
+            {% set player = "0" %}
             {% set controls_group = settings.Controls[0] %}
             {% set controls = controls_group.Keyboard %}
             {% include "controls/form_controls.twig" %}
         </div>
-        <div class="tab-pane fade" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
-            {% set platform_id="{{ platform.Id }}" %}
-            {% set input="keyboard" %}
-            {% set player="1" %}
+        <div class="tab-pane" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
+            {% set platform_id = platform.Id %}
+            {% set input = "keyboard" %}
+            {% set player = "1" %}
             {% set controls_group = settings.Controls[1] %}
             {% set controls = controls_group.Keyboard %}
             {% include "controls/form_controls.twig" %}
         </div>
-        <div class="tab-pane fade" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
-            {% set platform_id="{{ platform.Id }}" %}
-            {% set input="keyboard" %}
-            {% set player="2" %}
+        <div class="tab-pane" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
+            {% set platform_id = platform.Id %}
+            {% set input = "keyboard" %}
+            {% set player = "2" %}
             {% set controls_group = settings.Controls[2] %}
             {% set controls = controls_group.Keyboard %}
             {% include "controls/form_controls.twig" %}
         </div>
-        <div class="tab-pane fade" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
-            {% set platform_id="{{ platform.Id }}" %}
-            {% set input="keyboard" %}
-            {% set player="3" %}
+        <div class="tab-pane" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
+            {% set platform_id = platform.Id %}
+            {% set input = "keyboard" %}
+            {% set player = "3" %}
             {% set controls_group = settings.Controls[3] %}
             {% set controls = controls_group.Keyboard %}
             {% include "controls/form_controls.twig" %}

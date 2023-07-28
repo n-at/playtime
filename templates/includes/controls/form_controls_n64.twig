@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col-8 text-center">
+        <img src="/assets/img/controller/n64.jpg" alt="Nintendo 64 Controller" class="img-fluid ps-3 pe-3">
+    </div>
+    <div class="col-4">
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-a" class="col-sm-6 col-form-label">A</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-a" name="control-{{ input }}-{{ player }}-a" class="form-control" value="{{ controls.A }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-b" class="col-sm-6 col-form-label">B</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-b" name="control-{{ input }}-{{ player }}-b" class="form-control" value="{{ controls.B }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-l" class="col-sm-6 col-form-label">L</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-l" name="control-{{ input }}-{{ player }}-l" class="form-control" value="{{ controls.L }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-r" class="col-sm-6 col-form-label">R</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-r" name="control-{{ input }}-{{ player }}-r" class="form-control" value="{{ controls.R }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-start" class="col-sm-6 col-form-label">Start</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-start" name="control-{{ input }}-{{ player }}-start" class="form-control" value="{{ controls.Start }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-up" class="col-sm-6 col-form-label">D-Pad Up</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-up" name="control-{{ input }}-{{ player }}-up" class="form-control" value="{{ controls.Up }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-down" class="col-sm-6 col-form-label">D-Pad Down</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-down" name="control-{{ input }}-{{ player }}-down" class="form-control" value="{{ controls.Down }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-left" class="col-sm-6 col-form-label">D-Pad Left</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-left" name="control-{{ input }}-{{ player }}-left" class="form-control" value="{{ controls.Left }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-right" class="col-sm-6 col-form-label">D-Pad Right</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-right" name="control-{{ input }}-{{ player }}-right" class="form-control" value="{{ controls.Right }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-r-stick-up" class="col-sm-6 col-form-label">C-Pad Up</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-up" name="control-{{ input }}-{{ player }}-r-stick-up" class="form-control" value="{{ controls.RStickUp }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-r-stick-down" class="col-sm-6 col-form-label">C-Pad Down</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-down" name="control-{{ input }}-{{ player }}-r-stick-down" class="form-control" value="{{ controls.RStickDown }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-r-stick-left" class="col-sm-6 col-form-label">C-Pad Left</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-left" name="control-{{ input }}-{{ player }}-r-stick-left" class="form-control" value="{{ controls.RStickLeft }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-r-stick-right" class="col-sm-6 col-form-label">C-Pad Right</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-right" name="control-{{ input }}-{{ player }}-r-stick-right" class="form-control" value="{{ controls.RStickRight }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-l-stick-up" class="col-sm-6 col-form-label">Stick Up</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-up" name="control-{{ input }}-{{ player }}-l-stick-up" class="form-control" value="{{ controls.LStickUp }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-l-stick-down" class="col-sm-6 col-form-label">Stick Down</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-down" name="control-{{ input }}-{{ player }}-l-stick-down" class="form-control" value="{{ controls.LStickDown }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-l-stick-left" class="col-sm-6 col-form-label">Stick Left</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-left" name="control-{{ input }}-{{ player }}-l-stick-left" class="form-control" value="{{ controls.LStickLeft }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-l-stick-right" class="col-sm-6 col-form-label">Stick Right</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-right" name="control-{{ input }}-{{ player }}-l-stick-right" class="form-control" value="{{ controls.LStickRight }}">
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-quick-save-state" class="col-sm-6 col-form-label">Quick Save State</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-quick-save-state" name="control-{{ input }}-{{ player }}-quick-save-state" class="form-control" value="{{ controls.QuickSaveState }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-quick-load-state" class="col-sm-6 col-form-label">Quick Load State</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-quick-load-state" name="control-{{ input }}-{{ player }}-quick-load-state" class="form-control" value="{{ controls.QuickLoadState }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-change-state-slot" class="col-sm-6 col-form-label">Change State Slot</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-change-state-slot" name="control-{{ input }}-{{ player }}-change-state-slot" class="form-control" value="{{ controls.ChangeStateSlot }}">
+            </div>
+        </div>
+    </div>
+</div>

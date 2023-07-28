@@ -119,7 +119,7 @@ var (
 			Name: "Sega Game Gear",
 		},
 		"segaCD": {
-			Id:   "Sega CD",
+			Id:   "segaCD",
 			Name: "Sega CD",
 		},
 		"sega32x": {
@@ -478,7 +478,20 @@ var (
 		"atari2600": {},
 	}
 
+	//Configuration reference: https://retropie.org.uk/docs/RetroArch-Configuration
+
 	DefaultControlsNes = EmulatorControlsMapping{
+		A:      "z",
+		B:      "x",
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+	}
+
+	DefaultControlsGb = EmulatorControlsMapping{
 		A:      "z",
 		B:      "x",
 		Select: "v",
@@ -494,14 +507,50 @@ var (
 		B:      "x",
 		X:      "a",
 		Y:      "s",
+		L:      "q",
+		R:      "w",
 		Select: "v",
 		Start:  "enter",
 		Up:     "arrowup",
 		Down:   "arrowdown",
 		Left:   "arrowleft",
 		Right:  "arrowright",
-		L:      "q",
-		R:      "w",
+	}
+
+	DefaultControlsN64 = EmulatorControlsMapping{
+		A:               "z",
+		B:               "x",
+		Start:           "enter",
+		Up:              "arrowup",   //D-Pad Up
+		Down:            "arrowdown", //D-Pad Down
+		Left:            "arrowleft", //D-Pad Left
+		Right:           "arowright", //D-Pad Right
+		L:               "q",
+		R:               "w",
+		LStickUp:        "t", //Stick up
+		LStickDown:      "g", //Stick Down
+		LStickLeft:      "f", //Stick Left
+		LStickRight:     "h", //Stick Right
+		RStickUp:        "i", //C-Pad Up
+		RStickDown:      "k", //C-Pad Down
+		RStickLeft:      "j", //C-Pad Left
+		RStickRight:     "l", //C-Pad Right
+		QuickSaveState:  "",
+		QuickLoadState:  "",
+		ChangeStateSlot: "",
+	}
+
+	DefaultControlsGba = EmulatorControlsMapping{
+		A:      "z",
+		B:      "x",
+		L:      "a",
+		R:      "s",
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
 	}
 
 	DefaultControlsNds = EmulatorControlsMapping{
@@ -517,21 +566,109 @@ var (
 		Right:  "arrowright",
 		L:      "q",
 		R:      "w",
-		L3:     "",
+		L3:     "", //Microphone
+	}
+
+	DefaultControlsVb = EmulatorControlsMapping{
+		A:               "z",
+		B:               "x",
+		L:               "q",
+		R:               "w",
+		Select:          "v",
+		Start:           "enter",
+		Up:              "arrowup",   //Left D-Pad Up
+		Down:            "arrowdown", //Left D-Pad Down
+		Left:            "arrowleft", //Left D-Pad Left
+		Right:           "arowright", //Left D-Pad Right
+		LStickUp:        "t",         //Right D-Pad Up
+		LStickDown:      "g",         //Right D-Pad Down
+		LStickLeft:      "f",         //Right D-Pad Left
+		LStickRight:     "h",         //Right D-Pad Right
+		QuickSaveState:  "",
+		QuickLoadState:  "",
+		ChangeStateSlot: "",
+	}
+
+	DefaultControlsSegaMS = EmulatorControlsMapping{
+		B:     "z", //BUTTON 1 / START
+		A:     "x", //BUTTON 2
+		Up:    "arrowup",
+		Down:  "arrowdown",
+		Left:  "arrowleft",
+		Right: "arrowright",
 	}
 
 	DefaultControlsSegaMD = EmulatorControlsMapping{
+		Y:      "z", //A
+		B:      "x", //B
+		A:      "c", //C
+		L:      "a", //X
+		X:      "s", //Y
+		R:      "d", //Z
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+	}
+
+	DefaultControlsSegaGG = EmulatorControlsMapping{
+		B:     "z", //BUTTON 1
+		A:     "x", //BUTTON 2
+		Start: "enter",
+		Up:    "arrowup",
+		Down:  "arrowdown",
+		Left:  "arrowleft",
+		Right: "arrowright",
+	}
+
+	DefaultControlsSegaSaturn = EmulatorControlsMapping{
 		Y:     "z", //A
 		B:     "x", //B
 		A:     "c", //C
-		L:     "a", //X
-		X:     "s", //Y
+		X:     "a", //X
+		L:     "s", //Y
 		R:     "d", //Z
 		Start: "enter",
 		Up:    "arrowup",
 		Down:  "arrowdown",
 		Left:  "arrowleft",
 		Right: "arrowright",
+	}
+
+	DefaultControls3do = EmulatorControlsMapping{
+		Y:      "z",     //A
+		B:      "x",     //B
+		A:      "c",     //C
+		L:      "a",     //L
+		R:      "s",     //R
+		Select: "v",     //X
+		Start:  "enter", //P
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+	}
+
+	DefaultControlsAtari2600 = EmulatorControlsMapping{
+		B:     "x", //BUTTON
+		Up:    "arrowup",
+		Down:  "arrowdown",
+		Left:  "arrowleft",
+		Right: "arowright",
+	}
+
+	DefaultControlsLynx = EmulatorControlsMapping{
+		A:     "z",
+		B:     "x",
+		L:     "a", //Option 1
+		R:     "s", //Option 2
+		Start: "enter",
+		Up:    "arrowup",
+		Down:  "arrowdown",
+		Left:  "arrowleft",
+		Right: "arowright",
 	}
 
 	DefaultControlsOther = EmulatorControlsMapping{
@@ -646,7 +783,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsNes,
+					Keyboard: DefaultControlsGb,
 				},
 			},
 		}
@@ -665,7 +802,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsNes,
+					Keyboard: DefaultControlsGba,
 				},
 			},
 		}
@@ -684,7 +821,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControlsVb,
 				},
 			},
 		}
@@ -817,7 +954,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControlsLynx,
 				},
 			},
 		}
@@ -836,7 +973,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsSegaMD,
+					Keyboard: DefaultControlsSegaSaturn,
 				},
 			},
 		}
@@ -855,7 +992,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsNes,
+					Keyboard: DefaultControlsSegaMS,
 				},
 			},
 		}
@@ -893,7 +1030,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsNes,
+					Keyboard: DefaultControlsSegaGG,
 				},
 			},
 		}
@@ -950,7 +1087,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControlsN64,
 				},
 			},
 		}
@@ -969,7 +1106,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControls3do,
 				},
 			},
 		}
@@ -1007,7 +1144,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControlsAtari2600,
 				},
 			},
 		}

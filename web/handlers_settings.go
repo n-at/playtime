@@ -79,6 +79,8 @@ func (s *Server) settingsByPlatformSubmit(c echo.Context) error {
 	return c.Redirect(http.StatusFound, "/settings?done=1")
 }
 
+///////////////////////////////////////////////////////////////////////////////
+
 func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 	cacheLimit, err := strconv.ParseInt(c.FormValue("cache-limit"), 10, 64)
 	if err != nil {
