@@ -36,9 +36,9 @@
     <h2>By platform</h2>
 
     <ul class="list-group mb-3">
-        {% for id, platform in platforms %}
+        {% for platform in platforms %}
             <li class="list-group-item">
-                <a href="/settings/{{ id }}">{{ platform.Name }}</a>
+                <a href="/settings/{{ platform.Type }}">{{ platform.Platform.Name }}</a>
             </li>
         {% endfor %}
     </ul>

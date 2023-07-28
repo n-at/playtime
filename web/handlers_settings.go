@@ -16,8 +16,7 @@ func (s *Server) settingsGeneralForm(c echo.Context) error {
 		"settings":  context.settings,
 		"done":      c.QueryParam("done"),
 		"languages": storage.Languages,
-		"shaders":   storage.Shaders,
-		"platforms": storage.Platforms,
+		"platforms": sortedPlatforms(),
 	})
 }
 
@@ -41,4 +40,24 @@ func (s *Server) settingsByPlatformForm(c echo.Context) error {
 
 func (s *Server) settingsByPlatformSubmit(c echo.Context) error {
 	return nil
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+type platformValue struct {
+	Type     string
+	Platform storage.Platform
+}
+
+func sortedPlatforms() []platformValue {
+	var platformValues []platformValue
+
+	for _, system := range storage.Systems {
+		platformValues = append(platformValues, platformValue{
+			Type:     system,
+			Platform: storage.Platforms[system],
+		})
+	}
+
+	return platformValues
 }
