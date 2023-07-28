@@ -1,16 +1,16 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Error</title>
-</head>
-<body>
+{% extends "includes/layout.twig" %}
 
-<h1>That's an error.</h1>
+{% block title %}
+    Error - playtime
+{% endblock %}
 
-<p>
-    {{ error.Code }} {{ error.Message }}
-</p>
-
-</body>
-</html>
+{% block content %}
+    <h1>Error {{ error.Code }}</h1>
+    <p>
+        {% if error.Message %}
+            {{ error.Message }}
+        {% else %}
+            {{ error.Error() }}
+        {% endif %}
+    </p>
+{% endblock %}

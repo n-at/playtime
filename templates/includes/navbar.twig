@@ -1,0 +1,47 @@
+<nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary mb-3">
+    <div class="container-fluid">
+
+        <a class="navbar-brand title" href="/">playtime</a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbar-collapse"
+                aria-controls="navbar-collapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                {% if user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/games">Games</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings">Settings</a>
+                    </li>
+                    {% if user.CanControlUsers() %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/users">Users</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <div class="navbar-text">
+                {% if user %}
+                    <span>{{ user.Login }}</span>
+                {% endif %}
+                <div class="form-check form-switch d-inline-block ms-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="dark-mode">
+                    <label class="form-check-label" for="dark-mode"><i class="bi bi-moon" title="Toggle dark mode"></i></label>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

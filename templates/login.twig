@@ -1,0 +1,31 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Sign in - playtime
+{% endblock %}
+
+{% block content %}
+    <div class="col-6 offset-3">
+        <h1>Sign in</h1>
+        <div class="card">
+            <div class="card-body">
+                {% if error %}
+                    <div class="alert alert-danger">{{error}}</div>
+                {% endif %}
+                <form method="post" action="/login" enctype="application/x-www-form-urlencoded">
+                    <div class="form-floating mb-3">
+                        <input type="text" id="login" name="login" class="form-control" value="{{login}}" placeholder="Login" required>
+                        <label for="login">Login</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">Sign in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
