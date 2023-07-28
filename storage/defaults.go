@@ -630,6 +630,8 @@ var (
 		X:     "a", //X
 		L:     "s", //Y
 		R:     "d", //Z
+		L2:    "q", //L
+		R2:    "w", //R
 		Start: "enter",
 		Up:    "arrowup",
 		Down:  "arrowdown",
