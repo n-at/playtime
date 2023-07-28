@@ -62,6 +62,12 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	e.POST("/login", s.loginSubmit)
 	e.GET("/logout", s.logout)
 
+	//user profile
+	profile := e.Group("/profile")
+	profile.Use(s.authenticationRequiredMiddleware)
+	profile.GET("", s.profileForm)
+	profile.POST("", s.profileSubmit)
+
 	return s
 }
 

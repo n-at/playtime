@@ -1,9 +1,5 @@
 # playtime
 
-```
->>> created default admin user: login=admin password=xisasiquge
-```
-
 ## Uses
 
 * [labstack/echo](https://github.com/labstack/echo) - MIT

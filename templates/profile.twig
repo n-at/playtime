@@ -1,0 +1,37 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Profile - playtime
+{% endblock %}
+
+{% block content %}
+    <h1>Profile</h1>
+    <h2>{{ user.Login }}</h2>
+
+    <hr>
+    <h3>Change password</h3>
+    {% if done %}
+        <p class="alert alert-success">
+            Password changed
+        </p>
+    {% endif %}
+    <form method="post" action="/profile" enctype="application/x-www-form-urlencoded">
+        <div class="form-floating mb-3">
+            <input type="password" id="password" name="password" class="form-control" value="" placeholder="Current password" required>
+            <label for="password">Current password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" id="password1" name="password1" class="form-control" value="" placeholder="New password" required>
+            <label for="password1">New password</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" id="password2" name="password2" class="form-control" value="" placeholder="New password again" required>
+            <label for="password2">Retype new password</label>
+        </div>
+        <hr>
+        <div class="mb-3 text-end">
+            <button type="submit" class="btn btn-primary">Change password</button>
+        </div>
+    </form>
+
+{% endblock %}
