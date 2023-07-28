@@ -1,12 +1,18 @@
 <div class="row">
     <div class="col-8 text-center">
-        <img src="/assets/img/controller/atari2600.jpg" alt="Atari 2600 Controller" class="img-fluid ps-3 pe-3">
+        <img src="/assets/img/controller/atari7800.jpg" alt="Atari 7800 Controller" class="img-fluid ps-3 pe-3">
     </div>
     <div class="col-4">
         <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-b" class="col-sm-6 col-form-label">Fire</label>
+            <label for="control-{{ input }}-{{ player }}-b" class="col-sm-6 col-form-label">Fire 1</label>
             <div class="col-sm-6">
                 <input type="text" id="control-{{ input }}-{{ player }}-b" name="control-{{ input }}-{{ player }}-b" class="form-control" value="{{ controls.B }}">
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label for="control-{{ input }}-{{ player }}-a" class="col-sm-6 col-form-label">Fire 2</label>
+            <div class="col-sm-6">
+                <input type="text" id="control-{{ input }}-{{ player }}-a" name="control-{{ input }}-{{ player }}-a" class="form-control" value="{{ controls.A }}">
             </div>
         </div>
         <div class="row mb-1">

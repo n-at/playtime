@@ -652,11 +652,22 @@ var (
 	}
 
 	DefaultControlsAtari2600 = EmulatorControlsMapping{
-		B:     "x", //BUTTON
-		Up:    "arrowup",
-		Down:  "arrowdown",
-		Left:  "arrowleft",
-		Right: "arowright",
+		B:      "x", //Fire
+		Select: "v", //Select
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arowright",
+	}
+
+	DefaultControlsAtari7800 = EmulatorControlsMapping{
+		B:      "x", //Fire 1
+		A:      "z", //Fire 2
+		Select: "v", //Select
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arowright",
 	}
 
 	DefaultControlsLynx = EmulatorControlsMapping{
@@ -1125,7 +1136,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControlsAtari7800,
 				},
 			},
 		}

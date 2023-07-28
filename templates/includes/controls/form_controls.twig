@@ -27,12 +27,14 @@
         {% include "form_controls_psx.twig" %}
     {% elif platform_id == "3do" %}
         {% include "form_controls_3do.twig" %}
+    {% elif platform_id == "atari7800" %}
+        {% include "form_controls_atari7800.twig" %}
     {% elif platform_id == "atari2600" %}
         {% include "form_controls_atari2600.twig" %}
     {% elif platform_id == "lynx" %}
         {% include "form_controls_lynx.twig" %}
     {% else %}
-        {# a5200, atari7800, jaguar, mame2003, arcade #}
+        {# a5200, jaguar, mame2003, arcade #}
         {% include "form_controls_default.twig" %}
     {% endif %}
 </div>
