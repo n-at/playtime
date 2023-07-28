@@ -140,6 +140,9 @@ func (s *Storage) SessionSave(sess Session) (Session, error) {
 	if len(sess.Id) == 0 {
 		sess.Id = NewId()
 	}
+	if sess.Created.IsZero() {
+		sess.Created = time.Now()
+	}
 	if err := s.store.Upsert(sess.Id, sess); err != nil {
 		return sess, err
 	}

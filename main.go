@@ -24,8 +24,8 @@ func main() {
 		log.Fatalf("unable to create default user: %s", err)
 	}
 
-	w := web.New(webConfig, s)
-	log.Fatal(w.Start())
+	server := web.New(webConfig, s)
+	log.Fatal(server.Start())
 }
 
 func init() {
@@ -48,9 +48,7 @@ func init() {
 		Path: *dbPathPtr,
 	}
 	webConfig = &web.Configuration{
-		AssetsWebRoot:      "/assets",
 		AssetsRoot:         "assets",
-		UploadsWebRoot:     "/uploads",
 		UploadsRoot:        *uploadsPathPtr,
 		TemplatesDebug:     *templatesDebugPtr,
 		TemplatesRoot:      "templates",

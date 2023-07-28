@@ -7,10 +7,14 @@ import (
 	"playtime/storage"
 )
 
+const (
+	SessionCookieName = "playtime-sess-id"
+	AssetsWebRoot     = "/assets"
+	UploadsWebRoot    = "/uploads"
+)
+
 type Configuration struct {
-	AssetsWebRoot      string
 	AssetsRoot         string
-	UploadsWebRoot     string
 	UploadsRoot        string
 	Listen             string
 	TemplatesDebug     bool
@@ -18,18 +22,18 @@ type Configuration struct {
 	TemplatesExtension string
 }
 
-type Web struct {
+type Server struct {
 	e       *echo.Echo
 	config  *Configuration
 	storage *storage.Storage
 }
 
-func New(config *Configuration, storage *storage.Storage) *Web {
+func New(config *Configuration, storage *storage.Storage) *Server {
 	e := echo.New()
 	e.Renderer = newPongo2Renderer(config)
 	e.HTTPErrorHandler = httpErrorHandler
-	e.Static(config.AssetsWebRoot, config.AssetsRoot)
-	e.Static(config.UploadsWebRoot, config.UploadsRoot)
+	e.Static(AssetsWebRoot, config.AssetsRoot)
+	e.Static(UploadsWebRoot, config.UploadsRoot)
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
 		LogStatus: true,
@@ -43,17 +47,24 @@ func New(config *Configuration, storage *storage.Storage) *Web {
 		},
 	}))
 
-	//routes
-
-	//
-
-	return &Web{
+	s := &Server{
 		e:       e,
 		config:  config,
 		storage: storage,
 	}
+
+	e.Use(s.contextCustomizationMiddleware)
+
+	e.GET("/", s.index)
+
+	//authentication
+	e.GET("/login", s.loginForm)
+	e.POST("/login", s.loginSubmit)
+	e.GET("/logout", s.logout)
+
+	return s
 }
 
-func (w *Web) Start() error {
-	return w.e.Start(w.config.Listen)
+func (s *Server) Start() error {
+	return s.e.Start(s.config.Listen)
 }
