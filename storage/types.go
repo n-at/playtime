@@ -53,7 +53,7 @@ type EmulatorSettings struct {
 	Bios                   string
 	ColorScheme            string
 	CacheLimit             int64
-	Volume                 float32
+	Volume                 float64
 	Shader                 string
 	FPS                    bool
 	VirtualGamepadLeftHand bool
