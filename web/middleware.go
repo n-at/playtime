@@ -53,3 +53,18 @@ func (s *Server) authenticationRequiredMiddleware(next echo.HandlerFunc) echo.Ha
 		return next(context)
 	}
 }
+
+func (s *Server) settingsRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		context := c.(*PlaytimeContext)
+
+		settings, err := s.storage.SettingsGetByUserId(context.user.Id)
+		if err != nil {
+			return err
+		}
+
+		context.settings = &settings
+
+		return next(context)
+	}
+}

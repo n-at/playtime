@@ -52,8 +52,9 @@ func CheckPassword(password, hash string) bool {
 
 func DefaultSettings(userId string) Settings {
 	settings := Settings{
-		UserId:   userId,
-		Language: "en",
+		UserId:           userId,
+		Language:         "en",
+		EmulatorSettings: make(map[string]EmulatorSettings),
 	}
 	for _, system := range Systems {
 		settings.EmulatorSettings[system] = DefaultEmulatorSettings(system)

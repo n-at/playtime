@@ -116,7 +116,7 @@ type EmulatorButtons struct {
 	CacheManager bool
 }
 
-type GameSystem struct {
+type Platform struct {
 	Name string
 }
 

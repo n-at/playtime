@@ -53,7 +53,7 @@ var (
 		"atari2600",
 	}
 
-	GameSystems = map[string]GameSystem{
+	Platforms = map[string]Platform{
 		"nes": {
 			Name: "Nintendo Famicom / NES",
 		},
@@ -97,7 +97,7 @@ var (
 			Name: "Sega Master System",
 		},
 		"segaMD": {
-			Name: "Sega Mega Drive / Genesys",
+			Name: "Sega Mega Drive / Genesis",
 		},
 		"segaGG": {
 			Name: "Sega Game Gear",

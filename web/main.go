@@ -68,6 +68,15 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	profile.GET("", s.profileForm)
 	profile.POST("", s.profileSubmit)
 
+	//settings
+	settings := e.Group("/settings")
+	settings.Use(s.authenticationRequiredMiddleware)
+	settings.Use(s.settingsRequiredMiddleware)
+	settings.GET("", s.settingsGeneralForm)
+	settings.POST("", s.settingsGeneralSubmit)
+	settings.GET("/:platform", s.settingsByPlatformForm)
+	settings.POST("/:platform", s.settingsByPlatformSubmit)
+
 	return s
 }
 
