@@ -1,0 +1,259 @@
+<fieldset>
+    <legend>Emulation</legend>
+    <div class="mb-3">
+        <label for="core">Core</label>
+        <select id="core" name="core" class="form-select">
+            {% for core in cores %}
+                <option value="{{ core }}"
+                        {% if core == settings.Core %}selected{% endif %}
+                >{{ core }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="bios">BIOS</label>
+        <select id="bios" name="bios" class="form-select">
+            <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
+            {% for bios in bioses %}
+                <option value="{{ bios.Name }}"
+                        {% if bios.Name == settings.Bios %}selected{% endif %}
+                >{{ bios.Description }} ({{ bios.Name }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <div class="form-check">
+            <input type="checkbox" id="old-cores" name="old-cores" value="1" class="form-check-input" {% if settings.OldCores %}checked{% endif %}>
+            <label for="old-cores">Use old cores</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label for="cache-limit">Cache limit</label>
+        <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}">
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>UI</legend>
+    <div class="mb-3">
+        <label for="shader">Display shader</label>
+        <select id="shader" name="shader" class="form-select">
+            {% for shader in shaders %}
+                <option value="{{ shader }}"
+                        {% if shader == settings.Shader %}selected{% endif %}
+                        >{{ shader }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="color-scheme">Color scheme</label>
+        <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}">
+    </div>
+    <div class="mb-3">
+        <label for="volume">Volume</label>
+        <input type="range" id="volume" name="volume" class="form-range" min="0.0" max="1.0" step="0.01" value="{{ settings.Volume }}">
+    </div>
+    <div class="mb-3">
+        <div class="form-check">
+            <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
+            <label for="fps" class="form-check-label">FPS</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <div class="form-check">
+            <input type="checkbox" id="virtual-gamepad-left-hand" name="virtual-gamepad-left-hand" class="form-check-input" {% if settings.VirtualGamepadLeftHand %}checked{% endif %}
+            <label for="virtual-gamepad-left-hand" class="form-check-label">Virtual gamepad left hand</label>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label>Buttons</label>
+        <div class="row">
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-play-pause" name="button-play-pause" value="1" class="form-check-input" {% if settings.Buttons.PlayPause %}checked{% endif %}>
+                    <label for="button-play-pause" class="form-check-label">Play / pause</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-restart" name="button-restart" value="1" class="form-check-input" {% if settings.Buttons.Restart %}checked{% endif %}>
+                    <label for="button-restart" class="form-check-label">Restart</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-mute" name="button-mute" value="1" class="form-check-input" {% if settings.Buttons.Mute %}checked{% endif %}>
+                    <label for="button-mute" class="form-check-label">Mute</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-settings" name="button-settings" value="1" class="form-check-input" {% if settings.Buttons.Settings %}checked{% endif %}>
+                    <label for="button-settings" class="form-check-label">Settings</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-full-screen" name="button-full-screen" value="1" class="form-check-input" {% if settings.Buttons.FullScreen %}checked{% endif %}>
+                    <label for="button-full-screen" class="form-check-label">Full screen</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-save-state" name="button-save-state" value="1" class="form-check-input" {% if settings.Buttons.SaveState %}checked{% endif %}>
+                    <label for="button-save-state" class="form-check-label">Save state</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-load-state" name="button-load-state" value="1" class="form-check-input" {% if settings.Buttons.LoadState %}checked{% endif %}>
+                    <label for="button-load-state" class="form-check-label">Load state</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-screen-record" name="button-screen-record" value="1" class="form-check-input" {% if settings.Buttons.ScreenRecord %}checked{% endif %}>
+                    <label for="button-screen-record" class="form-check-label">Screen record</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-gamepad" name="button-gamepad" value="1" class="form-check-input" {% if settings.Buttons.Gamepad %}checked{% endif %}>
+                    <label for="button-gamepad" class="form-check-label">Gamepad</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-cheat" name="button-cheat" value="1" class="form-check-input" {% if settings.Buttons.Cheat %}checked{% endif %}>
+                    <label for="button-cheat" class="form-check-label">Cheat</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-volume" name="button-volume" value="1" class="form-check-input" {% if settings.Buttons.Volume %}checked{% endif %}>
+                    <label for="button-volume" class="form-check-label">Volume</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-save-sav-files" name="button-save-sav-files" value="1" class="form-check-input" {% if settings.Buttons.SaveSavFiles %}checked{% endif %}>
+                    <label for="button-save-sav-files" class="form-check-label">Save SAV files</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-load-sav-files" name="button-load-sav-files" value="1" class="form-check-input" {% if settings.Buttons.LoadSavFiles %}checked{% endif %}>
+                    <label for="button-load-sav-files" class="form-check-label">Load SAV files</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-quick-save" name="button-quick-save" value="1" class="form-check-input" {% if settings.Buttons.QuickSave %}checked{% endif %}>
+                    <label for="button-quick-save" class="form-check-label">Quick save</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-quick-load" name="button-quick-load" value="1" class="form-check-input" {% if settings.Buttons.QuickLoad %}checked{% endif %}>
+                    <label for="button-quick-load" class="form-check-label">Quick load</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-screenshot" name="button-screenshot" value="1" class="form-check-input" {% if settings.Buttons.Screenshot %}checked{% endif %}>
+                    <label for="button-screenshot" class="form-check-label">Screenshot</label>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="form-check">
+                    <input type="checkbox" id="button-cache-manager" name="button-cache-manager" value="1" class="form-check-input" {% if settings.Buttons.CacheManager %}checked{% endif %}>
+                    <label for="button-cache-manager" class="form-check-label">Cache manager</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Keyboard controls</legend>
+    <ul class="nav nav-tabs" id="controls-keyboard-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active"
+                    id="keyboard-player-0-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#keyboard-player-0"
+                    type="button"
+                    role="tab"
+                    aria-controls="keyboard-player-0"
+                    aria-selected="true"
+            >Player 1</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="keyboard-player-1-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#keyboard-player-1"
+                    type="button"
+                    role="tab"
+                    aria-controls="keyboard-player-1"
+                    aria-selected="false"
+            >Player 2</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="keyboard-player-2-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#keyboard-player-2"
+                    type="button"
+                    role="tab"
+                    aria-controls="keyboard-player-2"
+                    aria-selected="false"
+            >Player 3</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"
+                    id="keyboard-player-3-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#keyboard-player-3"
+                    type="button"
+                    role="tab"
+                    aria-controls="keyboard-player-3"
+                    aria-selected="false"
+            >Player 4</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="controls-keyboard">
+        <div class="tab-pane fade show active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
+            {% set platform_id="{{ platform.Id }}" %}
+            {% set input="keyboard" %}
+            {% set player="0" %}
+            {% set controls_group = settings.Controls[0] %}
+            {% set controls = controls_group.Keyboard %}
+            {% include "controls/form_controls.twig" %}
+        </div>
+        <div class="tab-pane fade" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
+            {% set platform_id="{{ platform.Id }}" %}
+            {% set input="keyboard" %}
+            {% set player="1" %}
+            {% set controls_group = settings.Controls[1] %}
+            {% set controls = controls_group.Keyboard %}
+            {% include "controls/form_controls.twig" %}
+        </div>
+        <div class="tab-pane fade" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
+            {% set platform_id="{{ platform.Id }}" %}
+            {% set input="keyboard" %}
+            {% set player="2" %}
+            {% set controls_group = settings.Controls[2] %}
+            {% set controls = controls_group.Keyboard %}
+            {% include "controls/form_controls.twig" %}
+        </div>
+        <div class="tab-pane fade" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
+            {% set platform_id="{{ platform.Id }}" %}
+            {% set input="keyboard" %}
+            {% set player="3" %}
+            {% set controls_group = settings.Controls[3] %}
+            {% set controls = controls_group.Keyboard %}
+            {% include "controls/form_controls.twig" %}
+        </div>
+    </div>
+</fieldset>

@@ -55,69 +55,91 @@ var (
 
 	Platforms = map[string]Platform{
 		"nes": {
+			Id:   "nes",
 			Name: "Nintendo Famicom / NES",
 		},
 		"snes": {
+			Id:   "snes",
 			Name: "Nintendo Super Famicom / SNES",
 		},
 		"gb": {
+			Id:   "gb",
 			Name: "Nintendo Game Boy",
 		},
 		"gba": {
+			Id:   "gba",
 			Name: "Nintendo Game Boy Advance",
 		},
 		"vb": {
+			Id:   "vb",
 			Name: "Nintendo Virtual Boy",
 		},
 		"nds": {
-			"Nintendo DS",
+			Id:   "nds",
+			Name: "Nintendo DS",
 		},
 		"a5200": {
+			Id:   "a5200",
 			Name: "Atari 5200",
 		},
 		"mame2003": {
+			Id:   "mame2003",
 			Name: "MAME 2003",
 		},
 		"arcade": {
+			Id:   "arcade",
 			Name: "Arcade",
 		},
 		"psx": {
+			Id:   "psx",
 			Name: "Sony PlayStation",
 		},
 		"jaguar": {
+			Id:   "jaguar",
 			Name: "Atari Jaguar",
 		},
 		"lynx": {
+			Id:   "lynx",
 			Name: "Atari Lynx",
 		},
 		"segaSaturn": {
+			Id:   "segaSaturn",
 			Name: "Sega Saturn",
 		},
 		"segaMS": {
+			Id:   "segaMS",
 			Name: "Sega Master System",
 		},
 		"segaMD": {
+			Id:   "segaMD",
 			Name: "Sega Mega Drive / Genesis",
 		},
 		"segaGG": {
+			Id:   "segaGG",
 			Name: "Sega Game Gear",
 		},
 		"segaCD": {
+			Id:   "Sega CD",
 			Name: "Sega CD",
 		},
 		"sega32x": {
+			Id:   "sega32x",
 			Name: "Sega 32X",
 		},
 		"n64": {
+			Id:   "n64",
 			Name: "Nintendo 64",
 		},
 		"3do": {
+			Id:   "3do",
 			Name: "3DO",
 		},
 		"atari7800": {
+			Id:   "atari7800",
 			Name: "Atari 7800",
 		},
 		"atari2600": {
+			Id:   "atari2600",
 			Name: "Atari 2600",
 		},
 	}
@@ -554,12 +576,12 @@ var (
 		Gamepad:      true,
 		Cheat:        false,
 		Volume:       true,
-		SaveSavFiles: true,
-		LoadSavFiles: true,
+		SaveSavFiles: false,
+		LoadSavFiles: false,
 		QuickSave:    true,
 		QuickLoad:    true,
 		Screenshot:   true,
-		CacheManager: true,
+		CacheManager: false,
 	}
 )
 

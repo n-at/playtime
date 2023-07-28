@@ -117,6 +117,7 @@ type EmulatorButtons struct {
 }
 
 type Platform struct {
+	Id   string
 	Name string
 }
 
