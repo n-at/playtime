@@ -2,6 +2,7 @@ package storage
 
 import (
 	"errors"
+	log "github.com/sirupsen/logrus"
 	"github.com/timshannon/bolthold"
 	"sort"
 	"time"
@@ -85,6 +86,41 @@ func (s *Storage) UserFindAll() ([]User, error) {
 		return nil, err
 	}
 	return userSorted(users), nil
+}
+
+func (s *Storage) UserCount() (int, error) {
+	return s.store.Count(User{}, nil)
+}
+
+func (s *Storage) UserEnsureExists() error {
+	cnt, err := s.UserCount()
+	if err != nil {
+		return err
+	}
+	if cnt > 0 {
+		return nil
+	}
+
+	password := GenerateRandomString(10)
+	encrypted, err := EncryptPassword(password)
+	if err != nil {
+		return err
+	}
+
+	u := User{
+		Login:    "admin",
+		Password: encrypted,
+		Admin:    true,
+		Active:   true,
+	}
+
+	_, err = s.UserSave(u)
+
+	log.Infof(">>> ================================================")
+	log.Infof(">>> created default admin user: login=%s password=%s", u.Login, password)
+	log.Infof(">>> ================================================")
+
+	return err
 }
 
 func userSorted(users []User) []User {

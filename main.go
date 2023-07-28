@@ -19,6 +19,11 @@ func main() {
 		log.Fatalf("unable to open storage db: %s", err)
 	}
 
+	err = s.UserEnsureExists()
+	if err != nil {
+		log.Fatalf("unable to create default user: %s", err)
+	}
+
 	w := web.New(webConfig, s)
 	log.Fatal(w.Start())
 }
