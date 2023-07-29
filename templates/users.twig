@@ -7,6 +7,13 @@
 {% block content %}
 
     <h1>Users</h1>
+    <hr>
+
+    {% if done %}
+        <p class="alert alert-success">
+            Users saved
+        </p>
+    {% endif %}
 
     <p>
         <a href="/users/new" class="btn btn-outline-success">

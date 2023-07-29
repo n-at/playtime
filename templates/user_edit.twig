@@ -7,6 +7,7 @@
 {% block content %}
 
     <h1>Edit user</h1>
+    <hr>
 
     <form method="post" action="/users/edit/{{ user_control.Id }}" enctype="application/x-www-form-urlencoded">
         {% include "includes/form_user.twig" with mode="edit" %}

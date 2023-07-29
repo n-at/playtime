@@ -1,0 +1,11 @@
+{# input, player, btn_id, btn_title, btn_value #}
+
+<div class="form-floating mb-2">
+    <input type="text"
+           id="control-{{ input }}-{{ player }}-{{ btn_id }}"
+           name="control-{{ input }}-{{ player }}-{{ btn_id }}"
+           class="form-control"
+           value="{{ btn_value }}"
+           placeholder="Button value">
+    <label for="control-{{ input }}-{{ player }}-{{ btn_id }}">{{ btn_title }}</label>
+</div>

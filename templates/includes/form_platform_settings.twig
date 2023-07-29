@@ -1,7 +1,6 @@
 <fieldset>
     <legend>Emulation</legend>
-    <div class="mb-3">
-        <label for="core">Core</label>
+    <div class="form-floating mb-3">
         <select id="core" name="core" class="form-select">
             {% for core in cores %}
                 <option value="{{ core }}"
@@ -9,9 +8,9 @@
                 >{{ core }}</option>
             {% endfor %}
         </select>
+        <label for="core">Core</label>
     </div>
-    <div class="mb-3">
-        <label for="bios">BIOS</label>
+    <div class="form-floating mb-3">
         <select id="bios" name="bios" class="form-select">
             <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
             {% for bios in bioses %}
@@ -20,6 +19,7 @@
                 >{{ bios.Description }} ({{ bios.Name }})</option>
             {% endfor %}
         </select>
+        <label for="bios">BIOS</label>
     </div>
     <div class="mb-3">
         <div class="form-check">
@@ -27,16 +27,15 @@
             <label for="old-cores">Use old cores</label>
         </div>
     </div>
-    <div class="mb-3">
+    <div class="form-floating mb-3">
+        <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}" placeholder="Number">
         <label for="cache-limit">Cache limit</label>
-        <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}">
     </div>
 </fieldset>
 
 <fieldset>
     <legend>UI</legend>
-    <div class="mb-3">
-        <label for="shader">Display shader</label>
+    <div class="form-floating mb-3">
         <select id="shader" name="shader" class="form-select">
             {% for shader in shaders %}
                 <option value="{{ shader }}"
@@ -44,10 +43,11 @@
                         >{{ shader }}</option>
             {% endfor %}
         </select>
+        <label for="shader">Display shader</label>
     </div>
-    <div class="mb-3">
+    <div class="form-floating mb-3">
+        <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
         <label for="color-scheme">Color scheme</label>
-        <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}">
     </div>
     <div class="mb-3">
         <label for="volume">Volume</label>

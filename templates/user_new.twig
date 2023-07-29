@@ -7,6 +7,7 @@
 {% block content %}
 
     <h1>New user</h1>
+    <hr>
 
     <form method="post" action="/users/new" enctype="application/x-www-form-urlencoded">
         {% include "includes/form_user.twig" with mode="create" %}
