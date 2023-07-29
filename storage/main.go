@@ -92,6 +92,10 @@ func (s *Storage) UserCount() (int, error) {
 	return s.store.Count(User{}, nil)
 }
 
+func (s *Storage) UserDeleteById(id string) error {
+	return s.store.Delete(id, User{})
+}
+
 func (s *Storage) UserEnsureExists() error {
 	cnt, err := s.UserCount()
 	if err != nil {
@@ -160,8 +164,12 @@ func (s *Storage) SessionGetById(id string) (Session, error) {
 	return session, nil
 }
 
-func (s *Storage) SessionDelete(id string) error {
+func (s *Storage) SessionDeleteById(id string) error {
 	return s.store.Delete(id, Session{})
+}
+
+func (s *Storage) SessionDeleteByUserId(userId string) error {
+	return s.store.DeleteMatching(Session{}, bolthold.Where("UserId").Eq(userId))
 }
 
 func (s *Storage) SessionDeleteExpired(expirationDate time.Time) error {

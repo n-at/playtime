@@ -1,0 +1,41 @@
+<div class="form-floating mb-3">
+    <input type="text" id="login" name="login" class="form-control" value="{{user_control.Login}}" placeholder="Unique user name" required>
+    <label for="login">Login</label>
+</div>
+
+{% if mode == "create" %}
+    <div class="form-floating mb-3">
+        <input type="password" id="password" name="password" class="form-control" value="" placeholder="User password" required>
+        <label for="password">Password</label>
+    </div>
+{% elif mode == "edit" %}
+    <div class="form-floating mb-3">
+        <input type="password" id="password" name="password" class="form-control" value="" placeholder="User password">
+        <label for="password">Password</label>
+    </div>
+    <p class="text-secondary">
+        Leave password field blank to keep current value
+    </p>
+{% endif %}
+
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="admin" name="admin" value="1" class="form-check-input" {% if user_control.Admin %}checked{% endif %}>
+        <label for="admin">Admin</label>
+    </div>
+</div>
+
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="active" name="active" value="1" class="form-check-input" {% if user_control.Active %}checked{% endif %}>
+        <label for="active">Active</label>
+    </div>
+</div>
+
+<hr>
+
+<div class="mb-3 text-end">
+    <button type="submit" class="btn btn-primary">
+        Save user
+    </button>
+</div>

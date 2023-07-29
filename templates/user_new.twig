@@ -1,0 +1,15 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    New user - playtime
+{% endblock %}
+
+{% block content %}
+
+    <h1>New user</h1>
+
+    <form method="post" action="/users/new" enctype="application/x-www-form-urlencoded">
+        {% include "includes/form_user.twig" with mode="create" %}
+    </form>
+
+{% endblock %}

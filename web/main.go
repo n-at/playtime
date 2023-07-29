@@ -77,6 +77,24 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	settings.GET("/:platform", s.settingsByPlatformForm)
 	settings.POST("/:platform", s.settingsByPlatformSubmit)
 
+	//users
+	users := e.Group("/users")
+	users.Use(s.authenticationRequiredMiddleware)
+	users.Use(s.userControlAccessRequiredMiddleware)
+	users.GET("", s.users)
+	users.GET("/new", s.userNewForm)
+	users.POST("/new", s.userNewSubmit)
+
+	usersEdit := users.Group("/edit/:user_id")
+	usersEdit.Use(s.userControlRequiredMiddleware)
+	usersEdit.GET("", s.userEditForm)
+	usersEdit.POST("", s.userEditSubmit)
+
+	usersDelete := users.Group("/delete/:user_id")
+	usersDelete.Use(s.userControlRequiredMiddleware)
+	usersDelete.GET("", s.userDeleteForm)
+	usersDelete.POST("", s.userDeleteSubmit)
+
 	return s
 }
 

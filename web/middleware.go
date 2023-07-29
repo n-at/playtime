@@ -1,6 +1,7 @@
 package web
 
 import (
+	"errors"
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
 	"net/http"
@@ -64,6 +65,43 @@ func (s *Server) settingsRequiredMiddleware(next echo.HandlerFunc) echo.HandlerF
 		}
 
 		context.settings = &settings
+
+		return next(context)
+	}
+}
+
+func (s *Server) userControlAccessRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		context := c.(*PlaytimeContext)
+
+		if context.user == nil {
+			return errors.New("auth required")
+		}
+		if !context.user.CanControlUsers() {
+			return errors.New("user control access denied")
+		}
+
+		return next(c)
+	}
+}
+
+func (s *Server) userControlRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		userId := c.Param("user_id")
+		if len(userId) == 0 {
+			return errors.New("user id required")
+		}
+
+		user, err := s.storage.UserFindById(userId)
+		if err != nil {
+			return err
+		}
+		if len(user.Id) == 0 {
+			return errors.New("user not found")
+		}
+
+		context := c.(*PlaytimeContext)
+		context.userControl = &user
 
 		return next(context)
 	}

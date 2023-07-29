@@ -21,7 +21,7 @@ func (s *Server) profileForm(c echo.Context) error {
 func (s *Server) profileSubmit(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	log.Infof("profileSubmit for %s", context.user.Login)
+	log.Infof("profileSubmit %s", context.user.Id)
 
 	currentPassword := c.FormValue("password")
 	if !storage.CheckPassword(currentPassword, context.user.Password) {

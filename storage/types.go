@@ -127,3 +127,9 @@ type Bios struct {
 	Hash        string
 	Description string
 }
+
+///////////////////////////////////////////////////////////////////////////////
+
+func (u *User) CanControlUsers() bool {
+	return u.Admin
+}

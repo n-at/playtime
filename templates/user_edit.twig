@@ -1,0 +1,15 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Edit user - playtime
+{% endblock %}
+
+{% block content %}
+
+    <h1>Edit user</h1>
+
+    <form method="post" action="/users/edit/{{ user_control.Id }}" enctype="application/x-www-form-urlencoded">
+        {% include "includes/form_user.twig" with mode="edit" %}
+    </form>
+
+{% endblock %}

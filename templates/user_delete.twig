@@ -1,0 +1,24 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Delete user - playtime
+{% endblock %}
+
+{% block content %}
+
+    <h1>Delete user</h1>
+
+    <p class="lead">
+        Confirm deletion of user &quot;{{ user_control.Login }}&quot;
+    </p>
+    <hr>
+
+    <form method="post" action="/users/delete/{{ user_control.Id }}" enctype="application/x-www-form-urlencoded">
+        <div class="text-end mb-3">
+            <button type="submit" class="btn btn-danger">
+                Delete user
+            </button>
+        </div>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+h1 {
+    font-size: 2em;
+}
+h2 {
+    font-size: 1.5em;
+}
+
+html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
+    background-color: rgba(255, 255, 255, .05);
+}
+.list-group-hover .list-group-item:hover {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+.card .card-body .card-body-collapse {
+    padding: 0 !important;
+}
