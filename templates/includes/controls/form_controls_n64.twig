@@ -3,126 +3,25 @@
         <img src="/assets/img/controller/n64.png" alt="Nintendo 64 Controller" class="img-fluid ps-3 pe-3">
     </div>
     <div class="col-4">
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-a" class="col-sm-6 col-form-label">A</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-a" name="control-{{ input }}-{{ player }}-a" class="form-control" value="{{ controls.A }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-b" class="col-sm-6 col-form-label">B</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-b" name="control-{{ input }}-{{ player }}-b" class="form-control" value="{{ controls.B }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-l" class="col-sm-6 col-form-label">L</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-l" name="control-{{ input }}-{{ player }}-l" class="form-control" value="{{ controls.L }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-r" class="col-sm-6 col-form-label">R</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-r" name="control-{{ input }}-{{ player }}-r" class="form-control" value="{{ controls.R }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-start" class="col-sm-6 col-form-label">Start</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-start" name="control-{{ input }}-{{ player }}-start" class="form-control" value="{{ controls.Start }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-up" class="col-sm-6 col-form-label">D-Pad Up</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-up" name="control-{{ input }}-{{ player }}-up" class="form-control" value="{{ controls.Up }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-down" class="col-sm-6 col-form-label">D-Pad Down</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-down" name="control-{{ input }}-{{ player }}-down" class="form-control" value="{{ controls.Down }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-left" class="col-sm-6 col-form-label">D-Pad Left</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-left" name="control-{{ input }}-{{ player }}-left" class="form-control" value="{{ controls.Left }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-right" class="col-sm-6 col-form-label">D-Pad Right</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-right" name="control-{{ input }}-{{ player }}-right" class="form-control" value="{{ controls.Right }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-r-stick-up" class="col-sm-6 col-form-label">C-Pad Up</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-up" name="control-{{ input }}-{{ player }}-r-stick-up" class="form-control" value="{{ controls.RStickUp }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-r-stick-down" class="col-sm-6 col-form-label">C-Pad Down</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-down" name="control-{{ input }}-{{ player }}-r-stick-down" class="form-control" value="{{ controls.RStickDown }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-r-stick-left" class="col-sm-6 col-form-label">C-Pad Left</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-left" name="control-{{ input }}-{{ player }}-r-stick-left" class="form-control" value="{{ controls.RStickLeft }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-r-stick-right" class="col-sm-6 col-form-label">C-Pad Right</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-r-stick-right" name="control-{{ input }}-{{ player }}-r-stick-right" class="form-control" value="{{ controls.RStickRight }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-l-stick-up" class="col-sm-6 col-form-label">Stick Up</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-up" name="control-{{ input }}-{{ player }}-l-stick-up" class="form-control" value="{{ controls.LStickUp }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-l-stick-down" class="col-sm-6 col-form-label">Stick Down</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-down" name="control-{{ input }}-{{ player }}-l-stick-down" class="form-control" value="{{ controls.LStickDown }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-l-stick-left" class="col-sm-6 col-form-label">Stick Left</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-left" name="control-{{ input }}-{{ player }}-l-stick-left" class="form-control" value="{{ controls.LStickLeft }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-l-stick-right" class="col-sm-6 col-form-label">Stick Right</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-l-stick-right" name="control-{{ input }}-{{ player }}-l-stick-right" class="form-control" value="{{ controls.LStickRight }}">
-            </div>
-        </div>
-
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-quick-save-state" class="col-sm-6 col-form-label">Quick Save State</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-quick-save-state" name="control-{{ input }}-{{ player }}-quick-save-state" class="form-control" value="{{ controls.QuickSaveState }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-quick-load-state" class="col-sm-6 col-form-label">Quick Load State</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-quick-load-state" name="control-{{ input }}-{{ player }}-quick-load-state" class="form-control" value="{{ controls.QuickLoadState }}">
-            </div>
-        </div>
-        <div class="row mb-1">
-            <label for="control-{{ input }}-{{ player }}-change-state-slot" class="col-sm-6 col-form-label">Change State Slot</label>
-            <div class="col-sm-6">
-                <input type="text" id="control-{{ input }}-{{ player }}-change-state-slot" name="control-{{ input }}-{{ player }}-change-state-slot" class="form-control" value="{{ controls.ChangeStateSlot }}">
-            </div>
-        </div>
+        {% include "control.twig" with btn_id="a"                   btn_title="A"                   btn_value=controls.A %}
+        {% include "control.twig" with btn_id="b"                   btn_title="B"                   btn_value=controls.B %}
+        {% include "control.twig" with btn_id="l"                   btn_title="L"                   btn_value=controls.L %}
+        {% include "control.twig" with btn_id="r"                   btn_title="R"                   btn_value=controls.R %}
+        {% include "control.twig" with btn_id="start"               btn_title="Start"               btn_value=controls.Start %}
+        {% include "control.twig" with btn_id="up"                  btn_title="D-Pad Up"            btn_value=controls.Up %}
+        {% include "control.twig" with btn_id="down"                btn_title="D-Pad Down"          btn_value=controls.Down %}
+        {% include "control.twig" with btn_id="left"                btn_title="D-Pad Left"          btn_value=controls.Left %}
+        {% include "control.twig" with btn_id="right"               btn_title="D-Pad Right"         btn_value=controls.Right %}
+        {% include "control.twig" with btn_id="r-stick-up"          btn_title="C-Pad Up"            btn_value=controls.RStickUp %}
+        {% include "control.twig" with btn_id="r-stick-down"        btn_title="C-Pad Down"          btn_value=controls.RStickDown %}
+        {% include "control.twig" with btn_id="r-stick-left"        btn_title="C-Pad Left"          btn_value=controls.RStickLeft %}
+        {% include "control.twig" with btn_id="r-stick-right"       btn_title="C-Pad Right"         btn_value=controls.RStickRight %}
+        {% include "control.twig" with btn_id="l-stick-up"          btn_title="Stick Up"            btn_value=controls.LStickUp %}
+        {% include "control.twig" with btn_id="l-stick-down"        btn_title="Stick Down"          btn_value=controls.LStickDown %}
+        {% include "control.twig" with btn_id="l-stick-left"        btn_title="Stick Left"          btn_value=controls.LStickLeft %}
+        {% include "control.twig" with btn_id="l-stick-right"       btn_title="Stick Right"         btn_value=controls.LStickRight %}
+        {% include "control.twig" with btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.QuickSaveState %}
+        {% include "control.twig" with btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.QuickLoadState %}
+        {% include "control.twig" with btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.ChangeStateSlot %}
     </div>
 </div>
