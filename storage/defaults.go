@@ -605,7 +605,7 @@ var (
 		L:      "a", //X
 		X:      "s", //Y
 		R:      "d", //Z
-		Select: "v",
+		Select: "v", //Mode
 		Start:  "enter",
 		Up:     "arrowup",
 		Down:   "arrowdown",
