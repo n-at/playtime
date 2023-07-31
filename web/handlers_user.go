@@ -122,19 +122,32 @@ func (s *Server) userDeleteForm(c echo.Context) error {
 
 func (s *Server) userDeleteSubmit(c echo.Context) error {
 	context := c.(*PlaytimeContext)
+	userId := context.userControl.Id
 
-	log.Infof("userDeleteSubmit %s", context.userControl.Id)
+	log.Infof("userDeleteSubmit %s", userId)
 
-	if context.user.Id == context.userControl.Id {
+	if context.user.Id == userId {
 		return errors.New("cannot delete self")
 	}
-	if err := s.storage.UserDeleteById(context.userControl.Id); err != nil {
-		log.Errorf("userDeleteSubmit user %s delete error: %s", context.userControl.Id, err)
+	if err := s.storage.UserDeleteById(userId); err != nil {
+		log.Errorf("userDeleteSubmit user %s delete error: %s", userId, err)
 		return err
 	}
 
-	if err := s.storage.SessionDeleteByUserId(context.userControl.Id); err != nil {
-		log.Warnf("userDeleteSubmit unable to delete deleted user sessions: %s", err)
+	if err := s.storage.SessionDeleteByUserId(userId); err != nil {
+		log.Warnf("userDeleteSubmit unable to delete deleted user %s sessions: %s", userId, err)
+	}
+	if err := s.storage.SettingsDeleteByUserId(userId); err != nil {
+		log.Warnf("userDeleteSubmit unable to delete deleted user %s settings: %s", userId, err)
+	}
+	if err := s.storage.GameDeleteByUserId(userId); err != nil {
+		log.Warnf("userDeleteSubmit unable to delete deleted user %s games: %s", userId, err)
+	}
+	if err := s.storage.SaveStateDeleteByUserId(userId); err != nil {
+		log.Warnf("userDeleteSubmit unable to delete deleted user %s save states: %s", userId, err)
+	}
+	if err := s.storage.UploadBatchDeleteByUserId(userId); err != nil {
+		log.Warnf("userDeleteSubmit unable to delete deleted user %s upload batches: %s", userId, err)
 	}
 
 	return c.Redirect(http.StatusFound, "/users?done=1")

@@ -723,7 +723,7 @@ var (
 		SaveState:    true,
 		LoadState:    true,
 		ScreenRecord: true,
-		Gamepad:      true,
+		Gamepad:      false,
 		Cheat:        false,
 		Volume:       true,
 		SaveSavFiles: false,

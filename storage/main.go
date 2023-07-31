@@ -205,6 +205,10 @@ func (s *Storage) SettingsGetByUserId(userId string) (Settings, error) {
 	return settings, nil
 }
 
+func (s *Storage) SettingsDeleteByUserId(userId string) error {
+	return s.store.Delete(userId, Settings{})
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Game
 
@@ -241,7 +245,7 @@ func (s *Storage) GameGetByUserId(userId string) ([]Game, error) {
 }
 
 func (s *Storage) GameBetByLoadBatchId(loadBatchId string) ([]Game, error) {
-	lb, err := s.LoadBatchGetById(loadBatchId)
+	lb, err := s.UploadBatchGetById(loadBatchId)
 	if err != nil {
 		return nil, err
 	}
@@ -256,6 +260,10 @@ func (s *Storage) GameBetByLoadBatchId(loadBatchId string) ([]Game, error) {
 
 func (s *Storage) GameDeleteById(id string) error {
 	return s.store.Delete(id, Game{})
+}
+
+func (s *Storage) GameDeleteByUserId(userId string) error {
+	return s.store.DeleteMatching(Game{}, bolthold.Where("UserId").Eq(userId))
 }
 
 func gameSorted(games []Game) []Game {
@@ -323,6 +331,10 @@ func (s *Storage) SaveStateDeleteById(id string) error {
 	return s.store.Delete(id, SaveState{})
 }
 
+func (s *Storage) SaveStateDeleteByUserId(userId string) error {
+	return s.store.DeleteMatching(SaveState{}, bolthold.Where("UserId").Eq(userId))
+}
+
 func saveStateSorted(states []SaveState) []SaveState {
 	sort.Slice(states, func(i, j int) bool {
 		return states[i].Created.After(states[j].Created)
@@ -331,9 +343,9 @@ func saveStateSorted(states []SaveState) []SaveState {
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-// LoadBatch
+// UploadBatch
 
-func (s *Storage) LoadBatchSave(lb LoadBatch) (LoadBatch, error) {
+func (s *Storage) UploadBatchSave(lb UploadBatch) (UploadBatch, error) {
 	if len(lb.UserId) == 0 {
 		return lb, errors.New("userId must not be empty")
 	}
@@ -352,14 +364,18 @@ func (s *Storage) LoadBatchSave(lb LoadBatch) (LoadBatch, error) {
 	return lb, nil
 }
 
-func (s *Storage) LoadBatchGetById(id string) (LoadBatch, error) {
-	var lb LoadBatch
+func (s *Storage) UploadBatchGetById(id string) (UploadBatch, error) {
+	var lb UploadBatch
 	if err := s.store.FindOne(&lb, bolthold.Where(bolthold.Key).Eq(id)); err != nil {
-		return LoadBatch{}, err
+		return UploadBatch{}, err
 	}
 	return lb, nil
 }
 
-func (s *Storage) LoadBatchDeleteById(id string) error {
-	return s.store.Delete(id, LoadBatch{})
+func (s *Storage) UploadBatchDeleteById(id string) error {
+	return s.store.Delete(id, UploadBatch{})
+}
+
+func (s *Storage) UploadBatchDeleteByUserId(userId string) error {
+	return s.store.DeleteMatching(UploadBatch{}, bolthold.Where("UserId").Eq(userId))
 }

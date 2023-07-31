@@ -40,7 +40,7 @@ type SaveState struct {
 	Created time.Time
 }
 
-type LoadBatch struct {
+type UploadBatch struct {
 	Id      string `boltholdKey:"Id"`
 	UserId  string `boltholdIndex:"UserId"`
 	Created time.Time
