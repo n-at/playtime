@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/flosch/pongo2/v6"
 	"github.com/labstack/echo/v4"
+	log "github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 	"os"
@@ -139,9 +140,25 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 }
 
 func (s *Server) gameDeleteForm(c echo.Context) error {
-	return nil
+	context := c.(*PlaytimeContext)
+
+	return c.Render(http.StatusOK, "game_delete", pongo2.Context{
+		"user": context.user,
+		"game": context.game,
+	})
 }
 
 func (s *Server) gameDeleteSubmit(c echo.Context) error {
-	return nil
+	context := c.(*PlaytimeContext)
+
+	gameId := context.game.Id
+
+	if err := s.storage.GameDeleteById(gameId); err != nil {
+		return err
+	}
+	if err := s.storage.SaveStateDeleteByGameId(gameId); err != nil {
+		log.Warnf("gameDeleteSubmit unable to delete deleted game %s save states: %s", gameId, err)
+	}
+
+	return c.Redirect(http.StatusFound, "/games")
 }

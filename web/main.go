@@ -106,7 +106,7 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	gamesEdit.GET("", s.gameEditForm)
 	gamesEdit.POST("", s.gameEditSubmit)
 
-	gamesDelete := games.Group("/delete/game_id")
+	gamesDelete := games.Group("/delete/:game_id")
 	gamesDelete.Use(s.gameRequiredMiddleware)
 	gamesDelete.GET("", s.gameDeleteForm)
 	gamesDelete.POST("", s.gameDeleteSubmit)

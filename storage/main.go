@@ -335,6 +335,10 @@ func (s *Storage) SaveStateDeleteByUserId(userId string) error {
 	return s.store.DeleteMatching(SaveState{}, bolthold.Where("UserId").Eq(userId))
 }
 
+func (s *Storage) SaveStateDeleteByGameId(gameId string) error {
+	return s.store.DeleteMatching(SaveState{}, bolthold.Where("GameId").Eq(gameId))
+}
+
 func saveStateSorted(states []SaveState) []SaveState {
 	sort.Slice(states, func(i, j int) bool {
 		return states[i].Created.After(states[j].Created)

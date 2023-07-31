@@ -1,0 +1,25 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Delete game - playtime
+{% endblock %}
+
+{% block content %}
+
+    <h1>Delete user</h1>
+    <hr>
+
+    <p class="lead">
+        Confirm deletion of game &quot;{{ game.Name }}&quot;
+    </p>
+    <hr>
+
+    <form action="/games/delete/{{ game.Id }}" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="text-end mb-3">
+            <button type="submit" class="btn btn-danger">
+                Delete game
+            </button>
+        </div>
+    </form>
+
+{% endblock %}
