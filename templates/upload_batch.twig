@@ -1,0 +1,41 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Upload batch - playtime
+{% endblock %}
+
+{% block content %}
+    <h1>Upload batch</h1>
+    <hr>
+
+    <form action="/games/upload-batch/{{ upload_batch.Id }}" method="post" enctype="application/x-www-form-urlencoded">
+        <div class="list-group list-group-hover">
+            {% for game in games %}
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-8">
+                            <input type="text" id="name-{{ game.Id }}" name="name-{{ game.Id }}" class="form-control" value="{{ game.Name }}" required>
+                            <label for="name-{{ game.Id }}" class="d-none">Game name</label>
+                        </div>
+                        <div class="col-4">
+                            <select id="platform-{{ game.Id }}" name="platform-{{ game.Id }}" class="form-select">
+                                <option value="">Undefined</option>
+                                {% for platform in platforms %}
+                                    <option value="{{ platform.Platform.Id }}">{{ platform.Platform.Name }}</option>
+                                {% endfor %}
+                            </select>
+                            <label for="platform-{{ game.Id }}" class="d-none">Select game platform</label>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <hr>
+
+        <div class="mb-3 text-end">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+    </form>
+
+{% endblock %}

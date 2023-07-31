@@ -244,14 +244,14 @@ func (s *Storage) GameGetByUserId(userId string) ([]Game, error) {
 	return gameSorted(games), nil
 }
 
-func (s *Storage) GameBetByLoadBatchId(loadBatchId string) ([]Game, error) {
+func (s *Storage) GameGetByUploadBatchId(loadBatchId string) ([]Game, error) {
 	lb, err := s.UploadBatchGetById(loadBatchId)
 	if err != nil {
 		return nil, err
 	}
 
 	var games []Game
-	if err := s.store.Find(&games, bolthold.Where(bolthold.Key).In(lb.GameIds)); err != nil {
+	if err := s.store.Find(&games, bolthold.Where(bolthold.Key).In(bolthold.Slice(lb.GameIds)...)); err != nil {
 		return nil, err
 	}
 

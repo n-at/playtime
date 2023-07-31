@@ -91,15 +91,43 @@ func (s *Server) gameUpload(c echo.Context) error {
 		return err
 	}
 
-	return c.Redirect(http.StatusFound, fmt.Sprintf("/upload-batch/%s", uploadBatch.Id))
+	return c.Redirect(http.StatusFound, fmt.Sprintf("/games/upload-batch/%s", uploadBatch.Id))
 }
 
 func (s *Server) gameUploadBatchForm(c echo.Context) error {
-	return nil
+	context := c.(*PlaytimeContext)
+
+	games, err := s.storage.GameGetByUploadBatchId(context.uploadBatch.Id)
+	if err != nil {
+		return err
+	}
+
+	return c.Render(http.StatusOK, "upload_batch", pongo2.Context{
+		"user":         context.user,
+		"upload_batch": context.uploadBatch,
+		"games":        games,
+		"platforms":    sortedPlatforms(),
+	})
 }
 
 func (s *Server) gameUploadBatchSubmit(c echo.Context) error {
-	return nil
+	context := c.(*PlaytimeContext)
+
+	games, err := s.storage.GameGetByUploadBatchId(context.uploadBatch.Id)
+	if err != nil {
+		return err
+	}
+
+	for _, game := range games {
+		game.Name = c.FormValue(fmt.Sprintf("name-%s", game.Id))
+		game.Platform = c.FormValue(fmt.Sprintf("platform-%s", game.Id))
+
+		if _, err := s.storage.GameSave(game); err != nil {
+			return err
+		}
+	}
+
+	return c.Redirect(http.StatusFound, "/games")
 }
 
 func (s *Server) gameEditForm(c echo.Context) error {
