@@ -2,34 +2,34 @@ package web
 
 import "github.com/labstack/echo/v4"
 
-func games(c echo.Context) error {
+func (s *Server) games(c echo.Context) error {
 	return nil
 }
 
-func gameUpload(c echo.Context) error {
+func (s *Server) gameUpload(c echo.Context) error {
 	return nil
 }
 
-func gameUploadBatchForm(c echo.Context) error {
+func (s *Server) gameUploadBatchForm(c echo.Context) error {
 	return nil
 }
 
-func gameUploadBatchSubmit(c echo.Context) error {
+func (s *Server) gameUploadBatchSubmit(c echo.Context) error {
 	return nil
 }
 
-func gameEditForm(c echo.Context) error {
+func (s *Server) gameEditForm(c echo.Context) error {
 	return nil
 }
 
-func gameEditSubmit(c echo.Context) error {
+func (s *Server) gameEditSubmit(c echo.Context) error {
 	return nil
 }
 
-func gameDeleteForm(c echo.Context) error {
+func (s *Server) gameDeleteForm(c echo.Context) error {
 	return nil
 }
 
-func gameDeleteSubmit(c echo.Context) error {
+func (s *Server) gameDeleteSubmit(c echo.Context) error {
 	return nil
 }

@@ -13,7 +13,7 @@ type PlaytimeContext struct {
 	user        *storage.User
 	game        *storage.Game
 	saveState   *storage.SaveState
-	loadBatch   *storage.UploadBatch
+	uploadBatch *storage.UploadBatch
 	settings    *storage.Settings
 	userControl *storage.User
 }

@@ -75,7 +75,7 @@ func (s *Server) userControlAccessRequiredMiddleware(next echo.HandlerFunc) echo
 		context := c.(*PlaytimeContext)
 
 		if context.user == nil {
-			return errors.New("auth required")
+			return errors.New("authentication required")
 		}
 		if !context.user.CanControlUsers() {
 			return errors.New("user control access denied")
@@ -102,6 +102,105 @@ func (s *Server) userControlRequiredMiddleware(next echo.HandlerFunc) echo.Handl
 
 		context := c.(*PlaytimeContext)
 		context.userControl = &user
+
+		return next(context)
+	}
+}
+
+func (s *Server) gameRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		gameId := c.Param("game_id")
+		if len(gameId) == 0 {
+			return errors.New("game id required")
+		}
+
+		game, err := s.storage.GameGetById(gameId)
+		if err != nil {
+			return err
+		}
+		if len(game.Id) == 0 {
+			return errors.New("game not found")
+		}
+
+		context := c.(*PlaytimeContext)
+		if context.user == nil {
+			return errors.New("authentication required")
+		}
+		if game.UserId != context.user.Id {
+			return errors.New("game belongs to different user")
+		}
+
+		context.game = &game
+
+		return next(context)
+	}
+}
+
+func (s *Server) uploadBatchRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		uploadBatchId := c.Param("upload_batch_id")
+		if len(uploadBatchId) == 0 {
+			return errors.New("upload batch id required")
+		}
+
+		uploadBatch, err := s.storage.UploadBatchGetById(uploadBatchId)
+		if err != nil {
+			return err
+		}
+		if len(uploadBatch.Id) == 0 {
+			return errors.New("upload batch not found")
+		}
+
+		context := c.(*PlaytimeContext)
+		if context.user == nil {
+			return errors.New("authentication required")
+		}
+		if context.user.Id != uploadBatch.UserId {
+			return errors.New("upload batch belongs to different user")
+		}
+
+		context.uploadBatch = &uploadBatch
+
+		return next(context)
+	}
+}
+
+func (s *Server) saveStateRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		saveStateId := c.Param("save_state_id")
+		if len(saveStateId) == 0 {
+			return errors.New("save state id required")
+		}
+
+		saveState, err := s.storage.SaveStateGetById(saveStateId)
+		if err != nil {
+			return err
+		}
+		if len(saveState.Id) == 0 {
+			return errors.New("save state not found")
+		}
+
+		context := c.(*PlaytimeContext)
+		if context.user == nil {
+			return errors.New("authentication required")
+		}
+		if context.user.Id != saveState.UserId {
+			return errors.New("save state belongs to different user")
+		}
+
+		game, err := s.storage.GameGetById(saveState.GameId)
+		if err != nil {
+			return err
+		}
+		if len(game.Id) == 0 {
+			return errors.New("save state game not found")
+		}
+		if context.user.Id != game.UserId {
+			return errors.New("save state game belongs to different user")
+		}
+
+		context.game = &game
+		context.saveState = &saveState
 
 		return next(context)
 	}

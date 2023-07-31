@@ -95,6 +95,27 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	usersDelete.GET("", s.userDeleteForm)
 	usersDelete.POST("", s.userDeleteSubmit)
 
+	//games
+	games := e.Group("/games")
+	games.Use(s.authenticationRequiredMiddleware)
+	games.GET("", s.games)
+	games.POST("/upload", s.gameUpload)
+
+	gamesEdit := games.Group("/edit/:game_id")
+	gamesEdit.Use(s.gameRequiredMiddleware)
+	gamesEdit.GET("", s.gameEditForm)
+	gamesEdit.POST("", s.gameEditSubmit)
+
+	gamesDelete := games.Group("/delete/game_id")
+	gamesDelete.Use(s.gameRequiredMiddleware)
+	gamesDelete.GET("", s.gameDeleteForm)
+	gamesDelete.POST("", s.gameDeleteSubmit)
+
+	uploadBatch := games.Group("/upload-batch/:upload_batch_id")
+	uploadBatch.Use(s.uploadBatchRequiredMiddleware)
+	uploadBatch.GET("", s.gameUploadBatchForm)
+	uploadBatch.POST("", s.gameUploadBatchSubmit)
+
 	return s
 }
 
