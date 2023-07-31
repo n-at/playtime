@@ -270,10 +270,10 @@ func gameSorted(games []Game) []Game {
 	sort.Slice(games, func(i, j int) bool {
 		gameI := &games[i]
 		gameJ := &games[j]
-		if gameI.Type == gameJ.Type {
+		if gameI.Platform == gameJ.Platform {
 			return gameI.Name < gameJ.Name
 		}
-		return gameI.Type < gameJ.Type
+		return gameI.Platform < gameJ.Platform
 	})
 	return games
 }

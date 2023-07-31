@@ -142,6 +142,10 @@ var (
 			Id:   "atari2600",
 			Name: "Atari 2600",
 		},
+		"": {
+			Id:   "",
+			Name: "Undefined",
+		},
 	}
 
 	Cores = map[string][]string{

@@ -1,0 +1,79 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Games - playtime
+{% endblock %}
+
+{% block assets %}
+    <script src="/assets/upload.js"></script>
+{% endblock %}
+
+{% block content %}
+    <h1>Games</h1>
+    <hr>
+
+    <p>
+        <button id="btn-upload" type="button" class="btn btn-outline-success">
+            <i class="bi bi-plus-circle"></i> Upload games
+        </button>
+    </p>
+
+    {% if games_by_platform %}
+        {% for item in games_by_platform %}
+            <h3>{{ item.Platform.Name }}</h3>
+            <div class="list-group list-group-hover mb-3">
+                {% for game in item.Games %}
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-9">
+                                <div class="lead">{{ game.Name }}</div>
+                            </div>
+                            <div class="col-lg-2 col-md-3 mt-3 mt-md-0 text-end text-nowrap">
+                                <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}" title="Play">
+                                    <i class="bi bi-joystick"></i>
+                                </a>
+                                <div class="d-inline-block dropdown">
+                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                            type="button"
+                                            id="game-menu-{{game.Id}}"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                        <i class="bi bi-three-dots"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="game-menu-{{game.Id}}">
+                                        <li>
+                                            <a class="dropdown-item" href="/play/{{ game.Id }}">Play</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/games/save-states/{{ game.Id }}">Save states</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/games/edit/{{game.Id}}">Edit</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/games/delete/{{game.Id}}">Delete</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        {% include "includes/empty_state.twig" with icon="bi bi-joystick" text="No games found" %}
+    {% endif %}
+
+    <form id="upload" action="/games/upload" method="post" enctype="multipart/form-data" class="d-none">
+        <input type="file" id="games" name="games" multiple>
+    </form>
+
+    <div id="drop-overlay" class="bg-body-tertiary d-none">
+        <div class="drop-overlay-caption text-center">
+            <i class="bi bi-download"></i>
+            <p>Drop files to upload</p>
+        </div>
+    </div>
+
+{% endblock %}

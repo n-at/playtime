@@ -28,7 +28,7 @@ type Game struct {
 	Name                     string
 	OriginalFileName         string
 	OriginalFileExtension    string
-	Type                     string `boltholdIndex:"Type"`
+	Platform                 string `boltholdIndex:"Platform"`
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
 }

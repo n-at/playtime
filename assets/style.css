@@ -15,3 +15,20 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 .card .card-body .card-body-collapse {
     padding: 0 !important;
 }
+
+#drop-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+.drop-overlay-caption {
+    margin-top: 45vh;
+}
+.drop-overlay-caption i {
+    font-size: 5em;
+}
+.drop-overlay-caption p {
+    font-size: 1.5em;
+}
