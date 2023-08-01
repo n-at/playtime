@@ -132,10 +132,35 @@ func (s *Server) gameUploadBatchSubmit(c echo.Context) error {
 }
 
 func (s *Server) gameEditForm(c echo.Context) error {
-	return nil //TODO
+	context := c.(*PlaytimeContext)
+
+	return c.Render(http.StatusOK, "game_edit", pongo2.Context{
+		"user":      context.user,
+		"game":      context.game,
+		"platforms": sortedPlatforms(),
+	})
 }
 
 func (s *Server) gameEditSubmit(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+
+	game := context.game
+	game.Name = c.FormValue("name")
+	game.Platform = c.FormValue("platform")
+	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
+
+	if _, err := s.storage.GameSave(*game); err != nil {
+		return err
+	}
+
+	return c.Redirect(http.StatusFound, "/games")
+}
+
+func (s *Server) gameEmulationSettingsForm(c echo.Context) error {
+	return nil
+}
+
+func (s *Server) gameEmulationSettingsSubmit(c echo.Context) error {
 	return nil
 }
 

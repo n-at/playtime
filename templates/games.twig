@@ -50,6 +50,11 @@
                                         <li>
                                             <a class="dropdown-item" href="/games/save-states/{{ game.Id }}">Save states</a>
                                         </li>
+                                        {% if game.OverrideEmulatorSettings %}
+                                        <li>
+                                            <a class="dropdown-item" href="/games/emulation-settings/{{ game.Id }}">Emulation settings</a>
+                                        </li>
+                                        {% endif %}
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

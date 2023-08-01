@@ -101,6 +101,11 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	games.GET("", s.games)
 	games.POST("/upload", s.gameUpload)
 
+	gamesEmulationSettings := games.Group("/emulation-settings/:game_id")
+	gamesEmulationSettings.Use(s.gameRequiredMiddleware)
+	gamesEmulationSettings.GET("", s.gameEmulationSettingsForm)
+	gamesEmulationSettings.POST("", s.gameEmulationSettingsSubmit)
+
 	gamesEdit := games.Group("/edit/:game_id")
 	gamesEdit.Use(s.gameRequiredMiddleware)
 	gamesEdit.GET("", s.gameEditForm)

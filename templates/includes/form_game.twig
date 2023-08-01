@@ -1,0 +1,23 @@
+<div class="form-floating mb-3">
+    <input type="text" id="name" name="name" class="form-control" value="{{game.Name}}" placeholder="Game name" required>
+    <label for="name">Name</label>
+</div>
+<div class="form-floating mb-3">
+    <select id="platform" name="platform" class="form-select">
+        <option value="">Undefined</option>
+        {% for platform in platforms %}
+            <option value="{{ platform.Type }}" {% if platform.Type == game.Platform %}selected{% endif %}>{{ platform.Platform.Name }}</option>
+        {% endfor %}
+    </select>
+    <label for="platform">Platform</label>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="override-settings" name="override-settings" value="1" class="form-check-input" {% if game.OverrideEmulatorSettings %}checked{% endif %}>
+        <label for="override-settings" class="form-check-label">Override emulation settings</label>
+    </div>
+</div>
+<hr>
+<div class="mb-3 text-end">
+    <button type="submit" class="btn btn-primary">Save</button>
+</div>
