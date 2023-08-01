@@ -122,6 +122,7 @@ func (s *Server) gameUploadBatchSubmit(c echo.Context) error {
 	for _, game := range games {
 		game.Name = c.FormValue(fmt.Sprintf("name-%s", game.Id))
 		game.Platform = c.FormValue(fmt.Sprintf("platform-%s", game.Id))
+		game.EmulatorSettings = storage.DefaultEmulatorSettings(game.Platform)
 
 		if _, err := s.storage.GameSave(game); err != nil {
 			return err
@@ -146,8 +147,13 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 
 	game := context.game
 	game.Name = c.FormValue("name")
-	game.Platform = c.FormValue("platform")
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
+
+	newPlatform := c.FormValue("platform")
+	if game.Platform != newPlatform {
+		game.Platform = newPlatform
+		game.EmulatorSettings = storage.DefaultEmulatorSettings(newPlatform)
+	}
 
 	if _, err := s.storage.GameSave(*game); err != nil {
 		return err
@@ -157,11 +163,41 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 }
 
 func (s *Server) gameEmulationSettingsForm(c echo.Context) error {
-	return nil
+	context := c.(*PlaytimeContext)
+
+	if !context.game.OverrideEmulatorSettings {
+		return errors.New("game does not override emulation settings")
+	}
+
+	platform := context.game.Platform
+
+	return c.Render(http.StatusOK, "game_emulation_settings", pongo2.Context{
+		"user":     context.user,
+		"game":     context.game,
+		"settings": context.game.EmulatorSettings,
+		"shaders":  storage.Shaders,
+		"platform": storage.Platforms[platform],
+		"bioses":   storage.Bioses[platform],
+		"cores":    storage.Cores[platform],
+	})
 }
 
 func (s *Server) gameEmulationSettingsSubmit(c echo.Context) error {
-	return nil
+	context := c.(*PlaytimeContext)
+
+	game := context.game
+
+	if !game.OverrideEmulatorSettings {
+		return errors.New("game does not override emulation settings")
+	}
+
+	game.EmulatorSettings = settingsCollectFormData(c)
+
+	if _, err := s.storage.GameSave(*game); err != nil {
+		return err
+	}
+
+	return c.Redirect(http.StatusFound, "/games")
 }
 
 func (s *Server) gameDeleteForm(c echo.Context) error {
