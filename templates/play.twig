@@ -23,7 +23,28 @@
 </head>
 <body>
 
-<div id='game'></div>
+<div id="header" class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-4">
+            <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
+                <i class="bi bi-chevron-left"></i>
+            </a>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                <i class="bi bi-controller"></i>
+            </button>
+        </div>
+        <div class="col-4">
+
+        </div>
+        <div class="col-4 text-end">
+
+        </div>
+    </div>
+</div>
+
+<div id="container">
+    <div id='game'></div>
+</div>
 
 <script>
     // EJS_DEBUG_XX = true;
@@ -53,6 +74,8 @@
 </script>
 
 <script src="/assets/emulatorjs/loader.js"></script>
+
+{% include "includes/play_control_scheme.twig" %}
 
 </body>
 </html>

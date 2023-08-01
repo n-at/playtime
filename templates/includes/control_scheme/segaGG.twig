@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-8 text-center">
+        <img src="/assets/img/controller/segaGG.png" alt="Sega Game Gear" class="img-fluid ps-3 pe-3">
+    </div>
+    <div class="col-4">
+        {% include "control.twig" with btn_id="b"                   btn_title="Button 1"            btn_value=controls.B %}
+        {% include "control.twig" with btn_id="a"                   btn_title="Button 2"            btn_value=controls.A %}
+        {% include "control.twig" with btn_id="start"               btn_title="Start"               btn_value=controls.Start %}
+        {% include "control.twig" with btn_id="up"                  btn_title="Up"                  btn_value=controls.Up %}
+        {% include "control.twig" with btn_id="down"                btn_title="Down"                btn_value=controls.Down %}
+        {% include "control.twig" with btn_id="left"                btn_title="Left"                btn_value=controls.Left %}
+        {% include "control.twig" with btn_id="right"               btn_title="Right"               btn_value=controls.Right %}
+        {% include "control.twig" with btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.QuickSaveState %}
+        {% include "control.twig" with btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.QuickLoadState %}
+        {% include "control.twig" with btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.ChangeStateSlot %}
+    </div>
+</div>

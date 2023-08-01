@@ -1,0 +1,38 @@
+{# platform_id, player, controls #}
+
+{% if platform_id == "nes" %}
+    {% include "nes.twig" %}
+{% elif platform_id == "snes" %}
+    {% include "snes.twig" %}
+{% elif platform_id == "n64" %}
+    {% include "n64.twig" %}
+{% elif platform_id == "gb" %}
+    {% include "gb.twig" %}
+{% elif platform_id == "gba" %}
+    {% include "gba.twig" %}
+{% elif platform_id == "nds" %}
+    {% include "nds.twig" %}
+{% elif platform_id == "vb" %}
+    {% include "vb.twig" %}
+{% elif platform_id == "segaMS" %}
+    {% include "segaMS.twig" %}
+{% elif platform_id == "segaMD" or platform_id == "segaCD" or platform_id == "sega32x" %}
+    {% include "segaMD.twig" %}
+{% elif platform_id == "segaGG" %}
+    {% include "segaGG.twig" %}
+{% elif platform_id == "segaSaturn" %}
+    {% include "segaSaturn.twig" %}
+{% elif platform_id == "psx" %}
+    {% include "psx.twig" %}
+{% elif platform_id == "3do" %}
+    {% include "3do.twig" %}
+{% elif platform_id == "atari7800" %}
+    {% include "atari7800.twig" %}
+{% elif platform_id == "atari2600" %}
+    {% include "atari2600.twig" %}
+{% elif platform_id == "lynx" %}
+    {% include "lynx.twig" %}
+{% else %}
+    {# a5200, jaguar, mame2003, arcade #}
+    {% include "default.twig" %}
+{% endif %}

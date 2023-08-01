@@ -1,0 +1,48 @@
+<div id="modal-control-scheme" class="modal modal-lg" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Controls</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="tab-content" id="controls-keyboard">
+                    <div class="tab-pane active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
+                        {% set platform_id = game.Platform %}
+                        {% set input = "keyboard" %}
+                        {% set player = "0" %}
+                        {% set controls_group = emulator_settings.Controls[0] %}
+                        {% set controls = controls_group.Keyboard %}
+                        {% include "control_scheme/control_scheme.twig" %}
+                    </div>
+                    <div class="tab-pane" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
+                        {% set platform_id = game.Platform %}
+                        {% set input = "keyboard" %}
+                        {% set player = "1" %}
+                        {% set controls_group = emulator_settings.Controls[1] %}
+                        {% set controls = controls_group.Keyboard %}
+                        {% include "control_scheme/control_scheme.twig" %}
+                    </div>
+                    <div class="tab-pane" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
+                        {% set platform_id = game.Platform %}
+                        {% set input = "keyboard" %}
+                        {% set player = "2" %}
+                        {% set controls_group = emulator_settings.Controls[2] %}
+                        {% set controls = controls_group.Keyboard %}
+                        {% include "control_scheme/control_scheme.twig" %}
+                    </div>
+                    <div class="tab-pane" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
+                        {% set platform_id = game.Platform %}
+                        {% set input = "keyboard" %}
+                        {% set player = "3" %}
+                        {% set controls_group = emulator_settings.Controls[3] %}
+                        {% set controls = controls_group.Keyboard %}
+                        {% include "control_scheme/control_scheme.twig" %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
