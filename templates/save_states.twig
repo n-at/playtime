@@ -20,6 +20,7 @@
                             <p>
                                 {{ state.Created.Format("02.01.2006 15:04:05") }}
                             </p>
+                            <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="card-link">Play</a>
                             <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="card-link">Delete</a>
                         </div>
                     </div>

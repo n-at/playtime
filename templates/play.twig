@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+
+    <link rel="stylesheet" href="/assets/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/node_modules/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/style.css">
+    <link rel="stylesheet" href="/assets/play.css">
+
+    <script src="/assets/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    {% block assets %}{% endblock %}
+
+    <title>Play {{ game.Name }} - playtime</title>
+</head>
+<body>
+
+<div id='game'></div>
+
+<script>
+    // EJS_DEBUG_XX = true;
+    EJS_pathtodata = '/assets/emulatorjs/';
+    EJS_player = '#game';
+    EJS_core = '{{ emulator_settings.Core }}';
+    EJS_oldCores = {{ emulator_settings.OldCores | lower }};
+    EJS_gameUrl = '{{ game.DownloadLink }}';
+    EJS_gameName = '{{ game.Name }}';
+    EJS_color = '{{ emulator_settings.Color }}';
+    EJS_CacheLimit = {{ emulator_settings.CacheLimit }};
+    EJS_language = '{{ settings.Language }}';
+    EJS_volume = {{ emulator_settings.Volume }};
+    EJS_startOnLoaded = true;
+
+    {% if bios.Url %}
+        EJS_biosUrl = '{{ bios.Url }}';
+    {% endif %}
+
+    {% if save_state.StateFileDownloadLink %}
+        EJS_loadStateURL = '{{ save_state.EJS_loadStateURL }}';
+    {% endif %}
+
+    {% include "includes/play_controls.twig" %}
+    {% include "includes/play_buttons.twig" %}
+    {% include "includes/play_default_options.twig" %}
+</script>
+
+<script src="/assets/emulatorjs/loader.js"></script>
+
+</body>
+</html>

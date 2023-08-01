@@ -57,6 +57,8 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 
 	e.GET("/", s.index)
 
+	e.HEAD(UploadsWebRoot+"*", s.uploadsHead)
+
 	//authentication
 	e.GET("/login", s.loginForm)
 	e.POST("/login", s.loginSubmit)
@@ -129,6 +131,13 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	saveStateDelete.Use(s.saveStateRequiredMiddleware)
 	saveStateDelete.GET("", s.saveStateDeleteForm)
 	saveStateDelete.POST("", s.saveStateDeleteSubmit)
+
+	//play
+
+	play := e.Group("/play/:game_id")
+	play.Use(s.authenticationRequiredMiddleware)
+	play.Use(s.gameRequiredMiddleware)
+	play.GET("", s.play)
 
 	return s
 }

@@ -36,12 +36,7 @@ func prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {
-		uploadPath, err := getUploadPath(game.Id)
-		if err != nil {
-			uploadPath = ""
-		}
-		game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
-
+		game = prepareGame(game)
 		_, ok := gamesByPlatform[game.Platform]
 		if !ok {
 			gamesByPlatform[game.Platform] = &gameByPlatform{
@@ -61,6 +56,17 @@ func prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	})
 
 	return platforms
+}
+
+func prepareGame(game storage.Game) storage.Game {
+	uploadPath, err := getUploadPath(game.Id)
+	if err != nil {
+		uploadPath = ""
+	}
+
+	game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
+
+	return game
 }
 
 func guessGameProperties(games []storage.Game) []storage.Game {
@@ -117,4 +123,18 @@ func prepareSaveState(state storage.SaveState) storage.SaveState {
 	state.ScreenshotDownloadLink = fmt.Sprintf("%s/%s/%s.png", UploadsWebRoot, uploadUrl, state.Id)
 
 	return state
+}
+
+func startsWith(s, prefix string) bool {
+	if len(s) < len(prefix) {
+		return false
+	}
+
+	for i := 0; i < len(prefix); i++ {
+		if s[i] != prefix[i] {
+			return false
+		}
+	}
+
+	return true
 }
