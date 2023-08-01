@@ -121,6 +121,15 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	uploadBatch.GET("", s.gameUploadBatchForm)
 	uploadBatch.POST("", s.gameUploadBatchSubmit)
 
+	saveStates := games.Group("/save-states/:game_id")
+	saveStates.Use(s.gameRequiredMiddleware)
+	saveStates.GET("", s.saveStates)
+
+	saveStateDelete := saveStates.Group("/delete/:save_state_id")
+	saveStateDelete.Use(s.saveStateRequiredMiddleware)
+	saveStateDelete.GET("", s.saveStateDeleteForm)
+	saveStateDelete.POST("", s.saveStateDeleteSubmit)
+
 	return s
 }
 

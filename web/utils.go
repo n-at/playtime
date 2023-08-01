@@ -99,3 +99,22 @@ func guessGamePlatform(ext string) string {
 	}
 	return ""
 }
+
+func prepareSaveStates(states []storage.SaveState) []storage.SaveState {
+	for i := 0; i < len(states); i++ {
+		states[i] = prepareSaveState(states[i])
+	}
+	return states
+}
+
+func prepareSaveState(state storage.SaveState) storage.SaveState {
+	uploadUrl, err := getUploadPath(state.Id)
+	if err != nil {
+		uploadUrl = ""
+	}
+
+	state.StateFileDownloadLink = fmt.Sprintf("%s/%s/%s.sav", UploadsWebRoot, uploadUrl, state.Id)
+	state.ScreenshotDownloadLink = fmt.Sprintf("%s/%s/%s.png", UploadsWebRoot, uploadUrl, state.Id)
+
+	return state
+}

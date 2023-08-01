@@ -1,0 +1,33 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Save states - playtime
+{% endblock %}
+
+{% block content %}
+
+    <h1>Save states</h1>
+    <h2>{{ game.Name }}</h2>
+    <hr>
+
+    {% if states %}
+        <div class="row">
+            {% for state in states %}
+                <div class="col-3">
+                    <div class="card">
+                        <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="Screenshot">
+                        <div class="card-body">
+                            <p>
+                                {{ state.Created.Format("02.01.2006 15:04:05") }}
+                            </p>
+                            <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="card-link">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        {% include "includes/empty_state.twig" with icon="bi bi-save" text="No save states found" %}
+    {% endif %}
+
+{% endblock %}

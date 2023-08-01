@@ -1,0 +1,26 @@
+{% extends "includes/layout.twig" %}
+
+{% block title %}
+    Delete save state - playtime
+{% endblock %}
+
+{% block content %}
+
+    <h1>Delete save state</h1>
+    <h2>{{ game.Name }}</h2>
+    <hr>
+
+    <p class="lead">
+        Confirm deletion of save state &quot;{{ state.Created.Format("02.01.2006 15:04:05") }}&quot;
+    </p>
+    <hr>
+
+    <form method="post" action="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" enctype="application/x-www-form-urlencoded">
+        <div class="text-end mb-3">
+            <button type="submit" class="btn btn-danger">
+                Delete save state
+            </button>
+        </div>
+    </form>
+
+{% endblock %}
