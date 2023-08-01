@@ -56,7 +56,7 @@ func DefaultSettings(userId string) Settings {
 		Language:         "en",
 		EmulatorSettings: make(map[string]EmulatorSettings),
 	}
-	for _, system := range Systems {
+	for _, system := range PlatformIds {
 		settings.EmulatorSettings[system] = DefaultEmulatorSettings(system)
 	}
 	return settings

@@ -22,7 +22,7 @@ func (s *Server) games(c echo.Context) error {
 
 	return c.Render(http.StatusOK, "games", pongo2.Context{
 		"user":              context.user,
-		"games_by_platform": s.prepareGamesByPlatform(games),
+		"games_by_platform": prepareGamesByPlatform(games),
 	})
 }
 
@@ -106,7 +106,7 @@ func (s *Server) gameUploadBatchForm(c echo.Context) error {
 	return c.Render(http.StatusOK, "upload_batch", pongo2.Context{
 		"user":         context.user,
 		"upload_batch": context.uploadBatch,
-		"games":        games,
+		"games":        guessGameProperties(games),
 		"platforms":    sortedPlatforms(),
 	})
 }
@@ -132,7 +132,7 @@ func (s *Server) gameUploadBatchSubmit(c echo.Context) error {
 }
 
 func (s *Server) gameEditForm(c echo.Context) error {
-	return nil
+	return nil //TODO
 }
 
 func (s *Server) gameEditSubmit(c echo.Context) error {

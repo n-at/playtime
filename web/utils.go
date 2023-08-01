@@ -3,6 +3,7 @@ package web
 import (
 	"playtime/storage"
 	"sort"
+	"strings"
 )
 
 type platformValue struct {
@@ -13,7 +14,7 @@ type platformValue struct {
 func sortedPlatforms() []platformValue {
 	var platformValues []platformValue
 
-	for _, system := range storage.Systems {
+	for _, system := range storage.PlatformIds {
 		platformValues = append(platformValues, platformValue{
 			Type:     system,
 			Platform: storage.Platforms[system],
@@ -30,7 +31,7 @@ type gameByPlatform struct {
 	Games    []storage.Game
 }
 
-func (s *Server) prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
+func prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {
@@ -53,4 +54,41 @@ func (s *Server) prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	})
 
 	return platforms
+}
+
+func guessGameProperties(games []storage.Game) []storage.Game {
+	var output []storage.Game
+
+	for _, game := range games {
+		game.Name = cleanupName(game.Name)
+		game.Platform = guessGamePlatform(game.OriginalFileExtension)
+		output = append(output, game)
+	}
+
+	return output
+}
+
+func cleanupName(name string) string {
+	if len(name) == 0 {
+		return name
+	}
+
+	parts := strings.Split(name, "_")
+	name = strings.Join(parts, " ")
+	parts = strings.Split(name, ".")
+	if len(parts) > 1 {
+		parts = parts[0 : len(parts)-1]
+	}
+	return strings.Join(parts, "")
+}
+
+func guessGamePlatform(ext string) string {
+	for _, platform := range storage.Platforms {
+		for _, extension := range platform.Extensions {
+			if extension == ext {
+				return platform.Id
+			}
+		}
+	}
+	return ""
 }

@@ -117,8 +117,9 @@ type EmulatorButtons struct {
 }
 
 type Platform struct {
-	Id   string
-	Name string
+	Id         string
+	Name       string
+	Extensions []string
 }
 
 type Bios struct {

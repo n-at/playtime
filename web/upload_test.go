@@ -2,7 +2,7 @@ package web
 
 import "testing"
 
-func TestGetUploadPath(t *testing.T) {
+func Test_getUploadPath(t *testing.T) {
 	// Test empty input
 	emptyPath, err := getUploadPath("")
 	if emptyPath != "" || err == nil {
@@ -34,7 +34,7 @@ func TestGetUploadPath(t *testing.T) {
 	}
 }
 
-func TestGetFileExtension(t *testing.T) {
+func Test_getFileExtension(t *testing.T) {
 	// Test empty input
 	emptyName := ""
 	expectedEmptyResult := ""
