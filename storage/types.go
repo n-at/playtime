@@ -31,13 +31,16 @@ type Game struct {
 	Platform                 string `boltholdIndex:"Platform"`
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
+	DownloadLink             string
 }
 
 type SaveState struct {
-	Id      string `boltholdKey:"Id"`
-	UserId  string `boltholdIndex:"UserId"`
-	GameId  string `boltholdIndex:"GameId"`
-	Created time.Time
+	Id                     string `boltholdKey:"Id"`
+	UserId                 string `boltholdIndex:"UserId"`
+	GameId                 string `boltholdIndex:"GameId"`
+	Created                time.Time
+	StateFileDownloadLink  string
+	ScreenshotDownloadLink string
 }
 
 type UploadBatch struct {

@@ -1,6 +1,7 @@
 package web
 
 import (
+	"fmt"
 	"playtime/storage"
 	"sort"
 	"strings"
@@ -35,6 +36,12 @@ func prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {
+		uploadPath, err := getUploadPath(game.Id)
+		if err != nil {
+			uploadPath = ""
+		}
+		game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
+
 		_, ok := gamesByPlatform[game.Platform]
 		if !ok {
 			gamesByPlatform[game.Platform] = &gameByPlatform{
