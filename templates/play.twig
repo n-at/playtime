@@ -30,14 +30,21 @@
             <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
                 <i class="bi bi-chevron-left"></i>
             </a>
-            <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
-                <i class="bi bi-controller"></i>
+
+            <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary ms-3" title="Save state">
+                <i class="bi bi-save"></i>
             </button>
-            <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary" title="Save state">
-                <i class="bi bi-download"></i>
+            <button type="button" id="btn-load-state-latest" class="btn btn-sm btn-outline-secondary" title="Load latest state">
+                <i class="bi bi-upload"></i>
+            </button>
+            <button type="button" id="btn-load-state" class="btn btn-sm btn-outline-secondary" title="Load state">
+                <i class="bi bi-collection"></i>
             </button>
         </div>
         <div class="col-6 text-end">
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                <i class="bi bi-controller"></i>
+            </button>
             {% include "includes/game_menu.twig" with game_menu_title=true game_menu_play=false %}
         </div>
     </div>
@@ -48,8 +55,10 @@
 </div>
 
 <script>
-    // EJS_DEBUG_XX = true;
     GameId = '{{ game.Id }}';
+    LatestStateUrl = '{{ latest_save_state.StateFileDownloadLink }}';
+
+    // EJS_DEBUG_XX = true;
     EJS_pathtodata = '/assets/emulatorjs/';
     EJS_player = '#game';
     EJS_core = '{{ emulator_settings.Core }}';

@@ -114,6 +114,10 @@ func prepareSaveStates(states []storage.SaveState) []storage.SaveState {
 }
 
 func prepareSaveState(state storage.SaveState) storage.SaveState {
+	if len(state.Id) == 0 {
+		return state
+	}
+
 	uploadUrl, err := getUploadPath(state.Id)
 	if err != nil {
 		uploadUrl = ""

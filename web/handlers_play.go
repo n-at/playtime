@@ -40,7 +40,6 @@ func (s *Server) play(c echo.Context) error {
 		if saveState.UserId != context.user.Id {
 			return errors.New("save state belongs to different user")
 		}
-		saveState = prepareSaveState(saveState)
 	}
 
 	bios := storage.Bios{}
@@ -52,12 +51,18 @@ func (s *Server) play(c echo.Context) error {
 		}
 	}
 
+	latestSaveState, err := s.storage.SaveStateGetLatestByGameId(game.Id)
+	if err != nil {
+		return err
+	}
+
 	return c.Render(http.StatusOK, "play", pongo2.Context{
 		"user":              context.user,
 		"game":              game,
 		"settings":          settings,
 		"emulator_settings": emulatorSettings,
 		"bios":              bios,
-		"save_state":        saveState,
+		"save_state":        prepareSaveState(saveState),
+		"latest_save_state": prepareSaveState(latestSaveState),
 	})
 }

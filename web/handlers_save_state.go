@@ -55,7 +55,9 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 		return err
 	}
 
-	return c.String(http.StatusOK, saveState.Id)
+	saveState = prepareSaveState(saveState)
+
+	return c.JSON(http.StatusOK, saveState)
 }
 
 func (s *Server) saveStateDeleteForm(c echo.Context) error {
@@ -76,4 +78,17 @@ func (s *Server) saveStateDeleteSubmit(c echo.Context) error {
 	}
 
 	return c.Redirect(http.StatusFound, fmt.Sprintf("/games/save-states/%s", context.game.Id))
+}
+
+func (s *Server) saveStateList(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+
+	states, err := s.storage.SaveStateGetByGameId(context.game.Id)
+	if err != nil {
+		return err
+	}
+
+	states = prepareSaveStates(states)
+
+	return c.JSON(http.StatusOK, states)
 }

@@ -327,6 +327,17 @@ func (s *Storage) SaveStateGetByGameId(gameId string) ([]SaveState, error) {
 	return saveStateSorted(ss), nil
 }
 
+func (s *Storage) SaveStateGetLatestByGameId(gameId string) (SaveState, error) {
+	states, err := s.SaveStateGetByGameId(gameId)
+	if err != nil {
+		return SaveState{}, err
+	}
+	if len(states) == 0 {
+		return SaveState{}, nil
+	}
+	return states[0], nil
+}
+
 func (s *Storage) SaveStateDeleteById(id string) error {
 	return s.store.Delete(id, SaveState{})
 }
