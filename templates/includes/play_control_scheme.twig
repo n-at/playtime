@@ -56,36 +56,20 @@
                 </ul>
                 <div class="tab-content" id="controls-keyboard">
                     <div class="tab-pane active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
-                        {% set platform_id = game.Platform %}
-                        {% set input = "keyboard" %}
-                        {% set player = "0" %}
                         {% set controls_group = emulator_settings.Controls[0] %}
-                        {% set controls = controls_group.Keyboard %}
-                        {% include "control_scheme/control_scheme.twig" %}
+                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="0" controls=controls_group.Keyboard %}
                     </div>
                     <div class="tab-pane" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
-                        {% set platform_id = game.Platform %}
-                        {% set input = "keyboard" %}
-                        {% set player = "1" %}
                         {% set controls_group = emulator_settings.Controls[1] %}
-                        {% set controls = controls_group.Keyboard %}
-                        {% include "control_scheme/control_scheme.twig" %}
+                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="1" controls=controls_group.Keyboard %}
                     </div>
                     <div class="tab-pane" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
-                        {% set platform_id = game.Platform %}
-                        {% set input = "keyboard" %}
-                        {% set player = "2" %}
                         {% set controls_group = emulator_settings.Controls[2] %}
-                        {% set controls = controls_group.Keyboard %}
-                        {% include "control_scheme/control_scheme.twig" %}
+                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="2" controls=controls_group.Keyboard %}
                     </div>
                     <div class="tab-pane" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
-                        {% set platform_id = game.Platform %}
-                        {% set input = "keyboard" %}
-                        {% set player = "3" %}
                         {% set controls_group = emulator_settings.Controls[3] %}
-                        {% set controls = controls_group.Keyboard %}
-                        {% include "control_scheme/control_scheme.twig" %}
+                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="3" controls=controls_group.Keyboard %}
                     </div>
                 </div>
 
