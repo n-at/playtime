@@ -1,0 +1,18 @@
+<div id="modal-load-state" class="modal modal-lg" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Load game state</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div id="load-state-list" class="row"></div>
+
+                <div id="load-state-empty" class="d-none">
+                    {% include "empty_state.twig" with icon="bi bi-save" text="No save states found" %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
