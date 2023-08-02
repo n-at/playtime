@@ -13,15 +13,25 @@
     {% if states %}
         <div class="row">
             {% for state in states %}
-                <div class="col-3">
+                <div class="col-3 mb-3">
                     <div class="card">
                         <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="Screenshot">
                         <div class="card-body">
-                            <p>
+                            <p class="text-center">
                                 {{ state.Created.Format("02.01.2006 15:04:05") }}
                             </p>
-                            <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="card-link">Play</a>
-                            <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="card-link">Delete</a>
+                            <div class="text-end">
+                                <a href="/play/{{ game.Id }}?state={{ state.Id }}"
+                                   class="btn btn-sm btn-outline-primary">
+                                   <i class="bi bi-joystick"></i> Play
+                                </a>
+                                <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}"
+                                   class="btn btn-sm btn-outline-danger"
+                                   title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+
                         </div>
                     </div>
                 </div>

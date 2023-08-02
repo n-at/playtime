@@ -3,7 +3,10 @@ package web
 import (
 	"errors"
 	"fmt"
+	"io"
+	"mime/multipart"
 	"os"
+	"path"
 	"regexp"
 	"strings"
 )
@@ -58,4 +61,35 @@ func getFileExtension(name string) string {
 	}
 
 	return parts[len(parts)-1]
+}
+
+func (s *Server) saveUploadedFile(file *multipart.FileHeader, id, extension string) error {
+	uploadPath, err := s.prepareUploadPath(id)
+	if err != nil {
+		return err
+	}
+
+	fileName := id
+	if len(extension) != 0 {
+		fileName += "." + extension
+	}
+	fileName = path.Join(uploadPath, fileName)
+
+	src, err := file.Open()
+	if err != nil {
+		return err
+	}
+	defer src.Close()
+
+	dst, err := os.Create(fileName)
+	if err != nil {
+		return err
+	}
+	defer dst.Close()
+
+	if _, err := io.Copy(dst, src); err != nil {
+		return err
+	}
+
+	return nil
 }

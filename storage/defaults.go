@@ -761,19 +761,19 @@ var (
 		Restart:      true,
 		Mute:         true,
 		FullScreen:   true,
-		SaveState:    true,
-		LoadState:    true,
 		Volume:       true,
-		QuickSave:    true,
-		QuickLoad:    true,
 		Screenshot:   true,
+		SaveState:    false,
+		LoadState:    false,
+		QuickSave:    false, //only to save in browser
+		QuickLoad:    false, //only to save in browser
 		ScreenRecord: false, //not implemented in EJS
-		Settings:     false,
-		Gamepad:      false,
-		Cheat:        false,
+		Settings:     false, //managed in emulation settings
+		Gamepad:      false, //managed in emulation settings
+		Cheat:        false, //not implemented in playtime
 		SaveSavFiles: false,
 		LoadSavFiles: false,
-		CacheManager: false,
+		CacheManager: false, //managed in emulation settings
 	}
 )
 

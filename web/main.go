@@ -126,6 +126,7 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	saveStates := games.Group("/save-states/:game_id")
 	saveStates.Use(s.gameRequiredMiddleware)
 	saveStates.GET("", s.saveStates)
+	saveStates.POST("/upload", s.saveStateUpload)
 
 	saveStateDelete := saveStates.Group("/delete/:save_state_id")
 	saveStateDelete.Use(s.saveStateRequiredMiddleware)

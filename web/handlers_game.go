@@ -6,9 +6,7 @@ import (
 	"github.com/flosch/pongo2/v6"
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
-	"io"
 	"net/http"
-	"os"
 	"playtime/storage"
 )
 
@@ -42,12 +40,6 @@ func (s *Server) gameUpload(c echo.Context) error {
 	var gameIds []string
 
 	for _, file := range files {
-		src, err := file.Open()
-		if err != nil {
-			return err
-		}
-		defer src.Close()
-
 		game := storage.Game{
 			Id:                       storage.NewId(),
 			UserId:                   context.user.Id,
@@ -59,19 +51,7 @@ func (s *Server) gameUpload(c echo.Context) error {
 			EmulatorSettings:         storage.DefaultEmulatorSettings(""),
 		}
 
-		uploadPath, err := s.prepareUploadPath(game.Id)
-		if err != nil {
-			return err
-		}
-
-		uploadFilename := fmt.Sprintf("%s%c%s", uploadPath, os.PathSeparator, game.Id)
-		dst, err := os.Create(uploadFilename)
-		if err != nil {
-			return err
-		}
-		defer dst.Close()
-
-		if _, err := io.Copy(dst, src); err != nil {
+		if err := s.saveUploadedFile(file, game.Id, ""); err != nil {
 			return err
 		}
 
