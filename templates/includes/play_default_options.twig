@@ -1,4 +1,7 @@
-EJS_defaultOptions = {
-    shader: '{{ emulator_settings.Shader }}',
-    fps: {% if emulator_settings.FPS %}'show'{% else %}'hide'{% endif %},
-};
+<script>
+    EJS_defaultOptions = {
+        'shader': '{{ emulator_settings.Shader }}',
+        'fps': {% if emulator_settings.FPS %}'show'{% else %}'hide'{% endif %},
+        'virtual-gamepad-left-handed-mode': {% if emulator_settings.VirtualGamepadLeftHand %}'enabled'{% else %}'disabled'{% endif %},
+    };
+</script>

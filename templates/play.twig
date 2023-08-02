@@ -64,11 +64,11 @@
     {% if save_state.StateFileDownloadLink %}
         EJS_loadStateURL = '{{ save_state.EJS_loadStateURL }}';
     {% endif %}
-
-    {% include "includes/play_controls.twig" %}
-    {% include "includes/play_buttons.twig" %}
-    {% include "includes/play_default_options.twig" %}
 </script>
+
+{% include "includes/play_controls.twig" %}
+{% include "includes/play_buttons.twig" %}
+{% include "includes/play_default_options.twig" %}
 
 <script src="/assets/emulatorjs/loader.js"></script>
 

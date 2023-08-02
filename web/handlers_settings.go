@@ -155,6 +155,18 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		}
 	}
 
+	shader := c.FormValue("shader")
+	shaderFound := false
+	for _, item := range storage.Shaders {
+		if item.Value == shader {
+			shaderFound = true
+		}
+	}
+	if !shaderFound {
+		log.Warnf("wrong shader value: %s", shader)
+		shader = storage.Shaders[0].Value
+	}
+
 	settings := storage.EmulatorSettings{
 		OldCores:               c.FormValue("old-cores") == "1",
 		Core:                   c.FormValue("core"),
@@ -162,7 +174,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		ColorScheme:            c.FormValue("color-scheme"),
 		CacheLimit:             cacheLimit,
 		Volume:                 volume,
-		Shader:                 c.FormValue("shader"),
+		Shader:                 shader,
 		FPS:                    c.FormValue("fps") == "1",
 		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",
 		Buttons:                buttons,

@@ -38,9 +38,9 @@
     <div class="form-floating mb-3">
         <select id="shader" name="shader" class="form-select">
             {% for shader in shaders %}
-                <option value="{{ shader }}"
-                        {% if shader == settings.Shader %}selected{% endif %}
-                        >{{ shader }}</option>
+                <option value="{{ shader.Value }}"
+                        {% if shader.Value == settings.Shader %}selected{% endif %}
+                        >{{ shader.Name }}</option>
             {% endfor %}
         </select>
         <label for="shader">Display shader</label>

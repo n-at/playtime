@@ -132,6 +132,11 @@ type Bios struct {
 	Description string
 }
 
+type Shader struct {
+	Name  string
+	Value string
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 func (u *User) CanControlUsers() bool {
