@@ -32,10 +32,10 @@
             </a>
 
             <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary ms-3" title="Save game state">
-                <i class="bi bi-save"></i>
+                <i class="bi bi-box-arrow-down"></i>
             </button>
             <button type="button" id="btn-load-state-latest" class="btn btn-sm btn-outline-secondary" title="Load latest game state">
-                <i class="bi bi-upload"></i>
+                <i class="bi bi-box-arrow-up"></i>
             </button>
             <button type="button" id="btn-load-state" class="btn btn-sm btn-outline-secondary" title="Load game state">
                 <i class="bi bi-folder2-open"></i>
@@ -56,7 +56,7 @@
 
 <script>
     GameId = '{{ game.Id }}';
-    LatestStateUrl = '{{ latest_save_state.StateFileDownloadLink }}';
+    LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
 
     // EJS_DEBUG_XX = true;
     EJS_pathtodata = '/assets/emulatorjs/';

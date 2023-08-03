@@ -11,7 +11,7 @@ import (
 func (s *Server) play(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	game := prepareGame(*context.game)
+	game := s.prepareGame(*context.game)
 
 	if len(game.Platform) == 0 {
 		return errors.New("game platform is undefined")
@@ -51,11 +51,6 @@ func (s *Server) play(c echo.Context) error {
 		}
 	}
 
-	latestSaveState, err := s.storage.SaveStateGetLatestByGameId(game.Id)
-	if err != nil {
-		return err
-	}
-
 	return c.Render(http.StatusOK, "play", pongo2.Context{
 		"user":              context.user,
 		"game":              game,
@@ -63,6 +58,5 @@ func (s *Server) play(c echo.Context) error {
 		"emulator_settings": emulatorSettings,
 		"bios":              bios,
 		"save_state":        prepareSaveState(saveState),
-		"latest_save_state": prepareSaveState(latestSaveState),
 	})
 }

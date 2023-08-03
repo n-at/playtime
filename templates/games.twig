@@ -29,6 +29,11 @@
                                 <div class="lead">{{ game.Name }}</div>
                             </div>
                             <div class="col-lg-2 col-md-3 mt-3 mt-md-0 text-end text-nowrap">
+                                {% if game.LatestSaveState.StateFileDownloadLink %}
+                                    <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Play from latest save state">
+                                        <i class="bi bi-box-arrow-up"></i>
+                                    </a>
+                                {% endif %}
                                 <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}" title="Play">
                                     <i class="bi bi-joystick"></i>
                                 </a>

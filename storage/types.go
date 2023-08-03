@@ -32,6 +32,7 @@ type Game struct {
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
 	DownloadLink             string
+	LatestSaveState          SaveState
 }
 
 type SaveState struct {

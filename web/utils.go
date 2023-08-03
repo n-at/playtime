@@ -2,6 +2,7 @@ package web
 
 import (
 	"fmt"
+	log "github.com/sirupsen/logrus"
 	"playtime/storage"
 	"sort"
 	"strings"
@@ -32,11 +33,11 @@ type gameByPlatform struct {
 	Games    []storage.Game
 }
 
-func prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
+func (s *Server) prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {
-		game = prepareGame(game)
+		game = s.prepareGame(game)
 		_, ok := gamesByPlatform[game.Platform]
 		if !ok {
 			gamesByPlatform[game.Platform] = &gameByPlatform{
@@ -58,13 +59,19 @@ func prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	return platforms
 }
 
-func prepareGame(game storage.Game) storage.Game {
+func (s *Server) prepareGame(game storage.Game) storage.Game {
 	uploadPath, err := getUploadPath(game.Id)
 	if err != nil {
 		uploadPath = ""
 	}
-
 	game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
+
+	saveState, err := s.storage.SaveStateGetLatestByGameId(game.Id)
+	if err != nil {
+		log.Warnf("prepareGame unable to get latest save state for %s: %s", game.Id, err)
+		saveState = storage.SaveState{}
+	}
+	game.LatestSaveState = prepareSaveState(saveState)
 
 	return game
 }
