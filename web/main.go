@@ -57,6 +57,7 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 
 	e.GET("/", s.index)
 
+	e.HEAD(AssetsWebRoot+"*", s.assetsHead)
 	e.HEAD(UploadsWebRoot+"*", s.uploadsHead)
 
 	//authentication
