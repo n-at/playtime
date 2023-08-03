@@ -32,3 +32,7 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 .drop-overlay-caption p {
     font-size: 1.5em;
 }
+
+#keyboard-control-button, #gamepad-control-button {
+    font-size: 1.5em;
+}

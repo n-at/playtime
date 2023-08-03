@@ -1,0 +1,9 @@
+<div class="form-check">
+    <input type="checkbox"
+           id="button-{{ btn_id }}"
+           name="button-{{ btn_id }}"
+           value="1"
+           class="form-check-input"
+           {% if btn_value %}checked{% endif %}>
+    <label for="button-{{ btn_id }}" class="form-check-label">{{ btn_title }}</label>
+</div>

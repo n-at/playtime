@@ -113,4 +113,14 @@
         },
         {% endfor %}
     };
+
+    for (let player in EJS_defaultControls) {
+        const playerControls = EJS_defaultControls[player];
+        for (let buttonIdx in playerControls) {
+            const button = playerControls[buttonIdx];
+            if (button.value2 == parseInt(button.value2)) {
+                button.value2 = parseInt(button.value2);
+            }
+        }
+    }
 </script>

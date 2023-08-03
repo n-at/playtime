@@ -4,8 +4,14 @@
     <input type="text"
            id="control-{{ input }}-{{ player }}-{{ btn_id }}"
            name="control-{{ input }}-{{ player }}-{{ btn_id }}"
-           class="form-control"
+           class="form-control {{ input }}"
            value="{{ btn_value }}"
-           placeholder="Button value">
+           placeholder="Button value"
+           data-input="{{ inout }}"
+           data-player="{{ player }}"
+           data-btn="{{ btn_id }}"
+           data-title="{{ btn_title }}"
+           readonly
+           style="cursor: pointer">
     <label for="control-{{ input }}-{{ player }}-{{ btn_id }}">{{ btn_title }}</label>
 </div>
