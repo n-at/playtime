@@ -14,7 +14,7 @@ func (s *Server) index(c echo.Context) error {
 
 func (s *Server) loginForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
-	if context.user != nil {
+	if len(context.session.UserId) != 0 {
 		return c.Redirect(http.StatusFound, "/")
 	}
 

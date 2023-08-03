@@ -3,9 +3,7 @@
     <div class="form-floating mb-3">
         <select id="core" name="core" class="form-select">
             {% for core in cores %}
-                <option value="{{ core }}"
-                        {% if core == settings.Core %}selected{% endif %}
-                >{{ core }}</option>
+                <option value="{{ core }}" {% if core == settings.Core %}selected{% endif %}>{{ core }}</option>
             {% endfor %}
         </select>
         <label for="core">Core</label>
@@ -14,9 +12,7 @@
         <select id="bios" name="bios" class="form-select">
             <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
             {% for bios in bioses %}
-                <option value="{{ bios.Name }}"
-                        {% if bios.Name == settings.Bios %}selected{% endif %}
-                >{{ bios.Description }} ({{ bios.Name }})</option>
+                <option value="{{ bios.Name }}" {% if bios.Name == settings.Bios %}selected{% endif %}>{{ bios.Description }} ({{ bios.Name }})</option>
             {% endfor %}
         </select>
         <label for="bios">BIOS</label>
@@ -38,9 +34,7 @@
     <div class="form-floating mb-3">
         <select id="shader" name="shader" class="form-select">
             {% for shader in shaders %}
-                <option value="{{ shader.Value }}"
-                        {% if shader.Value == settings.Shader %}selected{% endif %}
-                        >{{ shader.Name }}</option>
+                <option value="{{ shader.Value }}" {% if shader.Value == settings.Shader %}selected{% endif %}>{{ shader.Name }}</option>
             {% endfor %}
         </select>
         <label for="shader">Display shader</label>
@@ -175,69 +169,61 @@
 </fieldset>
 
 <fieldset>
-    <legend>Keyboard controls</legend>
-    <ul class="nav nav-tabs" id="controls-keyboard-tabs" role="tablist">
+    <legend>Controls</legend>
+    <ul class="nav nav-tabs" id="controls-tabs" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active"
-                    id="keyboard-player-0-tab"
+                    id="controls-player-0-tab"
                     data-bs-toggle="tab"
-                    data-bs-target="#keyboard-player-0"
+                    data-bs-target="#controls-player-0"
                     type="button"
                     role="tab"
-                    aria-controls="keyboard-player-0"
-                    aria-selected="true"
-            >Player 1</button>
+                    aria-controls="controls-player-0"
+                    aria-selected="true">Player 1</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link"
-                    id="keyboard-player-1-tab"
+                    id="controls-player-1-tab"
                     data-bs-toggle="tab"
-                    data-bs-target="#keyboard-player-1"
+                    data-bs-target="#controls-player-1"
                     type="button"
                     role="tab"
-                    aria-controls="keyboard-player-1"
-                    aria-selected="false"
-            >Player 2</button>
+                    aria-controls="controls-player-1"
+                    aria-selected="false">Player 2</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link"
-                    id="keyboard-player-2-tab"
+                    id="controls-player-2-tab"
                     data-bs-toggle="tab"
-                    data-bs-target="#keyboard-player-2"
+                    data-bs-target="#controls-player-2"
                     type="button"
                     role="tab"
-                    aria-controls="keyboard-player-2"
-                    aria-selected="false"
-            >Player 3</button>
+                    aria-controls="controls-player-2"
+                    aria-selected="false">Player 3</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link"
-                    id="keyboard-player-3-tab"
+                    id="controls-player-3-tab"
                     data-bs-toggle="tab"
-                    data-bs-target="#keyboard-player-3"
+                    data-bs-target="#controls-player-3"
                     type="button"
                     role="tab"
-                    aria-controls="keyboard-player-3"
-                    aria-selected="false"
-            >Player 4</button>
+                    aria-controls="controls-player-3"
+                    aria-selected="false">Player 4</button>
         </li>
     </ul>
-    <div class="tab-content" id="controls-keyboard">
-        <div class="tab-pane active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
-            {% set controls_group = settings.Controls[0] %}
-            {% include "controls/form_controls.twig" with platform_id=platform.Id input="keyboard" player="0" controls=controls_group.Keyboard %}
+    <div class="tab-content" id="controls">
+        <div class="tab-pane active" id="controls-player-0" role="tabpanel" aria-labelledby="controls-player-0-tab" tabindex="0">
+            {% include "controls/form_controls.twig" with platform_id=platform.Id player="0" controls=settings.Controls[0] %}
         </div>
-        <div class="tab-pane" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
-            {% set controls_group = settings.Controls[1] %}
-            {% include "controls/form_controls.twig" with platform_id=platform.Id input="keyboard" player="1" controls=controls_group.Keyboard %}
+        <div class="tab-pane" id="controls-player-1" role="tabpanel" aria-labelledby="controls-player-1-tab" tabindex="1">
+            {% include "controls/form_controls.twig" with platform_id=platform.Id player="1" controls=settings.Controls[1] %}
         </div>
-        <div class="tab-pane" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
-            {% set controls_group = settings.Controls[2] %}
-            {% include "controls/form_controls.twig" with platform_id=platform.Id input="keyboard" player="0" controls=controls_group.Keyboard %}
+        <div class="tab-pane" id="controls-player-2" role="tabpanel" aria-labelledby="controls-player-2-tab" tabindex="2">
+            {% include "controls/form_controls.twig" with platform_id=platform.Id player="2" controls=settings.Controls[2] %}
         </div>
-        <div class="tab-pane" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
-            {% set controls_group = settings.Controls[3] %}
-            {% include "controls/form_controls.twig" with platform_id=platform.Id input="keyboard" player="0" controls=controls_group.Keyboard %}
+        <div class="tab-pane" id="controls-player-3" role="tabpanel" aria-labelledby="controls-player-3-tab" tabindex="3">
+            {% include "controls/form_controls.twig" with platform_id=platform.Id player="3" controls=settings.Controls[3] %}
         </div>
     </div>
 </fieldset>

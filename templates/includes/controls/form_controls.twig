@@ -1,40 +1,40 @@
-{# platform_id, input, player, controls #}
+{# platform_id, player, controls #}
 
 <div class="mt-3">
     {% if platform_id == "nes" %}
-        {% include "form_controls_nes.twig" %}
+        {% include "nes.twig" %}
     {% elif platform_id == "snes" %}
-        {% include "form_controls_snes.twig" %}
+        {% include "snes.twig" %}
     {% elif platform_id == "n64" %}
-        {% include "form_controls_n64.twig" %}
+        {% include "n64.twig" %}
     {% elif platform_id == "gb" %}
-        {% include "form_controls_gb.twig" %}
+        {% include "gb.twig" %}
     {% elif platform_id == "gba" %}
-        {% include "form_controls_gba.twig" %}
+        {% include "gba.twig" %}
     {% elif platform_id == "nds" %}
-        {% include "form_controls_nds.twig" %}
+        {% include "nds.twig" %}
     {% elif platform_id == "vb" %}
-        {% include "form_controls_vb.twig" %}
+        {% include "vb.twig" %}
     {% elif platform_id == "segaMS" %}
-        {% include "form_controls_segaMS.twig" %}
+        {% include "segaMS.twig" %}
     {% elif platform_id == "segaMD" or platform_id == "segaCD" or platform_id == "sega32x" %}
-        {% include "form_controls_segaMD.twig" %}
+        {% include "segaMD.twig" %}
     {% elif platform_id == "segaGG" %}
-        {% include "form_controls_segaGG.twig" %}
+        {% include "segaGG.twig" %}
     {% elif platform_id == "segaSaturn" %}
-        {% include "form_controls_segaSaturn.twig" %}
+        {% include "segaSaturn.twig" %}
     {% elif platform_id == "psx" %}
-        {% include "form_controls_psx.twig" %}
+        {% include "psx.twig" %}
     {% elif platform_id == "3do" %}
-        {% include "form_controls_3do.twig" %}
+        {% include "3do.twig" %}
     {% elif platform_id == "atari7800" %}
-        {% include "form_controls_atari7800.twig" %}
+        {% include "atari7800.twig" %}
     {% elif platform_id == "atari2600" %}
-        {% include "form_controls_atari2600.twig" %}
+        {% include "atari2600.twig" %}
     {% elif platform_id == "lynx" %}
-        {% include "form_controls_lynx.twig" %}
+        {% include "lynx.twig" %}
     {% else %}
         {# a5200, jaguar, mame2003, arcade #}
-        {% include "form_controls_default.twig" %}
+        {% include "default.twig" %}
     {% endif %}
 </div>

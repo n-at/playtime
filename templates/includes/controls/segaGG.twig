@@ -1,0 +1,34 @@
+{% extends "controls_tab.twig" %}
+
+{% block controls_definitions %}
+    {% set platform_id = platform_id %}
+    {% set player = player %}
+    {% set controller_img = "segaGG.png" %}
+    {% set controller_img_alt = "Sega Game Gear" %}
+{% endblock %}
+
+{% block controls_keyboard %}
+    {% include "control.twig" with input="keyboard" btn_id="b"                   btn_title="Button 1"            btn_value=controls.Keyboard.B %}
+    {% include "control.twig" with input="keyboard" btn_id="a"                   btn_title="Button 2"            btn_value=controls.Keyboard.A %}
+    {% include "control.twig" with input="keyboard" btn_id="start"               btn_title="Start"               btn_value=controls.Keyboard.Start %}
+    {% include "control.twig" with input="keyboard" btn_id="up"                  btn_title="Up"                  btn_value=controls.Keyboard.Up %}
+    {% include "control.twig" with input="keyboard" btn_id="down"                btn_title="Down"                btn_value=controls.Keyboard.Down %}
+    {% include "control.twig" with input="keyboard" btn_id="left"                btn_title="Left"                btn_value=controls.Keyboard.Left %}
+    {% include "control.twig" with input="keyboard" btn_id="right"               btn_title="Right"               btn_value=controls.Keyboard.Right %}
+    {% include "control.twig" with input="keyboard" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Keyboard.QuickSaveState %}
+    {% include "control.twig" with input="keyboard" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Keyboard.QuickLoadState %}
+    {% include "control.twig" with input="keyboard" btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.Keyboard.ChangeStateSlot %}
+{% endblock %}
+
+{% block controls_gamepad %}
+    {% include "control.twig" with input="gamepad" btn_id="b"                   btn_title="Button 1"            btn_value=controls.Gamepad.B %}
+    {% include "control.twig" with input="gamepad" btn_id="a"                   btn_title="Button 2"            btn_value=controls.Gamepad.A %}
+    {% include "control.twig" with input="gamepad" btn_id="start"               btn_title="Start"               btn_value=controls.Gamepad.Start %}
+    {% include "control.twig" with input="gamepad" btn_id="up"                  btn_title="Up"                  btn_value=controls.Gamepad.Up %}
+    {% include "control.twig" with input="gamepad" btn_id="down"                btn_title="Down"                btn_value=controls.Gamepad.Down %}
+    {% include "control.twig" with input="gamepad" btn_id="left"                btn_title="Left"                btn_value=controls.Gamepad.Left %}
+    {% include "control.twig" with input="gamepad" btn_id="right"               btn_title="Right"               btn_value=controls.Gamepad.Right %}
+    {% include "control.twig" with input="gamepad" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Gamepad.QuickSaveState %}
+    {% include "control.twig" with input="gamepad" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Gamepad.QuickLoadState %}
+    {% include "control.twig" with input="gamepad" btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.Gamepad.ChangeStateSlot %}
+{% endblock %}

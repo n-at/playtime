@@ -1,0 +1,50 @@
+{# platform_id, player, controller_img, controller_img_alt #}
+
+{% block controls_definitions %}
+    {% set platform_id = "" %}
+    {% set player = "0" %}
+    {% set controller_img = "other.png" %}
+    {% set controller_img_alt = "Controller" %}
+{% endblock %}
+
+<div class="row">
+    <div class="col-8 text-center">
+        <img src="/assets/img/controller/{{ controller_img }}" alt="{{ controller_img_alt }}" class="img-fluid ps-3 pe-3">
+    </div>
+    <div class="col-4">
+        <ul class="nav nav-tabs" id="controls-{{ platform_id }}-{{ player }}-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active"
+                        id="controls-{{ platform_id }}-{{ player }}-keyboard-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#controls-{{ platform_id }}-{{ player }}-keyboard"
+                        type="button"
+                        role="tab"
+                        aria-controls="controls-{{ platform_id }}-{{ player }}-keyboard"
+                        aria-selected="true">Keyboard</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link"
+                        id="controls-{{ platform_id }}-{{ player }}-gamepad-tab"
+                        data-bs-toggle="tab"
+                        data-bs-target="#controls-{{ platform_id }}-{{ player }}-gamepad"
+                        type="button"
+                        role="tab"
+                        aria-controls="controls-{{ platform_id }}-{{ player }}-gamepad"
+                        aria-selected="false">Gamepad</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="controls-{{ platform_id }}">
+            <div class="tab-pane active" id="controls-{{ platform_id }}-{{ player }}-keyboard" role="tabpanel" aria-labelledby="controls-{{ platform_id }}-{{ player }}-keyboard-tab" tabindex="0">
+                {% block controls_keyboard %}
+                    KEYBOARD
+                {% endblock %}
+            </div>
+            <div class="tab-pane" id="controls-{{ platform_id }}-{{ player }}-gamepad" role="tabpanel" aria-labelledby="controls-{{ platform_id }}-{{ player }}-gamepad-tab" tabindex="1">
+                {% block controls_gamepad %}
+                    GAMEPAD
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
