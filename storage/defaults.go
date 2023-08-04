@@ -1,5 +1,11 @@
 package storage
 
+const (
+	DefaultColorScheme = "#1AAFFF"
+	DefaultCacheLimit  = 1073741824
+	DefaultVolume      = 0.5
+)
+
 var (
 	Languages = []string{
 		"en-US",
@@ -775,12 +781,6 @@ var (
 		LoadSavFiles: false,
 		CacheManager: false, //managed in emulation settings
 	}
-)
-
-const (
-	DefaultColorScheme = "#1AAFFF"
-	DefaultCacheLimit  = 1073741824
-	DefaultVolume      = 0.5
 )
 
 func DefaultEmulatorSettings(systemType string) EmulatorSettings {

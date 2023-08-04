@@ -121,6 +121,8 @@ type EmulatorButtons struct {
 	CacheManager bool
 }
 
+///////////////////////////////////////////////////////////////////////////////
+
 type Platform struct {
 	Id         string
 	Name       string
@@ -137,6 +139,13 @@ type Bios struct {
 type Shader struct {
 	Name  string
 	Value string
+}
+
+type CoreOption struct {
+	Id       string
+	Name     string
+	Variants string
+	Default  string
 }
 
 ///////////////////////////////////////////////////////////////////////////////
