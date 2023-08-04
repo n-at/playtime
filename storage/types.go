@@ -1,6 +1,9 @@
 package storage
 
-import "time"
+import (
+	"strings"
+	"time"
+)
 
 type User struct {
 	Id       string `boltholdKey:"Id"`
@@ -40,6 +43,7 @@ type SaveState struct {
 	UserId                 string `boltholdIndex:"UserId"`
 	GameId                 string `boltholdIndex:"GameId"`
 	Created                time.Time
+	Core                   string
 	StateFileDownloadLink  string
 	ScreenshotDownloadLink string
 }
@@ -64,6 +68,7 @@ type EmulatorSettings struct {
 	Debug                  bool
 	Controls               [4]EmulatorControls
 	Buttons                EmulatorButtons
+	CoreOptions            map[string]string
 }
 
 type EmulatorControls struct {
@@ -152,4 +157,8 @@ type CoreOption struct {
 
 func (u *User) CanControlUsers() bool {
 	return u.Admin
+}
+
+func (co CoreOption) VariantsList() []string {
+	return strings.Split(co.Variants, "|")
 }

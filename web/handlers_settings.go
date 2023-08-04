@@ -48,12 +48,13 @@ func (s *Server) settingsByPlatformForm(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "settings_platform", pongo2.Context{
-		"user":     context.user,
-		"settings": platformSettings,
-		"shaders":  storage.Shaders,
-		"platform": storage.Platforms[platform],
-		"bioses":   storage.Bioses[platform],
-		"cores":    storage.Cores[platform],
+		"user":         context.user,
+		"settings":     platformSettings,
+		"shaders":      storage.Shaders,
+		"platform":     storage.Platforms[platform],
+		"bioses":       storage.Bioses[platform],
+		"cores":        storage.Cores[platform],
+		"core_options": storage.CoreOptionsByPlatform(platform),
 	})
 }
 
@@ -167,9 +168,19 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		shader = storage.Shaders[0].Value
 	}
 
+	var core = c.FormValue("core")
+	var coreOptions = storage.CoreOptionsByCore(core)
+	coreOptionsValues := make(map[string]string)
+	for _, option := range coreOptions {
+		optionValue := c.FormValue(option.Id)
+		if len(optionValue) != 0 {
+			coreOptionsValues[option.Id] = optionValue
+		}
+	}
+
 	settings := storage.EmulatorSettings{
 		OldCores:               c.FormValue("old-cores") == "1",
-		Core:                   c.FormValue("core"),
+		Core:                   core,
 		Bios:                   c.FormValue("bios"),
 		ColorScheme:            c.FormValue("color-scheme"),
 		CacheLimit:             cacheLimit,
@@ -180,6 +191,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		Debug:                  c.FormValue("debug") == "1",
 		Buttons:                buttons,
 		Controls:               controls,
+		CoreOptions:            coreOptionsValues,
 	}
 
 	return settings

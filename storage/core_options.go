@@ -256,3 +256,67 @@ var CoreOptionsPPSSPP = []CoreOption{}
 	},
 
 */
+
+func CoreOptionsByCore(core string) []CoreOption {
+	switch core {
+	case "fceumm":
+		return CoreOptionsFCEUmm
+	case "nestopia":
+		return CoreOptionsNestopia
+	case "snes9x":
+		return CoreOptionsSnes9x
+	case "gambatte":
+		return CoreOptionsGambatte
+	case "mgba":
+		return CoreOptionsMGBA
+	case "beetle_vb":
+		return CoreOptionsBeetleVB
+	case "melonds":
+		return CoreOptionsMelonDS
+	case "desmume2015":
+		return CoreOptionsDesmume2015
+	case "a5200":
+		return CoreOptionsA5200
+	case "mame2003":
+		return CoreOptionsMAME2003
+	case "fbneo":
+		return CoreOptionsFBNeo
+	case "fbalpha2012_cps1":
+		return CoreOptionsFBAlpha2012CPS1
+	case "fbalpha2012_cps2":
+		return CoreOptionsFBAlpha2012CPS2
+	case "pcsx_rearmed":
+		return CoreOptionsPCSXRearmed
+	case "mednafen_psx_hw":
+		return CoreOptionsMednafenPSXHW
+	case "virtualjaguar":
+		return CoreOptionsVirtualJaguar
+	case "handy":
+		return CoreOptionsHandy
+	case "yabause":
+		return CoreOptionsYabause
+	case "genesis_plus_gx":
+		return CoreOptionsGenesisPlusGX
+	case "picodrive":
+		return CoreOptionsPicoDrive
+	case "mupen64plus_next":
+		return CoreOptionsMupen64Plus
+	case "opera":
+		return CoreOptionsOpera
+	case "prosystem":
+		return CoreOptionsProSystem
+	case "stella2014":
+		return CoreOptionsStella2014
+	}
+	return []CoreOption{}
+}
+
+func CoreOptionsByPlatform(platform string) map[string][]CoreOption {
+	result := make(map[string][]CoreOption)
+
+	for _, core := range Cores[platform] {
+		result[core] = CoreOptionsByCore(core)
+	}
+
+	return result
+}

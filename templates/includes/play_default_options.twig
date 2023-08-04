@@ -3,6 +3,9 @@
         'shader': '{{ emulator_settings.Shader }}',
         'fps': {% if emulator_settings.FPS %}'show'{% else %}'hide'{% endif %},
         'virtual-gamepad-left-handed-mode': {% if emulator_settings.VirtualGamepadLeftHand %}'enabled'{% else %}'disabled'{% endif %},
+        {% for option, value in emulator_settings.CoreOptions %}
+        '{{ option }}': '{{ value }}',
+        {% endfor %}
     };
 
     if (window.localStorage) {

@@ -152,13 +152,14 @@ func (s *Server) gameEmulationSettingsForm(c echo.Context) error {
 	platform := context.game.Platform
 
 	return c.Render(http.StatusOK, "game_emulation_settings", pongo2.Context{
-		"user":     context.user,
-		"game":     context.game,
-		"settings": context.game.EmulatorSettings,
-		"shaders":  storage.Shaders,
-		"platform": storage.Platforms[platform],
-		"bioses":   storage.Bioses[platform],
-		"cores":    storage.Cores[platform],
+		"user":         context.user,
+		"game":         context.game,
+		"settings":     context.game.EmulatorSettings,
+		"shaders":      storage.Shaders,
+		"platform":     storage.Platforms[platform],
+		"bioses":       storage.Bioses[platform],
+		"cores":        storage.Cores[platform],
+		"core_options": storage.CoreOptionsByPlatform(platform),
 	})
 }
 
