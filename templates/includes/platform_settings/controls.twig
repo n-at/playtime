@@ -1,0 +1,56 @@
+<ul class="nav nav-underline" id="controls-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active"
+                id="controls-player-0-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#controls-player-0"
+                type="button"
+                role="tab"
+                aria-controls="controls-player-0"
+                aria-selected="true">Player 1</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="controls-player-1-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#controls-player-1"
+                type="button"
+                role="tab"
+                aria-controls="controls-player-1"
+                aria-selected="false">Player 2</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="controls-player-2-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#controls-player-2"
+                type="button"
+                role="tab"
+                aria-controls="controls-player-2"
+                aria-selected="false">Player 3</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="controls-player-3-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#controls-player-3"
+                type="button"
+                role="tab"
+                aria-controls="controls-player-3"
+                aria-selected="false">Player 4</button>
+    </li>
+</ul>
+<div class="tab-content" id="controls">
+    <div class="tab-pane active" id="controls-player-0" role="tabpanel" aria-labelledby="controls-player-0-tab" tabindex="0">
+        {% include "controls_by_platform.twig" with platform_id=platform.Id player="0" controls=settings.Controls[0] %}
+    </div>
+    <div class="tab-pane" id="controls-player-1" role="tabpanel" aria-labelledby="controls-player-1-tab" tabindex="1">
+        {% include "controls_by_platform.twig" with platform_id=platform.Id player="1" controls=settings.Controls[1] %}
+    </div>
+    <div class="tab-pane" id="controls-player-2" role="tabpanel" aria-labelledby="controls-player-2-tab" tabindex="2">
+        {% include "controls_by_platform.twig" with platform_id=platform.Id player="2" controls=settings.Controls[2] %}
+    </div>
+    <div class="tab-pane" id="controls-player-3" role="tabpanel" aria-labelledby="controls-player-3-tab" tabindex="3">
+        {% include "controls_by_platform.twig" with platform_id=platform.Id player="3" controls=settings.Controls[3] %}
+    </div>
+</div>

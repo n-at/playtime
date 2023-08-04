@@ -1,0 +1,33 @@
+<div class="form-floating mb-3">
+    <select id="core" name="core" class="form-select">
+        {% for core in cores %}
+            <option value="{{ core }}" {% if core == settings.Core %}selected{% endif %}>{{ core }}</option>
+        {% endfor %}
+    </select>
+    <label for="core">Core</label>
+</div>
+<div class="form-floating mb-3">
+    <select id="bios" name="bios" class="form-select">
+        <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
+        {% for bios in bioses %}
+            <option value="{{ bios.Name }}" {% if bios.Name == settings.Bios %}selected{% endif %}>{{ bios.Description }} ({{ bios.Name }})</option>
+        {% endfor %}
+    </select>
+    <label for="bios">BIOS</label>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="old-cores" name="old-cores" value="1" class="form-check-input" {% if settings.OldCores %}checked{% endif %}>
+        <label for="old-cores">Use old cores</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="debug" name="debug" value="1" class="form-check-input" {% if settings.Debug %}checked{% endif %}>
+        <label for="debug">Debug</label>
+    </div>
+</div>
+<div class="form-floating mb-3">
+    <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}" placeholder="Number">
+    <label for="cache-limit">Cache limit</label>
+</div>

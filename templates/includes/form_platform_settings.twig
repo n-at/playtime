@@ -1,232 +1,73 @@
-<fieldset>
-    <legend>Emulation</legend>
-    <div class="form-floating mb-3">
-        <select id="core" name="core" class="form-select">
-            {% for core in cores %}
-                <option value="{{ core }}" {% if core == settings.Core %}selected{% endif %}>{{ core }}</option>
-            {% endfor %}
-        </select>
-        <label for="core">Core</label>
-    </div>
-    <div class="form-floating mb-3">
-        <select id="bios" name="bios" class="form-select">
-            <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
-            {% for bios in bioses %}
-                <option value="{{ bios.Name }}" {% if bios.Name == settings.Bios %}selected{% endif %}>{{ bios.Description }} ({{ bios.Name }})</option>
-            {% endfor %}
-        </select>
-        <label for="bios">BIOS</label>
-    </div>
-    <div class="mb-3">
-        <div class="form-check">
-            <input type="checkbox" id="old-cores" name="old-cores" value="1" class="form-check-input" {% if settings.OldCores %}checked{% endif %}>
-            <label for="old-cores">Use old cores</label>
-        </div>
-    </div>
-    <div class="mb-3">
-        <div class="form-check">
-            <input type="checkbox" id="debug" name="debug" value="1" class="form-check-input" {% if settings.Debug %}checked{% endif %}>
-            <label for="debug">Debug</label>
-        </div>
-    </div>
-    <div class="form-floating mb-3">
-        <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}" placeholder="Number">
-        <label for="cache-limit">Cache limit</label>
-    </div>
-</fieldset>
+<ul class="nav nav-underline nav-fill mb-3" id="settings-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <button class="nav-link active"
+                id="settings-emulation-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings-emulation"
+                type="button"
+                role="tab"
+                aria-controls="settings-emulation"
+                aria-selected="true">Emulation</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="settings-core-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings-core"
+                type="button"
+                role="tab"
+                aria-controls="settings-core"
+                aria-selected="false">Core options</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="settings-ui-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings-ui"
+                type="button"
+                role="tab"
+                aria-controls="settings-ui"
+                aria-selected="false">UI</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="settings-buttons-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings-buttons"
+                type="button"
+                role="tab"
+                aria-controls="settings-buttons"
+                aria-selected="false">Buttons</button>
+    </li>
+    <li class="nav-item" role="presentation">
+        <button class="nav-link"
+                id="settings-controls-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#settings-controls"
+                type="button"
+                role="tab"
+                aria-controls="settings-controls"
+                aria-selected="false">Controls</button>
+    </li>
+</ul>
 
-{# ######################################################################### #}
-
-<fieldset>
-    <legend>Core options</legend>
-        {% for core in cores %}
-            <div id="core-options-{{ core }}" class="core-options d-none">
-                {% set current_options = core_options[core] %}
-                {% if current_options %}
-                    {% for current_option in current_options %}
-                        <div class="form-floating mb-3">
-                            <select id="{{ current_option.Id }}" name="{{ current_option.Id }}" class="form-select">
-                                {% for variant in current_option.VariantsList() %}
-                                    <option id="{{ variant }}"
-                                            {% if settings.CoreOptions[current_option.Id] == variant or (not settings.CoreOptions[current_option.Id] and current_option.Default == variant) %}selected{% endif %}
-                                    >{{ variant }}</option>
-                                {% endfor %}
-                            </select>
-                            <label for="{{ current_option.Id }}">{{ current_option.Name }}</label>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    {% include "empty_state.twig" with icon="bi bi-cpu" text="No options for selected core" %}
-                {% endif %}
-            </div>
-        {% endfor %}
-</fieldset>
-<script>
-    (() => {
-        document.getElementById('core').addEventListener('change', showCoreOptions);
-        window.addEventListener('load', showCoreOptions)
-        function showCoreOptions() {
-            const value = document.getElementById('core').value;
-            document.querySelectorAll('.core-options').forEach(it => it.classList.add('d-none'));
-            document.getElementById(`core-options-${value}`).classList.remove('d-none');
-        }
-    })();
-</script>
-
-{# ######################################################################### #}
-
-<fieldset>
-    <legend>UI</legend>
-    <div class="form-floating mb-3">
-        <select id="shader" name="shader" class="form-select">
-            {% for shader in shaders %}
-                <option value="{{ shader.Value }}" {% if shader.Value == settings.Shader %}selected{% endif %}>{{ shader.Name }}</option>
-            {% endfor %}
-        </select>
-        <label for="shader">Display shader</label>
+<div class="tab-content">
+    <div class="tab-pane active" id="settings-emulation" role="tabpanel" aria-labelledby="settings-emulation-tab" tabindex="0">
+        {% include "platform_settings/emulation.twig" %}
     </div>
-    <div class="form-floating mb-3">
-        <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
-        <label for="color-scheme">Color scheme</label>
+    <div class="tab-pane" id="settings-core" role="tabpanel" aria-labelledby="settings-core-tab" tabindex="1">
+        {% include "platform_settings/core_options.twig" %}
     </div>
-    <div class="mb-3">
-        <label for="volume">Volume</label>
-        <input type="range" id="volume" name="volume" class="form-range" min="0.0" max="1.0" step="0.01" value="{{ settings.Volume }}">
+    <div class="tab-pane" id="settings-ui" role="tabpanel" aria-labelledby="settings-ui-tab" tabindex="2">
+        {% include "platform_settings/ui.twig" %}
     </div>
-    <div class="mb-3">
-        <div class="form-check">
-            <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
-            <label for="fps" class="form-check-label">FPS</label>
-        </div>
+    <div class="tab-pane" id="settings-buttons" role="tabpanel" aria-labelledby="settings-buttons-tab" tabindex="3">
+        {% include "platform_settings/emulator_buttons.twig" %}
     </div>
-    <div class="mb-3">
-        <div class="form-check">
-            <input type="checkbox" id="virtual-gamepad-left-hand" name="virtual-gamepad-left-hand" value="1" class="form-check-input" {% if settings.VirtualGamepadLeftHand %}checked{% endif %}
-            <label for="virtual-gamepad-left-hand" class="form-check-label">Virtual gamepad left hand</label>
-        </div>
+    <div class="tab-pane" id="settings-controls" role="tabpanel" aria-labelledby="settings-controls-tab" tabindex="4">
+        {% include "platform_settings/controls.twig" %}
     </div>
-</fieldset>
-
-<fieldset>
-    <legend>Buttons</legend>
-    <div class="row">
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="play-pause" btn_title="Play / Pause" btn_value=settings.Buttons.PlayPause %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="restart" btn_title="Restart" btn_value=settings.Buttons.Restart %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="mute" btn_title="Mute" btn_value=settings.Buttons.Mute %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="settings" btn_title="Settings" btn_value=settings.Buttons.Settings %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="full-screen" btn_title="Full screen" btn_value=settings.Buttons.FullScreen %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="save-state" btn_title="Save state" btn_value=settings.Buttons.SaveState %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="load-state" btn_title="Load state" btn_value=settings.Buttons.LoadState %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="screen-record" btn_title="Screen record" btn_value=settings.Buttons.ScreenRecord %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="gamepad" btn_title="Gamepad" btn_value=settings.Buttons.Gamepad %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="cheat" btn_title="Cheats" btn_value=settings.Buttons.Cheat %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="volume" btn_title="Volume" btn_value=settings.Buttons.Volume %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="save-sav-files" btn_title="Save SAV files" btn_value=settings.Buttons.SaveSavFiles %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="load-sav-files" btn_title="Load SAV files" btn_value=settings.Buttons.LoadSavFiles %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="quick-save" btn_title="Quick save" btn_value=settings.Buttons.QuickSave %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="quick-load" btn_title="Quick load" btn_value=settings.Buttons.QuickLoad %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="screenshot" btn_title="Screenshot" btn_value=settings.Buttons.Screenshot %}
-        </div>
-        <div class="col-3 mb-2">
-            {% include "form_platform_settings_ui_button.twig" with btn_id="cache-manager" btn_title="Cache manager" btn_value=settings.Buttons.CacheManager %}
-        </div>
-    </div>
-</fieldset>
-
-{# ######################################################################### #}
-
-<fieldset>
-    <legend>Controls</legend>
-    <ul class="nav nav-tabs" id="controls-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active"
-                    id="controls-player-0-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#controls-player-0"
-                    type="button"
-                    role="tab"
-                    aria-controls="controls-player-0"
-                    aria-selected="true">Player 1</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link"
-                    id="controls-player-1-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#controls-player-1"
-                    type="button"
-                    role="tab"
-                    aria-controls="controls-player-1"
-                    aria-selected="false">Player 2</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link"
-                    id="controls-player-2-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#controls-player-2"
-                    type="button"
-                    role="tab"
-                    aria-controls="controls-player-2"
-                    aria-selected="false">Player 3</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link"
-                    id="controls-player-3-tab"
-                    data-bs-toggle="tab"
-                    data-bs-target="#controls-player-3"
-                    type="button"
-                    role="tab"
-                    aria-controls="controls-player-3"
-                    aria-selected="false">Player 4</button>
-        </li>
-    </ul>
-    <div class="tab-content" id="controls">
-        <div class="tab-pane active" id="controls-player-0" role="tabpanel" aria-labelledby="controls-player-0-tab" tabindex="0">
-            {% include "controls/form_controls.twig" with platform_id=platform.Id player="0" controls=settings.Controls[0] %}
-        </div>
-        <div class="tab-pane" id="controls-player-1" role="tabpanel" aria-labelledby="controls-player-1-tab" tabindex="1">
-            {% include "controls/form_controls.twig" with platform_id=platform.Id player="1" controls=settings.Controls[1] %}
-        </div>
-        <div class="tab-pane" id="controls-player-2" role="tabpanel" aria-labelledby="controls-player-2-tab" tabindex="2">
-            {% include "controls/form_controls.twig" with platform_id=platform.Id player="2" controls=settings.Controls[2] %}
-        </div>
-        <div class="tab-pane" id="controls-player-3" role="tabpanel" aria-labelledby="controls-player-3-tab" tabindex="3">
-            {% include "controls/form_controls.twig" with platform_id=platform.Id player="3" controls=settings.Controls[3] %}
-        </div>
-    </div>
-</fieldset>
-
-{# ######################################################################### #}
+</div>
 
 <div id="modal-keyboard-control" class="modal" tabindex="-1">
     <div class="modal-dialog">

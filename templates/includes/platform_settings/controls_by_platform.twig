@@ -2,39 +2,39 @@
 
 <div class="mt-3">
     {% if platform_id == "nes" %}
-        {% include "nes.twig" %}
+        {% include "controls/nes.twig" %}
     {% elif platform_id == "snes" %}
-        {% include "snes.twig" %}
+        {% include "controls/snes.twig" %}
     {% elif platform_id == "n64" %}
-        {% include "n64.twig" %}
+        {% include "controls/n64.twig" %}
     {% elif platform_id == "gb" %}
-        {% include "gb.twig" %}
+        {% include "controls/gb.twig" %}
     {% elif platform_id == "gba" %}
-        {% include "gba.twig" %}
+        {% include "controls/gba.twig" %}
     {% elif platform_id == "nds" %}
-        {% include "nds.twig" %}
+        {% include "controls/nds.twig" %}
     {% elif platform_id == "vb" %}
-        {% include "vb.twig" %}
+        {% include "controls/vb.twig" %}
     {% elif platform_id == "segaMS" %}
-        {% include "segaMS.twig" %}
+        {% include "controls/segaMS.twig" %}
     {% elif platform_id == "segaMD" or platform_id == "segaCD" or platform_id == "sega32x" %}
-        {% include "segaMD.twig" %}
+        {% include "controls/segaMD.twig" %}
     {% elif platform_id == "segaGG" %}
-        {% include "segaGG.twig" %}
+        {% include "controls/segaGG.twig" %}
     {% elif platform_id == "segaSaturn" %}
-        {% include "segaSaturn.twig" %}
+        {% include "controls/segaSaturn.twig" %}
     {% elif platform_id == "psx" %}
-        {% include "psx.twig" %}
+        {% include "controls/psx.twig" %}
     {% elif platform_id == "3do" %}
-        {% include "3do.twig" %}
+        {% include "controls/3do.twig" %}
     {% elif platform_id == "atari7800" %}
-        {% include "atari7800.twig" %}
+        {% include "controls/atari7800.twig" %}
     {% elif platform_id == "atari2600" %}
-        {% include "atari2600.twig" %}
+        {% include "controls/atari2600.twig" %}
     {% elif platform_id == "lynx" %}
-        {% include "lynx.twig" %}
+        {% include "controls/lynx.twig" %}
     {% else %}
         {# a5200, jaguar, mame2003, arcade #}
-        {% include "default.twig" %}
+        {% include "controls/default.twig" %}
     {% endif %}
 </div>

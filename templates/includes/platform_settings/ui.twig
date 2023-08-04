@@ -1,0 +1,28 @@
+<div class="form-floating mb-3">
+    <select id="shader" name="shader" class="form-select">
+        {% for shader in shaders %}
+            <option value="{{ shader.Value }}" {% if shader.Value == settings.Shader %}selected{% endif %}>{{ shader.Name }}</option>
+        {% endfor %}
+    </select>
+    <label for="shader">Display shader</label>
+</div>
+<div class="form-floating mb-3">
+    <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
+    <label for="color-scheme">Color scheme</label>
+</div>
+<div class="mb-3">
+    <label for="volume">Volume</label>
+    <input type="range" id="volume" name="volume" class="form-range" min="0.0" max="1.0" step="0.01" value="{{ settings.Volume }}">
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
+        <label for="fps" class="form-check-label">FPS</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="virtual-gamepad-left-hand" name="virtual-gamepad-left-hand" value="1" class="form-check-input" {% if settings.VirtualGamepadLeftHand %}checked{% endif %}
+        <label for="virtual-gamepad-left-hand" class="form-check-label">Virtual gamepad left hand</label>
+    </div>
+</div>

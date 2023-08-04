@@ -1,0 +1,33 @@
+{% for core in cores %}
+    <div id="core-options-{{ core }}" class="core-options d-none">
+        {% set current_options = core_options[core] %}
+        {% if current_options %}
+            {% for current_option in current_options %}
+                <div class="form-floating mb-3">
+                    <select id="{{ current_option.Id }}" name="{{ current_option.Id }}" class="form-select">
+                        {% for variant in current_option.VariantsList() %}
+                            <option id="{{ variant }}"
+                                    {% if settings.CoreOptions[current_option.Id] == variant or (not settings.CoreOptions[current_option.Id] and current_option.Default == variant) %}selected{% endif %}
+                            >{{ variant }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="{{ current_option.Id }}">{{ current_option.Name }}</label>
+                </div>
+            {% endfor %}
+        {% else %}
+            {% include "../empty_state.twig" with icon="bi bi-cpu" text="No options for selected core" %}
+        {% endif %}
+    </div>
+{% endfor %}
+
+<script>
+    (() => {
+        document.getElementById('core').addEventListener('change', showCoreOptions);
+        window.addEventListener('load', showCoreOptions)
+        function showCoreOptions() {
+            const value = document.getElementById('core').value;
+            document.querySelectorAll('.core-options').forEach(it => it.classList.add('d-none'));
+            document.getElementById(`core-options-${value}`).classList.remove('d-none');
+        }
+    })();
+</script>
