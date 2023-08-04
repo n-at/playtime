@@ -61,6 +61,7 @@ type EmulatorSettings struct {
 	Shader                 string
 	FPS                    bool
 	VirtualGamepadLeftHand bool
+	Debug                  bool
 	Controls               [4]EmulatorControls
 	Buttons                EmulatorButtons
 }

@@ -58,7 +58,6 @@
     GameId = '{{ game.Id }}';
     LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
 
-    EJS_DEBUG_XX = true;
     EJS_pathtodata = '/assets/emulatorjs/';
     EJS_player = '#game';
     EJS_core = '{{ emulator_settings.Core }}';
@@ -70,6 +69,10 @@
     EJS_language = '{{ settings.Language }}';
     EJS_volume = {{ emulator_settings.Volume }};
     EJS_startOnLoaded = true;
+
+    {% if emulator_settings.Debug %}
+        EJS_DEBUG_XX = true;
+    {% endif %}
 
     {% if bios.Url %}
         EJS_biosUrl = '{{ bios.Url }}';

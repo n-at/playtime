@@ -177,6 +177,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		Shader:                 shader,
 		FPS:                    c.FormValue("fps") == "1",
 		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",
+		Debug:                  c.FormValue("debug") == "1",
 		Buttons:                buttons,
 		Controls:               controls,
 	}
