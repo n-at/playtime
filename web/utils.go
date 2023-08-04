@@ -8,22 +8,18 @@ import (
 	"strings"
 )
 
-type platformValue struct {
-	Type     string
-	Platform storage.Platform
-}
+func sortedPlatforms() []storage.Platform {
+	var platforms []storage.Platform
 
-func sortedPlatforms() []platformValue {
-	var platformValues []platformValue
-
-	for _, system := range storage.PlatformIds {
-		platformValues = append(platformValues, platformValue{
-			Type:     system,
-			Platform: storage.Platforms[system],
-		})
+	for _, platform := range storage.Platforms {
+		platforms = append(platforms, platform)
 	}
 
-	return platformValues
+	sort.Slice(platforms, func(i, j int) bool {
+		return platforms[i].Name < platforms[j].Name
+	})
+
+	return platforms
 }
 
 ///////////////////////////////////////////////////////////////////////////////

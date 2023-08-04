@@ -21,7 +21,7 @@
                             <select id="platform-{{ game.Id }}" name="platform-{{ game.Id }}" class="form-select">
                                 <option value="">Undefined</option>
                                 {% for platform in platforms %}
-                                    <option value="{{ platform.Platform.Id }}" {% if platform.Platform.Id == game.Platform %}selected{% endif %}>{{ platform.Platform.Name }}</option>
+                                    <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
                                 {% endfor %}
                             </select>
                             <label for="platform-{{ game.Id }}" class="d-none">Select game platform</label>
