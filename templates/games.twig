@@ -25,10 +25,10 @@
                 {% for game in item.Games %}
                     <div class="list-group-item">
                         <div class="row">
-                            <div class="col-lg-10 col-md-9">
+                            <div class="col-7 col-sm-8 col-md-9 col-lg-10">
                                 <div class="lead">{{ game.Name }}</div>
                             </div>
-                            <div class="col-lg-2 col-md-3 mt-3 mt-md-0 text-end text-nowrap">
+                            <div class="col-5 col-sm-4 col-md-3 col-lg-2 text-end text-nowrap">
                                 {% if game.LatestSaveState.StateFileDownloadLink %}
                                     <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Play from latest save state">
                                         <i class="bi bi-box-arrow-up"></i>

@@ -24,7 +24,7 @@
             {% for user_item in users %}
                 <li class="list-group-item filter-element">
                     <div class="row">
-                        <div class="col-lg-10 col-md-9">
+                        <div class="col-9 col-md-10 col-lg-11">
                             <div class="lead filter-field">
                                 {% if user_item.Active %}
                                     <i class="bi bi-circle-fill text-success" title="Active"></i>
@@ -37,7 +37,7 @@
                                 {{ user_item.Login }}
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-3 mt-3 mt-md-0 text-end text-nowrap">
+                        <div class="col-3 col-md-2 col-lg-1 text-end text-nowrap">
                             <div class="d-inline-block dropdown">
                                 <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
                                         type="button"
