@@ -12,15 +12,19 @@ import (
 func (s *Server) saveStates(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	game := context.game
-	states, err := s.storage.SaveStateGetByGameId(game.Id)
+	core, err := s.getGameCore(context.user.Id, context.game.Id)
+	if err != nil {
+		return err
+	}
+
+	states, err := s.storage.SaveStateGetByGameIdAndCore(context.game.Id, core)
 	if err != nil {
 		return err
 	}
 
 	return c.Render(http.StatusOK, "save_states", pongo2.Context{
 		"user":   context.user,
-		"game":   game,
+		"game":   context.game,
 		"states": prepareSaveStates(states),
 	})
 }
@@ -28,10 +32,16 @@ func (s *Server) saveStates(c echo.Context) error {
 func (s *Server) saveStateUpload(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
+	core, err := s.getGameCore(context.user.Id, context.game.Id)
+	if err != nil {
+		return err
+	}
+
 	saveState := storage.SaveState{
 		Id:      storage.NewId(),
 		UserId:  context.user.Id,
 		GameId:  context.game.Id,
+		Core:    core,
 		Created: time.Now(),
 	}
 
@@ -83,7 +93,12 @@ func (s *Server) saveStateDeleteSubmit(c echo.Context) error {
 func (s *Server) saveStateList(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	states, err := s.storage.SaveStateGetByGameId(context.game.Id)
+	core, err := s.getGameCore(context.user.Id, context.game.Id)
+	if err != nil {
+		return err
+	}
+
+	states, err := s.storage.SaveStateGetByGameIdAndCore(context.game.Id, core)
 	if err != nil {
 		return err
 	}

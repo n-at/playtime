@@ -29,11 +29,11 @@ type gameByPlatform struct {
 	Games    []storage.Game
 }
 
-func (s *Server) prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
+func (s *Server) prepareGamesByPlatform(games []storage.Game, user storage.User) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {
-		game = s.prepareGame(game)
+		game = s.prepareGame(game, user)
 		_, ok := gamesByPlatform[game.Platform]
 		if !ok {
 			gamesByPlatform[game.Platform] = &gameByPlatform{
@@ -55,21 +55,47 @@ func (s *Server) prepareGamesByPlatform(games []storage.Game) []gameByPlatform {
 	return platforms
 }
 
-func (s *Server) prepareGame(game storage.Game) storage.Game {
+func (s *Server) prepareGame(game storage.Game, user storage.User) storage.Game {
 	uploadPath, err := getUploadPath(game.Id)
 	if err != nil {
 		uploadPath = ""
 	}
 	game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
 
-	saveState, err := s.storage.SaveStateGetLatestByGameId(game.Id)
+	core, err := s.getGameCore(user.Id, game.Id)
 	if err != nil {
-		log.Warnf("prepareGame unable to get latest save state for %s: %s", game.Id, err)
-		saveState = storage.SaveState{}
+		log.Warnf("prepareGame unable to get core for %s: %s", game.Id, err)
+		core = ""
 	}
-	game.LatestSaveState = prepareSaveState(saveState)
+
+	if len(core) != 0 {
+		saveState, err := s.storage.SaveStateGetLatestByGameIdAndCore(game.Id, core)
+		if err != nil {
+			log.Warnf("prepareGame unable to get latest save state for %s: %s", game.Id, err)
+			saveState = storage.SaveState{}
+		}
+		game.LatestSaveState = prepareSaveState(saveState)
+	}
 
 	return game
+}
+
+func (s *Server) getGameCore(userId, gameId string) (string, error) {
+	settings, err := s.storage.SettingsGetByUserId(userId)
+	if err != nil {
+		return "", err
+	}
+
+	game, err := s.storage.GameGetById(gameId)
+	if err != nil {
+		return "", err
+	}
+
+	if game.OverrideEmulatorSettings {
+		return game.EmulatorSettings.Core, nil
+	} else {
+		return settings.EmulatorSettings[game.Platform].Core, nil
+	}
 }
 
 func guessGameProperties(games []storage.Game) []storage.Game {

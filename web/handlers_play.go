@@ -11,7 +11,7 @@ import (
 func (s *Server) play(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	game := s.prepareGame(*context.game)
+	game := s.prepareGame(*context.game, *context.user)
 
 	if len(game.Platform) == 0 {
 		return errors.New("game platform is undefined")

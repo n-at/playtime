@@ -319,16 +319,16 @@ func (s *Storage) SaveStateGetById(id string) (SaveState, error) {
 	return ss, nil
 }
 
-func (s *Storage) SaveStateGetByGameId(gameId string) ([]SaveState, error) {
+func (s *Storage) SaveStateGetByGameIdAndCore(gameId, core string) ([]SaveState, error) {
 	var ss []SaveState
-	if err := s.store.Find(&ss, bolthold.Where("GameId").Eq(gameId)); err != nil {
+	if err := s.store.Find(&ss, bolthold.Where("GameId").Eq(gameId).And("Core").Eq(core)); err != nil {
 		return nil, err
 	}
 	return saveStateSorted(ss), nil
 }
 
-func (s *Storage) SaveStateGetLatestByGameId(gameId string) (SaveState, error) {
-	states, err := s.SaveStateGetByGameId(gameId)
+func (s *Storage) SaveStateGetLatestByGameIdAndCore(gameId, core string) (SaveState, error) {
+	states, err := s.SaveStateGetByGameIdAndCore(gameId, core)
 	if err != nil {
 		return SaveState{}, err
 	}

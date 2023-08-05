@@ -20,7 +20,7 @@ func (s *Server) games(c echo.Context) error {
 
 	return c.Render(http.StatusOK, "games", pongo2.Context{
 		"user":              context.user,
-		"games_by_platform": s.prepareGamesByPlatform(games),
+		"games_by_platform": s.prepareGamesByPlatform(games, *context.user),
 	})
 }
 
