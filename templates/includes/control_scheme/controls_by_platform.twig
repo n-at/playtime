@@ -32,7 +32,9 @@
     {% include "../platform_settings/controls/atari2600.twig" with control_template="../control_scheme/control.twig" %}
 {% elif platform_id == "lynx" %}
     {% include "../platform_settings/controls/lynx.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "jaguar" %}
+    {% include "../platform_settings/controls/jaguar.twig" with control_template="../control_scheme/control.twig" %}
 {% else %}
-    {# a5200, jaguar, mame2003, arcade #}
+    {# a5200, mame2003, arcade #}
     {% include "../platform_settings/controls/default.twig" with control_template="../control_scheme/control.twig" %}
 {% endif %}

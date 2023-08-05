@@ -732,6 +732,18 @@ var (
 		Right: "arowright",
 	}
 
+	DefaultControlsJaguar = EmulatorControlsMapping{
+		A:      "z",     //A
+		B:      "x",     //B
+		Y:      "c",     //C
+		Select: "v",     //Pause
+		Start:  "enter", //Option
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arowright",
+	}
+
 	DefaultControlsOther = EmulatorControlsMapping{
 		B:               "x",
 		Y:               "s",
@@ -990,7 +1002,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
-					Keyboard: DefaultControlsOther,
+					Keyboard: DefaultControlsJaguar,
 				},
 			},
 		}
