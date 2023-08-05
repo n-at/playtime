@@ -13,14 +13,14 @@ import (
 func (s *Server) games(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	games, err := s.storage.GameGetByUserId(context.user.Id)
+	games, err := s.getGamesWithDataByUser(context.user)
 	if err != nil {
 		return err
 	}
 
 	return c.Render(http.StatusOK, "games", pongo2.Context{
 		"user":              context.user,
-		"games_by_platform": s.prepareGamesByPlatform(games, *context.user),
+		"games_by_platform": s.groupGamesByPlatform(games),
 	})
 }
 

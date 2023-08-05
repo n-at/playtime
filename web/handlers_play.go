@@ -11,7 +11,10 @@ import (
 func (s *Server) play(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	game := s.prepareGame(*context.game, *context.user)
+	game, err := s.getGameWithDataById(context.user, context.game.Id)
+	if err != nil {
+		return err
+	}
 
 	if len(game.Platform) == 0 {
 		return errors.New("game platform is undefined")
@@ -30,7 +33,7 @@ func (s *Server) play(c echo.Context) error {
 	saveState := storage.SaveState{}
 	saveStateId := c.QueryParam("state")
 	if len(saveStateId) != 0 {
-		saveState, err = s.storage.SaveStateGetById(saveStateId)
+		saveState, err = s.getSaveStateWithDataById(context.user, saveStateId)
 		if err != nil {
 			return err
 		}
@@ -57,6 +60,6 @@ func (s *Server) play(c echo.Context) error {
 		"settings":          settings,
 		"emulator_settings": emulatorSettings,
 		"bios":              bios,
-		"save_state":        prepareSaveState(saveState),
+		"save_state":        saveState,
 	})
 }

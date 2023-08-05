@@ -1,6 +1,7 @@
 package web
 
 import (
+	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"playtime/storage"
@@ -8,32 +9,165 @@ import (
 	"strings"
 )
 
-func sortedPlatforms() []storage.Platform {
-	var platforms []storage.Platform
-
-	for _, platform := range storage.Platforms {
-		platforms = append(platforms, platform)
-	}
-
-	sort.Slice(platforms, func(i, j int) bool {
-		return platforms[i].Name < platforms[j].Name
-	})
-
-	return platforms
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
 type gameByPlatform struct {
 	Platform storage.Platform
 	Games    []storage.Game
 }
 
-func (s *Server) prepareGamesByPlatform(games []storage.Game, user storage.User) []gameByPlatform {
+///////////////////////////////////////////////////////////////////////////////
+
+func (s *Server) getCoreByGameId(user *storage.User, gameId string) (string, error) {
+	settings, err := s.storage.SettingsGetByUserId(user.Id)
+	if err != nil {
+		return "", err
+	}
+
+	game, err := s.storage.GameGetById(gameId)
+	if err != nil {
+		return "", err
+	}
+
+	if game.OverrideEmulatorSettings {
+		return game.EmulatorSettings.Core, nil
+	} else {
+		return settings.EmulatorSettings[game.Platform].Core, nil
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+func (s *Server) saveStateWithData(saveState *storage.SaveState) error {
+	uploadPath, err := getUploadPath(saveState.Id)
+	if err != nil {
+		return err
+	}
+
+	saveState.StateFileDownloadLink = fmt.Sprintf("%s/%s/%s.sav", UploadsWebRoot, uploadPath, saveState.Id)
+	saveState.ScreenshotDownloadLink = fmt.Sprintf("%s/%s/%s.png", UploadsWebRoot, uploadPath, saveState.Id)
+
+	return nil
+}
+
+func (s *Server) getSaveStatesWithDataByGame(user *storage.User, gameId string) ([]storage.SaveState, error) {
+	core, err := s.getCoreByGameId(user, gameId)
+	if err != nil {
+		return []storage.SaveState{}, err
+	}
+
+	saveStates, err := s.storage.SaveStateGetByGameIdAndCore(gameId, core)
+	if err != nil {
+		return []storage.SaveState{}, err
+	}
+
+	for i := 0; i < len(saveStates); i++ {
+		if err := s.saveStateWithData(&saveStates[i]); err != nil {
+			return []storage.SaveState{}, err
+		}
+	}
+
+	return saveStates, nil
+}
+
+func (s *Server) getSaveStateWithDataById(user *storage.User, stateId string) (storage.SaveState, error) {
+	saveState, err := s.storage.SaveStateGetById(stateId)
+	if err != nil {
+		return storage.SaveState{}, err
+	}
+
+	core, err := s.getCoreByGameId(user, saveState.GameId)
+	if err != nil {
+		return storage.SaveState{}, err
+	}
+
+	if core != saveState.Core {
+		return storage.SaveState{}, errors.New("save state from different core")
+	}
+	if err := s.saveStateWithData(&saveState); err != nil {
+		return storage.SaveState{}, err
+	}
+
+	return saveState, nil
+}
+
+func (s *Server) getLatestSaveStateWithDataByGameId(user *storage.User, gameId string) (storage.SaveState, error) {
+	core, err := s.getCoreByGameId(user, gameId)
+	if err != nil {
+		return storage.SaveState{}, err
+	}
+
+	saveState, err := s.storage.SaveStateGetLatestByGameIdAndCore(gameId, core)
+	if err != nil {
+		return storage.SaveState{}, err
+	}
+	if len(saveState.Id) == 0 {
+		return storage.SaveState{}, nil
+	}
+	if err := s.saveStateWithData(&saveState); err != nil {
+		return storage.SaveState{}, err
+	}
+
+	return saveState, nil
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+func (s *Server) gameWithData(user *storage.User, game *storage.Game) error {
+	uploadPath, err := getUploadPath(game.Id)
+	if err != nil {
+		return err
+	}
+
+	game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
+
+	core, err := s.getCoreByGameId(user, game.Id)
+	if err != nil {
+		log.Warnf("getGameWithDataById unable to get game core for %s: %s", game.Id, err)
+		core = ""
+	}
+	if len(core) > 0 {
+		latestSaveState, err := s.getLatestSaveStateWithDataByGameId(user, game.Id)
+		if err != nil {
+			log.Warnf("getGameWithDataById unable to get latest save state for %s: %s", game.Id, err)
+			latestSaveState = storage.SaveState{}
+		}
+		game.LatestSaveState = latestSaveState
+	}
+
+	return nil
+}
+
+func (s *Server) getGameWithDataById(user *storage.User, gameId string) (storage.Game, error) {
+	game, err := s.storage.GameGetById(gameId)
+	if err != nil {
+		return storage.Game{}, err
+	}
+
+	if err := s.gameWithData(user, &game); err != nil {
+		return storage.Game{}, err
+	}
+
+	return game, nil
+}
+
+func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.Game, error) {
+	games, err := s.storage.GameGetByUserId(user.Id)
+	if err != nil {
+		return []storage.Game{}, err
+	}
+
+	for i := 0; i < len(games); i++ {
+		if err := s.gameWithData(user, &games[i]); err != nil {
+			return []storage.Game{}, err
+		}
+	}
+
+	return games, nil
+}
+
+func (s *Server) groupGamesByPlatform(games []storage.Game) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {
-		game = s.prepareGame(game, user)
 		_, ok := gamesByPlatform[game.Platform]
 		if !ok {
 			gamesByPlatform[game.Platform] = &gameByPlatform{
@@ -55,47 +189,20 @@ func (s *Server) prepareGamesByPlatform(games []storage.Game, user storage.User)
 	return platforms
 }
 
-func (s *Server) prepareGame(game storage.Game, user storage.User) storage.Game {
-	uploadPath, err := getUploadPath(game.Id)
-	if err != nil {
-		uploadPath = ""
-	}
-	game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
+///////////////////////////////////////////////////////////////////////////////
 
-	core, err := s.getGameCore(user.Id, game.Id)
-	if err != nil {
-		log.Warnf("prepareGame unable to get core for %s: %s", game.Id, err)
-		core = ""
+func sortedPlatforms() []storage.Platform {
+	var platforms []storage.Platform
+
+	for _, platform := range storage.Platforms {
+		platforms = append(platforms, platform)
 	}
 
-	if len(core) != 0 {
-		saveState, err := s.storage.SaveStateGetLatestByGameIdAndCore(game.Id, core)
-		if err != nil {
-			log.Warnf("prepareGame unable to get latest save state for %s: %s", game.Id, err)
-			saveState = storage.SaveState{}
-		}
-		game.LatestSaveState = prepareSaveState(saveState)
-	}
+	sort.Slice(platforms, func(i, j int) bool {
+		return platforms[i].Name < platforms[j].Name
+	})
 
-	return game
-}
-
-func (s *Server) getGameCore(userId, gameId string) (string, error) {
-	settings, err := s.storage.SettingsGetByUserId(userId)
-	if err != nil {
-		return "", err
-	}
-
-	game, err := s.storage.GameGetById(gameId)
-	if err != nil {
-		return "", err
-	}
-
-	if game.OverrideEmulatorSettings {
-		return game.EmulatorSettings.Core, nil
-	} else {
-		return settings.EmulatorSettings[game.Platform].Core, nil
-	}
+	return platforms
 }
 
 func guessGameProperties(games []storage.Game) []storage.Game {
@@ -133,29 +240,6 @@ func guessGamePlatform(ext string) string {
 		}
 	}
 	return ""
-}
-
-func prepareSaveStates(states []storage.SaveState) []storage.SaveState {
-	for i := 0; i < len(states); i++ {
-		states[i] = prepareSaveState(states[i])
-	}
-	return states
-}
-
-func prepareSaveState(state storage.SaveState) storage.SaveState {
-	if len(state.Id) == 0 {
-		return state
-	}
-
-	uploadUrl, err := getUploadPath(state.Id)
-	if err != nil {
-		uploadUrl = ""
-	}
-
-	state.StateFileDownloadLink = fmt.Sprintf("%s/%s/%s.sav", UploadsWebRoot, uploadUrl, state.Id)
-	state.ScreenshotDownloadLink = fmt.Sprintf("%s/%s/%s.png", UploadsWebRoot, uploadUrl, state.Id)
-
-	return state
 }
 
 func startsWith(s, prefix string) bool {
