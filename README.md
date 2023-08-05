@@ -1,5 +1,35 @@
 # playtime
 
+Personal retro games library + [EmulatorJS](https://emulatorjs.org/).
+
+## Building
+
+Go 1.20+ and npm 7+ required.
+
+```bash
+./install.sh
+go build -a -o app
+```
+
+## Configuration
+
+Commandline arguments available:
+
+```
+$ ./app -help
+Usage of ./app:
+  -db-path string
+        db path (default "data/bolt.db")
+  -listen string
+        address and port to listen (default ":3000")
+  -templates-debug
+        debug page templates (do not cache)
+  -uploads-path string
+        uploads path (default "uploads")
+  -verbose
+        show debug output
+```
+
 ## Uses
 
 * [labstack/echo](https://github.com/labstack/echo) - MIT
