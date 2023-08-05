@@ -21,17 +21,13 @@
                                 {{ state.Created.Format("02.01.2006 15:04:05") }}
                             </p>
                             <div class="text-end">
-                                <a href="/play/{{ game.Id }}?state={{ state.Id }}"
-                                   class="btn btn-sm btn-outline-primary">
+                                <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-primary">
                                    <i class="bi bi-joystick"></i> Play
                                 </a>
-                                <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}"
-                                   class="btn btn-sm btn-outline-danger"
-                                   title="Delete">
+                                <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="btn btn-sm btn-outline-danger" title="Delete">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </div>
-
                         </div>
                     </div>
                 </div>

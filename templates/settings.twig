@@ -11,9 +11,7 @@
     <h2>General</h2>
 
     {% if done %}
-        <p class="alert alert-success">
-            Settings saved
-        </p>
+        <p class="alert alert-success">Settings saved</p>
     {% endif %}
 
     <form action="/settings" method="post" enctype="application/x-www-form-urlencoded">
@@ -28,9 +26,7 @@
 
     <div class="list-group list-group-hover mb-3">
         {% for platform in platforms %}
-            <a class="list-group-item list-group-item-action"
-               href="/settings/{{ platform.Id }}"
-               >{{ platform.Name }}</a>
+            <a class="list-group-item list-group-item-action" href="/settings/{{ platform.Id }}">{{ platform.Name }}</a>
         {% endfor %}
     </div>
 
