@@ -2,39 +2,39 @@
 
 <div class="mt-3">
     {% if platform_id == "nes" %}
-        {% include "controls/nes.twig" %}
+        {% include "controls/nes.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "snes" %}
-        {% include "controls/snes.twig" %}
+        {% include "controls/snes.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "n64" %}
-        {% include "controls/n64.twig" %}
+        {% include "controls/n64.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "gb" %}
-        {% include "controls/gb.twig" %}
+        {% include "controls/gb.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "gba" %}
-        {% include "controls/gba.twig" %}
+        {% include "controls/gba.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "nds" %}
-        {% include "controls/nds.twig" %}
+        {% include "controls/nds.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "vb" %}
-        {% include "controls/vb.twig" %}
+        {% include "controls/vb.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "segaMS" %}
-        {% include "controls/segaMS.twig" %}
+        {% include "controls/segaMS.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "segaMD" or platform_id == "segaCD" or platform_id == "sega32x" %}
-        {% include "controls/segaMD.twig" %}
+        {% include "controls/segaMD.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "segaGG" %}
-        {% include "controls/segaGG.twig" %}
+        {% include "controls/segaGG.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "segaSaturn" %}
-        {% include "controls/segaSaturn.twig" %}
+        {% include "controls/segaSaturn.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "psx" %}
-        {% include "controls/psx.twig" %}
+        {% include "controls/psx.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "3do" %}
-        {% include "controls/3do.twig" %}
+        {% include "controls/3do.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "atari7800" %}
-        {% include "controls/atari7800.twig" %}
+        {% include "controls/atari7800.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "atari2600" %}
-        {% include "controls/atari2600.twig" %}
+        {% include "controls/atari2600.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "lynx" %}
-        {% include "controls/lynx.twig" %}
+        {% include "controls/lynx.twig" with control_template="controls/control.twig" %}
     {% else %}
         {# a5200, jaguar, mame2003, arcade #}
-        {% include "controls/default.twig" %}
+        {% include "controls/default.twig" with control_template="controls/control.twig" %}
     {% endif %}
 </div>

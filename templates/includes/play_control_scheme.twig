@@ -7,16 +7,15 @@
             </div>
             <div class="modal-body">
 
-                <h5>Keyboard controls</h5>
-                <ul class="nav nav-tabs" id="controls-keyboard-tabs" role="tablist">
+                <ul class="nav nav-underline mb-3" id="control-scheme-tabs" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active"
-                                id="keyboard-player-0-tab"
+                                id="scheme-player-0-tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#keyboard-player-0"
+                                data-bs-target="#scheme-player-0"
                                 type="button"
                                 role="tab"
-                                aria-controls="keyboard-player-0"
+                                aria-controls="scheme-player-0"
                                 aria-selected="true"
                         >Player 1</button>
                     </li>
@@ -24,52 +23,48 @@
                         <button class="nav-link"
                                 id="keyboard-player-1-tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#keyboard-player-1"
+                                data-bs-target="#scheme-player-1"
                                 type="button"
                                 role="tab"
-                                aria-controls="keyboard-player-1"
+                                aria-controls="scheme-player-1"
                                 aria-selected="false"
                         >Player 2</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link"
-                                id="keyboard-player-2-tab"
+                                id="scheme-player-2-tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#keyboard-player-2"
+                                data-bs-target="#scheme-player-2"
                                 type="button"
                                 role="tab"
-                                aria-controls="keyboard-player-2"
+                                aria-controls="scheme-player-2"
                                 aria-selected="false"
                         >Player 3</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link"
-                                id="keyboard-player-3-tab"
+                                id="scheme-player-3-tab"
                                 data-bs-toggle="tab"
-                                data-bs-target="#keyboard-player-3"
+                                data-bs-target="#scheme-player-3"
                                 type="button"
                                 role="tab"
-                                aria-controls="keyboard-player-3"
+                                aria-controls="scheme-player-3"
                                 aria-selected="false"
                         >Player 4</button>
                     </li>
                 </ul>
-                <div class="tab-content" id="controls-keyboard">
-                    <div class="tab-pane active" id="keyboard-player-0" role="tabpanel" aria-labelledby="keyboard-player-0-tab" tabindex="0">
-                        {% set controls_group = emulator_settings.Controls[0] %}
-                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="0" controls=controls_group.Keyboard %}
+                <div class="tab-content" id="control-scheme">
+                    <div class="tab-pane active" id="scheme-player-0" role="tabpanel" aria-labelledby="scheme-player-0-tab" tabindex="0">
+                        {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=emulator_settings.Controls[0] %}
                     </div>
-                    <div class="tab-pane" id="keyboard-player-1" role="tabpanel" aria-labelledby="keyboard-player-1-tab" tabindex="1">
-                        {% set controls_group = emulator_settings.Controls[1] %}
-                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="1" controls=controls_group.Keyboard %}
+                    <div class="tab-pane" id="scheme-player-1" role="tabpanel" aria-labelledby="scheme-player-1-tab" tabindex="1">
+                        {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="1" controls=emulator_settings.Controls[1] %}
                     </div>
-                    <div class="tab-pane" id="keyboard-player-2" role="tabpanel" aria-labelledby="keyboard-player-2-tab" tabindex="2">
-                        {% set controls_group = emulator_settings.Controls[2] %}
-                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="2" controls=controls_group.Keyboard %}
+                    <div class="tab-pane" id="scheme-player-2" role="tabpanel" aria-labelledby="scheme-player-2-tab" tabindex="2">
+                        {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="2" controls=emulator_settings.Controls[2] %}
                     </div>
-                    <div class="tab-pane" id="keyboard-player-3" role="tabpanel" aria-labelledby="keyboard-player-3-tab" tabindex="3">
-                        {% set controls_group = emulator_settings.Controls[3] %}
-                        {% include "control_scheme/control_scheme.twig" with platform_id=game.Platform input="keyboard" player="3" controls=controls_group.Keyboard %}
+                    <div class="tab-pane" id="scheme-player-3" role="tabpanel" aria-labelledby="scheme-player-3-tab" tabindex="3">
+                        {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="3" controls=emulator_settings.Controls[3] %}
                     </div>
                 </div>
 

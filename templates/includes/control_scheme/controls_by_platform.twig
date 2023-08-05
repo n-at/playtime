@@ -1,0 +1,38 @@
+{# platform_id, player, controls #}
+
+{% if platform_id == "nes" %}
+    {% include "../platform_settings/controls/nes.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "snes" %}
+    {% include "../platform_settings/controls/snes.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "n64" %}
+    {% include "../platform_settings/controls/n64.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "gb" %}
+    {% include "../platform_settings/controls/gb.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "gba" %}
+    {% include "../platform_settings/controls/gba.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "nds" %}
+    {% include "../platform_settings/controls/nds.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "vb" %}
+    {% include "../platform_settings/controls/vb.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "segaMS" %}
+    {% include "../platform_settings/controls/segaMS.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "segaMD" or platform_id == "segaCD" or platform_id == "sega32x" %}
+    {% include "../platform_settings/controls/segaMD.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "segaGG" %}
+    {% include "../platform_settings/controls/segaGG.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "segaSaturn" %}
+    {% include "../platform_settings/controls/segaSaturn.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "psx" %}
+    {% include "../platform_settings/controls/psx.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "3do" %}
+    {% include "../platform_settings/controls/3do.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "atari7800" %}
+    {% include "../platform_settings/controls/atari7800.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "atari2600" %}
+    {% include "../platform_settings/controls/atari2600.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "lynx" %}
+    {% include "../platform_settings/controls/lynx.twig" with control_template="../control_scheme/control.twig" %}
+{% else %}
+    {# a5200, jaguar, mame2003, arcade #}
+    {% include "../platform_settings/controls/default.twig" with control_template="../control_scheme/control.twig" %}
+{% endif %}
