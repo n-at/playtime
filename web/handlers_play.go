@@ -30,7 +30,7 @@ func (s *Server) play(c echo.Context) error {
 		emulatorSettings = game.EmulatorSettings
 	}
 
-	saveState := storage.SaveState{}
+	saveState := storage.SaveStateWithData{}
 	saveStateId := c.QueryParam("state")
 	if len(saveStateId) != 0 {
 		saveState, err = s.getSaveStateWithDataById(context.user, saveStateId)

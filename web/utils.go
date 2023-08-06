@@ -11,7 +11,7 @@ import (
 
 type gameByPlatform struct {
 	Platform storage.Platform
-	Games    []storage.Game
+	Games    []storage.GameWithData
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -36,88 +36,102 @@ func (s *Server) getCoreByGameId(user *storage.User, gameId string) (string, err
 
 ///////////////////////////////////////////////////////////////////////////////
 
-func (s *Server) saveStateWithData(saveState *storage.SaveState) error {
+func (s *Server) saveStateWithData(saveState storage.SaveState) (storage.SaveStateWithData, error) {
 	uploadPath, err := getUploadPath(saveState.Id)
 	if err != nil {
-		return err
+		return storage.SaveStateWithData{}, err
 	}
 
-	saveState.StateFileDownloadLink = fmt.Sprintf("%s/%s/%s.sav", UploadsWebRoot, uploadPath, saveState.Id)
-	saveState.ScreenshotDownloadLink = fmt.Sprintf("%s/%s/%s.png", UploadsWebRoot, uploadPath, saveState.Id)
+	saveStateWithData := storage.SaveStateWithData{
+		SaveState:              saveState,
+		StateFileDownloadLink:  fmt.Sprintf("%s/%s/%s.sav", UploadsWebRoot, uploadPath, saveState.Id),
+		ScreenshotDownloadLink: fmt.Sprintf("%s/%s/%s.png", UploadsWebRoot, uploadPath, saveState.Id),
+	}
 
-	return nil
+	return saveStateWithData, nil
 }
 
-func (s *Server) getSaveStatesWithDataByGame(user *storage.User, gameId string) ([]storage.SaveState, error) {
+func (s *Server) getSaveStatesWithDataByGame(user *storage.User, gameId string) ([]storage.SaveStateWithData, error) {
 	core, err := s.getCoreByGameId(user, gameId)
 	if err != nil {
-		return []storage.SaveState{}, err
+		return []storage.SaveStateWithData{}, err
 	}
 
 	saveStates, err := s.storage.SaveStateGetByGameIdAndCore(gameId, core)
 	if err != nil {
-		return []storage.SaveState{}, err
+		return []storage.SaveStateWithData{}, err
 	}
+
+	var states []storage.SaveStateWithData
 
 	for i := 0; i < len(saveStates); i++ {
-		if err := s.saveStateWithData(&saveStates[i]); err != nil {
-			return []storage.SaveState{}, err
+		saveStateWithData, err := s.saveStateWithData(saveStates[i])
+		if err != nil {
+			return []storage.SaveStateWithData{}, err
 		}
+		states = append(states, saveStateWithData)
 	}
 
-	return saveStates, nil
+	return states, nil
 }
 
-func (s *Server) getSaveStateWithDataById(user *storage.User, stateId string) (storage.SaveState, error) {
+func (s *Server) getSaveStateWithDataById(user *storage.User, stateId string) (storage.SaveStateWithData, error) {
 	saveState, err := s.storage.SaveStateGetById(stateId)
 	if err != nil {
-		return storage.SaveState{}, err
+		return storage.SaveStateWithData{}, err
 	}
 
 	core, err := s.getCoreByGameId(user, saveState.GameId)
 	if err != nil {
-		return storage.SaveState{}, err
+		return storage.SaveStateWithData{}, err
 	}
 
 	if core != saveState.Core {
-		return storage.SaveState{}, errors.New("save state from different core")
-	}
-	if err := s.saveStateWithData(&saveState); err != nil {
-		return storage.SaveState{}, err
+		return storage.SaveStateWithData{}, errors.New("save state from different core")
 	}
 
-	return saveState, nil
+	saveStateWithData, err := s.saveStateWithData(saveState)
+	if err != nil {
+		return storage.SaveStateWithData{}, err
+	}
+
+	return saveStateWithData, nil
 }
 
-func (s *Server) getLatestSaveStateWithDataByGameId(user *storage.User, gameId string) (storage.SaveState, error) {
+func (s *Server) getLatestSaveStateWithDataByGameId(user *storage.User, gameId string) (storage.SaveStateWithData, error) {
 	core, err := s.getCoreByGameId(user, gameId)
 	if err != nil {
-		return storage.SaveState{}, err
+		return storage.SaveStateWithData{}, err
 	}
 
 	saveState, err := s.storage.SaveStateGetLatestByGameIdAndCore(gameId, core)
 	if err != nil {
-		return storage.SaveState{}, err
+		return storage.SaveStateWithData{}, err
 	}
 	if len(saveState.Id) == 0 {
-		return storage.SaveState{}, nil
-	}
-	if err := s.saveStateWithData(&saveState); err != nil {
-		return storage.SaveState{}, err
+		return storage.SaveStateWithData{}, nil
 	}
 
-	return saveState, nil
+	saveStateWithData, err := s.saveStateWithData(saveState)
+	if err != nil {
+		return storage.SaveStateWithData{}, err
+	}
+
+	return saveStateWithData, nil
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
-func (s *Server) gameWithData(user *storage.User, game *storage.Game) error {
+func (s *Server) gameWithData(user *storage.User, game storage.Game) (storage.GameWithData, error) {
 	uploadPath, err := getUploadPath(game.Id)
 	if err != nil {
-		return err
+		return storage.GameWithData{}, err
 	}
 
-	game.DownloadLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id)
+	gameWithData := storage.GameWithData{
+		Game:         game,
+		DownloadLink: fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id),
+	}
 
 	core, err := s.getCoreByGameId(user, game.Id)
 	if err != nil {
@@ -128,43 +142,48 @@ func (s *Server) gameWithData(user *storage.User, game *storage.Game) error {
 		latestSaveState, err := s.getLatestSaveStateWithDataByGameId(user, game.Id)
 		if err != nil {
 			log.Warnf("getGameWithDataById unable to get latest save state for %s: %s", game.Id, err)
-			latestSaveState = storage.SaveState{}
+			latestSaveState = storage.SaveStateWithData{}
 		}
-		game.LatestSaveState = latestSaveState
+		gameWithData.LatestSaveState = latestSaveState
 	}
 
-	return nil
+	return gameWithData, nil
 }
 
-func (s *Server) getGameWithDataById(user *storage.User, gameId string) (storage.Game, error) {
+func (s *Server) getGameWithDataById(user *storage.User, gameId string) (storage.GameWithData, error) {
 	game, err := s.storage.GameGetById(gameId)
 	if err != nil {
-		return storage.Game{}, err
+		return storage.GameWithData{}, err
 	}
 
-	if err := s.gameWithData(user, &game); err != nil {
-		return storage.Game{}, err
+	gameWithData, err := s.gameWithData(user, game)
+	if err != nil {
+		return storage.GameWithData{}, err
 	}
 
-	return game, nil
+	return gameWithData, nil
 }
 
-func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.Game, error) {
+func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.GameWithData, error) {
 	games, err := s.storage.GameGetByUserId(user.Id)
 	if err != nil {
-		return []storage.Game{}, err
+		return []storage.GameWithData{}, err
 	}
+
+	var gamesWithData []storage.GameWithData
 
 	for i := 0; i < len(games); i++ {
-		if err := s.gameWithData(user, &games[i]); err != nil {
-			return []storage.Game{}, err
+		gameWithData, err := s.gameWithData(user, games[i])
+		if err != nil {
+			return []storage.GameWithData{}, err
 		}
+		gamesWithData = append(gamesWithData, gameWithData)
 	}
 
-	return games, nil
+	return gamesWithData, nil
 }
 
-func (s *Server) groupGamesByPlatform(games []storage.Game) []gameByPlatform {
+func (s *Server) groupGamesByPlatform(games []storage.GameWithData) []gameByPlatform {
 	gamesByPlatform := make(map[string]*gameByPlatform)
 
 	for _, game := range games {

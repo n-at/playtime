@@ -60,12 +60,12 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 		return err
 	}
 
-	saveState, err = s.getSaveStateWithDataById(context.user, saveState.Id)
+	saveStateWithData, err := s.getSaveStateWithDataById(context.user, saveState.Id)
 	if err != nil {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, saveState)
+	return c.JSON(http.StatusOK, saveStateWithData)
 }
 
 func (s *Server) saveStateDeleteForm(c echo.Context) error {
