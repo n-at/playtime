@@ -43,9 +43,14 @@
                 method: 'post',
                 body: formData,
             });
-            return await response.json();
+            const json = await response.json();
+
+            stateSaveSuccess();
+
+            return json;
         } catch (e) {
-            console.log('save state upload error', e)
+            console.log('save state upload error', e);
+            stateLoadError();
             return null;
         }
     }
@@ -69,6 +74,28 @@
             console.error("list states error", e);
             return [];
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    function stateSaveSuccess() {
+        const btn = document.getElementById('btn-save-state').firstElementChild;
+        btn.classList.remove('bi-box-arrow-down');
+        btn.classList.add('bi-check2', 'text-success');
+        setTimeout(() => {
+            btn.classList.remove('bi-check2', 'text-success');
+            btn.classList.add('bi-box-arrow-down');
+        }, 3000);
+    }
+
+    function stateLoadError() {
+        const btn = document.getElementById('btn-save-state').firstElementChild;
+        btn.classList.remove('bi-box-arrow-down');
+        btn.classList.add('bi-x', 'text-danger');
+        setTimeout(() => {
+            btn.classList.remove('bi-x', 'text-danger');
+            btn.classList.add('bi-box-arrow-down');
+        }, 3000);
     }
 
     ///////////////////////////////////////////////////////////////////////////
