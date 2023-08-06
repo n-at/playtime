@@ -9,6 +9,8 @@
     };
 
     if (window.localStorage) {
+        const darkTheme = window.localStorage.__dark_theme;
         window.localStorage.clear();
+        window.localStorage.__dark_theme = darkTheme;
     }
 </script>
