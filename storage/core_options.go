@@ -744,6 +744,32 @@ var CoreOptionsYabause = []CoreOption{
 // CoreOptionsPPSSPP https://docs.libretro.com/library/ppsspp/ TODO
 var CoreOptionsPPSSPP = []CoreOption{}
 
+// CoreOptionsParallelN64 (extracted from emulator)
+var CoreOptionsParallelN64 = []CoreOption{
+	{Id: "parallel-n64-cpucore", Name: "parallel-n64-cpucore", Variants: "cached_interpreter|pure_interpreter", Default: "cached_interpreter"},
+	{Id: "parallel-n64-audio-buffer-size", Name: "parallel-n64-audio-buffer-size", Variants: "2048|1024", Default: "2048"},
+	{Id: "parallel-n64-astick-deadzone", Name: "parallel-n64-astick-deadzone", Variants: "15|20|25|30|0|5|10", Default: "15"},
+	{Id: "parallel-n64-astick-sensitivity", Name: "parallel-n64-astick-sensitivity", Variants: "100|105|110|115|120|125|130|135|140|145|150|200|50|55|60|65|70|75|80|85|90|95", Default: "100"},
+	{Id: "parallel-n64-pak1", Name: "parallel-n64-pak1", Variants: "none|memory|rumble", Default: "none"},
+	{Id: "parallel-n64-pak2", Name: "parallel-n64-pak2", Variants: "none|memory|rumble", Default: "none"},
+	{Id: "parallel-n64-pak3", Name: "parallel-n64-pak3", Variants: "none|memory|rumble", Default: "none"},
+	{Id: "parallel-n64-pak4", Name: "parallel-n64-pak4", Variants: "none|memory|rumble", Default: "none"},
+	{Id: "parallel-n64-gfxplugin-accuracy", Name: "parallel-n64-gfxplugin-accuracy", Variants: "veryhigh|high|medium|low", Default: "veryhigh"},
+	{Id: "parallel-n64-gfxplugin", Name: "parallel-n64-gfxplugin", Variants: "auto|glide64|gln64|rice|angrylion", Default: "auto"},
+	{Id: "parallel-n64-rspplugin", Name: "parallel-n64-rspplugin", Variants: "auto|hle|cxd4", Default: "auto"},
+	{Id: "parallel-n64-screensize", Name: "parallel-n64-screensize", Variants: "640x480|960x720|1280x960|1440x1080|1600x1200|1920x1440|2240x1680|2880x2160|5760x4320|320x240", Default: "640x480"},
+	{Id: "parallel-n64-aspectratiohint", Name: "parallel-n64-aspectratiohint", Variants: "normal|widescreen", Default: "normal"},
+	{Id: "parallel-n64-filtering", Name: "parallel-n64-filtering", Variants: "automatic|N64 3-point|bilinear|nearest", Default: "automatic"},
+	{Id: "parallel-n64-polyoffset-factor", Name: "parallel-n64-polyoffset-factor", Variants: "-3.0|-2.5|-2.0|-1.5|-1.0|-0.5|0.0|0.5|1.0|1.5|2.0|2.5|3.0|3.5|4.0|4.5|5.0|-3.5|-4.0|-4.5|-5.0", Default: "-3.0"},
+	{Id: "parallel-n64-polyoffset-units", Name: "parallel-n64-polyoffset-units", Variants: "-3.0|-2.5|-2.0|-1.5|-1.0|-0.5|0.0|0.5|1.0|1.5|2.0|2.5|3.0|3.5|4.0|4.5|5.0|-3.5|-4.0|-4.5|-5.0", Default: "-3.0"},
+	{Id: "parallel-n64-angrylion-vioverlay", Name: "parallel-n64-angrylion-vioverlay", Variants: "Filtered|AA+Blur|AA+Dedither|AA only|Unfiltered|Depth|Coverage", Default: "Filtered"},
+	{Id: "parallel-n64-angrylion-sync", Name: "parallel-n64-angrylion-sync", Variants: "Low|Medium|High", Default: "Low"},
+	{Id: "parallel-n64-angrylion-multithread", Name: "parallel-n64-angrylion-multithread", Variants: "all threads|1|2|3|4|5|6|7|8|9|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31|32|33|34|35|36|37|38|39|40|41|42|43|44|45|46|47|48|49|50|51|52|53|54|55|56|57|58|59|60|61|62|63", Default: "all threads"},
+	{Id: "parallel-n64-virefresh", Name: "parallel-n64-virefresh", Variants: "auto|1500|2200", Default: "auto"},
+	{Id: "parallel-n64-framerate", Name: "parallel-n64-framerate", Variants: "original|fullspeed", Default: "original"},
+	{Id: "parallel-n64-boot-device", Name: "parallel-n64-boot-device", Variants: "Default|64DD IPL", Default: "Default"},
+}
+
 func CoreOptionsByCore(core string) []CoreOption {
 	switch core {
 	case "fceumm":
@@ -794,6 +820,8 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsProSystem
 	case "stella2014":
 		return CoreOptionsStella2014
+	case "parallel_n64":
+		return CoreOptionsParallelN64
 	}
 	return []CoreOption{}
 }
