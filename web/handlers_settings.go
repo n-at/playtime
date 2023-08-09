@@ -95,6 +95,12 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		volume = storage.DefaultVolume
 	}
 
+	ffRatio, err := strconv.ParseFloat(c.FormValue("ff-ratio"), 32)
+	if err != nil {
+		log.Warnf("unable to read ff-ratio: %s", err)
+		ffRatio = storage.DefaultVolume
+	}
+
 	buttons := storage.EmulatorButtons{
 		PlayPause:    c.FormValue("button-play-pause") == "1",
 		Restart:      c.FormValue("button-restart") == "1",
@@ -147,6 +153,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 				QuickSaveState:  settingsReadControlButton(c, input, player, "quick-save-state"),
 				QuickLoadState:  settingsReadControlButton(c, input, player, "quick-load-state"),
 				ChangeStateSlot: settingsReadControlButton(c, input, player, "change-state-slot"),
+				FastForward:     settingsReadControlButton(c, input, player, "fast-forward"),
 			}
 			if input == "keyboard" {
 				controls[player].Keyboard = mapping
@@ -185,6 +192,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		ColorScheme:            c.FormValue("color-scheme"),
 		CacheLimit:             cacheLimit,
 		Volume:                 volume,
+		FastForwardRatio:       ffRatio,
 		Shader:                 shader,
 		FPS:                    c.FormValue("fps") == "1",
 		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",

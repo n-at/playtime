@@ -32,9 +32,7 @@
     {% include control_template with input="keyboard" btn_id="r-stick-down"        btn_title="R Stick Down"        btn_value=controls.Keyboard.RStickDown %}
     {% include control_template with input="keyboard" btn_id="r-stick-left"        btn_title="R Stick Left"        btn_value=controls.Keyboard.RStickLeft %}
     {% include control_template with input="keyboard" btn_id="r-stick-right"       btn_title="R Stick Right"       btn_value=controls.Keyboard.RStickRight %}
-    {% include control_template with input="keyboard" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Keyboard.QuickSaveState %}
-    {% include control_template with input="keyboard" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Keyboard.QuickLoadState %}
-    {% include control_template with input="keyboard" btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.Keyboard.ChangeStateSlot %}
+    {% include "common_keyboard_controls.twig" %}
 {% endblock %}
 
 {% block controls_gamepad %}
@@ -62,7 +60,5 @@
     {% include control_template with input="gamepad" btn_id="r-stick-down"        btn_title="R Stick Down"        btn_value=controls.Gamepad.RStickDown %}
     {% include control_template with input="gamepad" btn_id="r-stick-left"        btn_title="R Stick Left"        btn_value=controls.Gamepad.RStickLeft %}
     {% include control_template with input="gamepad" btn_id="r-stick-right"       btn_title="R Stick Right"       btn_value=controls.Gamepad.RStickRight %}
-    {% include control_template with input="gamepad" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Gamepad.QuickSaveState %}
-    {% include control_template with input="gamepad" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Gamepad.QuickLoadState %}
-    {% include control_template with input="gamepad" btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.Gamepad.ChangeStateSlot %}
+    {% include "common_gamepad_controls.twig" %}
 {% endblock %}

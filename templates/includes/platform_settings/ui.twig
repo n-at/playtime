@@ -15,6 +15,10 @@
     <input type="range" id="volume" name="volume" class="form-range" min="0.0" max="1.0" step="0.01" value="{{ settings.Volume }}">
 </div>
 <div class="mb-3">
+    <label for="ff-ratio">Fast Forward ratio</label>
+    <input type="range" id="ff-ratio" name="ff-ratio" class="form-range" min="0.0" max="10.0" step="0.1" value="{{ settings.FastForwardRatio }}">
+</div>
+<div class="mb-3">
     <div class="form-check">
         <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
         <label for="fps" class="form-check-label">FPS</label>

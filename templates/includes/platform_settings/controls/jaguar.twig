@@ -17,9 +17,7 @@
     {% include control_template with input="keyboard" btn_id="down"                btn_title="Down"                btn_value=controls.Keyboard.Down %}
     {% include control_template with input="keyboard" btn_id="left"                btn_title="Left"                btn_value=controls.Keyboard.Left %}
     {% include control_template with input="keyboard" btn_id="right"               btn_title="Right"               btn_value=controls.Keyboard.Right %}
-    {% include control_template with input="keyboard" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Keyboard.QuickSaveState %}
-    {% include control_template with input="keyboard" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Keyboard.QuickLoadState %}
-    {% include control_template with input="keyboard" btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.Keyboard.ChangeStateSlot %}
+    {% include "common_keyboard_controls.twig" %}
 {% endblock %}
 
 {% block controls_gamepad %}
@@ -32,7 +30,5 @@
     {% include control_template with input="gamepad" btn_id="down"                btn_title="Down"                btn_value=controls.Gamepad.Down %}
     {% include control_template with input="gamepad" btn_id="left"                btn_title="Left"                btn_value=controls.Gamepad.Left %}
     {% include control_template with input="gamepad" btn_id="right"               btn_title="Right"               btn_value=controls.Gamepad.Right %}
-    {% include control_template with input="gamepad" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Gamepad.QuickSaveState %}
-    {% include control_template with input="gamepad" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Gamepad.QuickLoadState %}
-    {% include control_template with input="gamepad" btn_id="change-state-slot"   btn_title="Change State Slot"   btn_value=controls.Gamepad.ChangeStateSlot %}
+    {% include "common_gamepad_controls.twig" %}
 {% endblock %}
