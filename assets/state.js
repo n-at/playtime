@@ -11,14 +11,17 @@
             loadStateModal.show();
         });
 
-        document.addEventListener('keypress', keyboardStateControl);
-        document.getElementsByTagName('canvas')[0].addEventListener('keypress', keyboardStateControl);
+        document.addEventListener('keydown', keyboardStateControl);
+        document.getElementById('game').addEventListener('keydown', keyboardStateControl);
         setInterval(gamepadStateControl, 1000/60);
     });
 
     ///////////////////////////////////////////////////////////////////////////
 
     async function keyboardStateControl(e) {
+        if (e.repeat) {
+            return;
+        }
         const key = e.key.toLowerCase();
         for (let playerIdx = 0; playerIdx < 4; playerIdx++) {
             if (key === PlaytimeControls[playerIdx].load.value) {
