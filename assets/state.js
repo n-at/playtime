@@ -3,33 +3,87 @@
     window.addEventListener('load', () => {
         const loadStateModal = new bootstrap.Modal(document.getElementById('modal-load-state'));
 
-        document.getElementById('btn-save-state').addEventListener('click', async () => {
-            const state = await saveState();
-            if (state !== null) {
-                window.LatestStateUrl = state.StateFileDownloadLink;
-            }
-        });
-
-        document.getElementById('btn-load-state-latest').addEventListener('click', async () => {
-            if (!window.LatestStateUrl) {
-                return;
-            }
-            await loadState(window.LatestStateUrl);
-        });
-
+        document.getElementById('btn-save-state').addEventListener('click', saveState);
+        document.getElementById('btn-load-state-latest').addEventListener('click', loadLatestState);
         document.getElementById('btn-load-state').addEventListener('click', async () => {
             const states = await listStates();
             renderSaveStates(states, loadStateModal);
             loadStateModal.show();
         });
+
+        document.addEventListener('keypress', keyboardStateControl);
+        document.getElementsByTagName('canvas')[0].addEventListener('keypress', keyboardStateControl);
+        setInterval(gamepadStateControl, 1000/60);
     });
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    async function keyboardStateControl(e) {
+        const key = e.key.toLowerCase();
+        for (let playerIdx = 0; playerIdx < 4; playerIdx++) {
+            if (key === PlaytimeControls[playerIdx].load.value) {
+                e.preventDefault();
+                await loadLatestState();
+                return;
+            }
+            if (key === PlaytimeControls[playerIdx].save.value) {
+                e.preventDefault();
+                await saveState();
+                return;
+            }
+        }
+    }
+
+    async function gamepadStateControl() {
+        if (!navigator.getGamepads) {
+            return;
+        }
+        navigator.getGamepads().forEach(gamepad => {
+            if (!gamepad) {
+                return;
+            }
+            let value = null;
+            gamepad.buttons.forEach((button, buttonIdx) => {
+                if (button.pressed) {
+                    value = buttonIdx;
+                }
+            });
+            gamepad.axes.forEach((axisValue, axisIdx) => {
+                const axisName = ['LEFT_STICK_X', 'LEFT_STICK_Y', 'RIGHT_STICK_X', 'RIGHT_STICK_Y'][axisIdx];
+                if (!axisName) {
+                    return;
+                }
+                axisValue = Math.round(axisValue);
+                if (axisValue === 0) {
+                    return;
+                }
+                value = `${axisName}:${axisValue}`;
+            });
+            if (value === null) {
+                return;
+            }
+            for (let playerIdx = 0; playerIdx < 4; playerIdx++) {
+                if (value === PlaytimeControls[playerIdx].load.value2) {
+                    loadLatestState();
+                    return;
+                }
+                if (value === PlaytimeControls[playerIdx].save.value2) {
+                    saveState();
+                    return;
+                }
+            }
+        });
+    }
 
     ///////////////////////////////////////////////////////////////////////////
 
     async function saveState() {
         const state = await EJS_emulator.gameManager.getState();
         const screenshot = EJS_emulator.gameManager.screenshot();
-        return await uploadState(state, screenshot);
+        const response = await uploadState(state, screenshot);
+        if (response) {
+            window.LatestStateUrl = response.StateFileDownloadLink
+        }
     }
 
     async function uploadState(state, screenshot) {
@@ -50,9 +104,16 @@
             return json;
         } catch (e) {
             console.log('save state upload error', e);
-            stateLoadError();
+            stateSaveError();
             return null;
         }
+    }
+
+    async function loadLatestState() {
+        if (!window.LatestStateUrl) {
+            return;
+        }
+        await loadState(window.LatestStateUrl);
     }
 
     async function loadState(stateUrl) {
@@ -60,8 +121,10 @@
             const result = await fetch(stateUrl);
             const data = await result.arrayBuffer();
             EJS_emulator.gameManager.loadState(new Uint8Array(data));
+            stateLoadSuccess();
         } catch (e) {
             console.error("save state load error", e);
+            stateLoadError();
         }
     }
 
@@ -79,23 +142,80 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function stateSaveSuccess() {
-        const btn = document.getElementById('btn-save-state').firstElementChild;
-        btn.classList.remove('bi-box-arrow-down');
-        btn.classList.add('bi-check2', 'text-success');
-        setTimeout(() => {
-            btn.classList.remove('bi-check2', 'text-success');
-            btn.classList.add('bi-box-arrow-down');
-        }, 3000);
+        flashButtonIcon(
+            'btn-save-state',
+            ['btn-outline-secondary'],
+            ['bi-box-arrow-down'],
+            ['btn-outline-success'],
+            ['bi-check']
+        );
+    }
+
+    function stateSaveError() {
+        flashButtonIcon(
+            'btn-save-state',
+            ['btn-outline-secondary'],
+            ['bi-box-arrow-down'],
+            ['btn-outline-danger'],
+            ['bi-x']
+        );
+    }
+
+    function stateLoadSuccess() {
+        flashButtonIcon(
+            'btn-load-state-latest',
+            ['btn-outline-secondary'],
+            ['bi-box-arrow-up'],
+            ['btn-outline-success'],
+            ['bi-check']
+        );
     }
 
     function stateLoadError() {
-        const btn = document.getElementById('btn-save-state').firstElementChild;
-        btn.classList.remove('bi-box-arrow-down');
-        btn.classList.add('bi-x', 'text-danger');
+        flashButtonIcon(
+            'btn-load-state-latest',
+            ['btn-outline-secondary'],
+            ['bi-box-arrow-up'],
+            ['btn-outline-danger'],
+            ['bi-x']
+        );
+    }
+
+    function flashButtonIcon(btnId, oldBtnCls, oldIconCls, newBtnCls, newIconCls) {
+        const btn = document.getElementById(btnId);
+        if (!btn) {
+            return;
+        }
+        const icon = btn.firstElementChild;
+        if (!icon) {
+            return;
+        }
+        if (oldBtnCls) {
+            btn.classList.remove(...oldBtnCls);
+        }
+        if (newBtnCls) {
+            btn.classList.add(...newBtnCls)
+        }
+        if (oldIconCls) {
+            icon.classList.remove(...oldIconCls);
+        }
+        if (newIconCls) {
+            icon.classList.add(...newIconCls);
+        }
         setTimeout(() => {
-            btn.classList.remove('bi-x', 'text-danger');
-            btn.classList.add('bi-box-arrow-down');
-        }, 3000);
+            if (newBtnCls) {
+                btn.classList.remove(...newBtnCls);
+            }
+            if (oldBtnCls) {
+                btn.classList.add(...oldBtnCls);
+            }
+            if (newIconCls) {
+                icon.classList.remove(...newIconCls);
+            }
+            if (oldIconCls) {
+                icon.classList.add(...oldIconCls);
+            }
+        }, 1000);
     }
 
     ///////////////////////////////////////////////////////////////////////////

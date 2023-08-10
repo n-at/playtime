@@ -98,22 +98,28 @@
                 value: "{{ controls.Keyboard.RStickUp }}",
                 value2: "{{ controls.Gamepad.RStickUp }}"
             },
-            24: {
-                value: "{{ controls.Keyboard.QuickSaveState }}",
-                value2: "{{ controls.Gamepad.QuickSaveState }}"
-            },
-            25: {
-                value: "{{ controls.Keyboard.QuickLoadState }}",
-                value2: "{{ controls.Gamepad.QuickLoadState }}"
-            },
-            26: {
-                value: "{{ controls.Keyboard.ChangeStateSlot }}",
-                value2: "{{ controls.Gamepad.ChangeStateSlot }}"
-            },
+            24: {},
+            25: {},
+            26: {},
             27: {
                 value: "{{ controls.Keyboard.FastForward }}",
                 value2: "{{ controls.Gamepad.FastForward }}"
-            }
+            },
+        },
+        {% endfor %}
+    };
+
+    window.PlaytimeControls = {
+        {% for controls in emulator_settings.Controls %}
+        "{{ forloop.Counter0 }}": {
+            save: {
+                value: "{{ controls.Keyboard.QuickSaveState }}",
+                value2: "{{ controls.Gamepad.QuickSaveState }}",
+            },
+            load: {
+                value: "{{ controls.Keyboard.QuickSaveState }}",
+                value2: "{{ controls.Gamepad.QuickSaveState }}",
+            },
         },
         {% endfor %}
     };
