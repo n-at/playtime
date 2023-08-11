@@ -48,13 +48,16 @@ func (s *Server) settingsByPlatformForm(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "settings_platform", pongo2.Context{
-		"user":         context.user,
-		"settings":     platformSettings,
-		"shaders":      storage.Shaders,
-		"platform":     storage.Platforms[platform],
-		"bioses":       storage.Bioses[platform],
-		"cores":        storage.Cores[platform],
-		"core_options": storage.CoreOptionsByPlatform(platform),
+		"user":                 context.user,
+		"settings":             platformSettings,
+		"shaders":              storage.Shaders,
+		"platform":             storage.Platforms[platform],
+		"bioses":               storage.Bioses[platform],
+		"cores":                storage.Cores[platform],
+		"core_options":         storage.CoreOptionsByPlatform(platform),
+		"fast_forward_ratios":  storage.FastForwardRatios,
+		"slow_motion_ratios":   storage.SlowMotionRatios,
+		"rewind_granularities": storage.RewindGranularities,
 	})
 }
 
@@ -93,12 +96,6 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 	if err != nil {
 		log.Warnf("unable to read volume: %s", err)
 		volume = storage.DefaultVolume
-	}
-
-	ffRatio, err := strconv.ParseFloat(c.FormValue("ff-ratio"), 32)
-	if err != nil {
-		log.Warnf("unable to read ff-ratio: %s", err)
-		ffRatio = storage.DefaultVolume
 	}
 
 	buttons := storage.EmulatorButtons{
@@ -154,6 +151,8 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 				QuickLoadState:  settingsReadControlButton(c, input, player, "quick-load-state"),
 				ChangeStateSlot: settingsReadControlButton(c, input, player, "change-state-slot"),
 				FastForward:     settingsReadControlButton(c, input, player, "fast-forward"),
+				SlowMotion:      settingsReadControlButton(c, input, player, "slow-motion"),
+				Rewind:          settingsReadControlButton(c, input, player, "rewind"),
 			}
 			if input == "keyboard" {
 				controls[player].Keyboard = mapping
@@ -192,11 +191,16 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		ColorScheme:            c.FormValue("color-scheme"),
 		CacheLimit:             cacheLimit,
 		Volume:                 volume,
-		FastForwardRatio:       ffRatio,
+		FastForwardRatio:       c.FormValue("ff-ratio"),
+		SlowMotionRatio:        c.FormValue("sm-ratio"),
+		RewindGranularity:      c.FormValue("rewind-granularity"),
 		Shader:                 shader,
 		FPS:                    c.FormValue("fps") == "1",
 		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",
 		Debug:                  c.FormValue("debug") == "1",
+		FastForwardMode:        c.FormValue("fast-forward-mode") == "1",
+		SlowMotionMode:         c.FormValue("slow-motion-mode") == "1",
+		Rewind:                 c.FormValue("rewind-enabled") == "1",
 		Buttons:                buttons,
 		Controls:               controls,
 		CoreOptions:            coreOptionsValues,

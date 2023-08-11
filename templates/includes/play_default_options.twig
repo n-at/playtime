@@ -3,6 +3,15 @@
         'shader': '{{ emulator_settings.Shader }}',
         'fps': {% if emulator_settings.FPS %}'show'{% else %}'hide'{% endif %},
         'virtual-gamepad-left-handed-mode': {% if emulator_settings.VirtualGamepadLeftHand %}'enabled'{% else %}'disabled'{% endif %},
+
+        'ff-ratio': '{{ emulator_settings.FastForwardRatio }}',
+        'sm-ratio': '{{ emulator_settings.SlowMotionRatio }}',
+        'rewind-granularity': '{{ emulator_settings.RewindGranularity }}',
+
+        'fastForward': {% if emulator_settings.FastForwardMode %}'enabled'{% else %}'disabled'{% endif %},
+        'slowMotion': {% if emulator_settings.SlowMotionMode %}'enabled'{% else %}'disabled'{% endif %},
+        'rewindEnabled': {% if emulator_settings.Rewind %}'enabled'{% else %}'disabled'{% endif %},
+
         {% for option, value in emulator_settings.CoreOptions %}
         '{{ option }}': '{{ value }}',
         {% endfor %}
@@ -12,5 +21,13 @@
         const darkTheme = window.localStorage.__dark_theme;
         window.localStorage.clear();
         window.localStorage.__dark_theme = darkTheme;
+
+        const coreSettings = {
+            settings: {
+                rewindEnabled: EJS_defaultOptions.rewindEnabled,
+            },
+        };
+        const coreSettingsIdx = `ejs-${window.EJS_core}-settings`;
+        window.localStorage[coreSettingsIdx] = JSON.stringify(coreSettings);
     }
 </script>

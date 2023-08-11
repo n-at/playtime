@@ -65,7 +65,12 @@ type EmulatorSettings struct {
 	Controls               [4]EmulatorControls
 	Buttons                EmulatorButtons
 	CoreOptions            map[string]string
-	FastForwardRatio       float64
+	FastForwardRatio       string
+	SlowMotionRatio        string
+	RewindGranularity      string
+	FastForwardMode        bool
+	SlowMotionMode         bool
+	Rewind                 bool
 }
 
 type EmulatorControls struct {
@@ -102,6 +107,8 @@ type EmulatorControlsMapping struct {
 	QuickLoadState  string //25
 	ChangeStateSlot string //26
 	FastForward     string //27
+	Rewind          string //28
+	SlowMotion      string //29
 }
 
 type EmulatorButtons struct {

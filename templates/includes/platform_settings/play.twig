@@ -1,0 +1,70 @@
+<div class="form-floating mb-3">
+    <select id="shader" name="shader" class="form-select">
+        {% for shader in shaders %}
+            <option value="{{ shader.Value }}" {% if shader.Value == settings.Shader %}selected{% endif %}>{{ shader.Name }}</option>
+        {% endfor %}
+    </select>
+    <label for="shader">Display shader</label>
+</div>
+<div class="form-floating mb-3">
+    <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
+    <label for="color-scheme">Color scheme</label>
+</div>
+<div class="mb-3">
+    <label for="volume">Volume</label>
+    <input type="range" id="volume" name="volume" class="form-range" min="0.0" max="1.0" step="0.01" value="{{ settings.Volume }}">
+</div>
+<div class="mb-3 form-floating">
+    <select id="ff-ratio" name="ff-ratio" class="form-select">
+        {% for ff_ratio in fast_forward_ratios %}
+            <option value="{{ ff_ratio }}" {% if settings.FastForwardRatio == ff_ratio %}selected{% endif %}>{{ ff_ratio }}</option>
+        {% endfor %}
+    </select>
+    <label for="ff-ratio">Fast Forward ratio</label>
+</div>
+<div class="mb-3 form-floating">
+    <select id="sm-ratio" name="sm-ratio" class="form-select">
+        {% for sm_ratio in slow_motion_ratios %}
+            <option value="{{ sm_ratio }}" {% if settings.SlowMotionRatio == sm_ratio %}selected{% endif %}>{{ sm_ratio }}</option>
+        {% endfor %}
+    </select>
+    <label for="ff-ratio">Slow Motion ratio</label>
+</div>
+<div class="mb-3 form-floating">
+    <select id="rewind-granularity" name="rewind-granularity" class="form-select">
+        {% for granularity in rewind_granularities %}
+            <option value="{{ granularity }}" {% if settings.RewindGranularity == granularity %}selected{% endif %}>{{ granularity }}</option>
+        {% endfor %}
+    </select>
+    <label for="ff-ratio">Rewind granularity</label>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="fast-forward-mode" name="fast-forward-mode" value="1" class="form-check-input" {% if settings.FastForwardMode %}checked{% endif %}>
+        <label for="fast-forward-mode" class="form-check-label">Fast Forward mode</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="slow-motion-mode" name="slow-motion-mode" value="1" class="form-check-input" {% if settings.SlowMotionMode %}checked{% endif %}>
+        <label for="slow-motion-mode" class="form-check-label">Slow Motion mode</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="rewind-enabled" name="rewind-enabled" value="1" class="form-check-input" {% if settings.Rewind %}checked{% endif %}>
+        <label for="rewind-enabled" class="form-check-label">Rewind enabled</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
+        <label for="fps" class="form-check-label">FPS</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="virtual-gamepad-left-hand" name="virtual-gamepad-left-hand" value="1" class="form-check-input" {% if settings.VirtualGamepadLeftHand %}checked{% endif %}
+        <label for="virtual-gamepad-left-hand" class="form-check-label">Virtual gamepad left hand</label>
+    </div>
+</div>

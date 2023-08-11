@@ -21,13 +21,13 @@
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link"
-                id="settings-ui-tab"
+                id="settings-play-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#settings-ui"
+                data-bs-target="#settings-play"
                 type="button"
                 role="tab"
-                aria-controls="settings-ui"
-                aria-selected="false">UI</button>
+                aria-controls="settings-play"
+                aria-selected="false">Play</button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link"
@@ -58,8 +58,8 @@
     <div class="tab-pane" id="settings-core" role="tabpanel" aria-labelledby="settings-core-tab" tabindex="1">
         {% include "platform_settings/core_options.twig" %}
     </div>
-    <div class="tab-pane" id="settings-ui" role="tabpanel" aria-labelledby="settings-ui-tab" tabindex="2">
-        {% include "platform_settings/ui.twig" %}
+    <div class="tab-pane" id="settings-play" role="tabpanel" aria-labelledby="settings-play-tab" tabindex="2">
+        {% include "platform_settings/play.twig" %}
     </div>
     <div class="tab-pane" id="settings-buttons" role="tabpanel" aria-labelledby="settings-buttons-tab" tabindex="3">
         {% include "platform_settings/emulator_buttons.twig" %}

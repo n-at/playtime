@@ -209,6 +209,10 @@ func (s *Storage) SettingsDeleteByUserId(userId string) error {
 	return s.store.Delete(userId, Settings{})
 }
 
+func (s *Storage) SettingsDeleteAll() error {
+	return s.store.DeleteMatching(Settings{}, bolthold.Where(bolthold.Key).Not().IsNil())
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Game
 
