@@ -1,3 +1,9 @@
+<div class="form-floating mb-3">
+    <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
+    <label for="color-scheme">Color scheme</label>
+</div>
+
+<h5>Emulator buttons</h5>
 <div class="row">
     <div class="col-6 col-sm-3 mb-2">
         {% include "emulator_buttons_button.twig" with btn_id="play-pause" btn_title="Play / Pause" btn_value=settings.Buttons.PlayPause %}

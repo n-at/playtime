@@ -31,13 +31,13 @@
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link"
-                id="settings-buttons-tab"
+                id="settings-ui-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#settings-buttons"
+                data-bs-target="#settings-ui"
                 type="button"
                 role="tab"
-                aria-controls="settings-buttons"
-                aria-selected="false">Buttons</button>
+                aria-controls="settings-ui"
+                aria-selected="false">UI</button>
     </li>
     <li class="nav-item" role="presentation">
         <button class="nav-link"
@@ -61,8 +61,8 @@
     <div class="tab-pane" id="settings-play" role="tabpanel" aria-labelledby="settings-play-tab" tabindex="2">
         {% include "platform_settings/play.twig" %}
     </div>
-    <div class="tab-pane" id="settings-buttons" role="tabpanel" aria-labelledby="settings-buttons-tab" tabindex="3">
-        {% include "platform_settings/emulator_buttons.twig" %}
+    <div class="tab-pane" id="settings-ui" role="tabpanel" aria-labelledby="settings-ui-tab" tabindex="3">
+        {% include "platform_settings/ui.twig" %}
     </div>
     <div class="tab-pane" id="settings-controls" role="tabpanel" aria-labelledby="settings-controls-tab" tabindex="4">
         {% include "platform_settings/controls.twig" %}
