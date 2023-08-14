@@ -55,11 +55,23 @@ func (s *Server) play(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "play", pongo2.Context{
-		"user":              context.user,
-		"game":              game,
-		"settings":          settings,
-		"emulator_settings": emulatorSettings,
-		"bios":              bios,
-		"save_state":        saveState,
+		"user":                  context.user,
+		"game":                  game,
+		"settings":              settings,
+		"emulator_settings":     emulatorSettings,
+		"bios":                  bios,
+		"save_state":            saveState,
+		"netplay_enabled":       s.config.NetplayEnabled && game.NetplayEnabled && len(game.NetplaySessionId) != 0,
+		"netplay_turn_url":      s.config.TurnServerUrl,
+		"netplay_turn_user":     s.config.TurnServerUser,
+		"netplay_turn_password": s.config.TurnServerPassword,
 	})
+}
+
+func (s *Server) netplay(c echo.Context) error {
+	return nil //TODO
+}
+
+func (s *Server) netplayWS(c echo.Context) error {
+	return nil //TODO
 }

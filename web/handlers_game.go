@@ -21,6 +21,7 @@ func (s *Server) games(c echo.Context) error {
 	return c.Render(http.StatusOK, "games", pongo2.Context{
 		"user":              context.user,
 		"games_by_platform": s.groupGamesByPlatform(games),
+		"netplay_enabled":   s.config.NetplayEnabled,
 	})
 }
 
@@ -116,9 +117,10 @@ func (s *Server) gameEditForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "game_edit", pongo2.Context{
-		"user":      context.user,
-		"game":      context.game,
-		"platforms": sortedPlatforms(),
+		"user":            context.user,
+		"game":            context.game,
+		"platforms":       sortedPlatforms(),
+		"netplay_enabled": s.config.NetplayEnabled,
 	})
 }
 
@@ -128,6 +130,7 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	game := context.game
 	game.Name = c.FormValue("name")
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
+	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
 
 	newPlatform := c.FormValue("platform")
 	if game.Platform != newPlatform {
@@ -206,4 +209,21 @@ func (s *Server) gameDeleteSubmit(c echo.Context) error {
 	}
 
 	return c.Redirect(http.StatusFound, "/games")
+}
+
+func (s *Server) gameNetplayRefreshId(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+
+	game := context.game
+	game.NetplaySessionId = storage.NewId()
+
+	if _, err := s.storage.GameSave(*game); err != nil {
+		return err
+	}
+
+	if c.QueryParam("return-to") == "play" {
+		return c.Redirect(http.StatusFound, "/play/"+game.Id)
+	} else {
+		return c.Redirect(http.StatusFound, "/games")
+	}
 }

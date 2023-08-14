@@ -16,9 +16,8 @@
 
     <script src="/assets/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/assets/ui-utils.js"></script>
     <script src="/assets/state.js"></script>
-
-    {% block assets %}{% endblock %}
 
     <title>Play {{ game.Name }} - playtime</title>
 </head>
@@ -41,6 +40,11 @@
             </button>
         </div>
         <div class="col-4 text-end">
+            {% if netplay_enabled %}
+                <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+                    <i class="bi bi-globe"></i>
+                </button>
+            {% endif %}
             <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
                 <i class="bi bi-controller"></i>
             </button>
@@ -91,6 +95,21 @@
 
 {% include "includes/play_control_scheme.twig" %}
 {% include "includes/play_load_state.twig" %}
+
+{% if netplay_enabled %}
+    <script>
+        window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
+        window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
+        window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
+        window.NetplayGameId = '{{ game.Id }}';
+        window.NetplaySessionId = '{{ game.NetplaySessionId }}';
+        //TODO init host
+    </script>
+    <script src="/assets/netplay.js"></script>
+    <script src="/assets/netplay-ui.js"></script>
+    <script src="/assets/node_modules/awesome-qr/dist/awesome-qr.js"></script>
+    {% include "includes/play_netplay.twig" %}
+{% endif %}
 
 </body>
 </html>

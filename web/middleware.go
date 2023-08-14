@@ -136,6 +136,36 @@ func (s *Server) gameRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc 
 	}
 }
 
+func (s *Server) netplayGameRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		gameId := c.Param("game_id")
+		if len(gameId) == 0 {
+			return errors.New("game id required")
+		}
+
+		netplaySessionId := c.Param("netplay_session_id")
+		if len(netplaySessionId) == 0 {
+			return errors.New("netplay session id required")
+		}
+
+		game, err := s.storage.GameGetById(gameId)
+		if err != nil {
+			return err
+		}
+		if len(game.Id) == 0 {
+			return errors.New("game not found")
+		}
+		if game.NetplaySessionId != netplaySessionId {
+			return errors.New("netplay session id mismatch")
+		}
+
+		context := c.(*PlaytimeContext)
+		context.game = &game
+
+		return next(context)
+	}
+}
+
 func (s *Server) uploadBatchRequiredMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
 		uploadBatchId := c.Param("upload_batch_id")

@@ -226,6 +226,9 @@ func (s *Storage) GameSave(g Game) (Game, error) {
 	if len(g.Id) == 0 {
 		g.Id = NewId()
 	}
+	if len(g.NetplaySessionId) == 0 {
+		g.NetplaySessionId = NewId()
+	}
 	if err := s.store.Upsert(g.Id, g); err != nil {
 		return g, err
 	}

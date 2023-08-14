@@ -6,6 +6,7 @@ import (
 	"os"
 	"playtime/storage"
 	"playtime/web"
+	"strings"
 )
 
 var (
@@ -34,6 +35,9 @@ func init() {
 	listenPtr := flag.String("listen", ":3000", "address and port to listen")
 	dbPathPtr := flag.String("db-path", "data/bolt.db", "db path")
 	uploadsPathPtr := flag.String("uploads-path", "uploads", "uploads path")
+	turnServerUrlPtr := flag.String("turn-server-url", "", "TURN/STUN/ICE server host, required for netplay (example: turn:turn.example.com)")
+	turnServerUser := flag.String("turn-server-user", "", "TURN/STUN/ICE server user name (if required)")
+	turnServerPassword := flag.String("turn-server-password", "", "TURN/STUN/ICE server password (if required)")
 	flag.Parse()
 
 	log.SetFormatter(&log.TextFormatter{FullTimestamp: true})
@@ -48,11 +52,17 @@ func init() {
 		Path: *dbPathPtr,
 	}
 	webConfig = &web.Configuration{
-		AssetsRoot:         "assets",
-		UploadsRoot:        *uploadsPathPtr,
+		AssetsRoot:  "assets",
+		UploadsRoot: *uploadsPathPtr,
+		Listen:      *listenPtr,
+
 		TemplatesDebug:     *templatesDebugPtr,
 		TemplatesRoot:      "templates",
 		TemplatesExtension: "twig",
-		Listen:             *listenPtr,
+
+		NetplayEnabled:     strings.TrimSpace(*turnServerUrlPtr) != "",
+		TurnServerUrl:      *turnServerUrlPtr,
+		TurnServerUser:     *turnServerUser,
+		TurnServerPassword: *turnServerPassword,
 	}
 }

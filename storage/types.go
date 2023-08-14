@@ -32,6 +32,8 @@ type Game struct {
 	OriginalFileName         string
 	OriginalFileExtension    string
 	Platform                 string `boltholdIndex:"Platform"`
+	NetplayEnabled           bool
+	NetplaySessionId         string
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
 }

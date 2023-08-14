@@ -14,12 +14,20 @@ const (
 )
 
 type Configuration struct {
-	AssetsRoot         string
-	UploadsRoot        string
-	Listen             string
+	AssetsRoot  string
+	UploadsRoot string
+	Listen      string
+
+	//templates
 	TemplatesDebug     bool
 	TemplatesRoot      string
 	TemplatesExtension string
+
+	//netplay
+	NetplayEnabled     bool
+	TurnServerUrl      string
+	TurnServerUser     string
+	TurnServerPassword string
 }
 
 type Server struct {
@@ -119,6 +127,10 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	gamesDelete.GET("", s.gameDeleteForm)
 	gamesDelete.POST("", s.gameDeleteSubmit)
 
+	gamesNetplay := games.Group("/netplay/:game_id")
+	gamesNetplay.Use(s.gameRequiredMiddleware)
+	gamesNetplay.GET("/refresh-id", s.gameNetplayRefreshId)
+
 	uploadBatch := games.Group("/upload-batch/:upload_batch_id")
 	uploadBatch.Use(s.uploadBatchRequiredMiddleware)
 	uploadBatch.GET("", s.gameUploadBatchForm)
@@ -141,6 +153,13 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	play.Use(s.authenticationRequiredMiddleware)
 	play.Use(s.gameRequiredMiddleware)
 	play.GET("", s.play)
+
+	//netplay
+
+	netplay := e.Group("/netplay/:game_id/:netplay_session_id")
+	netplay.Use(s.netplayGameRequiredMiddleware)
+	netplay.GET("", s.netplay)
+	netplay.GET("/ws", s.netplayWS)
 
 	return s
 }
