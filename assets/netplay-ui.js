@@ -13,6 +13,7 @@
                 ['bi-clipboard-check'],
             );
         });
+        document.getElementById('netplay-reset-session').href = `/games/netplay/${window.NetplayGameId}/refresh-id?return-to=play`;
 
         new AwesomeQR.AwesomeQR({
             text: netplayUrl,
