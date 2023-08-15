@@ -33,6 +33,16 @@ func GenerateRandomString(length int) string {
 	return str.String()
 }
 
+func GenerateRandomName() string {
+	adjectives := []string{"playing", "running", "jumping", "thinking", "flying", "sleeping", "singing", "dancing", "painting", "walking", "dreaming", "coding", "sitting", "drinking", "swimming", "reading", "chatting", "rolling", "trolling", "smiling"}
+	animals := []string{"cat", "dog", "mouse", "tiger", "lion", "wolf", "fox", "rabbit", "lizard", "leopard", "turtle", "elephant", "panda", "bear", "raccoon", "camel", "dinosaur", "hamster", "bird", "fish"}
+
+	adjIdx := rand.Intn(len(adjectives))
+	animalIdx := rand.Intn(len(animals))
+
+	return adjectives[adjIdx] + "-" + animals[animalIdx]
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 func EncryptPassword(password string) (string, error) {
