@@ -2,6 +2,7 @@ package storage
 
 const (
 	DefaultColorScheme       = "#1AAFFF"
+	DefaultColorBackground   = "#000"
 	DefaultCacheLimit        = 1073741824
 	DefaultVolume            = 0.5
 	DefaultFastForwardRatio  = "3.0"
@@ -819,6 +820,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["nes"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -829,6 +831,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -843,6 +846,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["snes"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -853,6 +857,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -867,6 +872,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["gb"][0],
 			Bios:                   Bioses["gb"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -877,6 +883,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -891,6 +898,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["gba"][0],
 			Bios:                   Bioses["gba"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -901,6 +909,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -915,6 +924,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["vb"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -925,6 +935,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -939,6 +950,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["nds"][0],
 			Bios:                   Bioses["nds"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -949,6 +961,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -963,6 +976,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["a5200"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -973,6 +987,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -987,6 +1002,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["mame2003"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -997,6 +1013,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1011,6 +1028,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["arcade"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1021,6 +1039,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1035,6 +1054,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["psx"][0],
 			Bios:                   Bioses["psx"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1045,6 +1065,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1059,6 +1080,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["jaguar"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1069,6 +1091,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1083,6 +1106,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["lynx"][0],
 			Bios:                   Bioses["lynx"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1093,6 +1117,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1107,6 +1132,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["segaSaturn"][0],
 			Bios:                   Bioses["segaSaturn"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1117,6 +1143,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1131,6 +1158,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["segaMS"][0],
 			Bios:                   Bioses["segaMS"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1141,6 +1169,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1155,6 +1184,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["segaMD"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1165,6 +1195,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1179,6 +1210,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["segaGG"][0],
 			Bios:                   Bioses["segaGG"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1189,6 +1221,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1203,6 +1236,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["segaCD"][0],
 			Bios:                   Bioses["segaCD"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1213,6 +1247,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1227,6 +1262,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["sega32x"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1237,6 +1273,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1251,6 +1288,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["n64"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1261,6 +1299,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1275,6 +1314,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["3do"][0],
 			Bios:                   Bioses["3do"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1285,6 +1325,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1299,6 +1340,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["atari7800"][0],
 			Bios:                   Bioses["atari7800"][0].Name,
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1309,6 +1351,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
@@ -1323,6 +1366,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Core:                   Cores["atari2600"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
+			ColorBackground:        DefaultColorBackground,
 			CacheLimit:             DefaultCacheLimit,
 			Volume:                 DefaultVolume,
 			FastForwardRatio:       DefaultFastForwardRatio,
@@ -1333,6 +1377,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Shader:                 Shaders[0].Value,
 			FPS:                    false,
 			VirtualGamepadLeftHand: false,
+			StartFullScreen:        false,
 			Buttons:                DefaultButtons,
 			Controls: [4]EmulatorControls{
 				{
