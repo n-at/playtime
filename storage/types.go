@@ -56,11 +56,13 @@ type EmulatorSettings struct {
 	Core                   string
 	Bios                   string
 	ColorScheme            string
+	ColorBackground        string
 	CacheLimit             int64
 	Volume                 float64
 	Shader                 string
 	FPS                    bool
 	VirtualGamepadLeftHand bool
+	StartFullScreen        bool
 	Debug                  bool
 	Controls               [4]EmulatorControls
 	Buttons                EmulatorButtons

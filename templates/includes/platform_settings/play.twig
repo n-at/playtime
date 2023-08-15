@@ -24,7 +24,7 @@
             <option value="{{ sm_ratio }}" {% if settings.SlowMotionRatio == sm_ratio %}selected{% endif %}>{{ sm_ratio }}</option>
         {% endfor %}
     </select>
-    <label for="ff-ratio">Slow Motion ratio</label>
+    <label for="sm-ratio">Slow Motion ratio</label>
 </div>
 <div class="mb-3 form-floating">
     <select id="rewind-granularity" name="rewind-granularity" class="form-select">
@@ -32,7 +32,7 @@
             <option value="{{ granularity }}" {% if settings.RewindGranularity == granularity %}selected{% endif %}>{{ granularity }}</option>
         {% endfor %}
     </select>
-    <label for="ff-ratio">Rewind granularity</label>
+    <label for="rewind-granularity">Rewind granularity</label>
 </div>
 <div class="mb-3">
     <div class="form-check">
@@ -50,12 +50,6 @@
     <div class="form-check">
         <input type="checkbox" id="rewind-enabled" name="rewind-enabled" value="1" class="form-check-input" {% if settings.Rewind %}checked{% endif %}>
         <label for="rewind-enabled" class="form-check-label">Rewind enabled</label>
-    </div>
-</div>
-<div class="mb-3">
-    <div class="form-check">
-        <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
-        <label for="fps" class="form-check-label">Show FPS</label>
     </div>
 </div>
 <div class="mb-3">

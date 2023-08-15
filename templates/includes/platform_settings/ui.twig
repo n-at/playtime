@@ -2,6 +2,22 @@
     <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
     <label for="color-scheme">Color scheme</label>
 </div>
+<div class="form-floating mb-3">
+    <input type="color" id="color-background" name="color-background" class="form-control" value="{{ settings.ColorBackground }}" placeholder="Color value">
+    <label for="color-background">Color background</label>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
+        <label for="fps" class="form-check-label">Show FPS</label>
+    </div>
+</div>
+<div class="mb-3">
+    <div class="form-check">
+        <input type="checkbox" id="start-full-screen" name="start-full-screen" value="1" class="form-check-input" {% if settings.StartFullScreen %}checked{% endif %}>
+        <label for="start-full-screen" class="form-check-label">Start in full screen</label>
+    </div>
+</div>
 
 <h5>Emulator buttons</h5>
 <div class="row">
