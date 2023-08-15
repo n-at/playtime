@@ -1,24 +1,8 @@
 <!doctype html>
 <html lang="en" data-bs-theme="dark">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/assets/favicon/site.webmanifest">
-
-    <link rel="stylesheet" href="/assets/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/node_modules/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    {% include "includes/layout_head.twig" %}
     <link rel="stylesheet" href="/assets/css/play.css">
-
-    <script src="/assets/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/assets/ui-utils.js"></script>
-    <script src="/assets/state.js"></script>
-
     <title>Play {{ game.Name }} - playtime</title>
 </head>
 <body>
@@ -54,7 +38,7 @@
 </div>
 
 <div id="container">
-    <div id='game'></div>
+    <div id="game"></div>
 </div>
 
 <script>
@@ -92,6 +76,8 @@
 {% include "includes/play_default_options.twig" %}
 
 <script src="/assets/emulatorjs/loader.js"></script>
+<script src="/assets/ui-utils.js"></script>
+<script src="/assets/state.js"></script>
 
 {% include "includes/play_control_scheme.twig" %}
 {% include "includes/play_load_state.twig" %}

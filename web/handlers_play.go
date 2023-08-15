@@ -67,11 +67,3 @@ func (s *Server) play(c echo.Context) error {
 		"netplay_turn_password": s.config.TurnServerPassword,
 	})
 }
-
-func (s *Server) netplay(c echo.Context) error {
-	return nil //TODO
-}
-
-func (s *Server) netplayWS(c echo.Context) error {
-	return nil //TODO
-}
