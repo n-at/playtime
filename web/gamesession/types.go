@@ -133,27 +133,6 @@ func (s *GameSession) CountPlayers() int {
 	return count
 }
 
-func (s *GameSession) HasGamepadId(id int) bool {
-	if id < 0 || id > 4 {
-		return false
-	}
-
-	s.lock.RLock()
-
-	ok := false
-
-	for _, player := range s.players {
-		if player.gamepadId == id {
-			ok = true
-			break
-		}
-	}
-
-	s.lock.RUnlock()
-
-	return ok
-}
-
 func (s *GameSession) SetPlayerName(id, name string) bool {
 	if len(id) == 0 || len(name) == 0 {
 		return false
@@ -243,6 +222,8 @@ func (s *GameSession) Send(playerId string, v any) {
 		return
 	}
 
+	log.Debugf("send ws message to %s in session %s", player.id, s.id)
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -254,13 +235,19 @@ func (s *GameSession) Send(playerId string, v any) {
 func (s *GameSession) Broadcast(v any) {
 	s.lock.RLock()
 
-	for playerId, player := range s.players {
-		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-		defer cancel()
+	log.Debugf("broadcast ws message in session %s", s.id)
 
-		if err := wsjson.Write(ctx, player.ws, v); err != nil {
-			log.Warnf("unable to broadcast ws message to %s in session %s: %s", playerId, s.id, err)
-		}
+	for _, player := range s.players {
+		go func(playerId string, ws *websocket.Conn) {
+			log.Debugf("broadcast ws message to player %s in session %s", playerId, s.id)
+
+			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			defer cancel()
+
+			if err := wsjson.Write(ctx, ws, v); err != nil {
+				log.Warnf("unable to broadcast ws message to %s in session %s: %s", playerId, s.id, err)
+			}
+		}(player.id, player.ws)
 	}
 
 	s.lock.RUnlock()
