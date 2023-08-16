@@ -134,6 +134,22 @@ func (s *GameSession) SetPlayerGamepadId(id string, gamepad int) bool {
 	return ok
 }
 
+func (s *GameSession) IsHeartbeatReceived(playerId string) bool {
+	p := s.GetPlayer(playerId)
+	if p == nil {
+		return false
+	}
+	return p.getHeartbeat()
+}
+
+func (s *GameSession) SetHeartbeatReceived(playerId string, value bool) {
+	p := s.GetPlayer(playerId)
+	if p == nil {
+		return
+	}
+	p.setHeartbeat(value)
+}
+
 func (s *GameSession) GetPlayers() []string {
 	var players []string
 

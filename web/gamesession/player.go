@@ -11,6 +11,7 @@ type Player struct {
 	name      string
 	clientKey string
 	gamepadId int
+	heartbeat bool
 	ws        *websocket.Conn
 	lock      sync.RWMutex
 }
@@ -21,6 +22,7 @@ func NewPlayer(ws *websocket.Conn) *Player {
 		name:      storage.GenerateRandomName(),
 		clientKey: storage.NewId(),
 		gamepadId: -1,
+		heartbeat: true,
 		ws:        ws,
 	}
 }
@@ -62,6 +64,19 @@ func (p *Player) setGamepadId(id int) {
 	}
 	p.lock.Lock()
 	p.gamepadId = id
+	p.lock.Unlock()
+}
+
+func (p *Player) getHeartbeat() bool {
+	p.lock.RLock()
+	heartbeat := p.heartbeat
+	p.lock.RUnlock()
+	return heartbeat
+}
+
+func (p *Player) setHeartbeat(value bool) {
+	p.lock.Lock()
+	p.heartbeat = value
 	p.lock.Unlock()
 }
 
