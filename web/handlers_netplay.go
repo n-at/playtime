@@ -34,6 +34,33 @@ func (s *Server) netplayWS(c echo.Context) error {
 	return nil //TODO
 }
 
+func (s *Server) netplayHeartbeat() {
+	log.Debug("sending netplay heartbeats")
+
+	sessions := s.gameSessions.GetSessions()
+
+	for _, sessionId := range sessions {
+		session := s.gameSessions.GetSession(sessionId)
+		if session == nil {
+			continue
+		}
+
+		players := session.GetPlayers()
+		for _, playerId := range players {
+			if !session.IsHeartbeatReceived(playerId) {
+				if err := session.Disconnect(playerId); err != nil {
+					log.Warnf("unable to disconnect player %s from session %s: %s", playerId, sessionId, err)
+					session.RemovePlayer(playerId)
+				}
+				continue
+			}
+
+			session.SetHeartbeatReceived(playerId, false)
+			session.Send(playerId, nil) //TODO send actual heartbeat message
+		}
+	}
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 
 func (s *Server) findNetplayControls(context *PlaytimeContext) storage.EmulatorControls {

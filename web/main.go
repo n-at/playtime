@@ -5,12 +5,15 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 	log "github.com/sirupsen/logrus"
 	"playtime/storage"
+	"playtime/web/gamesession"
+	"time"
 )
 
 const (
 	SessionCookieName = "playtime-sess-id"
 	AssetsWebRoot     = "/assets"
 	UploadsWebRoot    = "/uploads"
+	HeartbeatInterval = 10 * time.Second
 )
 
 type Configuration struct {
@@ -31,9 +34,11 @@ type Configuration struct {
 }
 
 type Server struct {
-	e       *echo.Echo
-	config  *Configuration
-	storage *storage.Storage
+	e             *echo.Echo
+	config        *Configuration
+	storage       *storage.Storage
+	gameSessions  *gamesession.SessionStorage
+	heartbeatStop chan bool
 }
 
 func New(config *Configuration, storage *storage.Storage) *Server {
@@ -42,6 +47,7 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	e.HTTPErrorHandler = httpErrorHandler
 	e.Static(AssetsWebRoot, config.AssetsRoot)
 	e.Static(UploadsWebRoot, config.UploadsRoot)
+	e.Use(middleware.Recover())
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
 		LogStatus: true,
@@ -56,9 +62,11 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	}))
 
 	s := &Server{
-		e:       e,
-		config:  config,
-		storage: storage,
+		e:             e,
+		config:        config,
+		storage:       storage,
+		gameSessions:  gamesession.NewSessionStorage(),
+		heartbeatStop: make(chan bool),
 	}
 
 	e.Use(s.contextCustomizationMiddleware)
@@ -161,9 +169,28 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	netplay.GET("", s.netplay)
 	netplay.GET("/ws", s.netplayWS)
 
+	//netplay game session heartbeat
+
+	heartbeatTicker := time.NewTicker(HeartbeatInterval)
+	go func() {
+		for {
+			select {
+			case <-heartbeatTicker.C:
+				s.netplayHeartbeat()
+			case <-s.heartbeatStop:
+				heartbeatTicker.Stop()
+			}
+		}
+	}()
+
 	return s
 }
 
 func (s *Server) Start() error {
 	return s.e.Start(s.config.Listen)
+}
+
+func (s *Server) StopHeartbeat() error {
+	s.heartbeatStop <- true
+	return nil
 }

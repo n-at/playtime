@@ -201,14 +201,19 @@ func (s *GameSession) Broadcast(v any) {
 	s.lock.RUnlock()
 }
 
-func (s *GameSession) CloseConnection(playerId string) error {
+func (s *GameSession) Disconnect(playerId string) error {
 	player := s.GetPlayer(playerId)
 	if player == nil {
 		return errors.New("player not found")
 	}
-	if player.ws == nil {
-		return errors.New("player does not have ws connection")
+
+	if player.ws != nil {
+		if err := player.ws.Close(websocket.StatusNormalClosure, ""); err != nil {
+			return err
+		}
 	}
 
-	return player.ws.Close(websocket.StatusNormalClosure, "")
+	s.RemovePlayer(playerId)
+
+	return nil
 }
