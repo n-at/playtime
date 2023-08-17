@@ -7,7 +7,6 @@ import (
 	"nhooyr.io/websocket"
 	"nhooyr.io/websocket/wsjson"
 	"sync"
-	"time"
 )
 
 type GameSession struct {
@@ -172,7 +171,7 @@ func (s *GameSession) Send(playerId string, v any) {
 
 	log.Debugf("send ws message to %s in session %s", player.id, s.id)
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), SendTimeout)
 	defer cancel()
 
 	if err := wsjson.Write(ctx, player.ws, v); err != nil {
@@ -189,7 +188,7 @@ func (s *GameSession) Broadcast(v any) {
 		go func(playerId string, ws *websocket.Conn) {
 			log.Debugf("broadcast ws message to player %s in session %s", playerId, s.id)
 
-			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+			ctx, cancel := context.WithTimeout(context.Background(), SendTimeout)
 			defer cancel()
 
 			if err := wsjson.Write(ctx, ws, v); err != nil {
@@ -201,7 +200,7 @@ func (s *GameSession) Broadcast(v any) {
 	s.lock.RUnlock()
 }
 
-func (s *GameSession) Disconnect(playerId string) error {
+func (s *GameSession) DisconnectAndRemove(playerId string) error {
 	player := s.GetPlayer(playerId)
 	if player == nil {
 		return errors.New("player not found")

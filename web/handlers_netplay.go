@@ -37,26 +37,29 @@ func (s *Server) netplayWS(c echo.Context) error {
 func (s *Server) netplayHeartbeat() {
 	log.Debug("sending netplay heartbeats")
 
-	sessions := s.gameSessions.GetSessions()
-
-	for _, sessionId := range sessions {
+	for _, sessionId := range s.gameSessions.GetSessions() {
 		session := s.gameSessions.GetSession(sessionId)
 		if session == nil {
 			continue
 		}
+		if session.CountPlayers() == 0 {
+			s.gameSessions.DeleteSession(sessionId)
+			continue
+		}
 
-		players := session.GetPlayers()
-		for _, playerId := range players {
+		for _, playerId := range session.GetPlayers() {
 			if !session.IsHeartbeatReceived(playerId) {
-				if err := session.Disconnect(playerId); err != nil {
+				if err := session.DisconnectAndRemove(playerId); err != nil {
 					log.Warnf("unable to disconnect player %s from session %s: %s", playerId, sessionId, err)
 					session.RemovePlayer(playerId)
 				}
 				continue
 			}
 
-			session.SetHeartbeatReceived(playerId, false)
-			session.Send(playerId, nil) //TODO send actual heartbeat message
+			s.heartbeatPool.Add(func() {
+				session.SetHeartbeatReceived(playerId, false)
+				session.Send(playerId, nil) //TODO send actual heartbeat message
+			})
 		}
 	}
 }

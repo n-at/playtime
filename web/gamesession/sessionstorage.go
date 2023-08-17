@@ -3,6 +3,11 @@ package gamesession
 import (
 	log "github.com/sirupsen/logrus"
 	"sync"
+	"time"
+)
+
+const (
+	SendTimeout = 5 * time.Second
 )
 
 type SessionStorage struct {
@@ -50,7 +55,7 @@ func (s *SessionStorage) DeleteSession(sessionId string) {
 	players := session.GetPlayers()
 
 	for _, playerId := range players {
-		if err := session.Disconnect(playerId); err != nil {
+		if err := session.DisconnectAndRemove(playerId); err != nil {
 			log.Warnf("unable to close ws collection of %s in session %s: %s", playerId, sessionId, err)
 		}
 	}

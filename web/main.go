@@ -6,6 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"playtime/storage"
 	"playtime/web/gamesession"
+	"playtime/web/heartbeatpool"
 	"time"
 )
 
@@ -14,6 +15,7 @@ const (
 	AssetsWebRoot     = "/assets"
 	UploadsWebRoot    = "/uploads"
 	HeartbeatInterval = 10 * time.Second
+	HeartbeatThreads  = 4
 )
 
 type Configuration struct {
@@ -34,11 +36,13 @@ type Configuration struct {
 }
 
 type Server struct {
-	e             *echo.Echo
-	config        *Configuration
-	storage       *storage.Storage
-	gameSessions  *gamesession.SessionStorage
-	heartbeatStop chan bool
+	e               *echo.Echo
+	config          *Configuration
+	storage         *storage.Storage
+	gameSessions    *gamesession.SessionStorage
+	heartbeatPool   *heartbeatpool.Pool
+	heartbeatTicker *time.Ticker
+	heartbeatStop   chan bool
 }
 
 func New(config *Configuration, storage *storage.Storage) *Server {
@@ -62,11 +66,13 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	}))
 
 	s := &Server{
-		e:             e,
-		config:        config,
-		storage:       storage,
-		gameSessions:  gamesession.NewSessionStorage(),
-		heartbeatStop: make(chan bool),
+		e:               e,
+		config:          config,
+		storage:         storage,
+		gameSessions:    gamesession.NewSessionStorage(),
+		heartbeatStop:   make(chan bool),
+		heartbeatPool:   heartbeatpool.New(HeartbeatThreads),
+		heartbeatTicker: time.NewTicker(HeartbeatInterval),
 	}
 
 	e.Use(s.contextCustomizationMiddleware)
@@ -171,14 +177,14 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 
 	//netplay game session heartbeat
 
-	heartbeatTicker := time.NewTicker(HeartbeatInterval)
 	go func() {
 		for {
 			select {
-			case <-heartbeatTicker.C:
+			case <-s.heartbeatTicker.C:
 				s.netplayHeartbeat()
 			case <-s.heartbeatStop:
-				heartbeatTicker.Stop()
+				s.heartbeatTicker.Stop()
+				s.heartbeatPool.Stop()
 			}
 		}
 	}()
