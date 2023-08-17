@@ -7,6 +7,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
+	"playtime/web/gamesession"
 )
 
 func (s *Server) netplay(c echo.Context) error {
@@ -57,8 +58,14 @@ func (s *Server) netplayHeartbeat() {
 			}
 
 			s.heartbeatPool.Add(func() {
+				msg := gamesession.MessageOutgoing{
+					Type: gamesession.MessageTypeHeartbeat,
+					Heartbeat: &gamesession.MessageOutgoingHeartbeat{
+						ClientId: clientId,
+					},
+				}
 				session.SetHeartbeatReceived(clientId, false)
-				session.Send(clientId, nil) //TODO send actual heartbeat message
+				session.Send(clientId, msg)
 			})
 		}
 	}
