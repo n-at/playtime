@@ -33,18 +33,19 @@ func (p *Player) GetId() string {
 
 func (p *Player) GetName() string {
 	p.lock.RLock()
-	name := p.name
-	p.lock.RUnlock()
-	return name
+	defer p.lock.RUnlock()
+
+	return p.name
 }
 
 func (p *Player) setName(name string) {
+	p.lock.Lock()
+	defer p.lock.Unlock()
+
 	if len(name) == 0 {
 		return
 	}
-	p.lock.Lock()
 	p.name = name
-	p.lock.Unlock()
 }
 
 func (p *Player) GetClientKey() string {
@@ -53,31 +54,33 @@ func (p *Player) GetClientKey() string {
 
 func (p *Player) GetGamepadId() int {
 	p.lock.RLock()
-	id := p.gamepadId
-	p.lock.RUnlock()
-	return id
+	defer p.lock.RUnlock()
+
+	return p.gamepadId
 }
 
 func (p *Player) setGamepadId(id int) {
+	p.lock.Lock()
+	defer p.lock.Unlock()
+
 	if id < -1 || id > 4 {
 		return
 	}
-	p.lock.Lock()
 	p.gamepadId = id
-	p.lock.Unlock()
 }
 
 func (p *Player) getHeartbeat() bool {
 	p.lock.RLock()
-	heartbeat := p.heartbeat
-	p.lock.RUnlock()
-	return heartbeat
+	defer p.lock.RUnlock()
+
+	return p.heartbeat
 }
 
 func (p *Player) setHeartbeat(value bool) {
 	p.lock.Lock()
+	defer p.lock.Unlock()
+
 	p.heartbeat = value
-	p.lock.Unlock()
 }
 
 func (p *Player) GetWS() *websocket.Conn {

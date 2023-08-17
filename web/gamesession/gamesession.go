@@ -34,34 +34,38 @@ func (s *GameSession) GetGameId() string {
 
 func (s *GameSession) GetPlayer(id string) *Player {
 	s.lock.RLock()
+	defer s.lock.RUnlock()
+
 	p, ok := s.players[id]
-	if !ok {
-		p = nil
+	if ok {
+		return p
+	} else {
+		return nil
 	}
-	s.lock.RUnlock()
-	return p
 }
 
 func (s *GameSession) SetPlayer(p *Player) {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	if p == nil || len(p.id) == 0 || len(p.name) == 0 {
 		return
 	}
-	s.lock.Lock()
 	s.players[p.id] = p
-	s.lock.Unlock()
 }
 
 func (s *GameSession) RemovePlayer(id string) {
 	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	delete(s.players, id)
-	s.lock.Unlock()
 }
 
 func (s *GameSession) CountPlayers() int {
 	s.lock.RLock()
-	count := len(s.players)
-	s.lock.RUnlock()
-	return count
+	defer s.lock.RUnlock()
+
+	return len(s.players)
 }
 
 func (s *GameSession) SetPlayerName(id, name string) bool {
@@ -80,11 +84,12 @@ func (s *GameSession) SetPlayerName(id, name string) bool {
 }
 
 func (s *GameSession) GetPlayerByGamepadId(gamepad int) *Player {
+	s.lock.RLock()
+	defer s.lock.RUnlock()
+
 	if gamepad < 0 || gamepad > 4 {
 		return nil
 	}
-
-	s.lock.RLock()
 
 	var playerFound *Player
 
@@ -95,20 +100,19 @@ func (s *GameSession) GetPlayerByGamepadId(gamepad int) *Player {
 		}
 	}
 
-	s.lock.RUnlock()
-
 	return playerFound
 }
 
 func (s *GameSession) SetPlayerGamepadId(id string, gamepad int) bool {
+	s.lock.Lock()
+	defer s.lock.Unlock()
+
 	if len(id) == 0 {
 		return false
 	}
 	if gamepad < -1 || gamepad > 4 {
 		return false
 	}
-
-	s.lock.Lock()
 
 	ok := false
 	gamepadExists := false
@@ -127,8 +131,6 @@ func (s *GameSession) SetPlayerGamepadId(id string, gamepad int) bool {
 		playerFound.setGamepadId(gamepad)
 		ok = true
 	}
-
-	s.lock.Unlock()
 
 	return ok
 }
@@ -150,16 +152,13 @@ func (s *GameSession) SetHeartbeatReceived(playerId string, value bool) {
 }
 
 func (s *GameSession) GetPlayers() []string {
-	var players []string
-
 	s.lock.RLock()
+	defer s.lock.RUnlock()
 
+	var players []string
 	for playerId := range s.players {
 		players = append(players, playerId)
 	}
-
-	s.lock.RUnlock()
-
 	return players
 }
 
@@ -181,6 +180,7 @@ func (s *GameSession) Send(playerId string, v any) {
 
 func (s *GameSession) Broadcast(v any) {
 	s.lock.RLock()
+	defer s.lock.RUnlock()
 
 	log.Debugf("broadcast ws message in session %s", s.id)
 
@@ -196,8 +196,6 @@ func (s *GameSession) Broadcast(v any) {
 			}
 		}(player.id, player.ws)
 	}
-
-	s.lock.RUnlock()
 }
 
 func (s *GameSession) DisconnectAndRemove(playerId string) error {
