@@ -6,7 +6,6 @@ import (
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"playtime/storage"
 	"playtime/web/gamesession"
 )
 
@@ -69,32 +68,4 @@ func (s *Server) netplayHeartbeat() {
 			})
 		}
 	}
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
-func (s *Server) findNetplayControls(context *PlaytimeContext) storage.EmulatorControls {
-	game := context.game
-
-	if game == nil || len(game.Platform) == 0 {
-		return storage.EmulatorControls{}
-	}
-
-	if context.session != nil && len(context.session.UserId) != 0 {
-		userSettings, err := s.storage.SettingsGetByUserId(context.session.UserId)
-		if err != nil {
-			log.Warnf("unable to get current user %s settings: %s", context.settings.UserId, err)
-		} else {
-			return userSettings.EmulatorSettings[game.Platform].Controls[0]
-		}
-	}
-
-	userSettings, err := s.storage.SettingsGetByUserId(game.UserId)
-	if err != nil {
-		log.Warnf("unable to get user %s settings: %s", game.UserId, err)
-	} else {
-		return userSettings.EmulatorSettings[game.Platform].Controls[0]
-	}
-
-	return storage.DefaultEmulatorSettings(game.Platform).Controls[0]
 }
