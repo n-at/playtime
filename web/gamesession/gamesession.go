@@ -12,7 +12,7 @@ import (
 type GameSession struct {
 	id      string
 	gameId  string
-	players map[string]*Player
+	clients map[string]*Client
 	lock    sync.RWMutex
 }
 
@@ -20,7 +20,7 @@ func NewGameSession(gameId, sessionId string) *GameSession {
 	return &GameSession{
 		id:      sessionId,
 		gameId:  gameId,
-		players: make(map[string]*Player),
+		clients: make(map[string]*Client),
 	}
 }
 
@@ -32,11 +32,11 @@ func (s *GameSession) GetGameId() string {
 	return s.gameId
 }
 
-func (s *GameSession) GetPlayer(id string) *Player {
+func (s *GameSession) GetClient(id string) *Client {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
-	p, ok := s.players[id]
+	p, ok := s.clients[id]
 	if ok {
 		return p
 	} else {
@@ -44,137 +44,137 @@ func (s *GameSession) GetPlayer(id string) *Player {
 	}
 }
 
-func (s *GameSession) SetPlayer(p *Player) {
+func (s *GameSession) SetClient(p *Client) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	if p == nil || len(p.id) == 0 || len(p.name) == 0 {
 		return
 	}
-	s.players[p.id] = p
+	s.clients[p.id] = p
 }
 
-func (s *GameSession) RemovePlayer(id string) {
+func (s *GameSession) RemoveClient(id string) {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
-	delete(s.players, id)
+	delete(s.clients, id)
 }
 
-func (s *GameSession) CountPlayers() int {
+func (s *GameSession) CountClients() int {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
-	return len(s.players)
+	return len(s.clients)
 }
 
-func (s *GameSession) SetPlayerName(id, name string) bool {
+func (s *GameSession) SetClientName(id, name string) bool {
 	if len(id) == 0 || len(name) == 0 {
 		return false
 	}
 
-	player := s.GetPlayer(id)
-	if player == nil {
+	client := s.GetClient(id)
+	if client == nil {
 		return false
 	}
 
-	player.setName(name)
+	client.setName(name)
 
 	return true
 }
 
-func (s *GameSession) GetPlayerByGamepadId(gamepad int) *Player {
+func (s *GameSession) GetClientByPlayer(player int) *Client {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
-	if gamepad < 0 || gamepad > 4 {
+	if player < 0 || player > 4 {
 		return nil
 	}
 
-	var playerFound *Player
+	var clientFound *Client
 
-	for _, player := range s.players {
-		if player.GetGamepadId() == gamepad {
-			playerFound = player
+	for _, client := range s.clients {
+		if client.GetPlayer() == player {
+			clientFound = client
 			break
 		}
 	}
 
-	return playerFound
+	return clientFound
 }
 
-func (s *GameSession) SetPlayerGamepadId(id string, gamepad int) bool {
+func (s *GameSession) SetClientPlayer(id string, player int) bool {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	if len(id) == 0 {
 		return false
 	}
-	if gamepad < -1 || gamepad > 4 {
+	if player < -1 || player > 4 {
 		return false
 	}
 
 	ok := false
 	gamepadExists := false
-	var playerFound *Player
+	var clientFound *Client
 
-	for playerId, player := range s.players {
-		if playerId == id {
-			playerFound = player
+	for clientId, client := range s.clients {
+		if clientId == id {
+			clientFound = client
 		}
-		if gamepad != -1 && player.gamepadId == gamepad {
+		if player != -1 && client.player == player {
 			gamepadExists = true
 		}
 	}
 
-	if playerFound != nil && !gamepadExists {
-		playerFound.setGamepadId(gamepad)
+	if clientFound != nil && !gamepadExists {
+		clientFound.setPlayer(player)
 		ok = true
 	}
 
 	return ok
 }
 
-func (s *GameSession) IsHeartbeatReceived(playerId string) bool {
-	p := s.GetPlayer(playerId)
+func (s *GameSession) IsHeartbeatReceived(clientId string) bool {
+	p := s.GetClient(clientId)
 	if p == nil {
 		return false
 	}
 	return p.getHeartbeat()
 }
 
-func (s *GameSession) SetHeartbeatReceived(playerId string, value bool) {
-	p := s.GetPlayer(playerId)
+func (s *GameSession) SetHeartbeatReceived(clientId string, value bool) {
+	p := s.GetClient(clientId)
 	if p == nil {
 		return
 	}
 	p.setHeartbeat(value)
 }
 
-func (s *GameSession) GetPlayers() []string {
+func (s *GameSession) GetClients() []string {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
-	var players []string
-	for playerId := range s.players {
-		players = append(players, playerId)
+	var clients []string
+	for clientId := range s.clients {
+		clients = append(clients, clientId)
 	}
-	return players
+	return clients
 }
 
-func (s *GameSession) Send(playerId string, v any) {
-	player := s.GetPlayer(playerId)
-	if player == nil || player.ws == nil {
+func (s *GameSession) Send(clientId string, v any) {
+	client := s.GetClient(clientId)
+	if client == nil || client.ws == nil {
 		return
 	}
 
-	log.Debugf("send ws message to %s in session %s", player.id, s.id)
+	log.Debugf("send ws message to client %s in session %s", client.id, s.id)
 
 	ctx, cancel := context.WithTimeout(context.Background(), SendTimeout)
 	defer cancel()
 
-	if err := wsjson.Write(ctx, player.ws, v); err != nil {
-		log.Warnf("unable to send ws message to %s in session %s: %s", playerId, s.id, err)
+	if err := wsjson.Write(ctx, client.ws, v); err != nil {
+		log.Warnf("unable to send ws message to client %s in session %s: %s", clientId, s.id, err)
 	}
 }
 
@@ -184,33 +184,33 @@ func (s *GameSession) Broadcast(v any) {
 
 	log.Debugf("broadcast ws message in session %s", s.id)
 
-	for _, player := range s.players {
-		go func(playerId string, ws *websocket.Conn) {
-			log.Debugf("broadcast ws message to player %s in session %s", playerId, s.id)
+	for _, client := range s.clients {
+		go func(clientId string, ws *websocket.Conn) {
+			log.Debugf("broadcast ws message to client %s in session %s", clientId, s.id)
 
 			ctx, cancel := context.WithTimeout(context.Background(), SendTimeout)
 			defer cancel()
 
 			if err := wsjson.Write(ctx, ws, v); err != nil {
-				log.Warnf("unable to broadcast ws message to %s in session %s: %s", playerId, s.id, err)
+				log.Warnf("unable to broadcast ws message to client %s in session %s: %s", clientId, s.id, err)
 			}
-		}(player.id, player.ws)
+		}(client.id, client.ws)
 	}
 }
 
-func (s *GameSession) DisconnectAndRemove(playerId string) error {
-	player := s.GetPlayer(playerId)
-	if player == nil {
-		return errors.New("player not found")
+func (s *GameSession) DisconnectAndRemove(clientId string) error {
+	client := s.GetClient(clientId)
+	if client == nil {
+		return errors.New("client not found")
 	}
 
-	if player.ws != nil {
-		if err := player.ws.Close(websocket.StatusNormalClosure, ""); err != nil {
+	if client.ws != nil {
+		if err := client.ws.Close(websocket.StatusNormalClosure, ""); err != nil {
 			return err
 		}
 	}
 
-	s.RemovePlayer(playerId)
+	s.RemoveClient(clientId)
 
 	return nil
 }

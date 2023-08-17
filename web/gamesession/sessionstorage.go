@@ -52,11 +52,11 @@ func (s *SessionStorage) DeleteSession(sessionId string) {
 		return
 	}
 
-	players := session.GetPlayers()
+	clients := session.GetClients()
 
-	for _, playerId := range players {
-		if err := session.DisconnectAndRemove(playerId); err != nil {
-			log.Warnf("unable to close ws collection of %s in session %s: %s", playerId, sessionId, err)
+	for _, clientId := range clients {
+		if err := session.DisconnectAndRemove(clientId); err != nil {
+			log.Warnf("unable to close ws connection of client %s in session %s: %s", clientId, sessionId, err)
 		}
 	}
 

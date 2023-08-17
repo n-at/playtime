@@ -42,23 +42,23 @@ func (s *Server) netplayHeartbeat() {
 		if session == nil {
 			continue
 		}
-		if session.CountPlayers() == 0 {
+		if session.CountClients() == 0 {
 			s.gameSessions.DeleteSession(sessionId)
 			continue
 		}
 
-		for _, playerId := range session.GetPlayers() {
-			if !session.IsHeartbeatReceived(playerId) {
-				if err := session.DisconnectAndRemove(playerId); err != nil {
-					log.Warnf("unable to disconnect player %s from session %s: %s", playerId, sessionId, err)
-					session.RemovePlayer(playerId)
+		for _, clientId := range session.GetClients() {
+			if !session.IsHeartbeatReceived(clientId) {
+				if err := session.DisconnectAndRemove(clientId); err != nil {
+					log.Warnf("unable to disconnect client %s from session %s: %s", clientId, sessionId, err)
+					session.RemoveClient(clientId)
 				}
 				continue
 			}
 
 			s.heartbeatPool.Add(func() {
-				session.SetHeartbeatReceived(playerId, false)
-				session.Send(playerId, nil) //TODO send actual heartbeat message
+				session.SetHeartbeatReceived(clientId, false)
+				session.Send(clientId, nil) //TODO send actual heartbeat message
 			})
 		}
 	}

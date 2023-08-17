@@ -6,39 +6,39 @@ import (
 	"sync"
 )
 
-type Player struct {
+type Client struct {
 	id        string
 	name      string
 	clientKey string
-	gamepadId int
+	player    int
 	heartbeat bool
 	ws        *websocket.Conn
 	lock      sync.RWMutex
 }
 
-func NewPlayer(ws *websocket.Conn) *Player {
-	return &Player{
+func NewClient(ws *websocket.Conn) *Client {
+	return &Client{
 		id:        storage.NewId(),
 		name:      storage.GenerateRandomName(),
 		clientKey: storage.NewId(),
-		gamepadId: -1,
+		player:    -1,
 		heartbeat: true,
 		ws:        ws,
 	}
 }
 
-func (p *Player) GetId() string {
+func (p *Client) GetId() string {
 	return p.id
 }
 
-func (p *Player) GetName() string {
+func (p *Client) GetName() string {
 	p.lock.RLock()
 	defer p.lock.RUnlock()
 
 	return p.name
 }
 
-func (p *Player) setName(name string) {
+func (p *Client) setName(name string) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
@@ -48,41 +48,41 @@ func (p *Player) setName(name string) {
 	p.name = name
 }
 
-func (p *Player) GetClientKey() string {
+func (p *Client) GetClientKey() string {
 	return p.clientKey
 }
 
-func (p *Player) GetGamepadId() int {
+func (p *Client) GetPlayer() int {
 	p.lock.RLock()
 	defer p.lock.RUnlock()
 
-	return p.gamepadId
+	return p.player
 }
 
-func (p *Player) setGamepadId(id int) {
+func (p *Client) setPlayer(player int) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
-	if id < -1 || id > 4 {
+	if player < -1 || player > 4 {
 		return
 	}
-	p.gamepadId = id
+	p.player = player
 }
 
-func (p *Player) getHeartbeat() bool {
+func (p *Client) getHeartbeat() bool {
 	p.lock.RLock()
 	defer p.lock.RUnlock()
 
 	return p.heartbeat
 }
 
-func (p *Player) setHeartbeat(value bool) {
+func (p *Client) setHeartbeat(value bool) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
 	p.heartbeat = value
 }
 
-func (p *Player) GetWS() *websocket.Conn {
+func (p *Client) GetWS() *websocket.Conn {
 	return p.ws
 }
