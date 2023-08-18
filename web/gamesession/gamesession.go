@@ -110,26 +110,6 @@ func (s *GameSession) SetClientName(id, name string) bool {
 	return true
 }
 
-func (s *GameSession) GetClientByPlayer(player int) *Client {
-	s.lock.RLock()
-	defer s.lock.RUnlock()
-
-	if player < 0 || player > MaxPlayersPerSession {
-		return nil
-	}
-
-	var clientFound *Client
-
-	for _, client := range s.clients {
-		if client.GetPlayer() == player {
-			clientFound = client
-			break
-		}
-	}
-
-	return clientFound
-}
-
 func (s *GameSession) SetClientPlayer(id string, player int) bool {
 	s.lock.Lock()
 	defer s.lock.Unlock()
