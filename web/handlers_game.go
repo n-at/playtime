@@ -215,11 +215,14 @@ func (s *Server) gameNetplayRefreshId(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	game := context.game
+	prevSessionId := game.NetplaySessionId
 	game.NetplaySessionId = storage.NewId()
 
 	if _, err := s.storage.GameSave(*game); err != nil {
 		return err
 	}
+
+	s.gameSessions.DeleteSession(prevSessionId)
 
 	if c.QueryParam("return-to") == "play" {
 		return c.Redirect(http.StatusFound, "/play/"+game.Id)

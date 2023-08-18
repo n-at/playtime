@@ -74,6 +74,7 @@ func (s *Server) netplayWS(c echo.Context) error {
 
 	session.SetClient(client)
 	if sessionNew {
+		//TODO possible race, sync with NewGameSession
 		s.gameSessions.SetSession(session)
 	}
 
