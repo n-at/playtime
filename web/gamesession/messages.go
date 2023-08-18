@@ -18,33 +18,21 @@ const (
 
 type MessageIncoming struct {
 	Type         string                       `json:"type"`
-	Heartbeat    *MessageIncomingHeartbeat    `json:"heartbeat,omitempty"`
 	PlayerChange *MessageIncomingPlayerChange `json:"player_change,omitempty"`
 	NameChange   *MessageIncomingNameChange   `json:"name_change,omitempty"`
 	Signalling   *MessageIncomingSignalling   `json:"signalling,omitempty"`
 }
 
-type MessageIncomingHeartbeat struct {
-	FromId  string `json:"from_id"`
-	FromKey string `json:"from_key"`
-}
-
 type MessageIncomingPlayerChange struct {
-	FromId   string `json:"from_id"`
-	FromKey  string `json:"from_key"`
 	ClientId string `json:"client_id"`
 	Player   int    `json:"player"`
 }
 
 type MessageIncomingNameChange struct {
-	FromId  string `json:"from_id"`
-	FromKey string `json:"from_key"`
-	Name    string `json:"name"`
+	Name string `json:"name"`
 }
 
 type MessageIncomingSignalling struct {
-	FromId   string `json:"from_id"`
-	FromKey  string `json:"from_key"`
 	ClientId string `json:"client_id"`
 	SDP      string `json:"sdp"`
 }
