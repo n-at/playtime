@@ -44,7 +44,6 @@ type MessageOutgoing struct {
 	Greeting      *MessageOutgoingGreeting      `json:"greeting,omitempty"`
 	Connected     *MessageOutgoingConnected     `json:"connected,omitempty"`
 	Disconnected  *MessageOutgoingDisconnected  `json:"disconnected,omitempty"`
-	Heartbeat     *MessageOutgoingHeartbeat     `json:"heartbeat,omitempty"`
 	PlayerChanged *MessageOutgoingPlayerChanged `json:"player_changed,omitempty"`
 	NameChanged   *MessageOutgoingNameChanged   `json:"name_changed,omitempty"`
 	Signalling    *MessageOutgoingSignalling    `json:"signalling,omitempty"`
@@ -68,14 +67,10 @@ type MessageGreetingClient struct {
 type MessageOutgoingConnected struct {
 	ClientId string `json:"client_id"`
 	Name     string `json:"name"`
-	Player   string `json:"player"`
+	Player   int    `json:"player"`
 }
 
 type MessageOutgoingDisconnected struct {
-	ClientId string `json:"client_id"`
-}
-
-type MessageOutgoingHeartbeat struct {
 	ClientId string `json:"client_id"`
 }
 
@@ -92,4 +87,76 @@ type MessageOutgoingNameChanged struct {
 type MessageOutgoingSignalling struct {
 	FromId string `json:"from_id"`
 	SDP    string `json:"sdp"`
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+func MessageGreeting(hostId string, client *Client, clients []MessageGreetingClient) MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypeGreeting,
+		Greeting: &MessageOutgoingGreeting{
+			HostId:    hostId,
+			ClientId:  client.GetId(),
+			ClientKey: client.GetClientKey(),
+			Name:      client.GetName(),
+			Player:    client.GetPlayer(),
+			Clients:   clients,
+		},
+	}
+}
+
+func MessageHeartbeat() MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypeHeartbeat,
+	}
+}
+
+func MessageConnected(client *Client) MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypeConnected,
+		Connected: &MessageOutgoingConnected{
+			ClientId: client.GetId(),
+			Name:     client.GetName(),
+			Player:   client.GetPlayer(),
+		},
+	}
+}
+
+func MessageDisconnected(clientId string) MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypeDisconnected,
+		Disconnected: &MessageOutgoingDisconnected{
+			ClientId: clientId,
+		},
+	}
+}
+
+func MessageClientNameChanged(clientId, name string) MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypeClientNameChanged,
+		NameChanged: &MessageOutgoingNameChanged{
+			ClientId: clientId,
+			Name:     name,
+		},
+	}
+}
+
+func MessagePlayerChanged(clientId string, player int) MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypePlayerChanged,
+		PlayerChanged: &MessageOutgoingPlayerChanged{
+			ClientId: clientId,
+			Player:   player,
+		},
+	}
+}
+
+func MessageSignalling(messageType, fromId, sdp string) MessageOutgoing {
+	return MessageOutgoing{
+		Type: messageType,
+		Signalling: &MessageOutgoingSignalling{
+			FromId: fromId,
+			SDP:    sdp,
+		},
+	}
 }

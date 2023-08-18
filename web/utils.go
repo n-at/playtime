@@ -5,6 +5,7 @@ import (
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"playtime/storage"
+	"playtime/web/gamesession"
 	"sort"
 	"strings"
 )
@@ -234,6 +235,24 @@ func (s *Server) findNetplayControls(context *PlaytimeContext) storage.EmulatorC
 	}
 
 	return storage.DefaultEmulatorSettings(game.Platform).Controls[0]
+}
+
+func (s *Server) collectNetplayCurrentSessionClients(session *gamesession.GameSession) []gamesession.MessageGreetingClient {
+	var greetingClients []gamesession.MessageGreetingClient
+
+	for _, clientId := range session.GetClients() {
+		client := session.GetClient(clientId)
+		if client == nil {
+			continue
+		}
+		greetingClients = append(greetingClients, gamesession.MessageGreetingClient{
+			Id:     client.GetId(),
+			Name:   client.GetName(),
+			Player: client.GetPlayer(),
+		})
+	}
+
+	return greetingClients
 }
 
 ///////////////////////////////////////////////////////////////////////////////

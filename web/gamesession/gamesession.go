@@ -81,6 +81,20 @@ func (s *GameSession) CountClients() int {
 	return len(s.clients)
 }
 
+func (s *GameSession) ClientsMaxCountReached(hostWantJoin bool) bool {
+	s.lock.RLock()
+	defer s.lock.RUnlock()
+
+	count := len(s.clients)
+
+	if hostWantJoin {
+		return count < MaxClientsPerSession
+	} else {
+		//leave one free place for host
+		return count < MaxClientsPerSession-1
+	}
+}
+
 func (s *GameSession) SetClientName(id, name string) bool {
 	if len(id) == 0 || len(name) == 0 {
 		return false
@@ -123,8 +137,10 @@ func (s *GameSession) SetClientPlayer(id string, player int) bool {
 	if len(id) == 0 {
 		return false
 	}
-	if player != PlayerSpectator && player > MaxPlayersPerSession {
-		return false
+	if player < 0 && player > MaxPlayersPerSession {
+		if player != PlayerSpectator {
+			return false
+		}
 	}
 
 	ok := false
@@ -133,9 +149,12 @@ func (s *GameSession) SetClientPlayer(id string, player int) bool {
 
 	for clientId, client := range s.clients {
 		if clientId == id {
+			if client.GetPlayer() == player {
+				return true
+			}
 			clientFound = client
 		}
-		if player != -1 && client.player == player {
+		if player != PlayerSpectator && client.GetPlayer() == player {
 			gamepadExists = true
 		}
 	}

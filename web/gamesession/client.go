@@ -16,9 +16,9 @@ type Client struct {
 	lock      sync.RWMutex
 }
 
-func NewClient(ws *websocket.Conn) *Client {
+func NewClient(id string, ws *websocket.Conn) *Client {
 	return &Client{
-		id:        storage.NewId(),
+		id:        id,
 		name:      storage.GenerateRandomName(),
 		clientKey: storage.NewId(),
 		player:    PlayerSpectator,
