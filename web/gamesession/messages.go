@@ -51,11 +51,18 @@ type MessageOutgoing struct {
 }
 
 type MessageOutgoingGreeting struct {
-	HostId    string `json:"host_id"`
-	ClientId  string `json:"client_id"`
-	ClientKey string `json:"client_key"`
-	Name      string `json:"name"`
-	Player    int    `json:"player"`
+	HostId    string                  `json:"host_id"`
+	ClientId  string                  `json:"client_id"`
+	ClientKey string                  `json:"client_key"`
+	Name      string                  `json:"name"`
+	Player    int                     `json:"player"`
+	Clients   []MessageGreetingClient `json:"clients"`
+}
+
+type MessageGreetingClient struct {
+	Id     string `json:"id"`
+	Name   string `json:"name"`
+	Player int    `json:"player"`
 }
 
 type MessageOutgoingConnected struct {
