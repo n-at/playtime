@@ -21,7 +21,7 @@ func NewClient(ws *websocket.Conn) *Client {
 		id:        storage.NewId(),
 		name:      storage.GenerateRandomName(),
 		clientKey: storage.NewId(),
-		player:    -1,
+		player:    PlayerSpectator,
 		heartbeat: true,
 		ws:        ws,
 	}
@@ -63,9 +63,6 @@ func (p *Client) setPlayer(player int) {
 	p.lock.Lock()
 	defer p.lock.Unlock()
 
-	if player < -1 || player > 4 {
-		return
-	}
 	p.player = player
 }
 

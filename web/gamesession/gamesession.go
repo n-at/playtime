@@ -9,6 +9,12 @@ import (
 	"sync"
 )
 
+const (
+	MaxClientsPerSession = 5
+	MaxPlayersPerSession = 4
+	PlayerSpectator      = -1
+)
+
 type GameSession struct {
 	id      string
 	gameId  string
@@ -36,22 +42,29 @@ func (s *GameSession) GetClient(id string) *Client {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
-	p, ok := s.clients[id]
-	if ok {
+	if p, ok := s.clients[id]; ok {
 		return p
 	} else {
 		return nil
 	}
 }
 
-func (s *GameSession) SetClient(p *Client) {
+func (s *GameSession) SetClient(p *Client) bool {
 	s.lock.Lock()
 	defer s.lock.Unlock()
 
 	if p == nil || len(p.id) == 0 || len(p.name) == 0 {
-		return
+		return false
 	}
+	if _, ok := s.clients[p.id]; !ok {
+		if len(s.clients) >= MaxClientsPerSession {
+			return false
+		}
+	}
+
 	s.clients[p.id] = p
+
+	return true
 }
 
 func (s *GameSession) RemoveClient(id string) {
@@ -87,7 +100,7 @@ func (s *GameSession) GetClientByPlayer(player int) *Client {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
-	if player < 0 || player > 4 {
+	if player < 0 || player > MaxPlayersPerSession {
 		return nil
 	}
 
@@ -110,7 +123,7 @@ func (s *GameSession) SetClientPlayer(id string, player int) bool {
 	if len(id) == 0 {
 		return false
 	}
-	if player < -1 || player > 4 {
+	if player != PlayerSpectator && player > MaxPlayersPerSession {
 		return false
 	}
 
