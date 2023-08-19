@@ -50,16 +50,6 @@ func (s *Server) netplayWS(c echo.Context) error {
 		}
 	}
 
-	session := s.gameSessions.GetSession(sessionId)
-	sessionNew := false
-	if session == nil {
-		session = gamesession.NewGameSession(game.Id, sessionId)
-		sessionNew = true
-	}
-	if session.ClientsMaxCountReached(isHost) {
-		return errors.New("max clients in session reached")
-	}
-
 	ws, err := websocket.Accept(c.Response(), c.Request(), nil)
 	if err != nil {
 		return err
@@ -72,11 +62,26 @@ func (s *Server) netplayWS(c echo.Context) error {
 
 	client := gamesession.NewClient(clientId, ws)
 
+	s.gameSessionsMu.Lock() ////////////////////
+
+	session := s.gameSessions.GetSession(sessionId)
+	sessionNew := false
+	if session == nil {
+		session = gamesession.NewGameSession(game.Id, sessionId)
+		sessionNew = true
+	}
+	if session.ClientsMaxCountReached(isHost) {
+		s.gameSessionsMu.Unlock()
+		return errors.New("max clients in session reached")
+	}
+
 	session.SetClient(client)
+
 	if sessionNew {
-		//TODO possible race, sync with NewGameSession
 		s.gameSessions.SetSession(session)
 	}
+
+	s.gameSessionsMu.Unlock() ///////////////////
 
 	session.Send(clientId, gamesession.MessageGreeting(hostId, client, s.collectNetplayCurrentSessionClients(session)))
 	session.Broadcast(gamesession.MessageConnected(client))

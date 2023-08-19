@@ -7,6 +7,7 @@ import (
 	"playtime/storage"
 	"playtime/web/gamesession"
 	"playtime/web/heartbeatpool"
+	"sync"
 	"time"
 )
 
@@ -40,6 +41,7 @@ type Server struct {
 	config          *Configuration
 	storage         *storage.Storage
 	gameSessions    *gamesession.SessionStorage
+	gameSessionsMu  sync.Mutex
 	heartbeatPool   *heartbeatpool.Pool
 	heartbeatTicker *time.Ticker
 	heartbeatStop   chan bool
