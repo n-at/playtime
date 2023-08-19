@@ -88,10 +88,10 @@ func (s *GameSession) ClientsMaxCountReached(hostWantJoin bool) bool {
 	count := len(s.clients)
 
 	if hostWantJoin {
-		return count < MaxClientsPerSession
+		return count >= MaxClientsPerSession
 	} else {
 		//leave one free place for host
-		return count < MaxClientsPerSession-1
+		return count >= MaxClientsPerSession-1
 	}
 }
 

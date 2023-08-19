@@ -25,6 +25,12 @@ func (s *Server) netplay(c echo.Context) error {
 		return errors.New("netplay for game not available")
 	}
 
+	if pctx.session != nil && len(pctx.session.UserId) != 0 {
+		if pctx.session.UserId == game.UserId {
+			return c.Redirect(http.StatusFound, "/play/"+game.Id)
+		}
+	}
+
 	return c.Render(http.StatusOK, "netplay", pongo2.Context{
 		"game":                  game,
 		"controls":              s.findNetplayControls(pctx),
@@ -46,7 +52,7 @@ func (s *Server) netplayWS(c echo.Context) error {
 	if pctx.session != nil && len(pctx.session.UserId) != 0 {
 		if pctx.session.UserId == game.UserId {
 			isHost = true
-			clientId = pctx.user.Id
+			clientId = pctx.session.UserId
 		}
 	}
 
@@ -72,7 +78,9 @@ func (s *Server) netplayWS(c echo.Context) error {
 	}
 	if session.ClientsMaxCountReached(isHost) {
 		s.gameSessionsMu.Unlock()
-		return errors.New("max clients in session reached")
+		s.sendWebSocketError(ws, "max client connections reached")
+		log.Warnf("max client connections reached on session %s", sessionId)
+		return nil
 	}
 
 	session.SetClient(client)
@@ -88,7 +96,7 @@ func (s *Server) netplayWS(c echo.Context) error {
 
 	for {
 		var incoming gamesession.MessageIncoming
-		if err := wsjson.Read(context.Background(), ws, incoming); err != nil {
+		if err := wsjson.Read(context.Background(), ws, &incoming); err != nil {
 			if errors.As(err, &websocket.CloseError{}) {
 				log.Debugf("client %s in session %s closed ws connection", clientId, sessionId)
 				session.RemoveClient(clientId)

@@ -1,9 +1,12 @@
 package web
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	log "github.com/sirupsen/logrus"
+	"nhooyr.io/websocket"
+	"nhooyr.io/websocket/wsjson"
 	"playtime/storage"
 	"playtime/web/gamesession"
 	"sort"
@@ -253,6 +256,15 @@ func (s *Server) collectNetplayCurrentSessionClients(session *gamesession.GameSe
 	}
 
 	return greetingClients
+}
+
+func (s *Server) sendWebSocketError(ws *websocket.Conn, message string) {
+	ctx, cancel := context.WithTimeout(context.Background(), gamesession.SendTimeout)
+	defer cancel()
+
+	if err := wsjson.Write(ctx, ws, gamesession.MessageError(message)); err != nil {
+		log.Warnf("unable to send error message: %s", err)
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

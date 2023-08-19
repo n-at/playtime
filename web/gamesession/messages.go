@@ -5,6 +5,7 @@ const (
 	MessageTypeConnected              = "connected"
 	MessageTypeDisconnected           = "disconnected"
 	MessageTypeHeartbeat              = "heartbeat"
+	MessageTypeError                  = "error"
 	MessageTypePlayerChange           = "player-change"
 	MessageTypePlayerChanged          = "player-changed"
 	MessageTypeClientNameChange       = "client-name-change"
@@ -44,6 +45,7 @@ type MessageOutgoing struct {
 	Greeting      *MessageOutgoingGreeting      `json:"greeting,omitempty"`
 	Connected     *MessageOutgoingConnected     `json:"connected,omitempty"`
 	Disconnected  *MessageOutgoingDisconnected  `json:"disconnected,omitempty"`
+	Error         *MessageOutgoingError         `json:"error,omitempty"`
 	PlayerChanged *MessageOutgoingPlayerChanged `json:"player_changed,omitempty"`
 	NameChanged   *MessageOutgoingNameChanged   `json:"name_changed,omitempty"`
 	Signalling    *MessageOutgoingSignalling    `json:"signalling,omitempty"`
@@ -59,7 +61,7 @@ type MessageOutgoingGreeting struct {
 }
 
 type MessageGreetingClient struct {
-	Id     string `json:"id"`
+	Id     string `json:"client_id"`
 	Name   string `json:"name"`
 	Player int    `json:"player"`
 }
@@ -72,6 +74,10 @@ type MessageOutgoingConnected struct {
 
 type MessageOutgoingDisconnected struct {
 	ClientId string `json:"client_id"`
+}
+
+type MessageOutgoingError struct {
+	Message string `json:"message"`
 }
 
 type MessageOutgoingPlayerChanged struct {
@@ -127,6 +133,15 @@ func MessageDisconnected(clientId string) MessageOutgoing {
 		Type: MessageTypeDisconnected,
 		Disconnected: &MessageOutgoingDisconnected{
 			ClientId: clientId,
+		},
+	}
+}
+
+func MessageError(message string) MessageOutgoing {
+	return MessageOutgoing{
+		Type: MessageTypeError,
+		Error: &MessageOutgoingError{
+			Message: message,
 		},
 	}
 }

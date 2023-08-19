@@ -91,7 +91,19 @@
         window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
         window.NetplayGameId = '{{ game.Id }}';
         window.NetplaySessionId = '{{ game.NetplaySessionId }}';
-        //TODO init host
+
+        window.EJS_onGameStart = () => {
+            const netplay = NetplayClient({
+                gameCanvasEl: document.querySelector('#game canvas'),
+                gameId: NetplayGameId,
+                sessionId: NetplaySessionId,
+                host: true,
+                turnServerUrl: NetplayTurnServerUrl,
+                turnServerUser: NetplayTurnServerUser,
+                turnServerPassword: NetplayTurnServerPassword,
+            });
+            netplay.connect();
+        };
     </script>
     <script src="/assets/netplay.js"></script>
     <script src="/assets/netplay-ui.js"></script>
