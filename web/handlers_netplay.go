@@ -82,6 +82,12 @@ func (s *Server) netplayWS(c echo.Context) error {
 		log.Warnf("max client connections reached on session %s", sessionId)
 		return nil
 	}
+	if session.GetClient(clientId) != nil {
+		s.gameSessionsMu.Unlock()
+		s.sendWebSocketError(ws, "client already connected")
+		log.Warnf("client %s already connected in session %s", clientId, sessionId)
+		return nil
+	}
 
 	session.SetClient(client)
 
