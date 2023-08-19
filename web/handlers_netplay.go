@@ -62,13 +62,13 @@ func (s *Server) netplayWS(c echo.Context) error {
 	}
 	defer func() {
 		if err := ws.Close(websocket.StatusNormalClosure, ""); err != nil {
-			log.Warnf("unable to close ws connection if client %s in session %s: %s", clientId, sessionId, err)
+			log.Debugf("unable to close ws connection if client %s in session %s: %s", clientId, sessionId, err)
 		}
 	}()
 
 	client := gamesession.NewClient(clientId, ws)
 
-	s.gameSessionsMu.Lock() ////////////////////
+	s.gameSessionsMu.Lock() /////////////////////
 
 	session := s.gameSessions.GetSession(sessionId)
 	sessionNew := false
