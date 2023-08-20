@@ -24,6 +24,9 @@
         //password for TURN/STUN/ICE server (if required)
         turnServerPassword: null,
 
+        //enable debug output
+        debug: false,
+
         //handlers
 
         //when WebSocket is connected
@@ -68,7 +71,8 @@
             configuration,
 
             ws: null,
-            //TODO RTC
+            rtcHost: null,
+            rtcClients: {},
 
             clientId: null,
             clientKey: null,
@@ -105,27 +109,21 @@
     const MessageTypeSignallingIceCandidate = 'signalling-ice-candidate';
 
     function connect() {
-        connectWS(this);
-        connectRTCMedia(this);
-        connectRTCControl(this);
-    }
-
-    function connectWS(client) {
-        const url = _buildWebSocketUrl(client.configuration.gameId, client.configuration.sessionId);
-        client.ws = new WebSocket(url);
-        client.ws.addEventListener('open', () => {
-            console.debug('WebSocket connected');
-            client.configuration.onWSConnected();
+        const url = _buildWebSocketUrl(this.configuration.gameId, this.configuration.sessionId);
+        this.ws = new WebSocket(url);
+        this.ws.addEventListener('open', () => {
+            _debug(this, 'WebSocket connected');
+            this.configuration.onWSConnected();
         });
-        client.ws.addEventListener('close', () => {
-            console.debug('WebSocket disconnected');
-            client.configuration.onWSDisconnected();
+        this.ws.addEventListener('close', () => {
+            _debug(this, 'WebSocket disconnected');
+            this.configuration.onWSDisconnected();
         });
-        client.ws.addEventListener('error', e => {
-            console.debug('WebSocket error', e);
-            client.configuration.onWSError(e);
+        this.ws.addEventListener('error', e => {
+            _debug(this, 'WebSocket error', e);
+            this.configuration.onWSError(e);
         });
-        client.ws.addEventListener('message', e => {
+        this.ws.addEventListener('message', e => {
             const message = JSON.parse(e.data);
 
             if (!message.type) {
@@ -133,38 +131,38 @@
                 return;
             }
 
-            console.debug('incoming message', message);
+            _debug(this, 'WebSocket incoming message', message.type, message);
 
             switch (message.type) {
                 case MessageTypeGreeting:
-                    wsMessageGreeting(client, message.greeting);
+                    wsMessageGreeting(this, message.greeting);
                     break;
                 case MessageTypeConnected:
-                    wsMessageConnected(client, message.connected);
+                    wsMessageConnected(this, message.connected);
                     break;
                 case MessageTypeDisconnected:
-                    wsMessageDisconnected(client, message.disconnected);
+                    wsMessageDisconnected(this, message.disconnected);
                     break;
                 case MessageTypeHeartbeat:
-                    wsMessageHeartbeat(client);
+                    wsMessageHeartbeat(this);
                     break;
                 case MessageTypeError:
-                    wsMessageError(client, message.error);
+                    wsMessageError(this, message.error);
                     break;
                 case MessageTypeClientNameChanged:
-                    wsMessageNameChanged(client, message.name_changed);
+                    wsMessageNameChanged(this, message.name_changed);
                     break;
                 case MessageTypePlayerChanged:
-                    wsMessagePlayerChanged(client, message.player_changed);
+                    wsMessagePlayerChanged(this, message.player_changed);
                     break;
                 case MessageTypeSignallingOffer:
-                    wsMessageSignallingOffer(client, message.signalling);
+                    wsMessageSignallingOffer(this, message.signalling);
                     break;
                 case MessageTypeSignallingAnswer:
-                    wsMessageSignallingAnswer(client, message.signalling);
+                    wsMessageSignallingAnswer(this, message.signalling);
                     break;
                 case MessageTypeSignallingIceCandidate:
-                    wsMessageSignallingIceCandidate(client, message.signalling);
+                    wsMessageSignallingIceCandidate(this, message.signalling);
                     break;
                 default:
                     console.error(`unknown message type: ${message.type}`);
@@ -176,6 +174,9 @@
         if (!client || !client.ws) {
             return;
         }
+
+        _debug(client, 'WebSocket send message', message.type, message);
+
         client.ws.send(JSON.stringify(message));
     }
 
@@ -187,8 +188,7 @@
 
         for (let connectedClientIdx in message.clients) {
             const connectedClient = message.clients[connectedClientIdx];
-            client.clients[connectedClient.client_id] = connectedClient;
-            client.configuration.onClientConnected(connectedClient.client_id, connectedClient.name, connectedClient.player);
+            clientConnected(client, connectedClient.client_id, connectedClient);
         }
 
         client.name = message.name;
@@ -199,13 +199,11 @@
     }
 
     function wsMessageConnected(client, message) {
-        client.clients[message.client_id] = message;
-        client.configuration.onClientConnected(message.client_id, message.name, message.player);
+        clientConnected(client, message.client_id, message);
     }
 
     function wsMessageDisconnected(client, message) {
-        client.configuration.onClientDisconnected(message.client_id);
-        delete client.clients[message.client_id];
+        clientDisconnected(client, message.client_id);
     }
 
     function wsMessageHeartbeat(client) {
@@ -264,8 +262,45 @@
 
     ///////////////////////////////////////////////////////////////////////////
 
-    function connectRTCMedia(client) {
+    function clientConnected(client, connectedClientId, clientData) {
+        client.clients[connectedClientId] = clientData;
+        client.configuration.onClientConnected(connectedClientId, clientData.name, clientData.player);
+
+        if (client.clientId === connectedClientId) {
+            return;
+        }
+
+        if (client.configuration.host && !client.rtcClients[connectedClientId]) {
+            client.rtcClients[connectedClientId] = connectRTC(client, connectedClientId);
+        }
+        if (!client.configuration.host && !client.rtcHost) {
+            client.rtcHost = connectRTC(client, null);
+        }
+    }
+
+    function clientDisconnected(client, disconnectedClientId) {
+        delete client.clients[disconnectedClientId];
+        client.configuration.onClientDisconnected(disconnectedClientId);
+
+        if (client.clientId === disconnectedClientId) {
+            return;
+        }
+
+        if (client.configuration.host && client.rtcClients[disconnectedClientId]) {
+            client.rtcClients[disconnectedClientId].close();
+            delete client.rtcClients[disconnectedClientId];
+        }
+        if (!client.configuration.host && client.rtcHost) {
+            client.rtcHost.close();
+            client.rtcHost = null;
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    function connectRTC(client, clientId) {
         //TODO RTC
+        return null;
     }
 
     function connectRTCControl(client) {
@@ -310,13 +345,24 @@
 
     function setClientPlayer(clientId, player) {
         if (!this.configuration.host) {
-            console.error('setClientPlayer only for host client');
+            console.error('setClientPlayer available only for host client');
             return;
         }
         wsSend(this, _messagePlayerChange(clientId, player));
     }
 
     ///////////////////////////////////////////////////////////////////////////
+
+    function _debug(client, ...args) {
+        if (!client.configuration.debug) {
+            return;
+        }
+        if (console.debug) {
+            console.debug(...args);
+        } else {
+            console.log(...args);
+        }
+    }
 
     function _validateConfiguration(config) {
         if (!config.gameCanvasEl) {

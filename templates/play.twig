@@ -94,6 +94,7 @@
 
         window.EJS_onGameStart = () => {
             const netplay = NetplayClient({
+                debug: true,
                 gameCanvasEl: document.querySelector('#game canvas'),
                 gameId: NetplayGameId,
                 sessionId: NetplaySessionId,
