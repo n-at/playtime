@@ -68,12 +68,15 @@
         _validateConfiguration(configuration);
 
         return {
+            //configuration
             configuration,
 
+            //connections
             ws: null,
             rtcHost: null,
             rtcClients: {},
 
+            //client data
             clientId: null,
             clientKey: null,
             hostId: null,
@@ -81,6 +84,11 @@
             player: null,
             clients: {},
 
+            //media stream tracks (host)
+            videoTrack: null,
+            audioTrack: null,
+
+            //instance methods
             connect,
             getClientId,
             getClientKey,
@@ -296,11 +304,46 @@
         }
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-
     function connectRTC(client, clientId) {
         //TODO RTC
         return null;
+    }
+
+    function collectMediaTracks(client) {
+        if (!client.videoTrack || client.videoTrack.readyState !== 'live') {
+            const videoTracks = client.configuration.gameCanvasEl.captureStream().getVideoTracks();
+            if (videoTracks.length !== 0) {
+                client.videoTrack = videoTracks[0];
+            } else {
+                client.videoTrack = null;
+                console.error('Unable to capture video stream');
+            }
+        }
+
+        if (!client.audioTrack || client.audioTrack.readyState !== 'live') {
+            if (window.AL && window.AL.currentCtx && window.AL.currentCtx.audioCtx) {
+                const destination = window.AL.currentCtx.audioCtx.createMediaStreamDestination();
+                const audioTracks = destination.stream.getAudioTracks();
+                if (audioTracks.length !== 0) {
+                    client.audioTrack = audioTracks[0];
+                } else {
+                    client.audioTrack = null;
+                    console.error('Unable to capture audio stream');
+                }
+            } else {
+                console.error('Unable to capture audio stream (AL not available)');
+                client.audioTrack = null;
+            }
+        }
+
+        const tracks = [];
+        if (client.videoTrack && client.videoTrack.readyState === 'live') {
+            tracks.push(client.videoTrack);
+        }
+        if (client.audioTrack && client.audioTrack.readyState === 'live') {
+            tracks.push(client.audioTrack);
+        }
+        return tracks;
     }
 
     function connectRTCControl(client) {
