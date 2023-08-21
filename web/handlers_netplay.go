@@ -25,14 +25,24 @@ func (s *Server) netplay(c echo.Context) error {
 		return errors.New("netplay for game not available")
 	}
 
+	var user *storage.User
+
 	if pctx.session != nil && len(pctx.session.UserId) != 0 {
 		if pctx.session.UserId == game.UserId {
 			return c.Redirect(http.StatusFound, "/play/"+game.Id)
+		}
+		u, err := s.storage.UserFindById(pctx.session.UserId)
+		if err != nil {
+			return err
+		}
+		if len(u.Id) != 0 && u.Active {
+			user = &u
 		}
 	}
 
 	return c.Render(http.StatusOK, "netplay", pongo2.Context{
 		"game":                  game,
+		"user":                  user,
 		"controls":              s.findNetplayControls(pctx),
 		"netplay_turn_url":      s.config.TurnServerUrl,
 		"netplay_turn_user":     s.config.TurnServerUser,

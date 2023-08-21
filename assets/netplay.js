@@ -309,7 +309,7 @@
 
     function wsMessageSignallingOffer(client, message) {
         const clientId = message.client_id;
-        const sdp = message.sdp;
+        const sdp = JSON.parse(message.sdp);
 
         if (client.rtcClients[clientId]) {
             rtcSendAnswer(client, clientId, client.rtcClients[clientId], sdp);
@@ -321,7 +321,7 @@
 
     function wsMessageSignallingAnswer(client, message) {
         const clientId = message.client_id;
-        const sdp = message.sdp;
+        const sdp = JSON.parse(message.sdp);
 
         if (client.rtcClients[clientId]) {
             rtcHandleAnswer(client, clientId, client.rtcClients[clientId], sdp);
@@ -333,7 +333,7 @@
 
     function wsMessageSignallingIceCandidate(client, message) {
         const clientId = message.client_id;
-        const sdp = message.sdp;
+        const sdp = JSON.parse(message.sdp);
 
         if (client.rtcClients[clientId]) {
             rtcHandleIceCandidate(client, clientId, client.rtcClients[clientId], sdp);
@@ -752,7 +752,6 @@
         }
         if (password) {
             ice.credential = password;
-            ice.credentialType = 'password';
         }
         return ice;
     }
@@ -787,7 +786,7 @@
             type: type,
             signalling: {
                 client_id: clientId,
-                sdp: sdp,
+                sdp: JSON.stringify(sdp),
             },
         }
     }

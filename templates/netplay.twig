@@ -8,7 +8,32 @@
 
 <p class="lead">TODO</p>
 
+<video id="game" width="300" height="300" autoplay></video>
+
 <script src="/assets/ui-utils.js"></script>
+<script src="/assets/netplay.js"></script>
+
+<script>
+    window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
+    window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
+    window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
+    window.NetplayGameId = '{{ game.Id }}';
+    window.NetplaySessionId = '{{ game.NetplaySessionId }}';
+
+    window.addEventListener('load', () => {
+        const netplay = NetplayClient({
+            debug: true,
+            gameVideoEl: document.getElementById('game'),
+            gameId: NetplayGameId,
+            sessionId: NetplaySessionId,
+            host: false,
+            turnServerUrl: NetplayTurnServerUrl,
+            turnServerUser: NetplayTurnServerUser,
+            turnServerPassword: NetplayTurnServerPassword,
+        });
+        netplay.connect();
+    });
+</script>
 
 </body>
 </html>
