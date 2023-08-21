@@ -30,11 +30,6 @@
             turnServerUrl: NetplayTurnServerUrl,
             turnServerUser: NetplayTurnServerUser,
             turnServerPassword: NetplayTurnServerPassword,
-            onRTCControlChannelOpen: () => {
-                setInterval(() => {
-                    netplay.sendControlInput(42);
-                }, 500);
-            },
         });
         netplay.connect();
     });

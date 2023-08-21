@@ -115,12 +115,12 @@ func (s *Server) netplayWS(c echo.Context) error {
 		if err := wsjson.Read(context.Background(), ws, &incoming); err != nil {
 			if errors.As(err, &websocket.CloseError{}) {
 				log.Debugf("client %s in session %s closed ws connection", clientId, sessionId)
-				session.RemoveClient(clientId)
-				session.Broadcast(gamesession.MessageDisconnected(clientId))
-				break
+			} else {
+				log.Warnf("client %s in session %s ws error: %s", clientId, sessionId, err)
 			}
-			log.Warnf("client %s in session %s ws error: %s", clientId, sessionId, err)
-			continue
+			session.RemoveClient(clientId)
+			session.Broadcast(gamesession.MessageDisconnected(clientId))
+			break
 		}
 		if len(incoming.Type) == 0 {
 			continue

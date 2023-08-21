@@ -17,8 +17,9 @@
 
     const ClientErrorType = {
         WebSocket: 'web-socket',
-        RtcOffer: 'rtc-offer',
-        RtcAnswer: 'rtc-answer',
+        RtcOfferSend: 'rtc-offer-send',
+        RtcAnswerSend: 'rtc-answer-send',
+        RtcAnswerReceive: 'rtc-answer-receive',
         RtcConnection: 'rtc-connection',
         RtcIceCandidate: 'rtc-ice-candidate',
         RtcIceCandidateAccept: 'rtc-ice-candidate-accept',
@@ -368,11 +369,11 @@
             return;
         }
 
-        if (client.host && !client.rtcClients[connectedClientId]) {
+        if (client.host && connectedClientId !== client.hostId && !client.rtcClients[connectedClientId]) {
             client.rtcClients[connectedClientId] = connectRTC(client, connectedClientId);
         }
-        if (!client.host && !client.rtcHost) {
-            client.rtcHost = connectRTC(client, null);
+        if (!client.host && connectedClientId === client.hostId && !client.rtcHost) {
+            client.rtcHost = connectRTC(client, client.hostId);
         }
     }
 
@@ -447,9 +448,8 @@
             const mediaStream = new MediaStream();
             collectMediaTracks(client).forEach(track => mediaStream.addTrack(track));
             mediaStream.getTracks().forEach(track => connection.addTrack(track, mediaStream));
-        }
-        if (!client.host) {
-            rtcHostControlDataChannel(client, connection.createDataChannel('controls'));
+
+            rtcHostControlDataChannel(client, destinationClientId, connection.createDataChannel('controls'));
         }
 
         return connection;
@@ -552,9 +552,6 @@
      * @param connection RTCPeerConnection
      */
     function rtcSendOffer(client, destinationClientId, connection) {
-        if (!client.host && destinationClientId === null) {
-            destinationClientId = client.hostId;
-        }
         connection
             .createOffer()
             .then(offer => connection.setLocalDescription(offer))
@@ -563,8 +560,8 @@
                 wsSend(client, message);
             })
             .catch(e => {
-                console.error(`RTC create offer for ${destinationClientId} error`, e);
-                client.configuration.onClientError(ClientErrorType.RtcOffer, destinationClientId, e);
+                console.error('RTC create offer error', destinationClientId, e);
+                client.configuration.onClientError(ClientErrorType.RtcOfferSend, destinationClientId, e);
             });
     }
 
@@ -586,8 +583,8 @@
                 wsSend(client, message);
             })
             .catch(e => {
-                console.error(`RTC create answer for ${destinationClientId} error`, e);
-                client.configuration.onClientError(ClientErrorType.RtcAnswer, destinationClientId, e);
+                console.error('RTC create answer error', destinationClientId, e);
+                client.configuration.onClientError(ClientErrorType.RtcAnswerSend, destinationClientId, e);
             });
     }
 
@@ -603,7 +600,8 @@
         connection
             .setRemoteDescription(description)
             .catch(e => {
-                console.error(`RTC handle answer from ${destinationClientId} error`, e);
+                console.error('RTC handle answer error', destinationClientId, e);
+                client.configuration.onClientError(ClientErrorType.RtcAnswerReceive, destinationClientId, e);
             });
     }
 
@@ -665,39 +663,21 @@
 
     /**
      * @param client Object
-     * @param dataChannel RTCDataChannel
-     */
-    function rtcHostControlDataChannel(client, dataChannel) {
-        client.rtcHostControlChannel = dataChannel;
-
-        dataChannel.addEventListener('open', () => {
-            client.configuration.onRTCControlChannelOpen(client.hostId);
-        });
-
-        //host doesn't send any data to clients (yet)
-
-        dataChannel.addEventListener('error', e => {
-            console.error('RTC host control data channel error', client.hostId, e);
-            client.configuration.onClientError(ClientErrorType.RtcControlChannel, client.hostId, e);
-        });
-    }
-
-    /**
-     * @param client Object
      * @param destinationClientId string
      * @param dataChannel RTCDataChannel
      */
-    function rtcClientControlDataChannel(client, destinationClientId, dataChannel) {
-        _debug('RTC DC', destinationClientId);
+    function rtcHostControlDataChannel(client, destinationClientId, dataChannel) {
+        _debug(client, 'RTC DC to client', destinationClientId);
 
         client.rtcControlChannels[destinationClientId] = dataChannel;
 
         dataChannel.addEventListener('open', () => {
+            _debug(client, 'RTC DC to client open');
             client.configuration.onRTCControlChannelOpen(destinationClientId);
         });
 
         dataChannel.addEventListener('error', e => {
-            console.error('RTC client control data channel error', destinationClientId, e);
+            console.error('RTC DC to client error', destinationClientId, e);
             client.configuration.onClientError(ClientErrorType.RtcControlChannel, destinationClientId, e);
         });
 
@@ -705,6 +685,8 @@
             if (!client.clients[destinationClientId]) {
                 return;
             }
+
+            _debug(client, 'RTC DC from client message', destinationClientId, e.data);
 
             const destinationClient = client.clients[destinationClientId];
             if (destinationClient.player === -1) {
@@ -716,9 +698,33 @@
                 return;
             }
 
-            _debug(client, 'RTC DC control', destinationClientId, input);
-
             client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code);
+        });
+    }
+
+    /**
+     * @param client Object
+     * @param destinationClientId string
+     * @param dataChannel RTCDataChannel
+     */
+    function rtcClientControlDataChannel(client, destinationClientId, dataChannel) {
+        if (destinationClientId !== client.hostId) {
+            dataChannel.close();
+            return;
+        }
+
+        client.rtcHostControlChannel = dataChannel;
+
+        dataChannel.addEventListener('open', () => {
+            _debug(client, 'RTC DC to host open')
+            client.configuration.onRTCControlChannelOpen(client.hostId);
+        });
+
+        //host doesn't send any data to clients (yet)
+
+        dataChannel.addEventListener('error', e => {
+            console.error('RTC DC to host error', client.hostId, e);
+            client.configuration.onClientError(ClientErrorType.RtcControlChannel, client.hostId, e);
         });
     }
 
