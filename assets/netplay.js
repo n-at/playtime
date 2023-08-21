@@ -456,7 +456,20 @@
 
         if (!client.audioTrack || client.audioTrack.readyState !== 'live') {
             if (window.AL && window.AL.currentCtx && window.AL.currentCtx.audioCtx) {
-                const destination = window.AL.currentCtx.audioCtx.createMediaStreamDestination();
+                const alContext = window.AL.currentCtx;
+                const audioContext = alContext.audioCtx;
+
+                const gainNodes = [];
+                for (let sourceIdx in alContext.sources) {
+                    gainNodes.push(alContext.sources[sourceIdx].gain);
+                }
+
+                const merger = audioContext.createChannelMerger(gainNodes.length);
+                gainNodes.forEach(node => node.connect(merger));
+
+                const destination = audioContext.createMediaStreamDestination();
+                merger.connect(destination);
+
                 const audioTracks = destination.stream.getAudioTracks();
                 if (audioTracks.length !== 0) {
                     client.audioTrack = audioTracks[0];
