@@ -1,5 +1,37 @@
 (() => {
 
+    const MessageType = {
+        Greeting: 'greeting',
+        Connected: 'connected',
+        Disconnected: 'disconnected',
+        Heartbeat: 'heartbeat',
+        Error: 'error',
+        PlayerChange: 'player-change',
+        PlayerChanged: 'player-changed',
+        ClientNameChange: 'client-name-change',
+        ClientNameChanged: 'client-name-changed',
+        SignallingOffer: 'signalling-offer',
+        SignallingAnswer: 'signalling-answer',
+        SignallingIceCandidate: 'signalling-ice-candidate',
+    };
+
+    const ClientErrorType = {
+        WebSocket: 'web-socket',
+        RtcOffer: 'rtc-offer',
+        RtcAnswer: 'rtc-answer',
+        RtcConnection: 'rtc-connection',
+        RtcIceCandidate: 'rtc-ice-candidate',
+        RtcIceCandidateAccept: 'rtc-ice-candidate-accept',
+        RtcIceConnection: 'rtc-ice-connection',
+        RtcControlChannel: 'rtc-control-channel',
+        Server: 'server',
+    };
+
+    const TrackType = {
+        Video: 'video',
+        Audio: 'audio',
+    };
+
     // default NetplayClient configuration
     // noinspection JSUnusedLocalSymbols
     const defaultConfiguration = {
@@ -32,27 +64,18 @@
 
         //handlers
 
+        //when any error occurred
+        //type - value from ClientErrorType
+        //clientId - associated client
+        //e - Error https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error
+        //    Event https://developer.mozilla.org/en-US/docs/Web/API/Event
+        onClientError: (type, clientId, e) => {},
+
         //when WebSocket is connected
         onWSConnected: () => {},
 
         //when WebSocket is disconnected
         onWSDisconnected: () => {},
-
-        //when WebSocket encountered error
-        //e Event https://developer.mozilla.org/en-US/docs/Web/API/Event
-        onWSError: e => {},
-
-        //when received video track from host
-        onVideoTrackAdded: () => {},
-
-        //when received audio track from host
-        onAudioTrackAdded: () => {},
-
-        //when creating offer for client failed
-        onRTCOfferError: clientId => {},
-
-        //when creating answer for client failed
-        onRTCAnswerError: clientId => {},
 
         //when connection state changed
         //clientId - connected client
@@ -74,17 +97,14 @@
         //state - new, gathering, complete
         onRTCIceGatheringStateChanged: (clientId, state) => {},
 
-        //when ICE error
-        onRTCIceError: clientId => {},
-
         //when control data channel opened
         onRTCControlChannelOpen: clientId => {},
 
-        //when control data channel error
-        onRTCControlChannelError: clientId => {},
-
         //when controller button pressed
         onRTCControlChannelInput: (clientId, player, control) => {},
+
+        //when received media track from host
+        onRTCTrack: type => {},
 
         //when changed client self name
         onSelfNameChanged: name => {},
@@ -97,9 +117,6 @@
 
         //when client (including self) is disconnected
         onClientDisconnected: clientId => {},
-
-        //when server sent error message (excluding WebSocket connection error)
-        onClientError: message => {},
 
         //when client (including self) changed name
         onClientNameChanged: (clientId, name) => {},
@@ -140,6 +157,7 @@
 
             //instance methods
             connect,
+            disconnect,
             getClientId,
             getClientKey,
             getHostId,
@@ -154,19 +172,6 @@
 
     ///////////////////////////////////////////////////////////////////////////
 
-    const MessageTypeGreeting = 'greeting';
-    const MessageTypeConnected = 'connected';
-    const MessageTypeDisconnected = 'disconnected';
-    const MessageTypeHeartbeat = 'heartbeat';
-    const MessageTypeError = 'error';
-    const MessageTypePlayerChange = 'player-change';
-    const MessageTypePlayerChanged = 'player-changed';
-    const MessageTypeClientNameChange = 'client-name-change';
-    const MessageTypeClientNameChanged = 'client-name-changed';
-    const MessageTypeSignallingOffer = 'signalling-offer';
-    const MessageTypeSignallingAnswer = 'signalling-answer';
-    const MessageTypeSignallingIceCandidate = 'signalling-ice-candidate';
-
     function connect() {
         const url = _buildWebSocketUrl(this.configuration.gameId, this.configuration.sessionId);
         this.ws = new WebSocket(url);
@@ -180,7 +185,7 @@
         });
         this.ws.addEventListener('error', e => {
             _debug(this, 'WebSocket error', e);
-            this.configuration.onWSError(e);
+            this.configuration.onClientError(ClientErrorType.WebSocket, null, e);
         });
         this.ws.addEventListener('message', e => {
             const message = JSON.parse(e.data);
@@ -193,40 +198,50 @@
             _debug(this, 'WebSocket incoming message', message.type, message);
 
             switch (message.type) {
-                case MessageTypeGreeting:
+                case MessageType.Greeting:
                     wsMessageGreeting(this, message.greeting);
                     break;
-                case MessageTypeConnected:
+                case MessageType.Connected:
                     wsMessageConnected(this, message.connected);
                     break;
-                case MessageTypeDisconnected:
+                case MessageType.Disconnected:
                     wsMessageDisconnected(this, message.disconnected);
                     break;
-                case MessageTypeHeartbeat:
+                case MessageType.Heartbeat:
                     wsMessageHeartbeat(this);
                     break;
-                case MessageTypeError:
+                case MessageType.Error:
                     wsMessageError(this, message.error);
                     break;
-                case MessageTypeClientNameChanged:
+                case MessageType.ClientNameChanged:
                     wsMessageNameChanged(this, message.name_changed);
                     break;
-                case MessageTypePlayerChanged:
+                case MessageType.PlayerChanged:
                     wsMessagePlayerChanged(this, message.player_changed);
                     break;
-                case MessageTypeSignallingOffer:
+                case MessageType.SignallingOffer:
                     wsMessageSignallingOffer(this, message.signalling);
                     break;
-                case MessageTypeSignallingAnswer:
+                case MessageType.SignallingAnswer:
                     wsMessageSignallingAnswer(this, message.signalling);
                     break;
-                case MessageTypeSignallingIceCandidate:
+                case MessageType.SignallingIceCandidate:
                     wsMessageSignallingIceCandidate(this, message.signalling);
                     break;
                 default:
                     console.error(`unknown message type: ${message.type}`);
             }
         });
+    }
+
+    function disconnect() {
+        if (this.ws) {
+            this.ws.close();
+            this.ws = null;
+        }
+        for (let clientId of this.clients) {
+            clientDisconnected(this, clientId);
+        }
     }
 
     function wsSend(client, message) {
@@ -270,7 +285,7 @@
     }
 
     function wsMessageError(client, message) {
-        client.configuration.onClientError(message.message);
+        client.configuration.onClientError(ClientErrorType.Server, null, new Error(message.message));
     }
 
     function wsMessageNameChanged(client, message) {
@@ -399,8 +414,7 @@
             ],
         });
         connection.addEventListener('connectionstatechange', () => {
-            _debug(client, 'RTC connection state changed', destinationClientId, connection.connectionState);
-           client.configuration.onRTCConnectionStateChanged(destinationClientId, connection.connectionState);
+            rtcConnectionStateChanged(client, destinationClientId, connection);
         });
         connection.addEventListener('datachannel', e => {
             rtcClientControlDataChannel(client, destinationClientId, e.channel);
@@ -409,12 +423,10 @@
             rtcSendIceCandidate(client, destinationClientId, connection, e);
         });
         connection.addEventListener('icecandidateerror', e => {
-           console.error(`RTC ICE candidate for ${destinationClientId} error`, e);
-           client.configuration.onRTCIceError(destinationClientId);
+            rtcIceCandidateError(client, destinationClientId, connection, e);
         });
         connection.addEventListener('iceconnectionstatechange', () => {
-            _debug(client, 'RTC ICE connection state changed', destinationClientId, connection.iceConnectionState);
-            client.configuration.onRTCIceStateChanged(destinationClientId, connection.iceConnectionState);
+            rtcIceConnectionStateChanged(client, destinationClientId, connection);
         });
         connection.addEventListener('icegatheringstatechange', () => {
             _debug(client, 'RTC ICE gathering state changed', destinationClientId, connection.iceGatheringState);
@@ -498,6 +510,47 @@
      * @param destinationClientId string
      * @param connection RTCPeerConnection
      */
+    function rtcConnectionStateChanged(client, destinationClientId, connection) {
+        _debug(client, 'RTC connection state changed', destinationClientId, connection.connectionState);
+
+        client.configuration.onRTCConnectionStateChanged(destinationClientId, connection.connectionState);
+
+        if (connection.connectionState === 'failed') {
+            client.configuration.onClientError(ClientErrorType.RtcConnection, destinationClientId, new Error('RTC connection failed'));
+        }
+    }
+
+    /**
+     * @param client Object
+     * @param destinationClientId string
+     * @param connection RTCPeerConnection
+     * @param e Event
+     */
+    function rtcIceCandidateError(client, destinationClientId, connection, e) {
+        console.error(`RTC ICE candidate for ${destinationClientId} error`, e);
+        client.configuration.onClientError(ClientErrorType.RtcIceCandidate, destinationClientId, e);
+    }
+
+    /**
+     * @param client
+     * @param destinationClientId
+     * @param connection
+     */
+    function rtcIceConnectionStateChanged(client, destinationClientId, connection) {
+        _debug(client, 'RTC ICE connection state changed', destinationClientId, connection.iceConnectionState);
+
+        client.configuration.onRTCIceStateChanged(destinationClientId, connection.iceConnectionState);
+
+        if (connection.iceConnectionState === 'failed') {
+            client.configuration.onClientError(ClientErrorType.RtcIceConnection, destinationClientId, new Error('RTC ICE connection failed'));
+        }
+    }
+
+    /**
+     * @param client Object
+     * @param destinationClientId string
+     * @param connection RTCPeerConnection
+     */
     function rtcSendOffer(client, destinationClientId, connection) {
         if (!client.host && destinationClientId === null) {
             destinationClientId = client.hostId;
@@ -506,12 +559,12 @@
             .createOffer()
             .then(offer => connection.setLocalDescription(offer))
             .then(() => {
-                const message = _messageSignalling(MessageTypeSignallingOffer, destinationClientId, connection.localDescription);
+                const message = _messageSignalling(MessageType.SignallingOffer, destinationClientId, connection.localDescription);
                 wsSend(client, message);
             })
             .catch(e => {
                 console.error(`RTC create offer for ${destinationClientId} error`, e);
-                client.configuration.onRTCOfferError(destinationClientId);
+                client.configuration.onClientError(ClientErrorType.RtcOffer, destinationClientId, e);
             });
     }
 
@@ -529,12 +582,12 @@
             .then(() => connection.createAnswer())
             .then(answer => connection.setLocalDescription(answer))
             .then(() => {
-                const message = _messageSignalling(MessageTypeSignallingAnswer, destinationClientId, connection.localDescription);
+                const message = _messageSignalling(MessageType.SignallingAnswer, destinationClientId, connection.localDescription);
                 wsSend(client, message);
             })
             .catch(e => {
                 console.error(`RTC create answer for ${destinationClientId} error`, e);
-                client.configuration.onRTCAnswerError(destinationClientId);
+                client.configuration.onClientError(ClientErrorType.RtcAnswer, destinationClientId, e);
             });
     }
 
@@ -565,7 +618,7 @@
             return;
         }
 
-        const message = _messageSignalling(MessageTypeSignallingIceCandidate, destinationClientId, e.candidate);
+        const message = _messageSignalling(MessageType.SignallingIceCandidate, destinationClientId, e.candidate);
         wsSend(client, message);
     }
 
@@ -582,7 +635,7 @@
             .addIceCandidate(candidate)
             .catch(e => {
                 console.error(`RTC handle ICE candidate from ${destinationClientId} error`, e);
-                client.configuration.onRTCIceError(destinationClientId);
+                client.configuration.onClientError(ClientErrorType.RtcIceCandidateAccept, destinationClientId, e);
             });
     }
 
@@ -603,10 +656,10 @@
 
         if (e.track.kind === 'video') {
             _debug(client, 'RTC video track received');
-            client.configuration.onVideoTrackAdded();
+            client.configuration.onRTCTrack(TrackType.Video);
         } else if (e.track.kind === 'audio') {
             _debug(client, 'RTC audio track received');
-            client.configuration.onAudioTrackAdded();
+            client.configuration.onRTCTrack(TrackType.Audio);
         }
     }
 
@@ -625,7 +678,7 @@
 
         dataChannel.addEventListener('error', e => {
             console.error('RTC host control data channel error', client.hostId, e);
-            client.configuration.onRTCControlChannelError(client.hostId);
+            client.configuration.onClientError(ClientErrorType.RtcControlChannel, client.hostId, e);
         });
     }
 
@@ -635,6 +688,8 @@
      * @param dataChannel RTCDataChannel
      */
     function rtcClientControlDataChannel(client, destinationClientId, dataChannel) {
+        _debug('RTC DC', destinationClientId);
+
         client.rtcControlChannels[destinationClientId] = dataChannel;
 
         dataChannel.addEventListener('open', () => {
@@ -643,7 +698,7 @@
 
         dataChannel.addEventListener('error', e => {
             console.error('RTC client control data channel error', destinationClientId, e);
-            client.configuration.onRTCControlChannelError(destinationClientId);
+            client.configuration.onClientError(ClientErrorType.RtcControlChannel, destinationClientId, e);
         });
 
         dataChannel.addEventListener('message', e => {
@@ -693,7 +748,7 @@
         const clients = [];
 
         for (let clientId in this.clients) {
-            clients.push(this.clients[clientId]);
+            clients.push(Object.assign({}, this.clients[clientId]));
         }
 
         return clients;
@@ -769,7 +824,7 @@
 
     function _messageNameChange(name) {
         return {
-            type: MessageTypeClientNameChange,
+            type: MessageType.ClientNameChange,
             name_change: {
                 name: name,
             },
@@ -778,7 +833,7 @@
 
     function _messagePlayerChange(clientId, player) {
         return {
-            type: MessageTypePlayerChange,
+            type: MessageType.PlayerChange,
             player_change: {
                 client_id: clientId,
                 player: player,
@@ -788,7 +843,7 @@
 
     function _messageHeartbeat() {
         return {
-            type: MessageTypeHeartbeat,
+            type: MessageType.Heartbeat,
         };
     }
 
