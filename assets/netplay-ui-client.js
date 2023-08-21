@@ -8,6 +8,8 @@
 
         document.getElementById('netplay-name-change').addEventListener('click', changeSelfName);
 
+        connectionScreen('Connecting to server');
+
         netplay = NetplayClient({
             debug: true,
             gameVideoEl: document.getElementById('game'),
@@ -19,6 +21,9 @@
             turnServerPassword: window.NetplayTurnServerPassword,
 
             onClientError: errorHandler,
+            onWSConnected: wsConnected,
+            onRTCConnectionStateChanged: rtcConnectionStateChanged,
+
             onSelfNameChanged: selfNameChanged,
             onSelfPlayerChanged: selfPlayerChanged,
             onClientConnected: clientConnected,
@@ -103,15 +108,53 @@
     }
 
     function clientDisconnected(id) {
-        document.getElementById(`netplay-client-${id}`).remove();
+        const el = document.getElementById(`netplay-client-${id}`);
+        if (el) {
+            el.remove();
+        }
     }
 
     function clientNameChanged(id, name) {
-        document.getElementById(`netplay-client-${id}-name`).innerText = name;
+        const el = document.getElementById(`netplay-client-${id}-name`);
+        if (el) {
+            el.innerText = name;
+        }
     }
 
     function clientPlayerChanged(id, player) {
-        document.getElementById(`netplay-client-${id}-player`).innerText = _displayPlayer(player);
+        const el = document.getElementById(`netplay-client-${id}-player`);
+        if (el) {
+            el.innerText = _displayPlayer(player);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Connection
+    ///////////////////////////////////////////////////////////////////////////
+
+    function wsConnected() {
+        connectionScreen('Connected to server');
+    }
+
+    function rtcConnectionStateChanged(clientId, state) {
+        switch (state) {
+            case 'connecting':
+                connectionScreen('Connecting to game host');
+                break;
+            case 'connected':
+                connectionScreen(false);
+                break;
+        }
+    }
+
+    function connectionScreen(display) {
+        const el = document.getElementById('connection-screen');
+        if (display) {
+            el.classList.remove('d-none');
+            document.getElementById('connection-screen-status').innerText = display;
+        } else {
+            el.classList.add('d-none');
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -119,10 +162,27 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function errorHandler(type, clientId, e) {
-        if (['web-socket', 'rtc-offer-send', 'rtc-answer-send', 'rtc-connection', 'rtc-ice-connection', 'rtc-control-channel'].contains(type)) {
+        if (['web-socket', 'rtc-offer-send', 'rtc-answer-send', 'rtc-connection', 'rtc-ice-connection', 'rtc-control-channel'].includes(type)) {
             errorScreen(true);
         }
-        //TODO error toast
+        switch (type) {
+            case 'web-socket':
+                window.ShowToastMessage('danger', 'Server connection error');
+                break;
+            case 'rtc-offer-send':
+            case 'rtc-answer-send':
+            case 'rtc-ice-connection':
+            case 'rtc-control-channel':
+                window.ShowToastMessage('danger', 'Game host connection error');
+                break;
+            case 'rtc-answer-receive':
+            case 'rtc-ice-candidate-accept':
+                window.ShowToastMessage('warning', 'Game host connection warning');
+                break;
+            case 'rtc-connection':
+                window.ShowToastMessage('Game host connection lost');
+                break;
+        }
     }
 
     function errorScreen(display) {

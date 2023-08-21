@@ -37,4 +37,33 @@
         }, 1000);
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Toast messages
+    ///////////////////////////////////////////////////////////////////////////
+
+    window.ShowToastMessage = function(cls, text) {
+        const el = document.createElement('div');
+        el.classList.add('toast', 'align-items-center', 'border-0', `text-bg-${cls}`);
+        el.role = 'alert';
+
+        const flexEl = document.createElement('div');
+        flexEl.classList.add('d-flex');
+        el.append(flexEl);
+
+        const bodyEl = document.createElement('div');
+        bodyEl.classList.add('toast-body');
+        bodyEl.innerText = text;
+        flexEl.append(bodyEl);
+
+        const btnEl = document.createElement('button');
+        btnEl.type = 'button';
+        btnEl.classList.add('btn-close', 'btn-close-white', 'me-2', 'm-auto');
+        btnEl.setAttribute('data-bs-dismiss', 'toast');
+        btnEl.ariaLabel = 'Close';
+        flexEl.append(btnEl);
+
+        document.getElementById('notifications').append(el);
+        bootstrap.Toast.getOrCreateInstance(el).show();
+    }
+
 })();
