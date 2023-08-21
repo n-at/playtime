@@ -308,7 +308,7 @@
     }
 
     function wsMessageSignallingOffer(client, message) {
-        const clientId = message.client_id;
+        const clientId = message.from_id;
         const sdp = JSON.parse(message.sdp);
 
         if (client.rtcClients[clientId]) {
@@ -320,7 +320,7 @@
     }
 
     function wsMessageSignallingAnswer(client, message) {
-        const clientId = message.client_id;
+        const clientId = message.from_id;
         const sdp = JSON.parse(message.sdp);
 
         if (client.rtcClients[clientId]) {
@@ -332,7 +332,7 @@
     }
 
     function wsMessageSignallingIceCandidate(client, message) {
-        const clientId = message.client_id;
+        const clientId = message.from_id;
         const sdp = JSON.parse(message.sdp);
 
         if (client.rtcClients[clientId]) {
@@ -536,7 +536,6 @@
 
         connection
             .setRemoteDescription(description)
-            .then(() => {})
             .catch(e => {
                 console.error(`RTC handle answer from ${destinationClientId} error`, e);
             });
@@ -568,7 +567,6 @@
 
         connection
             .addIceCandidate(candidate)
-            .then(() => {})
             .catch(e => {
                 console.error(`RTC handle ICE candidate from ${destinationClientId} error`, e);
                 client.configuration.onRTCIceError(destinationClientId);
