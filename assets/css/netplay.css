@@ -1,0 +1,36 @@
+body, html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+#game {
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #000;
+}
+
+#error-screen {
+    background-color: rgba(0, 0, 0, .6);
+    position: absolute;
+    top: 50px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+}
+.error-screen-content {
+    text-align: center;
+    margin-top: calc(50vh - 5em);
+    text-transform: uppercase;
+    letter-spacing: .2rem;
+}
+.error-screen-content i {
+    font-size: 5em;
+}

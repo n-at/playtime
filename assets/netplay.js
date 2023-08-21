@@ -445,8 +445,7 @@
         });
 
         if (client.host) {
-            const mediaStream = new MediaStream();
-            collectMediaTracks(client).forEach(track => mediaStream.addTrack(track));
+            const mediaStream = collectMediaTracks(client);
             mediaStream.getTracks().forEach(track => connection.addTrack(track, mediaStream));
 
             rtcHostControlDataChannel(client, destinationClientId, connection.createDataChannel('controls'));
@@ -495,14 +494,14 @@
             }
         }
 
-        const tracks = [];
+        const stream = new MediaStream();
         if (client.videoTrack && client.videoTrack.readyState === 'live') {
-            tracks.push(client.videoTrack);
+            stream.addTrack(client.videoTrack);
         }
         if (client.audioTrack && client.audioTrack.readyState === 'live') {
-            tracks.push(client.audioTrack);
+            stream.addTrack(client.audioTrack);
         }
-        return tracks;
+        return stream;
     }
 
     /**

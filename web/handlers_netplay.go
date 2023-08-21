@@ -163,6 +163,10 @@ func (s *Server) netplayWS(c echo.Context) error {
 
 				changeName := incoming.NameChange.Name
 
+				if len([]rune(changeName)) > 32 {
+					changeName = string([]rune(changeName)[0:32])
+				}
+
 				if session.SetClientName(clientId, changeName) {
 					session.Broadcast(gamesession.MessageClientNameChanged(clientId, changeName))
 				} else {

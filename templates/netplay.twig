@@ -2,16 +2,45 @@
 <html lang="en" data-bs-theme="dark">
 <head>
     {% include "includes/layout_head.twig" %}
+    <link rel="stylesheet" href="/assets/css/netplay.css">
     <title>Netplay {{ game.Name }} - playtime</title>
 </head>
 <body>
 
-<p class="lead">TODO</p>
+<div id="header" class="container-fluid">
+    <div class="row mt-2">
+        <div class="col-8">
+            {% if user %}
+                <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+            {% endif %}
+            <span id="netplay-player" class="lead">
+                Player: spectator
+            </span>
+        </div>
+        <div class="col-4 text-end">
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+                <i class="bi bi-globe"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                <i class="bi bi-controller"></i>
+            </button>
+        </div>
+    </div>
+</div>
 
-<video id="game" width="300" height="300" autoplay></video>
+<video id="game" autoplay disablepictureinpicture></video>
 
-<script src="/assets/ui-utils.js"></script>
-<script src="/assets/netplay.js"></script>
+<div id="notifications" class="toast-container position-fixed p-3 top-0 end-0"></div>
+
+<div id="error-screen" class="d-none">
+    <div class="error-screen-content">
+        <i class="bi bi-plug"></i>
+        <h5>Connection lost</h5>
+        <h5>Try to refresh page</h5>
+    </div>
+</div>
 
 <script>
     window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
@@ -19,21 +48,13 @@
     window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
     window.NetplayGameId = '{{ game.Id }}';
     window.NetplaySessionId = '{{ game.NetplaySessionId }}';
-
-    window.addEventListener('load', () => {
-        const netplay = NetplayClient({
-            debug: true,
-            gameVideoEl: document.getElementById('game'),
-            gameId: NetplayGameId,
-            sessionId: NetplaySessionId,
-            host: false,
-            turnServerUrl: NetplayTurnServerUrl,
-            turnServerUser: NetplayTurnServerUser,
-            turnServerPassword: NetplayTurnServerPassword,
-        });
-        netplay.connect();
-    });
 </script>
+<script src="/assets/ui-utils.js"></script>
+<script src="/assets/netplay.js"></script>
+<script src="/assets/netplay-ui-client.js"></script>
+
+{% include "includes/netplay_control_scheme.twig" %}
+{% include "includes/netplay_netplay.twig" %}
 
 </body>
 </html>

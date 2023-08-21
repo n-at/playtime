@@ -1,0 +1,15 @@
+<div id="modal-control-scheme" class="modal modal-lg" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Controls</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls %}
+
+            </div>
+        </div>
+    </div>
+</div>
