@@ -81,12 +81,3 @@ wget -O "3do/3do_arcade_saot.bin" "https://github.com/Abdess/retroarch_system/ra
 
 mkdir atari7800
 wget -O "atari7800/7800_BIOS_U.rom" 'https://github.com/Abdess/retroarch_system/raw/libretro/Atari%20-%207800/7800%20BIOS%20(U).rom'
-
-wget -O "dsi.zip" "https://archive.org/download/ds-firmware_dsi-nand-and-firmware-revised/Archive.zip"
-unzip -d dsi dsi.zip
-mv "dsi/biosdsi7.bin" "nds/dsi_bios7.bin"
-mv "dsi/biosdsi9.bin" "nds/dsi_bios9.bin"
-mv "dsi/dsifirmware.bin" "nds/dsi_firmware.bin"
-mv "dsi/dsinandfinal.bin" "nds/dsi_nand.bin"
-mv "dsi/400mbsdcard.img" "nds/dsi_sd_card.bin"
-rm -rf "dsi.zip" "dsi"
