@@ -32,6 +32,7 @@
             onWSConnected: wsConnected,
             onRTCConnectionStateChanged: rtcConnectionStateChanged,
 
+            onGreeting: wsGreeting,
             onSelfNameChanged: selfNameChanged,
             onSelfPlayerChanged: selfPlayerChanged,
             onClientConnected: clientConnected,
@@ -52,6 +53,7 @@
         }
         controlMapButtons(e.key.toLowerCase())
             .forEach(button => netplay.sendControlInput(button, 1.0));
+        e.preventDefault();
     }
 
     function controlsButtonUp(e) {
@@ -60,6 +62,7 @@
         }
         controlMapButtons(e.key.toLowerCase())
             .forEach(button => netplay.sendControlInput(button, 0.0));
+        e.preventDefault();
     }
 
     function controlMapButtons(value) {
@@ -161,8 +164,31 @@
         }
 
         netplay.setName(name);
+        saveClientName(name);
 
         window.FlashButtonIcon('netplay-name-change', ['btn-outline-secondary'], [], ['btn-outline-success'], []);
+    }
+
+    function wsGreeting() {
+        loadClientName();
+    }
+
+    function saveClientName(name) {
+        if (!window.localStorage) {
+            return;
+        }
+        window.localStorage.playtimeNetplayName = name;
+    }
+
+    function loadClientName() {
+        if (!window.localStorage) {
+            return;
+        }
+        if (window.localStorage.playtimeNetplayName) {
+            netplay.setName(window.localStorage.playtimeNetplayName);
+        } else {
+            saveClientName(netplay.getName());
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////

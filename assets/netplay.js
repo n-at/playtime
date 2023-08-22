@@ -107,6 +107,9 @@
         //when received media track from host
         onRTCTrack: type => {},
 
+        //when server sent greeting message
+        onGreeting: () => {},
+
         //when changed client self name
         onSelfNameChanged: name => {},
 
@@ -271,6 +274,8 @@
 
         client.player = message.player;
         client.configuration.onSelfPlayerChanged(client.player);
+
+        client.configuration.onGreeting();
     }
 
     function wsMessageConnected(client, message) {
