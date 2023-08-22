@@ -7,6 +7,7 @@
         document.getElementById('netplay-name-change').addEventListener('click', changeSelfName);
         document.getElementById('netplay-control-scheme-save').addEventListener('click', saveControlScheme);
         document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
+        document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
 
         const gameEl = document.getElementById('game');
         gameEl.addEventListener('keydown', controlsButtonDown);
@@ -14,6 +15,8 @@
         setInterval(controlsPollGamepad, 1000 / 60);
 
         loadControlScheme();
+        virtualGamepadInit();
+        virtualGamepadLoad();
         setupGameDisplaySize();
         connectionScreen('Connecting to server');
 
@@ -370,6 +373,337 @@
         const el = document.getElementById(`netplay-client-${id}-player`);
         if (el) {
             el.innerText = _displayPlayer(player);
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Virtual gamepad
+    ///////////////////////////////////////////////////////////////////////////
+
+    let virtualGamepadVisible = false;
+
+    /*
+     * Gamepad button definition fields:
+     * - region - string (left, center, right)
+     * - square - boolean
+     * - circle - boolean
+     * - large - boolean
+     * - small - boolean
+     * - text - string (alternative to icon)
+     * - icon - string (one of bi-* classes)
+     * - top - int - top relative position, px
+     * - bottom - int - bottom relative position, px
+     * - left - int - left relative position, px
+     * - right - int - right relative position, px
+     * - input - int - control input value
+     */
+
+    const virtualGamepads = {
+        'nes': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'start',  text: 'start',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -10, input: 0, id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 10, input: 8, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'gba': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'start',  text: 'start',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -10, input: 0, id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 10, input: 8, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+
+            {region: 'left',  top: -50, left:  10, input: 10, id:'l', text: 'L', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -50, right: 10, input: 11, id:'r', text: 'R', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'snes': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105,  left:  -15, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105,  right: -15, input: 3, id:'start',  text: 'start',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 10,  right: 55,  input: 9, id:'x', text: 'X', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 100, right: 55,  input: 0, id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55,  right: 100, input: 1, id:'y', text: 'Y', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55,  right: 10,  input: 8, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+
+            {region: 'left',  top: -50, left:  10, input: 10, id:'l', text: 'L', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -50, right: 10, input: 11, id:'r', text: 'R', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'segaMD': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'mode',  text: 'mode',  cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'start', text: 'start', cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -50, input: 9,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 0,   input: 0,  id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 50,  input: 8,  id:'c', text: 'C', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 0,  left: -50, input: 10, id:'x', text: 'X', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 0,  left: 0,   input: 9,  id:'y', text: 'Y', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 0,  left: 50,  input: 11, id:'z', text: 'Z', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'segaMS': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'right', top: 55, left: -10, input: 0, id:'1', text: '1', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 10, input: 8, id:'2', text: '2', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'segaGG': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, right: 20, input: 3, id:'start', text: 'start', cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -10, input: 0, id:'1', text: '1', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 10, input: 8, id:'2', text: '2', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'segaSaturn': [
+            {region: 'left', top: 10,  left: 55, input: 4,  id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5,  id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, right: 20, input: 3, id:'start', text: 'start', cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -50, input: 1,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 0,   input: 0,  id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 50,  input: 8,  id:'c', text: 'C', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 0,  left: -50, input: 9,  id:'x', text: 'X', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 0,  left: 0,   input: 10, id:'y', text: 'Y', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 0,  left: 50,  input: 11, id:'z', text: 'Z', cls: 'btn-outline-secondary', circle: true},
+
+            {region: 'left',  top: -60, left:  10, input: 12, id:'l', text: 'L', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -60, right: 10, input: 13, id:'r', text: 'R', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'atari2600': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 15, left:  20, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 60, right: 20, input: 3, id:'pause',  text: 'pause',  cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: 20, input: 9, id:'reset',  text: 'reset',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: 30, input: 0, id:'fire', icon: 'bi-fire', cls: 'btn-outline-danger', circle: true},
+        ],
+        'atari7800': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 15,  left:  20, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 60,  right: 20, input: 3, id:'pause',  text: 'pause',  cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: 20, input: 9, id:'reset',  text: 'reset',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -10, input: 0, id:'1', text: '1', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 10, input: 8, id:'2', text: '2', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'lynx': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 15,  left:  20, input: 10, id:'option1', text: 'opt 1', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 60,  right: 20, input: 3,  id:'start',   text: 'start', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: 20, input: 11, id:'option2', text: 'opt 2', cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -10, input: 0, id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 10, input: 8, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'jaguar': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'option', text: 'option', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'pause',  text: 'pause',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: 50,  input: 8,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 0,   input: 0,  id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: -50, input: 1,  id:'c', text: 'C', cls: 'btn-outline-secondary', circle: true},
+        ],
+        '3do': [
+            {region: 'left', top: 10,  left: 55, input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 100, left: 55, input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 10,  input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 100, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'select', text: 'X', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'start',  text: 'P',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -50,  input: 1,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 0,   input: 0,  id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, left: 50, input: 8,  id:'c', text: 'C', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'gb':      'nes',
+        'nds':     'snes',
+        'sega32x': 'segaMD',
+        'segaCD':  'segaMD',
+    };
+
+    function virtualGamepadInit() {
+        if (!virtualGamepads[window.GamePlatform]) {
+            return;
+        }
+
+        let gamepad = virtualGamepads[window.GamePlatform];
+        if (typeof gamepad === 'string') {
+            gamepad = virtualGamepads[gamepad];
+        }
+
+        gamepad.forEach(buttonDefinition => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.classList.add('btn');
+
+            if (buttonDefinition.cls) {
+                button.classList.add(buttonDefinition.cls);
+            }
+            if (buttonDefinition.square) {
+                if (buttonDefinition.large) {
+                    button.classList.add('btn-square-lg');
+                } else {
+                    button.classList.add('btn-square');
+                }
+            } else if (buttonDefinition.circle) {
+                if (buttonDefinition.large) {
+                    button.classList.add('btn-circle-lg');
+                } else {
+                    button.classList.add('btn-circle');
+                }
+            } else{
+                button.classList.add('btn-default');
+                if (buttonDefinition.large) {
+                    button.classList.add('btn-lg');
+                } else if (buttonDefinition.small) {
+                    button.classList.add('btn-sm');
+                }
+            }
+
+            if (buttonDefinition.top !== undefined) {
+                button.style.top = buttonDefinition.top + 'px';
+            }
+            if (buttonDefinition.bottom !== undefined) {
+                button.style.bottom = buttonDefinition.bottom + 'px';
+            }
+            if (buttonDefinition.left !== undefined) {
+                button.style.left = buttonDefinition.left + 'px';
+            }
+            if (buttonDefinition.right !== undefined) {
+                button.style.right = buttonDefinition.right + 'px';
+            }
+
+            if (buttonDefinition.icon) {
+                const icon = document.createElement('i');
+                icon.classList.add('bi');
+                icon.classList.add(buttonDefinition.icon);
+                button.append(icon);
+            } else if (buttonDefinition.text) {
+                button.innerText = buttonDefinition.text;
+                button.style.fontWeight = 'bold';
+            }
+
+            button.addEventListener('mousedown', e => {
+                e.preventDefault();
+                button.classList.add('active');
+                virtualGamepadPress(buttonDefinition.input);
+            });
+            button.addEventListener('mouseup', e => {
+                e.preventDefault();
+                button.classList.remove('active');
+                virtualGamepadRelease(buttonDefinition.input);
+            });
+            button.addEventListener('touchstart', e => {
+                e.preventDefault();
+                button.classList.add('active');
+                virtualGamepadPress(buttonDefinition.input);
+            });
+            button.addEventListener('touchend', e => {
+                e.preventDefault();
+                button.classList.remove('active');
+                virtualGamepadRelease(buttonDefinition.input);
+            });
+            button.addEventListener('touchcancel', e => {
+                e.preventDefault();
+                button.classList.remove('active');
+                virtualGamepadRelease(buttonDefinition.input);
+            });
+
+            switch (buttonDefinition.region) {
+                case 'left':
+                    document.querySelector('#virtual-gamepad .virtual-gamepad-area-left').append(button);
+                    break;
+                case 'center':
+                    document.querySelector('#virtual-gamepad .virtual-gamepad-area-center').append(button);
+                    break;
+                case 'right':
+                    document.querySelector('#virtual-gamepad .virtual-gamepad-area-right').append(button);
+                    break;
+            }
+        });
+    }
+
+    function virtualGamepadPress(input) {
+        if (netplay.getPlayer() !== -1) {
+            netplay.sendControlInput(input, 1.0);
+        }
+    }
+
+    function virtualGamepadRelease(input) {
+        if (netplay.getPlayer() !== -1) {
+            netplay.sendControlInput(input, 0.0);
+        }
+    }
+
+    function virtualGamepadLoad() {
+        if (window.localStorage && window.localStorage.playtimeNetplayVirtualGamepad) {
+            virtualGamepadVisible = (window.localStorage.playtimeNetplayVirtualGamepad === 'true');
+        } else {
+            //TODO is mobile
+        }
+        virtualGamepadShow();
+    }
+
+    function virtualGamepadToggle() {
+        virtualGamepadVisible = !virtualGamepadVisible;
+        if (window.localStorage) {
+            window.localStorage.playtimeNetplayVirtualGamepad = (virtualGamepadVisible ? 'true' : 'false');
+        }
+        virtualGamepadShow();
+    }
+
+    function virtualGamepadShow() {
+        const virtualGamepadContainer = document.getElementById('virtual-gamepad');
+        if (virtualGamepadVisible) {
+            virtualGamepadContainer.classList.remove('d-none');
+        } else {
+            virtualGamepadContainer.classList.add('d-none');
         }
     }
 

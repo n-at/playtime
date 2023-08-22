@@ -21,6 +21,7 @@ body {
     left: 0;
 }
 
+#connection-screen,
 #error-screen {
     background-color: rgba(0, 0, 0, .6);
     position: absolute;
@@ -30,31 +31,77 @@ body {
     right: 0;
     z-index: 999;
 }
+
+.connection-screen-content,
 .error-screen-content {
     text-align: center;
-    margin-top: calc(50vh - 6em);
+    margin-top: calc(50vh - 7em);
     text-transform: uppercase;
     letter-spacing: .2rem;
 }
+.connection-screen-content i,
 .error-screen-content i {
     font-size: 5em;
 }
 
 #connection-screen {
-    background-color: rgba(0, 0, 0, .6);
-    position: absolute;
-    top: 50px;
+    z-index: 998;
+}
+.connection-screen-content {
+    margin-top: calc(50vh - 6em);
+}
+
+#virtual-gamepad {
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 999;
+    height: 150px;
+    z-index: 100;
 }
-.connection-screen-content {
-    text-align: center;
-    margin-top: calc(50vh - 5em);
-    text-transform: uppercase;
-    letter-spacing: .2rem;
+#virtual-gamepad .virtual-gamepad-area {
+    width: 100px;
+    height: 150px;
+    position: relative;
+    display: inline-block;
 }
-.connection-screen-content i {
-    font-size: 5em;
+#virtual-gamepad .btn {
+    position: absolute;
+}
+#virtual-gamepad .btn-circle {
+    display: inline-block;
+    border-radius: 20px;
+    width: 40px;
+    height: 40px;
+}
+#virtual-gamepad .btn-circle-lg {
+    display: inline-block;
+    border-radius: 25px;
+    width: 50px;
+    height: 50px;
+}
+#virtual-gamepad .btn-square {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+}
+#virtual-gamepad .btn-square-lg {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+}
+#virtual-gamepad .btn-default {
+    display: inline-block;
+    width: 60px;
+}
+
+.virtual-gamepad-debug {
+    border: 1px solid red;
+    z-index: 1000 !important;
+}
+.virtual-gamepad-debug .row > div {
+    border: 1px solid yellow;
+}
+.virtual-gamepad-debug .virtual-gamepad-area {
+    border: 1px solid lime;
 }

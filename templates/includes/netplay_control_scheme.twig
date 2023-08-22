@@ -7,6 +7,11 @@
             </div>
             <div class="modal-body">
 
+                <div class="text-center">
+                    <button type="button" id="netplay-virtual-gamepad-toggle" class="btn btn-outline-primary">Toggle virtual gamepad</button>
+                </div>
+                <hr>
+
                 {% if not user %}
                     {% include "platform_settings/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
                     <hr>
