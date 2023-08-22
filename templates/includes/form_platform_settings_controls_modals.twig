@@ -1,0 +1,43 @@
+<div id="modal-keyboard-control" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Keyboard for player <span id="keyboard-control-player"></span> - <span id="keyboard-control-title"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div>Press keyboard button to assign</div>
+                <div id="keyboard-control-button" class="mt-5 mb-5"></div>
+                <input type="hidden" id="keyboard-control-input" value="">
+            </div>
+            <div class="modal-footer">
+                <button id="keyboard-control-clear" type="button" class="btn btn-outline-secondary">Clear</button>
+                <button id="keyboard-control-save" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modal-gamepad-control" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Gamepad for player <span id="gamepad-control-player"></span> - <span id="gamepad-control-title"></span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <h5 id="gamepad-control-name">Gamepad not identified</h5>
+                <div id="gamepad-control-button" class="mt-5 mb-5"></div>
+                <input type="hidden" id="gamepad-control-input" value="">
+            </div>
+            <div class="modal-footer">
+                <button id="gamepad-control-clear" type="button" class="btn btn-outline-secondary">Clear</button>
+                <button id="gamepad-control-save" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

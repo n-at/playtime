@@ -106,7 +106,7 @@
                     document.getElementById('gamepad-control-button').innerText = value;
                 }
             });
-        }, 10);
+        }, 1000 / 60);
     });
 
 })();

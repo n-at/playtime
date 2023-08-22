@@ -20,9 +20,11 @@
     if (window.localStorage) {
         const darkTheme = window.localStorage.__dark_theme;
         const netplayName = window.localStorage.playtimeNetplayName;
+        const netplayControls = window.localStorage.playtimeNetplayControls;
         window.localStorage.clear();
         window.localStorage.__dark_theme = darkTheme;
         window.localStorage.playtimeNetplayName = netplayName;
+        window.localStorage.playtimeNetplayControls = netplayControls;
 
         const coreSettings = {
             settings: {

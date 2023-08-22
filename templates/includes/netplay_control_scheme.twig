@@ -7,9 +7,128 @@
             </div>
             <div class="modal-body">
 
-                {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls %}
+                {% if not user %}
+                    {% include "platform_settings/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
+                    <hr>
+                    <div class="text-end">
+                        <button type="button" id="netplay-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                        <button type="button" id="netplay-control-scheme-reset" class="btn btn-outline-secondary">Reset</button>
+                    </div>
+                {% else %}
+                    {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
+                    <hr>
+                    <div class="lead text-center">
+                        You can change control scheme in platform or game settings.
+                    </div>
+                {% endif %}
 
             </div>
         </div>
     </div>
 </div>
+
+{% if not user %}
+    {% include "form_platform_settings_controls_modals.twig" %}
+    <script src="/assets/platform-settings-controls.js"></script>
+{% endif %}
+
+<script>
+    window.ControlScheme = {
+        0: {
+            value: "{{ controls.Keyboard.B }}",
+            value2: "{{ controls.Gamepad.B }}"
+        },
+        1: {
+            value: "{{ controls.Keyboard.Y }}",
+            value2: "{{ controls.Gamepad.Y }}"
+        },
+        2: {
+            value: "{{ controls.Keyboard.Select }}",
+            value2: "{{ controls.Gamepad.Select }}"
+        },
+        3: {
+            value: "{{ controls.Keyboard.Start }}",
+            value2: "{{ controls.Gamepad.Start }}"
+        },
+        4: {
+            value: "{{ controls.Keyboard.Up }}",
+            value2: "{{ controls.Gamepad.Up }}"
+        },
+        5: {
+            value: "{{ controls.Keyboard.Down }}",
+            value2: "{{ controls.Gamepad.Down }}"
+        },
+        6: {
+            value: "{{ controls.Keyboard.Left }}",
+            value2: "{{ controls.Gamepad.Left }}"
+        },
+        7: {
+            value: "{{ controls.Keyboard.Right }}",
+            value2: "{{ controls.Gamepad.Right }}"
+        },
+        8: {
+            value: "{{ controls.Keyboard.A }}",
+            value2: "{{ controls.Gamepad.A }}"
+        },
+        9: {
+            value: "{{ controls.Keyboard.X }}",
+            value2: "{{ controls.Gamepad.X }}"
+        },
+        10: {
+            value: "{{ controls.Keyboard.L }}",
+            value2: "{{ controls.Gamepad.L }}"
+        },
+        11: {
+            value: "{{ controls.Keyboard.R }}",
+            value2: "{{ controls.Gamepad.R }}"
+        },
+        12: {
+            value: "{{ controls.Keyboard.L2 }}",
+            value2: "{{ controls.Gamepad.L2 }}"
+        },
+        13: {
+            value: "{{ controls.Keyboard.R2 }}",
+            value2: "{{ controls.Gamepad.R2 }}"
+        },
+        14: {
+            value: "{{ controls.Keyboard.L3 }}",
+            value2: "{{ controls.Gamepad.L3 }}"
+        },
+        15: {
+            value: "{{ controls.Keyboard.R3 }}",
+            value2: "{{ controls.Gamepad.R3 }}"
+        },
+        16: {
+            value: "{{ controls.Keyboard.LStickRight }}",
+            value2: "{{ controls.Gamepad.LStickRight }}"
+        },
+        17: {
+            value: "{{ controls.Keyboard.LStickLeft }}",
+            value2: "{{ controls.Gamepad.LStickLeft }}"
+        },
+        18: {
+            value: "{{ controls.Keyboard.LStickDown }}",
+            value2: "{{ controls.Gamepad.LStickDown }}"
+        },
+        19: {
+            value: "{{ controls.Keyboard.LStickUp }}",
+            value2: "{{ controls.Gamepad.LStickUp }}"
+        },
+        20: {
+            value: "{{ controls.Keyboard.RStickRight }}",
+            value2: "{{ controls.Gamepad.RStickRight }}"
+        },
+        21: {
+            value: "{{ controls.Keyboard.RStickLeft }}",
+            value2: "{{ controls.Gamepad.RStickLeft }}"
+        },
+        22: {
+            value: "{{ controls.Keyboard.RStickDown }}",
+            value2: "{{ controls.Gamepad.RStickDown }}"
+        },
+        23: {
+            value: "{{ controls.Keyboard.RStickUp }}",
+            value2: "{{ controls.Gamepad.RStickUp }}"
+        },
+    };
+</script>
