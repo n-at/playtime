@@ -35,7 +35,7 @@
                 icon.classList.add(...oldIconCls);
             }
         }, 1000);
-    }
+    };
 
     ///////////////////////////////////////////////////////////////////////////
     // Toast messages
@@ -64,6 +64,6 @@
 
         document.getElementById('notifications').append(el);
         bootstrap.Toast.getOrCreateInstance(el).show();
-    }
+    };
 
 })();

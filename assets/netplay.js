@@ -102,7 +102,7 @@
         onRTCControlChannelOpen: clientId => {},
 
         //when controller button pressed
-        onRTCControlChannelInput: (clientId, player, control) => {},
+        onRTCControlChannelInput: (clientId, player, code, value) => {},
 
         //when received media track from host
         onRTCTrack: type => {},
@@ -697,7 +697,7 @@
                 return;
             }
 
-            client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code);
+            client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code, input.value);
         });
     }
 
@@ -771,11 +771,11 @@
         wsSend(this, _messagePlayerChange(clientId, player));
     }
 
-    function sendControlInput(inputCode) {
+    function sendControlInput(inputCode, inputValue) {
         if (!this.rtcHostControlChannel || this.rtcHostControlChannel.readyState !== 'open') {
             return;
         }
-        this.rtcHostControlChannel.send(JSON.stringify({code: inputCode}));
+        this.rtcHostControlChannel.send(JSON.stringify({code: inputCode, value: inputValue}));
     }
 
     ///////////////////////////////////////////////////////////////////////////

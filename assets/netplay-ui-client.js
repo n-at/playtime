@@ -2,6 +2,9 @@
 
     let netplay = null;
 
+    let gamepadId = null;
+    let gamepadPrevState = {};
+
     window.addEventListener('load', () => {
         setupGameDisplaySize();
         window.addEventListener('resize', setupGameDisplaySize);
@@ -10,9 +13,14 @@
 
         connectionScreen('Connecting to server');
 
+        const gameEl = document.getElementById('game');
+        gameEl.addEventListener('keydown', controlsButtonDown);
+        gameEl.addEventListener('keyup', controlsButtonUp);
+        setInterval(controlsPollGamepad, 1000 / 60);
+
         netplay = NetplayClient({
             debug: true,
-            gameVideoEl: document.getElementById('game'),
+            gameVideoEl: gameEl,
             gameId: window.NetplayGameId,
             sessionId: window.NetplaySessionId,
             host: false,
@@ -35,18 +43,113 @@
     });
 
     ///////////////////////////////////////////////////////////////////////////
+    // Controls
+    ///////////////////////////////////////////////////////////////////////////
+
+    function controlsButtonDown(e) {
+        if (netplay.getPlayer() === -1 || e.repeat) {
+            return;
+        }
+        controlMapButtons(e.key.toLowerCase())
+            .forEach(button => netplay.sendControlInput(button, 1.0));
+    }
+
+    function controlsButtonUp(e) {
+        if (netplay.getPlayer() === -1) {
+            return;
+        }
+        controlMapButtons(e.key.toLowerCase())
+            .forEach(button => netplay.sendControlInput(button, 0.0));
+    }
+
+    function controlMapButtons(value) {
+        const buttons = [];
+        for (let code in window.ControlScheme) {
+            if (window.ControlScheme[code].value === value) {
+                buttons.push(code);
+            }
+        }
+        return buttons;
+    }
+
+    function controlsPollGamepad() {
+        if (netplay.getPlayer() === -1 || !navigator.getGamepads) {
+            return;
+        }
+
+        let gamepad = null;
+
+        //select current gamepad
+
+        navigator.getGamepads().forEach(g => {
+            if (g.id === gamepadId) {
+                gamepad = g;
+            }
+        });
+        if (gamepad === null) {
+            gamepad = navigator.getGamepads()[0];
+            gamepadId = gamepad.id;
+            gamepadPrevState = {};
+        }
+
+        //collect pressed buttons
+
+        const pressedButtons = [];
+        gamepad.buttons.forEach((button, buttonIdx) => {
+            if (button.pressed) {
+                pressedButtons.push(buttonIdx.toString());
+            }
+        });
+        gamepad.axes.forEach((axisValue, axisIdx) => {
+            const name = ['LEFT_STICK_X', 'LEFT_STICK_Y', 'RIGHT_STICK_X', 'RIGHT_STICK_Y'][axisIdx];
+            if (!name) {
+                return;
+            }
+            const value = Math.round(axisValue);
+            if (value === 0) {
+                return;
+            }
+            pressedButtons.push(`${name}:${value}`);
+        });
+
+        //map state
+
+        const gamepadCurrentState = {};
+        pressedButtons.forEach(button => {
+            for (let code in window.ControlScheme) {
+                if (window.ControlScheme[code].value2 === button) {
+                    gamepadCurrentState[code] = true;
+                }
+            }
+        });
+
+        //compare states
+
+        for (let code in gamepadCurrentState) {
+            if (gamepadCurrentState[code] && !gamepadPrevState[code]) {
+                netplay.sendControlInput(code, 1.0);
+            }
+        }
+        for (let code in gamepadPrevState) {
+            if (gamepadPrevState[code] && !gamepadCurrentState[code]) {
+                netplay.sendControlInput(code, 0.0);
+            }
+        }
+
+        gamepadPrevState = gamepadCurrentState;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Self name and player
     ///////////////////////////////////////////////////////////////////////////
 
-    function selfNameChanged(name) {
-        document.getElementById('netplay-name').value = name;
+    function selfNameChanged() {
+        document.getElementById('netplay-name').value = netplay.getName();
         document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${_displayPlayer(netplay.getPlayer())}`;
     }
 
-    function selfPlayerChanged(player) {
+    function selfPlayerChanged() {
         document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${_displayPlayer(netplay.getPlayer())}`;
-
-        //TODO give controller
     }
 
     function changeSelfName() {
@@ -129,7 +232,7 @@
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Connection
+    // Connection screen
     ///////////////////////////////////////////////////////////////////////////
 
     function wsConnected() {
@@ -158,7 +261,7 @@
     }
 
     ///////////////////////////////////////////////////////////////////////////
-    // Errors
+    // Error screen
     ///////////////////////////////////////////////////////////////////////////
 
     function errorHandler(type, clientId, e) {
