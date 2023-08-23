@@ -63,7 +63,7 @@
         flexEl.append(btnEl);
 
         document.getElementById('notifications').append(el);
-        bootstrap.Toast.getOrCreateInstance(el).show();
+        bootstrap.Toast.getOrCreateInstance(el, {delay: 1000}).show();
     };
 
 })();

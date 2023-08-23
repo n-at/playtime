@@ -271,6 +271,7 @@
     }
 
     function selfPlayerChanged() {
+        window.ShowToastMessage('primary', `You now play as ${_displayPlayer(netplay.getPlayer())}`);
         document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${_displayPlayer(netplay.getPlayer())}`;
     }
 
@@ -315,6 +316,10 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function clientConnected(id, name, player) {
+        if (id !== netplay.getClientId()) {
+            window.ShowToastMessage('success', `${name} (${_displayPlayer(player)}) connected`);
+        }
+
         const elId = `netplay-client-${id}`;
         if (document.getElementById(elId)) {
             clientNameChanged(name);
@@ -356,6 +361,11 @@
     }
 
     function clientDisconnected(id) {
+        const client = netplay.getClient(id);
+        if (client && id !== netplay.getClientId()) {
+            window.ShowToastMessage('warning', `${client.name} (${_displayPlayer(client.player)}) disconnected`);
+        }
+
         const el = document.getElementById(`netplay-client-${id}`);
         if (el) {
             el.remove();
@@ -363,6 +373,11 @@
     }
 
     function clientNameChanged(id, name) {
+        const client = netplay.getClient(id);
+        if (client && id !== netplay.getClientId()) {
+            window.ShowToastMessage('info', `${client.name} (${_displayPlayer(client.player)}) is now ${name}`);
+        }
+
         const el = document.getElementById(`netplay-client-${id}-name`);
         if (el) {
             el.innerText = name;
@@ -370,6 +385,11 @@
     }
 
     function clientPlayerChanged(id, player) {
+        const client = netplay.getClient(id);
+        if (client && id !== netplay.getClientId()) {
+            window.ShowToastMessage('info', `${client.name} (${_displayPlayer(client.player)}) is now ${_displayPlayer(player)}`);
+        }
+
         const el = document.getElementById(`netplay-client-${id}-player`);
         if (el) {
             el.innerText = _displayPlayer(player);
@@ -713,6 +733,7 @@
 
     function wsConnected() {
         connectionScreen('Connected to server');
+        errorScreen(false);
     }
 
     function rtcConnectionStateChanged(clientId, state) {
@@ -722,6 +743,7 @@
                 break;
             case 'connected':
                 connectionScreen(false);
+                errorScreen(false);
                 break;
         }
     }

@@ -41,6 +41,8 @@
     <div id="game"></div>
 </div>
 
+<div id="notifications" class="toast-container position-fixed p-3"></div>
+
 <script>
     GameId = '{{ game.Id }}';
     LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
@@ -91,23 +93,9 @@
         window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
         window.NetplayGameId = '{{ game.Id }}';
         window.NetplaySessionId = '{{ game.NetplaySessionId }}';
-
-        window.EJS_onGameStart = () => {
-            const netplay = NetplayClient({
-                debug: true,
-                gameCanvasEl: document.querySelector('#game canvas'),
-                gameId: NetplayGameId,
-                sessionId: NetplaySessionId,
-                host: true,
-                turnServerUrl: NetplayTurnServerUrl,
-                turnServerUser: NetplayTurnServerUser,
-                turnServerPassword: NetplayTurnServerPassword,
-            });
-            netplay.connect();
-        };
     </script>
     <script src="/assets/netplay.js"></script>
-    <script src="/assets/netplay-ui.js"></script>
+    <script src="/assets/netplay-ui-host.js"></script>
     <script src="/assets/node_modules/awesome-qr/dist/awesome-qr.js"></script>
     {% include "includes/play_netplay.twig" %}
 {% endif %}

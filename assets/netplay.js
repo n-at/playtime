@@ -167,7 +167,7 @@
             getHostId,
             getName,
             getPlayer,
-            getClients,
+            getClient,
             setName,
             setClientPlayer,
             sendControlInput,
@@ -302,12 +302,12 @@
             return;
         }
 
-        client.clients[clientId].name = name;
         client.configuration.onClientNameChanged(clientId, name);
+        client.clients[clientId].name = name;
 
         if (client.clientId === clientId) {
-            client.name = name;
             client.configuration.onSelfNameChanged(name);
+            client.name = name;
         }
     }
 
@@ -319,12 +319,12 @@
             return;
         }
 
-        client.clients[clientId].player = player;
         client.configuration.onClientPlayerChanged(clientId, player);
+        client.clients[clientId].player = player;
 
         if (client.clientId === clientId) {
-            client.player = player;
             client.configuration.onSelfPlayerChanged(player);
+            client.player = player;
         }
     }
 
@@ -383,8 +383,8 @@
     }
 
     function clientDisconnected(client, disconnectedClientId) {
-        delete client.clients[disconnectedClientId];
         client.configuration.onClientDisconnected(disconnectedClientId);
+        delete client.clients[disconnectedClientId];
 
         if (client.clientId === disconnectedClientId) {
             return;
@@ -754,14 +754,11 @@
         return this.player;
     }
 
-    function getClients() {
-        const clients = [];
-
-        for (let clientId in this.clients) {
-            clients.push(Object.assign({}, this.clients[clientId]));
+    function getClient(clientId) {
+        if (!this.clients[clientId]) {
+            return null;
         }
-
-        return clients;
+        return Object.assign({}, this.clients[clientId]);
     }
 
     function setName(name) {

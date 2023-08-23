@@ -1,4 +1,4 @@
-<div id="modal-netplay" class="modal" tabindex="-1">
+<div id="modal-netplay" class="modal modal-lg" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,14 +10,33 @@
                 <div class="text-center mb-3">
                     <img id="netplay-qr" src="" alt="Netplay-join">
                 </div>
+
                 <div class="input-group mb-3">
-                    <a href="" class="btn btn-outline-secondary" id="netplay-reset-session" title="Reset game session">
+                    <a href="/games/netplay/{{ game.NetplaySessionId }}/refresh-id?return-to=play" class="btn btn-outline-secondary" id="netplay-reset-session" title="Reset game session">
                         <i class="bi bi-arrow-clockwise"></i>
                     </a>
                     <input type="text" id="netplay-url" class="form-control" value="" readonly aria-label="Netplay URL" aria-describedby="netplay-url-copy">
                     <button type="button" class="btn btn-outline-secondary" id="netplay-url-copy" title="Copy to clipboard">
                         <i class="bi bi-clipboard"></i>
                     </button>
+                </div>
+
+                <br>
+
+                <h5>Player</h5>
+                <div class="mb-3 input-group">
+                    <div class="form-floating">
+                        <input type="text" id="netplay-name" class="form-control" placeholder="Netplay name">
+                        <label for="netplay-name">Name</label>
+                    </div>
+                    <button type="button" id="netplay-name-change" class="btn btn-outline-secondary" title="Change name">
+                        <i class="bi bi-check"></i>
+                    </button>
+                </div>
+
+                <h5>Game session</h5>
+                <div id="netplay-clients" class="mb-3 list-group list-group-hover">
+
                 </div>
 
             </div>
