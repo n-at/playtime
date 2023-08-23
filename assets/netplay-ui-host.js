@@ -28,6 +28,7 @@
             onClientDisconnected: clientDisconnected,
             onClientNameChanged: clientNameChanged,
             onClientPlayerChanged: clientPlayerChanged,
+            onRTCControlChannelInput: controlInput,
         });
         netplay.connect();
     };
@@ -116,6 +117,8 @@
         if (el) {
             el.remove();
         }
+
+        controlUnpress(id, client.player);
     }
 
     function clientNameChanged(id, newName) {
@@ -130,11 +133,12 @@
         }
     }
 
-    function clientPlayerChanged(id, newPlayer) {
+    function clientPlayerChanged(id, newPlayer, oldPlayer) {
         const el = document.getElementById(`netplay-client-${id}-player`);
         if (el) {
             el.value = newPlayer.toString();
         }
+        controlUnpress(id, oldPlayer);
     }
 
     function _createClientNameEl(id, name) {
@@ -193,7 +197,36 @@
     // Client controls
     ///////////////////////////////////////////////////////////////////////////
 
-    //TODO
+    const clientControlPressed = {};
+
+    function controlInput(clientId, player, code, value) {
+        const client = netplay.getClient(clientId);
+        if (!client || client.player !== player) {
+            return;
+        }
+
+        if (!clientControlPressed[clientId]) {
+            clientControlPressed[clientId] = {};
+        }
+        clientControlPressed[clientId][code] = !!value;
+
+        EJS_emulator.gameManager.simulateInput(player, code, value);
+    }
+
+    function controlUnpress(clientId, player) {
+        if (!clientControlPressed[clientId]) {
+            return;
+        }
+
+        const pressed = clientControlPressed[clientId];
+        for (let code in pressed) {
+            if (pressed[code]) {
+                EJS_emulator.gameManager.simulateInput(player, code, 0);
+            }
+        }
+
+        delete clientControlPressed[clientId];
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Connection status

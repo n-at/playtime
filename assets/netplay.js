@@ -704,7 +704,7 @@
                 return;
             }
             switch (input.type) {
-                case 'input':
+                case 'control':
                     client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code, input.value);
                     break;
                 case 'heartbeat':
