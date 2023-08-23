@@ -50,6 +50,19 @@ func init() {
 		log.SetLevel(log.InfoLevel)
 	}
 
+	if *verbosePtr {
+		log.Info("verbose output enabled")
+	}
+	if *debugTemplatesPtr {
+		log.Info("templates debug enabled")
+	}
+	if *debugEmulatorPtr {
+		log.Info("emulator debug enabled")
+	}
+	if *debugNetplayPtr {
+		log.Info("netplay debug enabled")
+	}
+
 	storageConfig = &storage.Configuration{
 		Path: *dbPathPtr,
 	}

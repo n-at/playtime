@@ -66,4 +66,18 @@
         bootstrap.Toast.getOrCreateInstance(el, {delay: 1000}).show();
     };
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Display utils
+    ///////////////////////////////////////////////////////////////////////////
+
+    window.NetplayPlayerDisplay = (clientId, hostId, player) => {
+        if (clientId === hostId) {
+            return 'host';
+        }
+        if (player === -1) {
+            return 'spectator'
+        }
+        return `player ${player + 1}`;
+    };
+
 })();

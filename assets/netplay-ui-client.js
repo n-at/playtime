@@ -267,12 +267,13 @@
 
     function selfNameChanged() {
         document.getElementById('netplay-name').value = netplay.getName();
-        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${_displayPlayer(netplay.getPlayer())}`;
+        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), netplay.getPlayer())}`;
     }
 
     function selfPlayerChanged() {
-        window.ShowToastMessage('primary', `You now play as ${_displayPlayer(netplay.getPlayer())}`);
-        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${_displayPlayer(netplay.getPlayer())}`;
+        const player = NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), netplay.getPlayer());
+        window.ShowToastMessage('primary', `You now play as ${player}`);
+        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${player}`;
     }
 
     function changeSelfName() {
@@ -317,7 +318,7 @@
 
     function clientConnected(id, name, player) {
         if (id !== netplay.getClientId()) {
-            window.ShowToastMessage('success', `${name} (${_displayPlayer(player)}) connected`);
+            window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) connected`);
         }
 
         const elId = `netplay-client-${id}`;
@@ -335,26 +336,16 @@
         containerEl.classList.add('row');
         el.append(containerEl);
 
-        const hostEl = document.createElement('div');
-        hostEl.classList.add('col-1');
-        containerEl.append(hostEl);
-
-        if (id === netplay.getHostId()) {
-            const el = document.createElement('i');
-            el.classList.add('bi', 'bi-star', 'lead', 'text-success');
-            hostEl.append(el);
-        }
-
         const nameEl = document.createElement('div');
         nameEl.id = `netplay-client-${id}-name`;
-        nameEl.classList.add('lead', 'col-6', 'col-md-8');
+        nameEl.classList.add('lead', 'col-6', 'col-md-9');
         nameEl.innerText = name;
         containerEl.append(nameEl);
 
         const playerEl = document.createElement('div');
         playerEl.id = `netplay-client-${id}-player`;
-        playerEl.classList.add('text-end', 'col-5', 'col-md-3');
-        playerEl.innerText = _displayPlayer(player);
+        playerEl.classList.add('text-end', 'col-6', 'col-md-3');
+        playerEl.innerText = NetplayPlayerDisplay(id, netplay.getHostId(), player);
         containerEl.append(playerEl);
 
         document.getElementById('netplay-clients').append(el);
@@ -363,7 +354,7 @@
     function clientDisconnected(id) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('warning', `${client.name} (${_displayPlayer(client.player)}) disconnected`);
+            window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) disconnected`);
         }
 
         const el = document.getElementById(`netplay-client-${id}`);
@@ -375,7 +366,7 @@
     function clientNameChanged(id, name) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('info', `${client.name} (${_displayPlayer(client.player)}) is now ${name}`);
+            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) is now ${name}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-name`);
@@ -387,12 +378,14 @@
     function clientPlayerChanged(id, player) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('info', `${client.name} (${_displayPlayer(client.player)}) is now ${_displayPlayer(player)}`);
+            const oldPlayer = NetplayPlayerDisplay(id, netplay.getHostId(), client.player);
+            const newPlayer = NetplayPlayerDisplay(id, netplay.getHostId(), player);
+            window.ShowToastMessage('info', `${client.name} (${oldPlayer}) is now ${newPlayer}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-player`);
         if (el) {
-            el.innerText = _displayPlayer(player);
+            el.innerText = NetplayPlayerDisplay(id, netplay.getHostId(), player);
         }
     }
 
@@ -803,10 +796,6 @@
         const game = document.getElementById('game');
         game.width = window.innerWidth;
         game.height = window.innerHeight - 50;
-    }
-
-    function _displayPlayer(player) {
-        return player === -1 ? 'spectator' : player + 1;
     }
 
     //https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
