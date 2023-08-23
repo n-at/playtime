@@ -33,6 +33,7 @@
             onClientError: errorHandler,
             onWSConnected: wsConnected,
             onRTCConnectionStateChanged: rtcConnectionStateChanged,
+            onRTCControlChannelOpen: controlDataChannelOpen,
 
             onGreeting: wsGreeting,
             onSelfNameChanged: selfNameChanged,
@@ -155,6 +156,10 @@
         }
 
         gamepadPrevState = gamepadCurrentState;
+    }
+
+    function controlDataChannelOpen() {
+        setInterval(() => netplay.sendControlHeartbeat(), 1000);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -774,7 +779,7 @@
                 window.ShowToastMessage('warning', 'Game host connection warning');
                 break;
             case 'rtc-connection':
-                window.ShowToastMessage('Game host connection lost');
+                window.ShowToastMessage('danger', 'Game host connection lost');
                 break;
         }
     }

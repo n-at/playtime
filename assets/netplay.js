@@ -171,6 +171,7 @@
             setName,
             setClientPlayer,
             sendControlInput,
+            sendControlHeartbeat,
         };
     };
 
@@ -701,8 +702,13 @@
             if (!input) {
                 return;
             }
-
-            client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code, input.value);
+            switch (input.type) {
+                case 'input':
+                    client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code, input.value);
+                    break;
+                case 'heartbeat':
+                    break;
+            }
         });
     }
 
@@ -777,7 +783,14 @@
         if (!this.rtcHostControlChannel || this.rtcHostControlChannel.readyState !== 'open') {
             return;
         }
-        this.rtcHostControlChannel.send(JSON.stringify({code: inputCode, value: inputValue}));
+        this.rtcHostControlChannel.send(JSON.stringify({type: 'control', code: inputCode, value: inputValue}));
+    }
+
+    function sendControlHeartbeat() {
+        if (!this.rtcHostControlChannel || this.rtcHostControlChannel.readyState !== 'open') {
+            return;
+        }
+        this.rtcHostControlChannel.send(JSON.stringify({type: 'heartbeat'}));
     }
 
     ///////////////////////////////////////////////////////////////////////////
