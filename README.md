@@ -40,6 +40,14 @@ Usage of ./app:
         show debug output
 ```
 
+## Netplay
+
+TURN server is required for netplay. It can be obtained from:
+
+* [This list](https://gist.github.com/sagivo/3a4b2f2c7ac6e1b5267c2f1f59ac6c6b)
+* [Open Relay](https://www.metered.ca/tools/openrelay/)
+* Hosted, for example [coturn](https://github.com/coturn/coturn)
+
 ## Uses
 
 * [labstack/echo](https://github.com/labstack/echo) - MIT
