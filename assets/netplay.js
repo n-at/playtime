@@ -168,6 +168,7 @@
             getName,
             getPlayer,
             getClient,
+            getClients,
             setName,
             setClientPlayer,
             sendControlInput,
@@ -313,7 +314,7 @@
     }
 
     function wsMessagePlayerChanged(client, message) {
-        const clientId = message.clientId;
+        const clientId = message.client_id;
         const player = message.player;
 
         if (!client.clients[clientId]) {
@@ -765,6 +766,16 @@
             return null;
         }
         return Object.assign({}, this.clients[clientId]);
+    }
+
+    function getClients() {
+        const clients = [];
+
+        for (let clientId in this.clients) {
+            clients.push(Object.assign({}, this.clients[clientId]));
+        }
+
+        return clients;
     }
 
     function setName(name) {

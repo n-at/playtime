@@ -24,6 +24,10 @@
             onClientError: errorHandler,
             onGreeting: wsGreeting,
             onSelfNameChanged: selfNameChanged,
+            onClientConnected: clientConnected,
+            onClientDisconnected: clientDisconnected,
+            onClientNameChanged: clientNameChanged,
+            onClientPlayerChanged: clientPlayerChanged,
         });
         netplay.connect();
     };
@@ -39,8 +43,8 @@
             netplay.setName(savedName);
         }
 
-        //host can play as any player, auto set 1
-        netplay.setClientPlayer(netplay.getClientId(), 1);
+        //host can play as any player, auto set 0
+        netplay.setClientPlayer(netplay.getClientId(), 0);
 
         window.ShowToastMessage('success', 'Connected to server');
     }
@@ -65,6 +69,128 @@
 
     ///////////////////////////////////////////////////////////////////////////
     // Game session clients list
+    ///////////////////////////////////////////////////////////////////////////
+
+    function clientConnected(id, name, player) {
+        if (id !== netplay.getClientId()) {
+            window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) connected`);
+        }
+
+        const elId = `netplay-client-${id}`;
+        if (document.getElementById(elId)) {
+            clientNameChanged(name);
+            clientPlayerChanged(player);
+            return;
+        }
+
+        const containerEl = document.createElement('div');
+        containerEl.id = `netplay-client-${id}`;
+        containerEl.classList.add('list-group-item');
+
+        const rowEl = document.createElement('div');
+        rowEl.classList.add('row');
+        containerEl.append(rowEl);
+
+        const nameEl = _createClientNameEl(id, name);
+        rowEl.append(nameEl);
+
+        const playerEl = _createClientPlayerEl(id);
+        rowEl.append(playerEl);
+
+        if (id !== netplay.getClientId()) {
+            playerEl.append(_createClientPlayerSelect(id, player));
+        } else {
+            playerEl.innerText = NetplayPlayerDisplay(id, netplay.getHostId(), player);
+        }
+
+        document.getElementById('netplay-clients').append(containerEl);
+    }
+
+    function clientDisconnected(id) {
+        const client = netplay.getClient(id);
+        if (client && id !== netplay.getClientId()) {
+            window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) disconnected`);
+        }
+
+        const el = document.getElementById(`netplay-client-${id}`);
+        if (el) {
+            el.remove();
+        }
+    }
+
+    function clientNameChanged(id, newName) {
+        const client = netplay.getClient(id);
+        if (client && id !== netplay.getClientId()) {
+            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) is now ${name}`);
+        }
+
+        const el = document.getElementById(`netplay-client-${id}-name`);
+        if (el) {
+            el.innerText = newName;
+        }
+    }
+
+    function clientPlayerChanged(id, newPlayer) {
+        const el = document.getElementById(`netplay-client-${id}-player`);
+        if (el) {
+            el.value = newPlayer.toString();
+        }
+    }
+
+    function _createClientNameEl(id, name) {
+        const el = document.createElement('div');
+        el.id = `netplay-client-${id}-name`;
+        el.classList.add('lead', 'col-6', 'col-md-9');
+        el.innerText = name;
+        return el;
+    }
+
+    function _createClientPlayerEl(id) {
+        const el = document.createElement('div');
+        el.id = `netplay-client-${id}-player`;
+        el.classList.add('text-end', 'col-6', 'col-md-3');
+        return el;
+    }
+
+    function _createClientPlayerSelect(id, player) {
+        const el = document.createElement('select');
+        el.id = `netplay-client-${id}-player`;
+        el.classList.add('form-select');
+
+         [-1, 0, 1, 2, 3].forEach(playerId => {
+            const playerTitle = window.NetplayPlayerDisplay(id, null, playerId);
+            const option = document.createElement('option');
+            option.value = playerId.toString();
+            option.innerText = playerTitle;
+            option.selected = (playerId === player);
+            el.append(option);
+         });
+
+         el.addEventListener('change', () => {
+            const newPlayer = parseInt(el.value);
+
+            const client = netplay.getClient(id);
+            if (!client) {
+                return;
+            }
+            if (client.player === newPlayer) {
+                return;
+            }
+
+            netplay.getClients().forEach(client => {
+                if (newPlayer !== -1 && client.player === newPlayer) {
+                    netplay.setClientPlayer(client.client_id, -1);
+                }
+            });
+
+            netplay.setClientPlayer(id, newPlayer);
+         });
+
+        return el;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Client controls
     ///////////////////////////////////////////////////////////////////////////
 
     //TODO
@@ -95,6 +221,8 @@
                 window.ShowToastMessage('danger', `${clientName} connection lost`);
                 break;
         }
+
+        console.error('error', type, clientId, e);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -131,10 +259,6 @@
         const url = document.getElementById('netplay-url').value;
         await navigator.clipboard.writeText(url);
         window.FlashButtonIcon('netplay-url-copy', ['btn-outline-secondary'], ['bi-clipboard'], ['btn-outline-success'], ['bi-clipboard-check']);
-    }
-
-    function _displayPlayer(player) {
-        return player === -1 ? 'spectator' : player + 1;
     }
 
 })();
