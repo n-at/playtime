@@ -9,9 +9,8 @@
         document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
 
-        const gameEl = document.getElementById('game');
-        gameEl.addEventListener('keydown', controlsButtonDown);
-        gameEl.addEventListener('keyup', controlsButtonUp);
+        window.addEventListener('keydown', controlsButtonDown);
+        window.addEventListener('keyup', controlsButtonUp);
         setInterval(controlsPollGamepad, 1000 / 60);
 
         loadControlScheme();
@@ -22,7 +21,7 @@
 
         netplay = NetplayClient({
             debug: window.NetplayDebug,
-            gameVideoEl: gameEl,
+            gameVideoEl: document.getElementById('game'),
             gameId: window.NetplayGameId,
             sessionId: window.NetplaySessionId,
             host: false,

@@ -63,8 +63,9 @@
 
         ///////////////////////////////////////////////////////////////////////
 
-        window.addEventListener('keydown', e => {
+        document.getElementById('modal-keyboard-control').addEventListener('keydown', e => {
             document.getElementById('keyboard-control-button').innerText = e.key.toLowerCase();
+            e.preventDefault();
         });
 
         setInterval(() => {
