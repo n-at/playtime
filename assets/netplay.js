@@ -111,10 +111,10 @@
         onGreeting: () => {},
 
         //when changed client self name
-        onSelfNameChanged: name => {},
+        onSelfNameChanged: (newName, oldName) => {},
 
         //when changed client self player
-        onSelfPlayerChanged: player => {},
+        onSelfPlayerChanged: (newPlayer, oldPlayer) => {},
 
         //when client (including self) is connected
         onClientConnected: (clientId, name, player) => {},
@@ -123,10 +123,10 @@
         onClientDisconnected: clientId => {},
 
         //when client (including self) changed name
-        onClientNameChanged: (clientId, name) => {},
+        onClientNameChanged: (clientId, newName, oldName) => {},
 
         //when client (including self) changed player
-        onClientPlayerChanged: (clientId, player) => {},
+        onClientPlayerChanged: (clientId, newPlayer, oldPlayer) => {},
     };
 
     ///////////////////////////////////////////////////////////////////////////
@@ -270,11 +270,11 @@
             clientConnected(client, connectedClient.client_id, connectedClient);
         }
 
+        client.configuration.onSelfNameChanged(message.name, client.name);
         client.name = message.name;
-        client.configuration.onSelfNameChanged(client.name);
 
+        client.configuration.onSelfPlayerChanged(message.player, client.player);
         client.player = message.player;
-        client.configuration.onSelfPlayerChanged(client.player);
 
         client.configuration.onGreeting();
     }
@@ -303,11 +303,11 @@
             return;
         }
 
-        client.configuration.onClientNameChanged(clientId, name);
+        client.configuration.onClientNameChanged(clientId, name, client.clients[clientId].name);
         client.clients[clientId].name = name;
 
         if (client.clientId === clientId) {
-            client.configuration.onSelfNameChanged(name);
+            client.configuration.onSelfNameChanged(name, client.name);
             client.name = name;
         }
     }
@@ -320,11 +320,11 @@
             return;
         }
 
-        client.configuration.onClientPlayerChanged(clientId, player);
+        client.configuration.onClientPlayerChanged(clientId, player, client.clients[clientId].player);
         client.clients[clientId].player = player;
 
         if (client.clientId === clientId) {
-            client.configuration.onSelfPlayerChanged(player);
+            client.configuration.onSelfPlayerChanged(player, client.player);
             client.player = player;
         }
     }

@@ -159,7 +159,7 @@
     }
 
     function controlDataChannelOpen() {
-        setInterval(() => netplay.sendControlHeartbeat(), 1000);
+        setInterval(() => netplay.sendControlHeartbeat(), 5000);
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -270,15 +270,15 @@
     // Self name and player
     ///////////////////////////////////////////////////////////////////////////
 
-    function selfNameChanged() {
-        document.getElementById('netplay-name').value = netplay.getName();
-        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), netplay.getPlayer())}`;
+    function selfNameChanged(name) {
+        document.getElementById('netplay-name').value = name;
+        document.getElementById('netplay-player').innerText = `${name}: ${NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), netplay.getPlayer())}`;
     }
 
-    function selfPlayerChanged() {
-        const player = NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), netplay.getPlayer());
-        window.ShowToastMessage('primary', `You now play as ${player}`);
-        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${player}`;
+    function selfPlayerChanged(player) {
+        const playerDisplay = NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), player);
+        window.ShowToastMessage('primary', `You now play as ${playerDisplay}`);
+        document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${playerDisplay}`;
     }
 
     function changeSelfName() {
@@ -290,30 +290,16 @@
         }
 
         netplay.setName(name);
-        saveClientName(name);
+        window.NetplaySaveClientName(name);
 
         window.FlashButtonIcon('netplay-name-change', ['btn-outline-secondary'], [], ['btn-outline-success'], []);
     }
 
     function wsGreeting() {
-        loadClientName();
-    }
-
-    function saveClientName(name) {
-        if (!window.localStorage) {
-            return;
-        }
-        window.localStorage.playtimeNetplayName = name;
-    }
-
-    function loadClientName() {
-        if (!window.localStorage) {
-            return;
-        }
-        if (window.localStorage.playtimeNetplayName) {
-            netplay.setName(window.localStorage.playtimeNetplayName);
-        } else {
-            saveClientName(netplay.getName());
+        const netplayName = netplay.getName();
+        const savedName = window.NetplayLoadClientName(netplayName);
+        if (netplayName !== savedName) {
+            netplay.setName(savedName);
         }
     }
 
@@ -380,17 +366,17 @@
         }
     }
 
-    function clientPlayerChanged(id, player) {
+    function clientPlayerChanged(id, newPlayer, oldPlayer) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            const oldPlayer = NetplayPlayerDisplay(id, netplay.getHostId(), client.player);
-            const newPlayer = NetplayPlayerDisplay(id, netplay.getHostId(), player);
-            window.ShowToastMessage('info', `${client.name} (${oldPlayer}) is now ${newPlayer}`);
+            const oldPlayerDisplay = window.NetplayPlayerDisplay(id, netplay.getHostId(), oldPlayer);
+            const newPlayerDisplay = window.NetplayPlayerDisplay(id, netplay.getHostId(), newPlayer);
+            window.ShowToastMessage('info', `${client.name} (${oldPlayerDisplay}) is now ${newPlayerDisplay}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-player`);
         if (el) {
-            el.innerText = NetplayPlayerDisplay(id, netplay.getHostId(), player);
+            el.innerText = window.NetplayPlayerDisplay(id, netplay.getHostId(), newPlayer);
         }
     }
 

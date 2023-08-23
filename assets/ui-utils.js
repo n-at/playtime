@@ -80,4 +80,23 @@
         return `player ${player + 1}`;
     };
 
+    window.NetplayLoadClientName = defaultName => {
+        if (!window.localStorage) {
+            return;
+        }
+        if (window.localStorage.playtimeNetplayName) {
+            return window.localStorage.playtimeNetplayName;
+        } else {
+            NetplaySaveClientName(defaultName);
+            return defaultName;
+        }
+    };
+
+    window.NetplaySaveClientName = name => {
+        if (!window.localStorage) {
+            return;
+        }
+        window.localStorage.playtimeNetplayName = name;
+    };
+
 })();
