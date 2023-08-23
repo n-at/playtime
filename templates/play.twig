@@ -50,7 +50,6 @@
     EJS_pathtodata = '/assets/emulatorjs/';
     EJS_player = '#game';
     EJS_core = '{{ emulator_settings.Core }}';
-    EJS_oldCores = {{ emulator_settings.OldCores | lower }};
     EJS_gameUrl = '{{ game.DownloadLink }}';
     EJS_gameName = '{{ game.Name }}';
     EJS_color = '{{ emulator_settings.ColorScheme }}';
@@ -62,7 +61,7 @@
     EJS_startOnLoaded = true;
     EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
 
-    {% if emulator_settings.Debug %}
+    {% if emulator_debug %}
         EJS_DEBUG_XX = true;
     {% endif %}
 
@@ -91,6 +90,7 @@
         window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
         window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
         window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
+        window.NetplayDebug = {{ netplay_debug | lower }};
         window.NetplayGameId = '{{ game.Id }}';
         window.NetplaySessionId = '{{ game.NetplaySessionId }}';
     </script>

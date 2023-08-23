@@ -185,7 +185,6 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 	}
 
 	settings := storage.EmulatorSettings{
-		OldCores:               c.FormValue("old-cores") == "1",
 		Core:                   core,
 		Bios:                   c.FormValue("bios"),
 		ColorScheme:            c.FormValue("color-scheme"),
@@ -199,7 +198,6 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		FPS:                    c.FormValue("fps") == "1",
 		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",
 		StartFullScreen:        c.FormValue("start-full-screen") == "1",
-		Debug:                  c.FormValue("debug") == "1",
 		FastForwardMode:        c.FormValue("fast-forward-mode") == "1",
 		SlowMotionMode:         c.FormValue("slow-motion-mode") == "1",
 		Rewind:                 c.FormValue("rewind-enabled") == "1",

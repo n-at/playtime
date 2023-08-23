@@ -47,6 +47,7 @@ func (s *Server) netplay(c echo.Context) error {
 		"netplay_turn_url":      s.config.TurnServerUrl,
 		"netplay_turn_user":     s.config.TurnServerUser,
 		"netplay_turn_password": s.config.TurnServerPassword,
+		"netplay_debug":         s.config.NetplayDebug,
 	})
 }
 

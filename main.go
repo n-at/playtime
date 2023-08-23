@@ -31,7 +31,9 @@ func main() {
 
 func init() {
 	verbosePtr := flag.Bool("verbose", false, "show debug output")
-	templatesDebugPtr := flag.Bool("templates-debug", false, "debug page templates (do not cache)")
+	debugTemplatesPtr := flag.Bool("debug-templates", false, "debug page templates (do not cache)")
+	debugEmulatorPtr := flag.Bool("debug-emulator", false, "debug emulator (extended browser console output)")
+	debugNetplayPtr := flag.Bool("debug-netplay", false, "debug netplay (extended browser console output)")
 	listenPtr := flag.String("listen", ":3000", "address and port to listen")
 	dbPathPtr := flag.String("db-path", "data/bolt.db", "db path")
 	uploadsPathPtr := flag.String("uploads-path", "uploads", "uploads path")
@@ -56,11 +58,14 @@ func init() {
 		UploadsRoot: *uploadsPathPtr,
 		Listen:      *listenPtr,
 
-		TemplatesDebug:     *templatesDebugPtr,
+		TemplatesDebug:     *debugTemplatesPtr,
 		TemplatesRoot:      "templates",
 		TemplatesExtension: "twig",
 
+		EmulatorDebug: *debugEmulatorPtr,
+
 		NetplayEnabled:     strings.TrimSpace(*turnServerUrlPtr) != "",
+		NetplayDebug:       *debugNetplayPtr,
 		TurnServerUrl:      *turnServerUrlPtr,
 		TurnServerUser:     *turnServerUser,
 		TurnServerPassword: *turnServerPassword,

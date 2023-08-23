@@ -21,7 +21,7 @@
         connectionScreen('Connecting to server');
 
         netplay = NetplayClient({
-            debug: true,
+            debug: window.NetplayDebug,
             gameVideoEl: gameEl,
             gameId: window.NetplayGameId,
             sessionId: window.NetplaySessionId,

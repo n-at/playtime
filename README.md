@@ -20,10 +20,14 @@ $ ./app -help
 Usage of ./app:
   -db-path string
         db path (default "data/bolt.db")
+  -debug-emulator
+        debug emulator (extended browser console output)
+  -debug-netplay
+        debug netplay (extended browser console output)
+  -debug-templates
+        debug page templates (do not cache)
   -listen string
         address and port to listen (default ":3000")
-  -templates-debug
-        debug page templates (do not cache)
   -turn-server-password string
         TURN/STUN/ICE server password (if required)
   -turn-server-url string

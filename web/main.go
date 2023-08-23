@@ -29,8 +29,12 @@ type Configuration struct {
 	TemplatesRoot      string
 	TemplatesExtension string
 
+	//emulator
+	EmulatorDebug bool
+
 	//netplay
 	NetplayEnabled     bool
+	NetplayDebug       bool
 	TurnServerUrl      string
 	TurnServerUser     string
 	TurnServerPassword string

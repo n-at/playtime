@@ -786,7 +786,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "nes":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["nes"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -812,7 +811,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "snes":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["snes"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -838,7 +836,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "gb":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["gb"][0],
 			Bios:                   Bioses["gb"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -864,7 +861,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "gba":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["gba"][0],
 			Bios:                   Bioses["gba"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -890,7 +886,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "vb":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["vb"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -916,7 +911,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "nds":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["nds"][0],
 			Bios:                   Bioses["nds"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -942,7 +936,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "a5200":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["a5200"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -968,7 +961,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "mame2003":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["mame2003"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -994,7 +986,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "arcade":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["arcade"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -1020,7 +1011,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "psx":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["psx"][0],
 			Bios:                   Bioses["psx"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1046,7 +1036,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "jaguar":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["jaguar"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -1072,7 +1061,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "lynx":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["lynx"][0],
 			Bios:                   Bioses["lynx"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1098,7 +1086,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "segaSaturn":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["segaSaturn"][0],
 			Bios:                   Bioses["segaSaturn"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1124,7 +1111,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "segaMS":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["segaMS"][0],
 			Bios:                   Bioses["segaMS"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1150,7 +1136,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "segaMD":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["segaMD"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -1176,7 +1161,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "segaGG":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["segaGG"][0],
 			Bios:                   Bioses["segaGG"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1202,7 +1186,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "segaCD":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["segaCD"][0],
 			Bios:                   Bioses["segaCD"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1228,7 +1211,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "sega32x":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["sega32x"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -1254,7 +1236,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "n64":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["n64"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,
@@ -1280,7 +1261,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "3do":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["3do"][0],
 			Bios:                   Bioses["3do"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1306,7 +1286,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "atari7800":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["atari7800"][0],
 			Bios:                   Bioses["atari7800"][0].Name,
 			ColorScheme:            DefaultColorScheme,
@@ -1332,7 +1311,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "atari2600":
 		return EmulatorSettings{
-			OldCores:               false,
 			Core:                   Cores["atari2600"][0],
 			Bios:                   "",
 			ColorScheme:            DefaultColorScheme,

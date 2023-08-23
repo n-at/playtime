@@ -54,7 +54,6 @@ type UploadBatch struct {
 }
 
 type EmulatorSettings struct {
-	OldCores               bool
 	Core                   string
 	Bios                   string
 	ColorScheme            string
@@ -65,7 +64,6 @@ type EmulatorSettings struct {
 	FPS                    bool
 	VirtualGamepadLeftHand bool
 	StartFullScreen        bool
-	Debug                  bool
 	Controls               [4]EmulatorControls
 	Buttons                EmulatorButtons
 	CoreOptions            map[string]string
