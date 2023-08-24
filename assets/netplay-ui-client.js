@@ -9,6 +9,7 @@
         document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
         document.getElementById('netplay-play').addEventListener('click', play);
+        document.getElementById('game').addEventListener('playing', () => playScreen(false));
 
         window.addEventListener('keydown', controlsButtonDown);
         window.addEventListener('keyup', controlsButtonUp);
@@ -30,7 +31,6 @@
             turnServerUser: window.NetplayTurnServerUser,
             turnServerPassword: window.NetplayTurnServerPassword,
 
-            onClientError: errorHandler,
             onWSConnected: wsConnected,
             onRTCConnectionStateChanged: rtcConnectionStateChanged,
             onRTCControlChannelOpen: controlDataChannelOpen,
@@ -38,10 +38,17 @@
             onGreeting: wsGreeting,
             onSelfNameChanged: selfNameChanged,
             onSelfPlayerChanged: selfPlayerChanged,
+
+            onClientCleanState: clientReset,
             onClientConnected: clientConnected,
             onClientDisconnected: clientDisconnected,
             onClientNameChanged: clientNameChanged,
             onClientPlayerChanged: clientPlayerChanged,
+
+            onClientError: errorHandler,
+            onWSReconnecting: wsReconnecting,
+            onRTCReconnecting: rtcReconnecting,
+            onRTCControlChannelReconnecting: rtcDCReconnecting,
         });
         netplay.connect();
     });
@@ -306,6 +313,10 @@
     ///////////////////////////////////////////////////////////////////////////
     // Game session clients list
     ///////////////////////////////////////////////////////////////////////////
+
+    function clientReset() {
+        document.getElementById('netplay-clients').innerHTML = '';
+    }
 
     function clientConnected(id, name, player) {
         if (id !== netplay.getClientId()) {
@@ -720,6 +731,10 @@
         errorScreen(false);
     }
 
+    function wsReconnecting() {
+        window.ShowToastMessage('warning', 'Reconnecting to server...', 2000);
+    }
+
     function rtcConnectionStateChanged(clientId, state) {
         switch (state) {
             case 'connecting':
@@ -731,6 +746,14 @@
                 playScreen(true);
                 break;
         }
+    }
+
+    function rtcReconnecting() {
+        window.ShowToastMessage('warning', 'Reconnecting to game host...', 2000);
+    }
+
+    function rtcDCReconnecting() {
+        window.ShowToastMessage('warning', 'Reconnecting to game host...', 2000);
     }
 
     function connectionScreen(display) {
@@ -765,10 +788,7 @@
     // Error screen
     ///////////////////////////////////////////////////////////////////////////
 
-    function errorHandler(type, clientId, e) {
-        if (['web-socket', 'rtc-offer-send', 'rtc-answer-send', 'rtc-connection', 'rtc-ice-connection', 'rtc-control-channel'].includes(type)) {
-            errorScreen(true);
-        }
+    function errorHandler(type) {
         switch (type) {
             case 'web-socket':
                 window.ShowToastMessage('danger', 'Server connection error');

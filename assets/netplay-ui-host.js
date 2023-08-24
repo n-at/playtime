@@ -21,14 +21,21 @@
             turnServerUser: NetplayTurnServerUser,
             turnServerPassword: NetplayTurnServerPassword,
 
-            onClientError: errorHandler,
             onGreeting: wsGreeting,
             onSelfNameChanged: selfNameChanged,
+
+            onClientCleanState: clientReset,
             onClientConnected: clientConnected,
             onClientDisconnected: clientDisconnected,
             onClientNameChanged: clientNameChanged,
             onClientPlayerChanged: clientPlayerChanged,
+
             onRTCControlChannelInput: controlInput,
+
+            onClientError: errorHandler,
+            onWSReconnecting: wsReconnecting,
+            onRTCReconnecting: rtcReconnecting,
+            onRTCControlChannelReconnecting: rtcControlReconnecting,
         });
         netplay.connect();
     };
@@ -72,6 +79,10 @@
     // Game session clients list
     ///////////////////////////////////////////////////////////////////////////
 
+    function clientReset() {
+        document.getElementById('netplay-clients').innerHtml = '';
+    }
+
     function clientConnected(id, name, player) {
         if (id !== netplay.getClientId()) {
             window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) connected`);
@@ -101,6 +112,8 @@
         if (id !== netplay.getClientId()) {
             playerEl.append(_createClientPlayerSelect(id, player));
         } else {
+            playerEl.classList.remove('text-end');
+            playerEl.classList.add('text-center');
             playerEl.innerText = NetplayPlayerDisplay(id, netplay.getHostId(), player);
         }
 
@@ -256,6 +269,22 @@
         }
 
         console.error('error', type, clientId, e);
+    }
+
+    function wsReconnecting() {
+        window.ShowToastMessage('warning', `Reconnecting to server...`);
+    }
+
+    function rtcReconnecting(clientId) {
+        const client = netplay.getClient(clientId);
+        const clientName = client ? client.name : 'unknown client';
+        window.ShowToastMessage('warning', `Reconnecting to ${clientName}...`);
+    }
+
+    function rtcControlReconnecting(clientId) {
+        const client = netplay.getClient(clientId);
+        const clientName = client ? client.name : 'unknown client';
+        window.ShowToastMessage('warning', `Reconnecting to ${clientName}...`);
     }
 
     ///////////////////////////////////////////////////////////////////////////

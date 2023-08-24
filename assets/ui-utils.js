@@ -41,7 +41,13 @@
     // Toast messages
     ///////////////////////////////////////////////////////////////////////////
 
-    window.ShowToastMessage = function(cls, text) {
+    /**
+     * @param {string} cls
+     * @param {string} text
+     * @param {number} delay
+     * @constructor
+     */
+    window.ShowToastMessage = function(cls, text, delay = 1000) {
         const el = document.createElement('div');
         el.classList.add('toast', 'align-items-center', 'border-0', `text-bg-${cls}`);
         el.role = 'alert';
@@ -62,8 +68,12 @@
         btnEl.ariaLabel = 'Close';
         flexEl.append(btnEl);
 
+        if (!delay) {
+            delay = 1000;
+        }
+
         document.getElementById('notifications').append(el);
-        bootstrap.Toast.getOrCreateInstance(el, {delay: 1000}).show();
+        bootstrap.Toast.getOrCreateInstance(el, {delay: delay}).show();
     };
 
     ///////////////////////////////////////////////////////////////////////////
