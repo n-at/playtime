@@ -67,7 +67,7 @@ func (s *Server) netplayWS(c echo.Context) error {
 		}
 	}
 
-	ws, err := websocket.Accept(c.Response(), c.Request(), nil)
+	ws, err := websocket.Accept(c.Response(), c.Request(), &websocket.AcceptOptions{CompressionMode: websocket.CompressionDisabled})
 	if err != nil {
 		return err
 	}

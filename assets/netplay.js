@@ -447,7 +447,7 @@
         });
         client.ws.addEventListener('error', e => {
             _debug(client, 'WebSocket error', e);
-            this.configuration.onClientError(ClientErrorType.WebSocket, null, e);
+            client.configuration.onClientError(ClientErrorType.WebSocket, null, e);
         });
         client.ws.addEventListener('message', e => {
             wsMessage(client, e.data);
@@ -638,7 +638,7 @@
      */
     function wsMessageSignallingOffer(client, message) {
         const clientId = message.from_id;
-        const sdp = JSON.parse(message.sdp);
+        const sdp = JSON.parse(atob(message.sdp));
 
         if (client.rtcClients[clientId]) {
             rtcSendAnswer(client, clientId, client.rtcClients[clientId], sdp);
@@ -653,7 +653,7 @@
      */
     function wsMessageSignallingAnswer(client, message) {
         const clientId = message.from_id;
-        const sdp = JSON.parse(message.sdp);
+        const sdp = JSON.parse(atob(message.sdp));
 
         if (client.rtcClients[clientId]) {
             rtcHandleAnswer(client, clientId, client.rtcClients[clientId], sdp);
@@ -668,7 +668,7 @@
      */
     function wsMessageSignallingIceCandidate(client, message) {
         const clientId = message.from_id;
-        const sdp = JSON.parse(message.sdp);
+        const sdp = JSON.parse(atob(message.sdp));
 
         if (client.rtcClients[clientId]) {
             rtcHandleIceCandidate(client, clientId, client.rtcClients[clientId], sdp);
@@ -1165,7 +1165,7 @@
             type: type,
             signalling: {
                 client_id: clientId,
-                sdp: JSON.stringify(sdp),
+                sdp: btoa(JSON.stringify(sdp)),
             },
         }
     }

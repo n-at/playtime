@@ -10,7 +10,8 @@
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
         document.getElementById('netplay-play').addEventListener('click', play);
         document.getElementById('netplay-fullscreen').addEventListener('click', fullscreen);
-        document.getElementById('game').addEventListener('playing', () => playScreen(false));
+        document.getElementById('game').addEventListener('play', () => playScreen(false));
+        document.getElementById('game').addEventListener('pause', () => playScreen(true));
 
         window.addEventListener('keydown', controlsButtonDown);
         window.addEventListener('keyup', controlsButtonUp);
