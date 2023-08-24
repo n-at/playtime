@@ -13,6 +13,8 @@
         SignallingOffer: 'signalling-offer',
         SignallingAnswer: 'signalling-answer',
         SignallingIceCandidate: 'signalling-ice-candidate',
+        DCInput: 'input',
+        DCHeartbeat: 'heartbeat',
     };
 
     const ClientErrorType = {
@@ -33,7 +35,16 @@
         Audio: 'audio',
     };
 
-    // default NetplayClient configuration
+    const ConnectionState = {
+        Connecting: 'connecting',
+        Connected: 'connected',
+        Disconnected: 'disconnected',
+    };
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Default configuration
+    ///////////////////////////////////////////////////////////////////////////
+
     // noinspection JSUnusedLocalSymbols
     const defaultConfiguration = {
         //game <canvas> element, required for host
@@ -72,11 +83,17 @@
         //    Event https://developer.mozilla.org/en-US/docs/Web/API/Event
         onClientError: (type, clientId, e) => {},
 
+        //when client resets its state (e.g. after connection failure)
+        onClientReset: () => {},
+
         //when WebSocket is connected
         onWSConnected: () => {},
 
         //when WebSocket is disconnected
         onWSDisconnected: () => {},
+
+        //when WebSocket is disconnected and started new connect attempt
+        onWSReconnecting: () => {},
 
         //when connection state changed
         //clientId - connected client
@@ -130,6 +147,8 @@
     };
 
     ///////////////////////////////////////////////////////////////////////////
+    // Client definition
+    ///////////////////////////////////////////////////////////////////////////
 
     window.NetplayClient = function(config) {
         const configuration = Object.assign({}, defaultConfiguration, config);
@@ -140,10 +159,10 @@
             configuration,
 
             //connections
+            connectionState: ConnectionState.Disconnected,
+            retryConnection: false,
             ws: null,
-            rtcHost: null,
             rtcClients: {},
-            rtcHostControlChannel: {},
             rtcControlChannels: {},
 
             //client data
@@ -176,6 +195,8 @@
         };
     };
 
+    ///////////////////////////////////////////////////////////////////////////
+    // WebSocket
     ///////////////////////////////////////////////////////////////////////////
 
     function connect() {
@@ -337,9 +358,6 @@
         if (client.rtcClients[clientId]) {
             rtcSendAnswer(client, clientId, client.rtcClients[clientId], sdp);
         }
-        if (client.hostId === clientId && client.rtcHost) {
-            rtcSendAnswer(client, clientId, client.rtcHost, sdp);
-        }
     }
 
     function wsMessageSignallingAnswer(client, message) {
@@ -348,9 +366,6 @@
 
         if (client.rtcClients[clientId]) {
             rtcHandleAnswer(client, clientId, client.rtcClients[clientId], sdp);
-        }
-        if (client.hostId === clientId && client.rtcHost) {
-            rtcHandleAnswer(client, clientId, client.rtcHost, sdp);
         }
     }
 
@@ -361,11 +376,10 @@
         if (client.rtcClients[clientId]) {
             rtcHandleIceCandidate(client, clientId, client.rtcClients[clientId], sdp);
         }
-        if (client.hostId === clientId && client.rtcHost) {
-            rtcHandleIceCandidate(client, clientId, client.rtcHost, sdp);
-        }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // RTC
     ///////////////////////////////////////////////////////////////////////////
 
     function clientConnected(client, connectedClientId, clientData) {
@@ -376,11 +390,14 @@
             return;
         }
 
-        if (client.host && connectedClientId !== client.hostId && !client.rtcClients[connectedClientId]) {
+        //host connecting to all clients (except self)
+        //client connecting only to host
+
+        if (
+            (client.host && connectedClientId !== client.hostId && !client.rtcClients[connectedClientId]) ||
+            (!client.host && connectedClientId === client.hostId && !client.rtcClients[connectedClientId])
+        ) {
             client.rtcClients[connectedClientId] = connectRTC(client, connectedClientId);
-        }
-        if (!client.host && connectedClientId === client.hostId && !client.rtcHost) {
-            client.rtcHost = connectRTC(client, client.hostId);
         }
     }
 
@@ -400,15 +417,6 @@
             client.rtcControlChannels[disconnectedClientId].close();
             delete client.rtcControlChannels[disconnectedClientId];
         }
-
-        if (client.host === disconnectedClientId && client.rtcHost) {
-            client.rtcHost.close();
-            client.rtcHost = null;
-        }
-        if (client.host === disconnectedClientId && client.rtcHostControlChannel) {
-            client.rtcHostControlChannel.close();
-            client.rtcHostControlChannel = null;
-        }
     }
 
     function connectRTC(client, destinationClientId) {
@@ -425,7 +433,7 @@
             rtcConnectionStateChanged(client, destinationClientId, connection);
         });
         connection.addEventListener('datachannel', e => {
-            rtcClientControlDataChannel(client, destinationClientId, e.channel);
+            rtcDCClient(client, destinationClientId, e.channel);
         });
         connection.addEventListener('icecandidate', e => {
             rtcSendIceCandidate(client, destinationClientId, connection, e);
@@ -455,7 +463,7 @@
             const mediaStream = collectMediaTracks(client);
             mediaStream.getTracks().forEach(track => connection.addTrack(track, mediaStream));
 
-            rtcHostControlDataChannel(client, destinationClientId, connection.createDataChannel('controls'));
+            rtcDCHost(client, destinationClientId, connection.createDataChannel('controls'));
         }
 
         return connection;
@@ -667,12 +675,16 @@
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // RTC Data Channel (for control input)
+    ///////////////////////////////////////////////////////////////////////////
+
     /**
      * @param client Object
      * @param destinationClientId string
      * @param dataChannel RTCDataChannel
      */
-    function rtcHostControlDataChannel(client, destinationClientId, dataChannel) {
+    function rtcDCHost(client, destinationClientId, dataChannel) {
         _debug(client, 'RTC DC to client', destinationClientId);
 
         client.rtcControlChannels[destinationClientId] = dataChannel;
@@ -704,10 +716,10 @@
                 return;
             }
             switch (input.type) {
-                case 'control':
+                case MessageType.DCInput:
                     client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code, input.value);
                     break;
-                case 'heartbeat':
+                case MessageType.DCHeartbeat:
                     break;
             }
         });
@@ -718,13 +730,13 @@
      * @param destinationClientId string
      * @param dataChannel RTCDataChannel
      */
-    function rtcClientControlDataChannel(client, destinationClientId, dataChannel) {
+    function rtcDCClient(client, destinationClientId, dataChannel) {
         if (destinationClientId !== client.hostId) {
             dataChannel.close();
             return;
         }
 
-        client.rtcHostControlChannel = dataChannel;
+        client.rtcControlChannels[destinationClientId] = dataChannel;
 
         dataChannel.addEventListener('open', () => {
             _debug(client, 'RTC DC to host open')
@@ -739,6 +751,26 @@
         });
     }
 
+    /**
+     * @param client Object
+     * @param destinationClientId string
+     * @param message Object
+     */
+    function rtcDCSend(client, destinationClientId, message) {
+        if (!client.rtcControlChannels[destinationClientId]) {
+            return;
+        }
+
+        const channel = client.rtcControlChannels[destinationClientId];
+        if (channel.readyState !== 'open') {
+            return;
+        }
+
+        channel.send(JSON.stringify(message));
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Client methods
     ///////////////////////////////////////////////////////////////////////////
 
     function getClientId() {
@@ -791,19 +823,15 @@
     }
 
     function sendControlInput(inputCode, inputValue) {
-        if (!this.rtcHostControlChannel || this.rtcHostControlChannel.readyState !== 'open') {
-            return;
-        }
-        this.rtcHostControlChannel.send(JSON.stringify({type: 'control', code: inputCode, value: inputValue}));
+        rtcDCSend(this, this.hostId, _messageDCInput(inputCode, inputValue));
     }
 
     function sendControlHeartbeat() {
-        if (!this.rtcHostControlChannel || this.rtcHostControlChannel.readyState !== 'open') {
-            return;
-        }
-        this.rtcHostControlChannel.send(JSON.stringify({type: 'heartbeat'}));
+        rtcDCSend(this, this.hostId, _messageDCHeartbeat());
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Utils
     ///////////////////////////////////////////////////////////////////////////
 
     function _debug(client, ...args) {
@@ -885,6 +913,20 @@
                 client_id: clientId,
                 sdp: JSON.stringify(sdp),
             },
+        }
+    }
+
+    function _messageDCHeartbeat() {
+        return {
+            type: MessageType.DCHeartbeat,
+        };
+    }
+
+    function _messageDCInput(inputCode, inputValue) {
+        return {
+            type: MessageType.DCInput,
+            code: inputCode,
+            value: inputValue,
         }
     }
 
