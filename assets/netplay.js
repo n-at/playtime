@@ -15,6 +15,7 @@
         SignallingIceCandidate: 'signalling-ice-candidate',
         DCInput: 'input',
         DCHeartbeat: 'heartbeat',
+        DCPlayer: 'player',
     };
 
     const ClientErrorType = {
@@ -272,6 +273,13 @@
 
             sendControlHeartbeat() {
                 rtcDCSend(this, this.hostId, _messageDCHeartbeat());
+            },
+
+            /**
+             * @param {number} player
+             */
+            sendControlPlayer(player) {
+                rtcDCSend(this, this.hostId, _messageDCPlayer(player));
             },
         };
     };
@@ -980,24 +988,28 @@
 
         _debug(client, 'RTC DC from client message', destinationClientId, channelLabel, data);
 
-        const input = JSON.parse(data);
-        if (!input) {
+        const message = JSON.parse(data);
+        if (!message) {
             return;
         }
 
-        switch (input.type) {
+        switch (message.type) {
             case MessageType.DCInput:
                 const destinationClient = client.clients[destinationClientId];
                 if (destinationClient.player !== -1) {
-                    client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, input.code, input.value);
+                    client.configuration.onRTCControlChannelInput(destinationClientId, destinationClient.player, message.code, message.value);
                 }
                 break;
 
             case MessageType.DCHeartbeat:
                 break;
 
+            case MessageType.DCPlayer:
+                wsSend(this, _messagePlayerChange(destinationClientId, message.player));
+                break;
+
             default:
-                console.log('Unknown control message type', input.type, input);
+                console.log('Unknown control message type', message.type, message);
         }
     }
 
@@ -1180,6 +1192,18 @@
             code: inputCode,
             value: inputValue,
         }
+    }
+
+    /**
+     * @param {number} player
+     * @returns {{type: string, player}}
+     * @private
+     */
+    function _messageDCPlayer(player) {
+        return {
+            type: MessageType.DCPlayer,
+            player: player,
+        };
     }
 
 })();

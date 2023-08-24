@@ -167,6 +167,9 @@
     }
 
     function controlDataChannelOpen() {
+        if (latestPlayer !== null) {
+            netplay.sendControlPlayer(latestPlayer);
+        }
         setInterval(() => netplay.sendControlHeartbeat(), 5000);
     }
 
@@ -277,6 +280,8 @@
     ///////////////////////////////////////////////////////////////////////////
     // Self name and player
     ///////////////////////////////////////////////////////////////////////////
+
+    let latestPlayer = null;
 
     function selfNameChanged(name) {
         document.getElementById('netplay-name').value = name;
@@ -389,6 +394,10 @@
         const el = document.getElementById(`netplay-client-${id}-player`);
         if (el) {
             el.innerText = window.NetplayPlayerDisplay(id, netplay.getHostId(), newPlayer);
+        }
+
+        if (id === netplay.getClientId()) {
+            latestPlayer = newPlayer;
         }
     }
 
