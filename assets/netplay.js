@@ -41,6 +41,8 @@
         Disconnected: 'disconnected',
     };
 
+    const ReconnectTimeout = 500;
+
     ///////////////////////////////////////////////////////////////////////////
     // Default configuration
     ///////////////////////////////////////////////////////////////////////////
@@ -432,7 +434,7 @@
             client.configuration.onWSDisconnected();
             if (client.retryConnection) {
                 client.configuration.onWSReconnecting();
-                wsConnect(client);
+                setTimeout(() => wsConnect(client), ReconnectTimeout);
             }
         });
         client.ws.addEventListener('error', e => {
@@ -718,14 +720,14 @@
             rtcTrack(client, destinationClientId, e);
         });
 
+        client.rtcClients[destinationClientId] = connection;
+
         if (client.host) {
             const mediaStream = collectMediaTracks(client);
             mediaStream.getTracks().forEach(track => connection.addTrack(track, mediaStream));
 
             rtcDCConnect(client, destinationClientId);
         }
-
-        client.rtcClients[destinationClientId] = connection;
     }
 
     /**
@@ -744,7 +746,7 @@
         if (connection.connectionState === 'failed' || connection.connectionState === 'closed') {
             if (client.retryConnection && client.clients[destinationClientId]) {
                 client.configuration.onRTCReconnecting(destinationClientId);
-                rtcConnect(client, destinationClientId);
+                setTimeout(() => rtcConnect(client, destinationClientId), ReconnectTimeout);
             }
         }
     }
@@ -920,7 +922,7 @@
             client.configuration.onRTCControlChannelClose(destinationClientId);
             if (client.retryConnection && client.clients[destinationClientId] && client.rtcClients[destinationClientId]) {
                 client.configuration.onRTCControlChannelReconnecting(destinationClientId);
-                rtcDCConnect(client, destinationClientId);
+                setTimeout(() => rtcDCConnect(client, destinationClientId), ReconnectTimeout);
             }
         });
         dataChannel.addEventListener('error', e => {
