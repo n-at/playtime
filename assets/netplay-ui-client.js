@@ -8,6 +8,7 @@
         document.getElementById('netplay-control-scheme-save').addEventListener('click', saveControlScheme);
         document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
+        document.getElementById('netplay-play').addEventListener('click', play);
 
         window.addEventListener('keydown', controlsButtonDown);
         window.addEventListener('keyup', controlsButtonUp);
@@ -727,6 +728,7 @@
             case 'connected':
                 connectionScreen(false);
                 errorScreen(false);
+                playScreen(true);
                 break;
         }
     }
@@ -739,6 +741,24 @@
         } else {
             el.classList.add('d-none');
         }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Play screen
+    ///////////////////////////////////////////////////////////////////////////
+
+    function playScreen(display) {
+        const el = document.getElementById('play-screen');
+        if (display) {
+            el.classList.remove('d-none');
+        } else {
+            el.classList.add('d-none');
+        }
+    }
+
+    function play() {
+        playScreen(false);
+        document.getElementById('game').play();
     }
 
     ///////////////////////////////////////////////////////////////////////////

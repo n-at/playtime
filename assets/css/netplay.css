@@ -22,6 +22,7 @@ body {
 }
 
 #connection-screen,
+#play-screen,
 #error-screen {
     background-color: rgba(0, 0, 0, .6);
     position: absolute;
@@ -33,6 +34,7 @@ body {
 }
 
 .connection-screen-content,
+.play-screen-content,
 .error-screen-content {
     text-align: center;
     margin-top: calc(50vh - 7em);
@@ -45,10 +47,17 @@ body {
 }
 
 #connection-screen {
-    z-index: 998;
+    z-index: 997;
 }
 .connection-screen-content {
     margin-top: calc(50vh - 6em);
+}
+
+#play-screen {
+    z-index: 998;
+}
+.play-screen-content {
+    margin-top: calc(50vh - 1em);
 }
 
 #virtual-gamepad {

@@ -30,35 +30,45 @@
     </div>
 </div>
 
-<video id="game" autoplay disablepictureinpicture></video>
+<div id="game-container">
+    <video id="game" disablepictureinpicture></video>
 
-<div id="notifications" class="toast-container position-fixed p-3"></div>
+    <div id="notifications" class="toast-container position-fixed p-3"></div>
 
-<div id="connection-screen" class="d-none">
-    <div class="connection-screen-content">
-        <i class="bi bi-globe"></i>
-        <h5 id="connection-screen-status">Connecting to server</h5>
-    </div>
-</div>
-
-<div id="error-screen" class="d-none">
-    <div class="error-screen-content">
-        <i class="bi bi-plug"></i>
-        <h5>Connection lost</h5>
-        <h5>Try to refresh page</h5>
-    </div>
-</div>
-
-<div id="virtual-gamepad" class="d-none">
-    <div class="row">
-        <div class="col-4 text-start">
-            <div class="virtual-gamepad-area virtual-gamepad-area-left"></div>
+    <div id="connection-screen" class="d-none">
+        <div class="connection-screen-content">
+            <i class="bi bi-globe"></i>
+            <h5 id="connection-screen-status">Connecting to server</h5>
         </div>
-        <div class="col-4 text-center">
-            <div class="virtual-gamepad-area virtual-gamepad-area-center"></div>
+    </div>
+
+    <div id="play-screen" class="d-none">
+        <div class="play-screen-content">
+            <button type="button" class="btn btn-lg btn-outline-primary" id="netplay-play">
+                <i class="bi bi-joystick"></i> Start
+            </button>
         </div>
-        <div class="col-4 text-end">
-            <div class="virtual-gamepad-area virtual-gamepad-area-right"></div>
+    </div>
+
+    <div id="error-screen" class="d-none">
+        <div class="error-screen-content">
+            <i class="bi bi-plug"></i>
+            <h5>Connection lost</h5>
+            <h5>Try to refresh page</h5>
+        </div>
+    </div>
+
+    <div id="virtual-gamepad" class="d-none">
+        <div class="row">
+            <div class="col-4 text-start">
+                <div class="virtual-gamepad-area virtual-gamepad-area-left"></div>
+            </div>
+            <div class="col-4 text-center">
+                <div class="virtual-gamepad-area virtual-gamepad-area-center"></div>
+            </div>
+            <div class="col-4 text-end">
+                <div class="virtual-gamepad-area virtual-gamepad-area-right"></div>
+            </div>
         </div>
     </div>
 </div>
