@@ -9,6 +9,7 @@
         document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
         document.getElementById('netplay-play').addEventListener('click', play);
+        document.getElementById('netplay-fullscreen').addEventListener('click', fullscreen);
         document.getElementById('game').addEventListener('playing', () => playScreen(false));
 
         window.addEventListener('keydown', controlsButtonDown);
@@ -819,13 +820,39 @@
     }
 
     ///////////////////////////////////////////////////////////////////////////
+    // Fullscreen
+    ///////////////////////////////////////////////////////////////////////////
+
+    function fullscreen() {
+        if (!document.fullscreenEnabled && !document.webkitFullscreenEnabled) {
+            return;
+        }
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+            return;
+        }
+
+        const el = document.getElementById('game-container');
+
+        if (el.requestFullscreen) {
+            el.requestFullscreen();
+        } else if (el.webkitRequestFullscreen) {
+            el.webkitRequestFullscreen();
+        }
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
     // Utils
     ///////////////////////////////////////////////////////////////////////////
 
     function setupGameDisplaySize() {
+        let headerOffset = 50;
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+            headerOffset = 0;
+        }
+
         const game = document.getElementById('game');
         game.width = window.innerWidth;
-        game.height = window.innerHeight - 50;
+        game.height = window.innerHeight - headerOffset;
     }
 
     //https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser

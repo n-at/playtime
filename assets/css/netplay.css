@@ -33,6 +33,12 @@ body {
     z-index: 999;
 }
 
+#connection-screen:fullscreen, #connection-screen:-webkit-full-screen,
+#play-screen:fullscreen, #play-screen:-webkit-full-screen,
+#error-screen:fullscreen, #error-screen:-webkit-full-screen {
+    top: 0 !important;
+}
+
 .connection-screen-content,
 .play-screen-content,
 .error-screen-content {
