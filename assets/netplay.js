@@ -20,8 +20,8 @@
 
     const ClientErrorType = {
         WebSocket: 'web-socket',
-        RtcOfferSend: 'rtc-offer-send',
-        RtcAnswerSend: 'rtc-answer-send',
+        RtcLocalDescription: 'rtc-offer-send',
+        RtcRemoteDescription: 'rtc-answer-send',
         RtcAnswerReceive: 'rtc-answer-receive',
         RtcConnection: 'rtc-connection',
         RtcIceCandidate: 'rtc-ice-candidate',
@@ -178,6 +178,8 @@
             ws: null,
             rtcClients: {},
             rtcControlChannels: {},
+            rtcMakingOffer: {},
+            rtcIgnoreOffer: {},
 
             //client data
             clientId: null,
@@ -311,6 +313,8 @@
         client.clients = {};
         client.rtcClients = {};
         client.rtcControlChannels = {};
+        client.rtcMakingOffer = {};
+        client.rtcIgnoreOffer = {};
 
         client.configuration.onClientCleanState();
     }
@@ -323,6 +327,8 @@
         client.configuration.onClientDisconnected(disconnectedClientId);
         delete client.clients[disconnectedClientId];
         delete client.retries[disconnectedClientId];
+        delete client.rtcMakingOffer[disconnectedClientId];
+        delete client.rtcIgnoreOffer[disconnectedClientId];
 
         if (client.rtcControlChannels[disconnectedClientId]) {
             const conn = client.rtcControlChannels[disconnectedClientId];
@@ -467,7 +473,7 @@
         const message = JSON.parse(data);
 
         if (!message.type) {
-            console.error('empty message type');
+            _debug(client, 'WebSocket incoming message empty type');
             return;
         }
 
@@ -505,7 +511,7 @@
                 wsMessageSignallingIceCandidate(client, message.signalling);
                 break;
             default:
-                console.error(`unknown message type: ${message.type}`);
+                _debug(client, 'WebSocket incoming message unknown type', message.type);
         }
     }
 
@@ -646,7 +652,7 @@
         const sdp = JSON.parse(atob(message.sdp));
 
         if (client.rtcClients[clientId]) {
-            rtcSendAnswer(client, clientId, client.rtcClients[clientId], sdp);
+            rtcHandleRemoteDescription(client, clientId, client.rtcClients[clientId], sdp);
         }
     }
 
@@ -661,7 +667,7 @@
         const sdp = JSON.parse(atob(message.sdp));
 
         if (client.rtcClients[clientId]) {
-            rtcHandleAnswer(client, clientId, client.rtcClients[clientId], sdp);
+            rtcHandleRemoteDescription(client, clientId, client.rtcClients[clientId], sdp);
         }
     }
 
@@ -723,7 +729,7 @@
             client.configuration.onRTCIceGatheringStateChanged(destinationClientId, connection.iceConnectionState);
         });
         connection.addEventListener('negotiationneeded', () => {
-           rtcSendOffer(client, destinationClientId, connection);
+           rtcSendDescription(client, destinationClientId, connection);
         });
         connection.addEventListener('signalingstatechange', () => {
             _debug(client, 'RTC signalling state changed', destinationClientId, connection.signalingState);
@@ -774,7 +780,7 @@
      * @param {Event} e
      */
     function rtcIceCandidateError(client, destinationClientId, connection, e) {
-        console.error(`RTC ICE candidate for ${destinationClientId} error`, e);
+        _debug(client, 'RTC ICE candidate for error', destinationClientId, e);
         client.configuration.onClientError(ClientErrorType.RtcIceCandidate, destinationClientId, e);
     }
 
@@ -801,17 +807,19 @@
      * @param {string} destinationClientId
      * @param {RTCPeerConnection} connection
      */
-    function rtcSendOffer(client, destinationClientId, connection) {
+    function rtcSendDescription(client, destinationClientId, connection) {
+        client.rtcMakingOffer[destinationClientId] = true;
+
         connection
-            .createOffer()
-            .then(offer => connection.setLocalDescription(offer))
+            .setLocalDescription()
             .then(() => {
-                const message = _messageSignalling(MessageType.SignallingOffer, destinationClientId, connection.localDescription);
-                wsSend(client, message);
+                wsSend(client, _messageSignalling(MessageType.SignallingOffer, destinationClientId, connection.localDescription));
+                client.rtcMakingOffer[destinationClientId] = false;
             })
             .catch(e => {
-                console.error('RTC create offer error', destinationClientId, e);
-                client.configuration.onClientError(ClientErrorType.RtcOfferSend, destinationClientId, e);
+                _debug(client, 'RTC send offer error', destinationClientId, e);
+                client.rtcMakingOffer[destinationClientId] = false;
+                client.configuration.onClientError(ClientErrorType.RtcLocalDescription, destinationClientId, e);
             });
     }
 
@@ -821,38 +829,45 @@
      * @param {RTCPeerConnection} connection
      * @param {RTCSessionDescriptionInit} sdp
      */
-    function rtcSendAnswer(client, destinationClientId, connection, sdp) {
+    function rtcHandleRemoteDescription(client, destinationClientId, connection, sdp) {
         const description = new RTCSessionDescription(sdp);
+
+        const offerCollision = (description.type === 'offer' && (client.rtcMakingOffer[destinationClientId] || connection.signalingState !== 'stable'));
+
+        client.rtcIgnoreOffer[destinationClientId] = (!rtcPolite(client) && offerCollision);
+
+        if (client.rtcIgnoreOffer[destinationClientId]) {
+            return;
+        }
 
         connection
             .setRemoteDescription(description)
-            .then(() => connection.createAnswer())
-            .then(answer => connection.setLocalDescription(answer))
             .then(() => {
-                const message = _messageSignalling(MessageType.SignallingAnswer, destinationClientId, connection.localDescription);
-                wsSend(client, message);
+                if (description.type !== 'offer') {
+                    return;
+                }
+                connection
+                    .setLocalDescription()
+                    .then(() => {
+                        wsSend(client, _messageSignalling(MessageType.SignallingAnswer, destinationClientId, connection.localDescription));
+                    })
+                    .catch(e => {
+                        _debug(client, 'RTC send answer error', destinationClientId, e);
+                        client.configuration.onClientError(ClientErrorType.RtcLocalDescription, destinationClientId, e);
+                    });
             })
             .catch(e => {
-                console.error('RTC create answer error', destinationClientId, e);
-                client.configuration.onClientError(ClientErrorType.RtcAnswerSend, destinationClientId, e);
+                _debug(client, 'RTC set remote description error', destinationClientId, e);
+                client.configuration.onClientError(ClientErrorType.RtcRemoteDescription, destinationClientId, e);
             });
     }
 
     /**
      * @param {Object} client
-     * @param {string} destinationClientId
-     * @param {RTCPeerConnection} connection
-     * @param {RTCSessionDescriptionInit} sdp
+     * @returns {boolean}
      */
-    function rtcHandleAnswer(client, destinationClientId, connection, sdp) {
-        const description = new RTCSessionDescription(sdp);
-
-        connection
-            .setRemoteDescription(description)
-            .catch(e => {
-                console.error('RTC handle answer error', destinationClientId, e);
-                client.configuration.onClientError(ClientErrorType.RtcAnswerReceive, destinationClientId, e);
-            });
+    function rtcPolite(client) {
+        return !client.host;
     }
 
     /**
@@ -865,9 +880,7 @@
         if (!e.candidate) {
             return;
         }
-
-        const message = _messageSignalling(MessageType.SignallingIceCandidate, destinationClientId, e.candidate);
-        wsSend(client, message);
+        wsSend(client, _messageSignalling(MessageType.SignallingIceCandidate, destinationClientId, e.candidate));
     }
 
     /**
@@ -882,7 +895,7 @@
         connection
             .addIceCandidate(candidate)
             .catch(e => {
-                console.error(`RTC handle ICE candidate from ${destinationClientId} error`, e);
+                _debug(client, 'RTC handle ICE candidate from error', destinationClientId, e);
                 client.configuration.onClientError(ClientErrorType.RtcIceCandidateAccept, destinationClientId, e);
             });
     }
@@ -948,7 +961,7 @@
             }
         });
         dataChannel.addEventListener('error', e => {
-            console.error('RTC DC to client error', destinationClientId, channelLabel, e);
+            _debug(client, 'RTC DC to client error', destinationClientId, channelLabel, e);
             client.configuration.onClientError(ClientErrorType.RtcControlChannel, destinationClientId, e);
         });
         dataChannel.addEventListener('message', e => {
@@ -984,7 +997,7 @@
             client.configuration.onRTCControlChannelClose(destinationClientId);
         });
         dataChannel.addEventListener('error', e => {
-            console.error('RTC DC to host error', destinationClientId, dataChannel.label, e);
+            _debug(client, 'RTC DC to host error', destinationClientId, dataChannel.label, e);
             client.configuration.onClientError(ClientErrorType.RtcControlChannel, client.hostId, e);
         });
     }
