@@ -63,7 +63,7 @@ func CheckPassword(password, hash string) bool {
 func DefaultSettings(userId string) Settings {
 	settings := Settings{
 		UserId:           userId,
-		Language:         "en",
+		Language:         DefaultLanguage,
 		EmulatorSettings: make(map[string]EmulatorSettings),
 	}
 	for _, system := range PlatformIds {

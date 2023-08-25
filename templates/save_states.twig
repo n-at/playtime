@@ -15,19 +15,16 @@
             {% for state in states %}
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                     <div class="card">
-                        <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="Screenshot">
-                        <div class="card-body">
-                            <p class="text-center">
+                        <div class="position-relative">
+                            <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="Screenshot">
+                            <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2" title="Delete">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
+                        <div class="card-body text-center">
+                            <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-secondary" title="Play from this state">
                                 {{ state.Created.Format("02.01.2006 15:04:05") }}
-                            </p>
-                            <div class="text-end">
-                                <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-primary">
-                                   <i class="bi bi-joystick"></i> Play
-                                </a>
-                                <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="btn btn-sm btn-outline-danger" title="Delete">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
