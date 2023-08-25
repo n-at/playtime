@@ -29,6 +29,7 @@
         RtcIceConnection: 'rtc-ice-connection',
         RtcControlChannel: 'rtc-control-channel',
         Server: 'server',
+        RetryLimit: 'retry-limit',
     };
 
     const TrackType = {
@@ -42,7 +43,8 @@
         Disconnected: 'disconnected',
     };
 
-    const ReconnectTimeout = 500;
+    const RetryTimeout = 1000;
+    const RetryLimit = 10;
 
     ///////////////////////////////////////////////////////////////////////////
     // Default configuration
@@ -172,6 +174,7 @@
             //connections
             connectionState: ConnectionState.Disconnected,
             retryConnection: false,
+            retries: {},
             ws: null,
             rtcClients: {},
             rtcControlChannels: {},
@@ -319,6 +322,7 @@
     function clientDisconnected(client, disconnectedClientId) {
         client.configuration.onClientDisconnected(disconnectedClientId);
         delete client.clients[disconnectedClientId];
+        delete client.retries[disconnectedClientId];
 
         if (client.rtcControlChannels[disconnectedClientId]) {
             const conn = client.rtcControlChannels[disconnectedClientId];
@@ -435,6 +439,7 @@
             _debug(client, 'WebSocket connected');
             client.connectionState = ConnectionState.Connected;
             client.configuration.onWSConnected();
+            client.retries[null] = 0;
         });
         client.ws.addEventListener('close', () => {
             _debug(client, 'WebSocket disconnected');
@@ -442,7 +447,7 @@
             client.configuration.onWSDisconnected();
             if (client.retryConnection) {
                 client.configuration.onWSReconnecting();
-                setTimeout(() => wsConnect(client), ReconnectTimeout);
+                _retry(client, null, () => wsConnect(client));
             }
         });
         client.ws.addEventListener('error', e => {
@@ -748,13 +753,16 @@
 
         client.configuration.onRTCConnectionStateChanged(destinationClientId, connection.connectionState);
 
+        if (connection.connectionState === 'connected') {
+            client.retries[destinationClientId] = 0;
+        }
         if (connection.connectionState === 'failed') {
             client.configuration.onClientError(ClientErrorType.RtcConnection, destinationClientId, new Error('RTC connection failed'));
         }
         if (connection.connectionState === 'failed' || connection.connectionState === 'closed') {
             if (client.retryConnection && client.clients[destinationClientId]) {
                 client.configuration.onRTCReconnecting(destinationClientId);
-                setTimeout(() => rtcConnect(client, destinationClientId), ReconnectTimeout);
+                _retry(client, destinationClientId, () => rtcConnect(client, destinationClientId));
             }
         }
     }
@@ -923,6 +931,7 @@
 
         dataChannel.addEventListener('open', () => {
             _debug(client, 'RTC DC to client open', destinationClientId, channelLabel);
+            client.retries[destinationClientId] = 0;
             client.configuration.onRTCControlChannelOpen(destinationClientId);
         });
         dataChannel.addEventListener('close', () => {
@@ -930,7 +939,7 @@
             client.configuration.onRTCControlChannelClose(destinationClientId);
             if (client.retryConnection && client.clients[destinationClientId] && client.rtcClients[destinationClientId]) {
                 client.configuration.onRTCControlChannelReconnecting(destinationClientId);
-                setTimeout(() => rtcDCConnect(client, destinationClientId), ReconnectTimeout);
+                _retry(client, destinationClientId, () => rtcDCConnect(client, destinationClientId));
             }
         });
         dataChannel.addEventListener('error', e => {
@@ -966,7 +975,7 @@
         //host doesn't send any data to clients (yet)
 
         dataChannel.addEventListener('close', () => {
-            _debug('RTC DC to host closed', destinationClientId, dataChannel.label);
+            _debug(client, 'RTC DC to host closed', destinationClientId, dataChannel.label);
             client.configuration.onRTCControlChannelClose(destinationClientId);
         });
         dataChannel.addEventListener('error', e => {
@@ -1049,6 +1058,31 @@
         } else {
             console.log(...args);
         }
+    }
+
+    /**
+     * @param {Object} client
+     * @param {string|null} destinationClientId
+     * @param {function} action
+     * @private
+     */
+    function _retry(client, destinationClientId, action) {
+        if (client.retries[destinationClientId] === undefined) {
+            client.retries[destinationClientId] = 0;
+        }
+        if (client.retries[destinationClientId] >= RetryLimit) {
+            client.configuration.onClientError(ClientErrorType.RetryLimit, destinationClientId, new Error('Retry limit exceeded'));
+            if (!client.host || !destinationClientId) {
+                client.disconnect();
+            } else if (client.host && destinationClientId) {
+                clientDisconnected(client, destinationClientId);
+            }
+            return;
+        }
+
+        client.retries[destinationClientId]++;
+
+        setTimeout(action, RetryTimeout + Math.round(Math.random() * 500 - 250));
     }
 
     /**

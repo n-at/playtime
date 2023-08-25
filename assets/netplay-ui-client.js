@@ -21,7 +21,6 @@
         virtualGamepadInit();
         virtualGamepadLoad();
         setupGameDisplaySize();
-        connectionScreen('Connecting to server');
 
         netplay = NetplayClient({
             debug: window.NetplayDebug,
@@ -52,6 +51,8 @@
             onRTCReconnecting: rtcReconnecting,
             onRTCControlChannelReconnecting: rtcDCReconnecting,
         });
+
+        connectionScreen('Connecting to server');
         netplay.connect();
     });
 
@@ -310,6 +311,7 @@
     }
 
     function wsGreeting() {
+        //send previously saved client name
         const netplayName = netplay.getName();
         const savedName = window.NetplayLoadClientName(netplayName);
         if (netplayName !== savedName) {
@@ -364,6 +366,10 @@
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
             window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) disconnected`);
+        }
+        if (id === netplay.getHostId()) {
+            connectionScreen('Awaiting game host');
+            playScreen(false);
         }
 
         const el = document.getElementById(`netplay-client-${id}`);
@@ -738,7 +744,7 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function wsConnected() {
-        connectionScreen('Connected to server');
+        connectionScreen('Connected to server. Awaiting game host');
         errorScreen(false);
     }
 
@@ -800,6 +806,11 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function errorHandler(type) {
+        if (type === 'retry-limit') {
+            playScreen(false);
+            connectionScreen(false);
+            errorScreen(true);
+        }
         switch (type) {
             case 'web-socket':
                 window.ShowToastMessage('danger', 'Server connection error');
