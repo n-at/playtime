@@ -174,7 +174,9 @@ func (s *GameSession) GetClients() []string {
 	return clients
 }
 
-func (s *GameSession) Send(clientId string, v any) {
+///////////////////////////////////////////////////////////////////////////////
+
+func (s *GameSession) Send(clientId string, message any) {
 	client := s.GetClient(clientId)
 	if client == nil || client.ws == nil {
 		return
@@ -185,12 +187,12 @@ func (s *GameSession) Send(clientId string, v any) {
 	ctx, cancel := context.WithTimeout(context.Background(), SendTimeout)
 	defer cancel()
 
-	if err := wsjson.Write(ctx, client.ws, v); err != nil {
+	if err := wsjson.Write(ctx, client.ws, message); err != nil {
 		log.Warnf("unable to send ws message to client %s in session %s: %s", clientId, s.id, err)
 	}
 }
 
-func (s *GameSession) Broadcast(v any) {
+func (s *GameSession) Broadcast(message any) {
 	s.lock.RLock()
 	defer s.lock.RUnlock()
 
@@ -203,7 +205,7 @@ func (s *GameSession) Broadcast(v any) {
 			ctx, cancel := context.WithTimeout(context.Background(), SendTimeout)
 			defer cancel()
 
-			if err := wsjson.Write(ctx, ws, v); err != nil {
+			if err := wsjson.Write(ctx, ws, message); err != nil {
 				log.Warnf("unable to broadcast ws message to client %s in session %s: %s", clientId, s.id, err)
 			}
 		}(client.id, client.ws)

@@ -30,7 +30,7 @@ func (c *PlaytimeContext) SetSessionId(id string) {
 	cookie := &http.Cookie{
 		Name:    SessionCookieName,
 		Value:   id,
-		Expires: time.Now().Add(24 * time.Hour),
+		Expires: time.Now().Add(30 * 24 * time.Hour),
 	}
 	c.SetCookie(cookie)
 }

@@ -6,6 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
+	"time"
 )
 
 func (s *Server) index(c echo.Context) error {
@@ -50,11 +51,12 @@ func (s *Server) loginSubmit(c echo.Context) error {
 	}
 
 	session := storage.Session{
-		UserId: user.Id,
+		Id:      storage.NewId(),
+		UserId:  user.Id,
+		Created: time.Now(),
 	}
 
-	session, err = s.storage.SessionSave(session)
-	if err != nil {
+	if _, err = s.storage.SessionSave(session); err != nil {
 		log.Errorf("loginSubmit user %s session creation error: %s", login, err)
 		return c.Render(http.StatusOK, "login", pongo2.Context{
 			"login": login,
@@ -69,6 +71,14 @@ func (s *Server) loginSubmit(c echo.Context) error {
 
 func (s *Server) logout(c echo.Context) error {
 	context := c.(*PlaytimeContext)
+
+	if context.session != nil {
+		if err := s.storage.SessionDeleteById(context.session.Id); err != nil {
+			log.Errorf("logout session selete error: %s", err)
+		}
+	}
+
 	context.DeleteSessionId()
+
 	return c.Redirect(http.StatusFound, "/login")
 }
