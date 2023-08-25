@@ -38,6 +38,8 @@
             onRTCControlChannelReconnecting: rtcControlReconnecting,
         });
         netplay.connect();
+
+        setInterval(clientCollectStats, 1000);
     };
 
     ///////////////////////////////////////////////////////////////////////////
@@ -78,6 +80,9 @@
     ///////////////////////////////////////////////////////////////////////////
     // Game session clients list
     ///////////////////////////////////////////////////////////////////////////
+
+    const clientBytesSent = {};
+    const clientBytesReceived = {};
 
     function clientReset() {
         document.getElementById('netplay-clients').innerHtml = '';
@@ -154,12 +159,105 @@
         controlUnpress(id, oldPlayer);
     }
 
+    function clientCollectStats() {
+        netplay
+            .getClients()
+            .forEach(client => {
+                const id = client.client_id;
+                if (id === netplay.getClientId()) {
+                    return;
+                }
+                netplay
+                    .getClientStats(id)
+                    .then(stats => {
+                        stats.forEach(report => {
+                            if (report.type === 'transport') {
+                                _clientTransportStats(id, report);
+                            }
+                        });
+                    })
+                    .catch(e => {
+                        console.error(`client stats error`, client.client_id, e);
+                    });
+            });
+    }
+
+    /**
+     * @param {string} clientId
+     * @param {RTCTransportStats} stats
+     * @private
+     */
+    function _clientTransportStats(clientId, stats) {
+        const prevSent = clientBytesSent[clientId] ? clientBytesSent[clientId] : 0;
+        const prevReceived = clientBytesReceived[clientId] ? clientBytesReceived[clientId] : 0;
+
+        const speedUpEl = document.getElementById(`netplay-client-${clientId}-stat-speed-up`);
+        if (speedUpEl) {
+            speedUpEl.innerText = _formatSpeed(stats.bytesSent - prevSent);
+        }
+
+        const speedDownEl = document.getElementById(`netplay-client-${clientId}-stat-speed-down`);
+        if (speedDownEl) {
+            speedDownEl.innerText = _formatSpeed(stats.bytesReceived - prevReceived);
+        }
+
+        const totalUpEl = document.getElementById(`netplay-client-${clientId}-stat-total-up`);
+        if (totalUpEl) {
+            totalUpEl.innerText = _formatBytes(stats.bytesSent);
+        }
+
+        const totalDownEl = document.getElementById(`netplay-client-${clientId}-stat-total-down`);
+        if (totalDownEl) {
+            totalDownEl.innerText = _formatBytes(stats.bytesReceived);
+        }
+
+        clientBytesSent[clientId] = stats.bytesSent;
+        clientBytesReceived[clientId] = stats.bytesReceived;
+    }
+
     function _createClientNameEl(id, name) {
         const el = document.createElement('div');
-        el.id = `netplay-client-${id}-name`;
-        el.classList.add('lead', 'col-6', 'col-md-9');
-        el.innerText = name;
+        el.classList.add('col-6', 'col-md-9');
+
+        const nameEl = document.createElement('div');
+        nameEl.id = `netplay-client-${id}-name`;
+        nameEl.classList.add('lead');
+        nameEl.innerText = name;
+        el.append(nameEl);
+
+        if (id === netplay.getClientId()) {
+            return el;
+        }
+
+        const statsEl = document.createElement('div');
+        statsEl.classList.add('row');
+        el.append(statsEl);
+
+        statsEl.append(
+            _createClientStatsEl(id, 'speed-up', 'bi-arrow-up', 'text-success', 'Upload speed'),
+            _createClientStatsEl(id, 'speed-down', 'bi-arrow-down', 'text-danger', 'Download speed'),
+            _createClientStatsEl(id, 'total-up', 'bi-arrow-up-square', 'text-success', 'Total data uploaded'),
+            _createClientStatsEl(id, 'total-down', 'bi-arrow-down-square', 'text-danger', 'Total data downloaded'),
+        );
+
         return el;
+    }
+
+    function _createClientStatsEl(id, stat, iconCls, iconStyleCls, title) {
+        const containerEl = document.createElement('div')
+        containerEl.classList.add('col-3');
+        containerEl.title = title;
+
+        const iconEl = document.createElement('i');
+        iconEl.classList.add('bi', 'me-2', iconCls, iconStyleCls);
+        containerEl.append(iconEl);
+
+        const valueEl = document.createElement('span');
+        valueEl.id = `netplay-client-${id}-stat-${stat}`;
+        valueEl.innerText = '-';
+        containerEl.append(valueEl);
+
+        return containerEl
     }
 
     function _createClientPlayerEl(id) {
@@ -321,6 +419,39 @@
         const url = document.getElementById('netplay-url').value;
         await navigator.clipboard.writeText(url);
         window.FlashButtonIcon('netplay-url-copy', ['btn-outline-secondary'], ['bi-clipboard'], ['btn-outline-success'], ['bi-clipboard-check']);
+    }
+
+    function _formatSpeed(value) {
+        if (value < 1024) {
+            return `${value} B/s`;
+        }
+
+        value /= 1024.0;
+        if (value < 1024) {
+            return `${Math.round(value * 10) / 10} kB/s`;
+        }
+
+        value /= 1024.0;
+        return `${Math.round(value * 10) / 10} MB/s`;
+    }
+
+    function _formatBytes(value) {
+        if (value < 1024) {
+            return `${value} B`;
+        }
+
+        value /= 1024.0;
+        if (value < 1024) {
+            return `${Math.round(value * 10) / 10} kB`;
+        }
+
+        value /= 1024.0;
+        if (value < 1024) {
+            return `${Math.round(value * 10) / 10} MB`;
+        }
+
+        value /= 1024.0;
+        return `${Math.round(value * 10) / 10} GB`;
     }
 
 })();

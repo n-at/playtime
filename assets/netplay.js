@@ -250,6 +250,17 @@
             },
 
             /**
+             * @param {string} clientId
+             * @returns {Promise<RTCStatsReport>|Promise<never>}
+             */
+            getClientStats(clientId) {
+                if (!this.rtcClients[clientId]) {
+                    return Promise.reject(new Error('Client not found'));
+                }
+                return this.rtcClients[clientId].getStats();
+            },
+
+            /**
              * @param {string} name
              */
             setName(name) {
