@@ -11,10 +11,6 @@
             <p class="p-2 lead">{{ game.Name }}</p>
             <div class="dropdown-divider"></div>
         {% endif %}
-        {% if game_menu_play %}
-            <a class="dropdown-item" href="/play/{{ game.Id }}">Play</a>
-            <div class="dropdown-divider"></div>
-        {% endif %}
         <a class="dropdown-item" href="/games/save-states/{{ game.Id }}">Save states</a>
         {% if game.OverrideEmulatorSettings %}
             <a class="dropdown-item" href="/games/emulation-settings/{{ game.Id }}">Emulation settings</a>
