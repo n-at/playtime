@@ -136,7 +136,7 @@
         onRTCControlChannelInput: (clientId, player, code, value) => {},
 
         //when received media track from host
-        onRTCTrack: type => {},
+        onRTCTrack: (type, tracks) => {},
 
         //when server sent greeting message
         onGreeting: () => {},
@@ -893,20 +893,22 @@
         if (client.host) {
             return;
         }
-        if (!e.streams || e.streams.length === 0) {
+        if (!e.track || !e.streams || e.streams.length === 0) {
             console.error('No media streams received');
             return;
         }
 
-        client.configuration.gameVideoEl.srcObject = e.streams[0];
-
         if (e.track.kind === 'video') {
             _debug(client, 'RTC video track received', destinationClientId);
-            client.configuration.onRTCTrack(TrackType.Video);
+            client.configuration.onRTCTrack(TrackType.Video, e.streams[0].getVideoTracks());
         } else if (e.track.kind === 'audio') {
             _debug(client, 'RTC audio track received', destinationClientId);
-            client.configuration.onRTCTrack(TrackType.Audio);
+            client.configuration.onRTCTrack(TrackType.Audio, e.streams[0].getAudioTracks());
         }
+
+        e.track.addEventListener('unmute', () => {
+            client.configuration.gameVideoEl.srcObject = e.streams[0];
+        }, {once: true});
     }
 
     ///////////////////////////////////////////////////////////////////////////
