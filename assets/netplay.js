@@ -790,6 +790,9 @@
 
         if (connection.iceConnectionState === 'failed') {
             client.configuration.onClientError(ClientErrorType.RtcIceConnection, destinationClientId, new Error('RTC ICE connection failed'));
+            if (client.retryConnection && client.clients[destinationClientId]) {
+                connection.restartIce();
+            }
         }
     }
 
