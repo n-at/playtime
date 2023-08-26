@@ -289,6 +289,7 @@
         const playerDisplay = NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), player);
         window.ShowToastMessage('primary', `You now play as ${playerDisplay}`);
         document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${playerDisplay}`;
+        virtualGamepadShow(player);
     }
 
     function changeSelfName() {
@@ -721,7 +722,6 @@
         } else {
             virtualGamepadVisible = _isMobile();
         }
-        virtualGamepadShow();
     }
 
     function virtualGamepadToggle() {
@@ -729,12 +729,19 @@
         if (window.localStorage) {
             window.localStorage.playtimeNetplayVirtualGamepad = (virtualGamepadVisible ? 'true' : 'false');
         }
-        virtualGamepadShow();
+        virtualGamepadShow(netplay.getPlayer());
     }
 
-    function virtualGamepadShow() {
+    function virtualGamepadShow(player) {
+        const virtualGamepadControl = document.getElementById('netplay-virtual-gamepad-control');
+        if (player !== -1) {
+            virtualGamepadControl.classList.remove('d-none');
+        } else {
+            virtualGamepadControl.classList.add('d-none');
+        }
+
         const virtualGamepadContainer = document.getElementById('virtual-gamepad');
-        if (virtualGamepadVisible) {
+        if (player !== -1 && virtualGamepadVisible) {
             virtualGamepadContainer.classList.remove('d-none');
         } else {
             virtualGamepadContainer.classList.add('d-none');
