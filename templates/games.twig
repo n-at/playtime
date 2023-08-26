@@ -30,6 +30,9 @@
                                     {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
                                         <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
                                     {% endif %}
+                                    {% if game.OverrideEmulatorSettings %}
+                                        <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
+                                    {% endif %}
                                     {{ game.Name }}
                                 </div>
                             </div>
