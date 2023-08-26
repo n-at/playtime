@@ -54,6 +54,9 @@ func (s *Server) play(c echo.Context) error {
 		}
 	}
 
+	c.Response().Header().Add("Cross-Origin-Opener-Policy", "same-origin")
+	c.Response().Header().Add("Cross-Origin-Embedder-Policy", "require-corp")
+
 	return c.Render(http.StatusOK, "play", pongo2.Context{
 		"user":                  context.user,
 		"game":                  game,
