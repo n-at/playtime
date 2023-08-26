@@ -78,7 +78,7 @@ var (
 		"segaMD",
 		"segaGG",
 		"segaCD",
-		"sega32x",
+		//"sega32x",
 		"segaSaturn",
 		"psx",
 		"3do",
@@ -177,11 +177,11 @@ var (
 			Name:       "Sega CD",
 			Extensions: []string{},
 		},
-		"sega32x": {
-			Id:         "sega32x",
-			Name:       "Sega 32X",
-			Extensions: []string{"32x"},
-		},
+		//"sega32x": {
+		//	Id:         "sega32x",
+		//	Name:       "Sega 32X",
+		//	Extensions: []string{"32x"},
+		//},
 		"n64": {
 			Id:         "n64",
 			Name:       "Nintendo 64",
@@ -227,11 +227,11 @@ var (
 		"segaMD":     {"genesis_plus_gx"},
 		"segaGG":     {"genesis_plus_gx"},
 		"segaCD":     {"genesis_plus_gx"},
-		"sega32x":    {"picodrive"},
-		"n64":        {"parallel_n64", "mupen64plus_next"},
-		"3do":        {"opera"},
-		"atari7800":  {"prosystem"},
-		"atari2600":  {"stella2014"},
+		//"sega32x":    {"picodrive"},
+		"n64":       {"parallel_n64", "mupen64plus_next"},
+		"3do":       {"opera"},
+		"atari7800": {"prosystem"},
+		"atari2600": {"stella2014"},
 	}
 
 	Bioses = map[string][]Bios{
@@ -438,8 +438,8 @@ var (
 				Description: "MegaCD JP BIOS",
 			},
 		},
-		"sega32x": {},
-		"n64":     {},
+		//"sega32x": {},
+		"n64": {},
 		"3do": {
 			Bios{
 				Name:        "panafz1.bin",
@@ -1125,25 +1125,25 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			},
 		}
 
-	case "sega32x":
-		return EmulatorSettings{
-			Core:              Cores["sega32x"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSegaMD,
-				},
-			},
-		}
+	//case "sega32x":
+	//	return EmulatorSettings{
+	//		Core:              Cores["sega32x"][0],
+	//		Bios:              "",
+	//		ColorScheme:       DefaultColorScheme,
+	//		ColorBackground:   DefaultColorBackground,
+	//		CacheLimit:        DefaultCacheLimit,
+	//		Volume:            DefaultVolume,
+	//		FastForwardRatio:  DefaultFastForwardRatio,
+	//		SlowMotionRatio:   DefaultSlowMotionRatio,
+	//		RewindGranularity: DefaultRewindGranularity,
+	//		Shader:            Shaders[0].Value,
+	//		Buttons:           DefaultButtons,
+	//		Controls: [4]EmulatorControls{
+	//			{
+	//				Keyboard: DefaultControlsSegaMD,
+	//			},
+	//		},
+	//	}
 
 	case "n64":
 		return EmulatorSettings{
