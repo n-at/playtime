@@ -9,13 +9,20 @@
         document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
         document.getElementById('netplay-play').addEventListener('click', play);
-        document.getElementById('netplay-fullscreen').addEventListener('click', fullscreen);
-        document.getElementById('game').addEventListener('play', () => playScreen(false));
-        document.getElementById('game').addEventListener('pause', () => playScreen(true));
 
         window.addEventListener('keydown', controlsButtonDown);
         window.addEventListener('keyup', controlsButtonUp);
         setInterval(controlsPollGamepad, 1000 / 60);
+
+        if (fullscreenEnabled()) {
+            const fullscreenButton = document.getElementById('netplay-fullscreen');
+            fullscreenButton.addEventListener('click', fullscreen);
+            fullscreenButton.classList.remove('d-none');
+        }
+
+        const gameEl = document.getElementById('game');
+        gameEl.addEventListener('play', () => playScreen(false));
+        gameEl.addEventListener('pause', () => playScreen(true));
 
         loadControlScheme();
         virtualGamepadInit();
@@ -24,7 +31,7 @@
 
         netplay = NetplayClient({
             debug: window.NetplayDebug,
-            gameVideoEl: document.getElementById('game'),
+            gameVideoEl: gameEl,
             gameId: window.NetplayGameId,
             sessionId: window.NetplaySessionId,
             host: false,
@@ -853,8 +860,12 @@
     // Fullscreen
     ///////////////////////////////////////////////////////////////////////////
 
+    function fullscreenEnabled() {
+        return document.fullscreenEnabled || document.webkitFullscreenEnabled;
+    }
+
     function fullscreen() {
-        if (!document.fullscreenEnabled && !document.webkitFullscreenEnabled) {
+        if (!fullscreenEnabled()) {
             return;
         }
         if (document.fullscreenElement || document.webkitFullscreenElement) {

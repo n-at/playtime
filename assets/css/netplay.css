@@ -67,7 +67,7 @@ body {
     z-index: 998;
 }
 .play-screen-content {
-    margin-top: calc(50vh - 1em);
+    margin-top: calc(50vh - 2em);
 }
 
 #virtual-gamepad {
