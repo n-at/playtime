@@ -9,17 +9,17 @@
 
 <div id="header" class="container-fluid">
     <div class="row mt-2">
-        <div class="col-8">
+        <div class="col-6 col-md-8">
             {% if user %}
                 <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
                     <i class="bi bi-chevron-left"></i>
                 </a>
             {% endif %}
-            <span id="netplay-player" class="lead">
+            <span id="netplay-player" class="lead d-inline-block text-truncate">
                 Player: spectator
             </span>
         </div>
-        <div class="col-4 text-end">
+        <div class="col-6 col-md-4 text-end">
             <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
                 <i class="bi bi-globe"></i>
             </button>

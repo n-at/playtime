@@ -224,7 +224,7 @@ var (
 		"lynx":       {"handy"},
 		"segaSaturn": {"yabause"},
 		"segaMS":     {"genesis_plus_gx", "picodrive"},
-		"segaMD":     {"genesis_plus_gx", "picodrive"},
+		"segaMD":     {"genesis_plus_gx"},
 		"segaGG":     {"genesis_plus_gx"},
 		"segaCD":     {"genesis_plus_gx"},
 		"sega32x":    {"picodrive"},
