@@ -23,6 +23,7 @@
         const gameEl = document.getElementById('game');
         gameEl.addEventListener('play', () => playScreen(false));
         gameEl.addEventListener('pause', () => playScreen(true));
+        gameEl.disablePictureInPicture = true;
 
         loadControlScheme();
         virtualGamepadInit();
