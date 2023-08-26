@@ -228,7 +228,7 @@ var (
 		"segaGG":     {"genesis_plus_gx"},
 		"segaCD":     {"genesis_plus_gx"},
 		"sega32x":    {"picodrive"},
-		"n64":        {"mupen64plus_next", "parallel_n64"},
+		"n64":        {"parallel_n64", "mupen64plus_next"},
 		"3do":        {"opera"},
 		"atari7800":  {"prosystem"},
 		"atari2600":  {"stella2014"},
