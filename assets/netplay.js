@@ -268,6 +268,13 @@
             },
 
             /**
+             * @param {number} player
+             */
+            setPlayer(player) {
+                wsSend(this, _messagePlayerChange(this.clientId, player));
+            },
+
+            /**
              * @param {string} clientId
              * @param {number} player
              */

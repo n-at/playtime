@@ -169,9 +169,6 @@
     }
 
     function controlDataChannelOpen() {
-        if (latestPlayer !== null) {
-            netplay.sendControlPlayer(latestPlayer);
-        }
         setInterval(() => netplay.sendControlHeartbeat(), 5000);
     }
 
@@ -283,8 +280,6 @@
     // Self name and player
     ///////////////////////////////////////////////////////////////////////////
 
-    let latestPlayer = null;
-
     function selfNameChanged(name) {
         document.getElementById('netplay-name').value = name;
         document.getElementById('netplay-player').innerText = `${name}: ${NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), netplay.getPlayer())}`;
@@ -316,6 +311,13 @@
         const savedName = window.NetplayLoadClientName(netplayName);
         if (netplayName !== savedName) {
             netplay.setName(savedName);
+        }
+
+        //send previously saved client player
+        const netplayPlayer = netplay.getPlayer();
+        const savedPlayer = window.NetplayLoadClientPlayer(window.NetplayGameId, window.NetplaySessionId, netplayPlayer);
+        if (savedPlayer !== netplayPlayer) {
+            netplay.setPlayer(savedPlayer);
         }
     }
 
@@ -404,7 +406,7 @@
         }
 
         if (id === netplay.getClientId()) {
-            latestPlayer = newPlayer;
+            window.NetplaySaveClientPlayer(window.NetplayGameId, window.NetplaySessionId, newPlayer);
         }
     }
 

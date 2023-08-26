@@ -152,7 +152,7 @@
     }
 
     function clientPlayerChanged(id, newPlayer, oldPlayer) {
-        const el = document.getElementById(`netplay-client-${id}-player`);
+        const el = document.getElementById(`netplay-client-${id}-player-select`);
         if (el) {
             el.value = newPlayer.toString();
         }
@@ -269,7 +269,7 @@
 
     function _createClientPlayerSelect(id, player) {
         const el = document.createElement('select');
-        el.id = `netplay-client-${id}-player`;
+        el.id = `netplay-client-${id}-player-select`;
         el.classList.add('form-select');
 
          [-1, 0, 1, 2, 3].forEach(playerId => {
@@ -277,9 +277,10 @@
             const option = document.createElement('option');
             option.value = playerId.toString();
             option.innerText = playerTitle;
-            option.selected = (playerId === player);
             el.append(option);
          });
+
+         el.value = player.toString();
 
          el.addEventListener('change', () => {
             const newPlayer = parseInt(el.value);

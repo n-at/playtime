@@ -109,4 +109,39 @@
         window.localStorage.playtimeNetplayName = name;
     };
 
+    window.NetplayLoadClientPlayer = (gameId, sessionId, defaultPlayer) => {
+        if (!window.localStorage || !window.localStorage.playtimeNetplayPlayer) {
+            return defaultPlayer;
+        }
+        try {
+            const players = JSON.parse(window.localStorage.playtimeNetplayPlayer);
+            if (players[gameId] !== undefined && players[gameId][sessionId] !== undefined) {
+                return players[gameId][sessionId];
+            }
+        } catch (e) {
+            console.error(e);
+        }
+        window.NetplaySaveClientPlayer(gameId, sessionId, defaultPlayer);
+        return defaultPlayer;
+    };
+
+    window.NetplaySaveClientPlayer = (gameId, sessionId, player) => {
+        if (!window.localStorage) {
+            return;
+        }
+        let players = {};
+        if (window.localStorage.playtimeNetplayPlayer) {
+            try {
+                players = JSON.parse(window.localStorage.playtimeNetplayPlayer);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        if (players[gameId] === undefined) {
+            players[gameId] = {};
+        }
+        players[gameId][sessionId] = player;
+        window.localStorage.playtimeNetplayPlayer = JSON.stringify(players);
+    };
+
 })();

@@ -140,7 +140,7 @@ func (s *Server) netplayWS(c echo.Context) error {
 					log.Warnf("empty player change ws message from client %s in session %s", clientId, sessionId)
 					break
 				}
-				if !isHost {
+				if !isHost && incoming.PlayerChange.ClientId != clientId {
 					log.Warnf("player change ws message from non-host client %s in session %s", clientId, sessionId)
 					break
 				}
