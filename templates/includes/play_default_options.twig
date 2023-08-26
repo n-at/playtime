@@ -20,11 +20,13 @@
     if (window.localStorage) {
         const darkTheme = window.localStorage.__dark_theme;
         const netplayName = window.localStorage.playtimeNetplayName;
+        const netplayPlayer = window.localStorage.playtimeNetplayPlayer;
         const netplayControls = window.localStorage.playtimeNetplayControls;
         const netplayVirtualGamepad = window.localStorage.playtimeNetplayVirtualGamepad;
         window.localStorage.clear();
         window.localStorage.__dark_theme = darkTheme;
         window.localStorage.playtimeNetplayName = netplayName;
+        window.localStorage.playtimeNetplayPlayer = netplayPlayer;
         window.localStorage.playtimeNetplayControls = netplayControls;
         window.localStorage.playtimeNetplayVirtualGamepad = netplayVirtualGamepad;
 
