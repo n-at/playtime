@@ -323,22 +323,40 @@ var (
 		"arcade":   {},
 		"psx": {
 			Bios{
+				Name:        "PSXONPSP660_as_scph5501",
+				Url:         "/assets/bios/psx/PSXONPSP660/scph5501.bin",
+				Hash:        "c53ca5908936d412331790f4426c6c33",
+				Description: "Extracted from a PSP as US",
+			},
+			Bios{
+				Name:        "PSXONPSP660_as_scph5500",
+				Url:         "/assets/bios/psx/PSXONPSP660/scph5500.bin",
+				Hash:        "c53ca5908936d412331790f4426c6c33",
+				Description: "Extracted from a PSP as JP",
+			},
+			Bios{
+				Name:        "PSXONPSP660_as_scph5502",
+				Url:         "/assets/bios/psx/PSXONPSP660/scph5502.bin",
+				Hash:        "c53ca5908936d412331790f4426c6c33",
+				Description: "Extracted from a PSP as EU",
+			},
+			Bios{
 				Name:        "PSXONPSP660.bin",
 				Url:         "/assets/bios/psx/PSXONPSP660.bin",
 				Hash:        "c53ca5908936d412331790f4426c6c33",
 				Description: "Extracted from a PSP",
 			},
 			Bios{
-				Name:        "scph5501.bin",
-				Url:         "/assets/bios/psx/scph5501.bin",
-				Hash:        "490f666e1afb15b7362b406ed1cea246",
-				Description: "PS1 US BIOS",
-			},
-			Bios{
 				Name:        "scph5500.bin",
 				Url:         "/assets/bios/psx/scph5500.bin",
 				Hash:        "8dd7d5296a650fac7319bce665a6a53c",
 				Description: "PS1 JP BIOS",
+			},
+			Bios{
+				Name:        "scph5501.bin",
+				Url:         "/assets/bios/psx/scph5501.bin",
+				Hash:        "490f666e1afb15b7362b406ed1cea246",
+				Description: "PS1 US BIOS",
 			},
 			Bios{
 				Name:        "scph5502.bin",

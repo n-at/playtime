@@ -45,6 +45,13 @@ wget -O "psx/scph101.bin" "https://github.com/Abdess/retroarch_system/raw/libret
 wget -O "psx/scph7001.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph7001.bin"
 wget -O "psx/scph1001.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph1001.bin"
 
+cd psx
+mkdir PSXONPSP660
+cp "PSXONPSP660.BIN" "PSXONPSP660/scph5500.bin"
+cp "PSXONPSP660.BIN" "PSXONPSP660/scph5501.bin"
+cp "PSXONPSP660.BIN" "PSXONPSP660/scph5502.bin"
+cd ..
+
 mkdir lynx
 wget -O "lynx/lynxboot.img" "https://github.com/Abdess/retroarch_system/raw/libretro/Atari%20-%20Lynx/lynxboot.img"
 
