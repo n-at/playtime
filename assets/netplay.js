@@ -210,10 +210,6 @@
                 return this.clientId;
             },
 
-            getClientKey() {
-                return this.clientKey;
-            },
-
             getHostId() {
                 return this.hostId;
             },
@@ -296,13 +292,6 @@
 
             sendControlHeartbeat() {
                 rtcDCSend(this, this.hostId, _messageDCHeartbeat());
-            },
-
-            /**
-             * @param {number} player
-             */
-            sendControlPlayer(player) {
-                rtcDCSend(this, this.hostId, _messageDCPlayer(player));
             },
         };
     };
