@@ -19,3 +19,7 @@
     <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}" placeholder="Number">
     <label for="cache-limit">Cache limit</label>
 </div>
+<div class="form-check form-switch">
+    <input type="checkbox" id="threads" name="threads" class="form-check-input" value="1" {% if settings.Threads %}checked{% endif %}>
+    <label for="threads">Use threads</label>
+</div>

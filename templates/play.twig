@@ -69,6 +69,10 @@
         EJS_biosUrl = '{{ bios.Url }}';
     {% endif %}
 
+    {% if emulator_settings.Threads %}
+        EJS_threads = true;
+    {% endif %}
+
     {% if save_state.StateFileDownloadLink %}
         EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';
     {% endif %}

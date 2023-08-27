@@ -73,6 +73,7 @@ type EmulatorSettings struct {
 	FastForwardMode        bool
 	SlowMotionMode         bool
 	Rewind                 bool
+	Threads                bool
 }
 
 type EmulatorControls struct {
