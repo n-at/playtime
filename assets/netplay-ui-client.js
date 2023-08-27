@@ -845,6 +845,9 @@
             case 'rtc-connection':
                 window.ShowToastMessage('danger', 'Game host connection lost');
                 break;
+            case'server':
+                window.ShowToastMessage('danger', `Server error: ${e.message}`);
+                break;
         }
     }
 

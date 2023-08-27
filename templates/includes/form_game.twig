@@ -15,7 +15,7 @@
 
 {% if netplay_enabled %}
     <div class="mb-3">
-        <div class="form-check">
+        <div class="form-check form-switch">
             <input type="checkbox" id="netplay-enabled" name="netplay-enabled" value="1" class="form-check-input" {% if game.NetplayEnabled %}checked{% endif %}>
             <label for="netplay-enabled" class="form-check-label">Netplay enabled</label>
         </div>
@@ -23,7 +23,7 @@
 {% endif %}
 
 <div class="mb-3">
-    <div class="form-check">
+    <div class="form-check form-switch">
         <input type="checkbox" id="override-settings" name="override-settings" value="1" class="form-check-input" {% if game.OverrideEmulatorSettings %}checked{% endif %}>
         <label for="override-settings" class="form-check-label">Override emulation settings</label>
     </div>
