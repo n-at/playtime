@@ -4,7 +4,7 @@ Personal retro games library + [EmulatorJS](https://emulatorjs.org/).
 
 ## Building
 
-Go 1.20+ and npm 7+ required.
+Go 1.21+ and npm 7+ required.
 
 ```bash
 ./install.sh

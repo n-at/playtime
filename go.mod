@@ -1,6 +1,6 @@
 module playtime
 
-go 1.20
+go 1.21
 
 require (
 	github.com/flosch/pongo2/v6 v6.0.0
