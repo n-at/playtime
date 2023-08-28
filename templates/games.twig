@@ -6,6 +6,7 @@
 
 {% block assets %}
     <script src="/assets/upload.js"></script>
+    <script src="/assets/search.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -19,37 +20,49 @@
     </p>
 
     {% if games_by_platform %}
+        <div class="input-group mb-3">
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
+            <input type="text" class="form-control" id="games-search" placeholder="Search games" aria-label="Search games">
+        </div>
+        <div id="games-not-found" class="d-none">
+            {% include "includes/empty_state.twig" with icon="bi bi-search" text="No games found" %}
+        </div>
+
         {% for item in games_by_platform %}
-            <h3>{{ item.Platform.Name }}</h3>
-            <div class="list-group list-group-hover mb-3">
-                {% for game in item.Games %}
-                    <div class="list-group-item">
-                        <div class="row">
-                            <div class="col-7 col-sm-8 col-md-9 col-lg-10">
-                                <div class="lead">
-                                    {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
-                                        <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
+            <div class="game-list-platform">
+                <h3>{{ item.Platform.Name }}</h3>
+                <div class="list-group list-group-hover mb-3">
+                    {% for game in item.Games %}
+                        <div class="game list-group-item">
+                            <div class="row">
+                                <div class="col-7 col-sm-8 col-md-9 col-lg-10">
+                                    <div class="lead">
+                                        {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
+                                            <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
+                                        {% endif %}
+                                        {% if game.OverrideEmulatorSettings %}
+                                            <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
+                                        {% endif %}
+                                        <span class="game-name">{{ game.Name }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-5 col-sm-4 col-md-3 col-lg-2 text-end text-nowrap">
+                                    {% if game.LatestSaveState.StateFileDownloadLink %}
+                                        <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Play from latest save state">
+                                            <i class="bi bi-box-arrow-up"></i>
+                                        </a>
                                     {% endif %}
-                                    {% if game.OverrideEmulatorSettings %}
-                                        <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
-                                    {% endif %}
-                                    {{ game.Name }}
+                                    <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}" title="Play">
+                                        <i class="bi bi-play-fill"></i>
+                                    </a>
+                                    {% include "includes/game_menu.twig" with game_menu_title=false %}
                                 </div>
                             </div>
-                            <div class="col-5 col-sm-4 col-md-3 col-lg-2 text-end text-nowrap">
-                                {% if game.LatestSaveState.StateFileDownloadLink %}
-                                    <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Play from latest save state">
-                                        <i class="bi bi-box-arrow-up"></i>
-                                    </a>
-                                {% endif %}
-                                <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}" title="Play">
-                                    <i class="bi bi-play-fill"></i>
-                                </a>
-                                {% include "includes/game_menu.twig" with game_menu_title=false %}
-                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         {% endfor %}
     {% else %}
