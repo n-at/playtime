@@ -58,6 +58,7 @@ func (s *Server) play(c echo.Context) error {
 	c.Response().Header().Add("Cross-Origin-Embedder-Policy", "require-corp")
 
 	return c.Render(http.StatusOK, "play", pongo2.Context{
+		"_csrf_token":           c.Get("csrf"),
 		"user":                  context.user,
 		"game":                  game,
 		"settings":              settings,

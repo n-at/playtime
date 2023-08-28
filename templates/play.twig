@@ -76,6 +76,8 @@
     {% if save_state.StateFileDownloadLink %}
         EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';
     {% endif %}
+
+    _csrf = '{{ _csrf_token }}';
 </script>
 
 {% include "includes/play_controls.twig" %}

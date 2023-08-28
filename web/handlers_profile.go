@@ -13,8 +13,9 @@ func (s *Server) profileForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "profile", pongo2.Context{
-		"user": context.user,
-		"done": c.QueryParam("done"),
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"done":        c.QueryParam("done"),
 	})
 }
 

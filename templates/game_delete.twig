@@ -15,6 +15,7 @@
     <hr>
 
     <form action="/games/delete/{{ game.Id }}" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <div class="text-end mb-3">
             <button type="submit" class="btn btn-danger">Delete game</button>
         </div>

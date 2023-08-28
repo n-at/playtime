@@ -19,14 +19,14 @@
 {% endif %}
 
 <div class="mb-3">
-    <div class="form-check">
+    <div class="form-check form-switch">
         <input type="checkbox" id="admin" name="admin" value="1" class="form-check-input" {% if user_control.Admin %}checked{% endif %}>
         <label for="admin">Admin</label>
     </div>
 </div>
 
 <div class="mb-3">
-    <div class="form-check">
+    <div class="form-check form-switch">
         <input type="checkbox" id="active" name="active" value="1" class="form-check-input" {% if user_control.Active %}checked{% endif %}>
         <label for="active">Active</label>
     </div>

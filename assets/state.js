@@ -93,6 +93,7 @@
         const formData = new FormData();
         formData.append('state', new Blob([state]));
         formData.append('screenshot', new Blob([screenshot]));
+        formData.append('_playtime_csrf', window._csrf);
 
         try {
             const url = `/games/save-states/${GameId}/upload`;

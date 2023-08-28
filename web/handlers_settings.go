@@ -15,11 +15,12 @@ func (s *Server) settingsGeneralForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "settings", pongo2.Context{
-		"user":      context.user,
-		"settings":  context.settings,
-		"done":      c.QueryParam("done"),
-		"languages": storage.Languages,
-		"platforms": sortedPlatforms(),
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"settings":    context.settings,
+		"done":        c.QueryParam("done"),
+		"languages":   storage.Languages,
+		"platforms":   sortedPlatforms(),
 	})
 }
 
@@ -48,6 +49,7 @@ func (s *Server) settingsByPlatformForm(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "settings_platform", pongo2.Context{
+		"_csrf_token":          c.Get("csrf"),
 		"user":                 context.user,
 		"settings":             platformSettings,
 		"shaders":              storage.Shaders,

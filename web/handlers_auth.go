@@ -19,7 +19,9 @@ func (s *Server) loginForm(c echo.Context) error {
 		return c.Redirect(http.StatusFound, "/")
 	}
 
-	return c.Render(http.StatusOK, "login", pongo2.Context{})
+	return c.Render(http.StatusOK, "login", pongo2.Context{
+		"_csrf_token": c.Get("csrf"),
+	})
 }
 
 func (s *Server) loginSubmit(c echo.Context) error {

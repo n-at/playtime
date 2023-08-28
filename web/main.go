@@ -81,6 +81,11 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 		heartbeatTicker: time.NewTicker(HeartbeatInterval),
 	}
 
+	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
+		TokenLookup: "form:_playtime_csrf",
+		CookiePath:  "/",
+		CookieName:  "_playtime_csrf",
+	}))
 	e.Use(s.contextCustomizationMiddleware)
 
 	e.GET("/", s.index)

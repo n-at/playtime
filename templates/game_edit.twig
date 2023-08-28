@@ -10,6 +10,7 @@
     <hr>
 
     <form method="post" action="/games/edit/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         {% include "includes/form_game.twig" %}
     </form>
 

@@ -11,6 +11,7 @@
     <hr>
 
     <form action="/games/emulation-settings/{{ game.Id }}" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         {% include "includes/form_platform_settings.twig" %}
         <hr>
         <div class="mb-3 text-end">

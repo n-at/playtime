@@ -19,6 +19,7 @@ func (s *Server) games(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "games", pongo2.Context{
+		"_csrf_token":       c.Get("csrf"),
 		"user":              context.user,
 		"games_by_platform": s.groupGamesByPlatform(games),
 		"netplay_enabled":   s.config.NetplayEnabled,
@@ -85,6 +86,7 @@ func (s *Server) gameUploadBatchForm(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "upload_batch", pongo2.Context{
+		"_csrf_token":  c.Get("csrf"),
 		"user":         context.user,
 		"upload_batch": context.uploadBatch,
 		"games":        guessGameProperties(games),
@@ -117,6 +119,7 @@ func (s *Server) gameEditForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "game_edit", pongo2.Context{
+		"_csrf_token":     c.Get("csrf"),
 		"user":            context.user,
 		"game":            context.game,
 		"platforms":       sortedPlatforms(),
@@ -155,6 +158,7 @@ func (s *Server) gameEmulationSettingsForm(c echo.Context) error {
 	platform := context.game.Platform
 
 	return c.Render(http.StatusOK, "game_emulation_settings", pongo2.Context{
+		"_csrf_token":          c.Get("csrf"),
 		"user":                 context.user,
 		"game":                 context.game,
 		"settings":             context.game.EmulatorSettings,
@@ -191,8 +195,9 @@ func (s *Server) gameDeleteForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "game_delete", pongo2.Context{
-		"user": context.user,
-		"game": context.game,
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"game":        context.game,
 	})
 }
 

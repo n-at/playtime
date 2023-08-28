@@ -9,6 +9,7 @@
     <hr>
 
     <form action="/games/upload-batch/{{ upload_batch.Id }}" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <div class="list-group list-group-hover">
             {% for game in games %}
                 <div class="list-group-item">

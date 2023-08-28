@@ -70,6 +70,7 @@
     {% endif %}
 
     <form id="upload" action="/games/upload" method="post" enctype="multipart/form-data" class="d-none">
+        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <input type="file" id="games" name="games" multiple>
     </form>
 

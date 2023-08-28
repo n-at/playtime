@@ -28,7 +28,8 @@ func (s *Server) users(c echo.Context) error {
 func (s *Server) userNewForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 	return c.Render(http.StatusOK, "user_new", pongo2.Context{
-		"user": context.user,
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
 	})
 }
 
@@ -64,6 +65,7 @@ func (s *Server) userNewSubmit(c echo.Context) error {
 func (s *Server) userEditForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 	return c.Render(http.StatusOK, "user_edit", pongo2.Context{
+		"_csrf_token":  c.Get("csrf"),
 		"user":         context.user,
 		"user_control": context.userControl,
 	})
@@ -115,6 +117,7 @@ func (s *Server) userDeleteForm(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "user_delete", pongo2.Context{
+		"_csrf_token":  c.Get("csrf"),
 		"user":         context.user,
 		"user_control": context.userControl,
 	})

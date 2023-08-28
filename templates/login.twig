@@ -13,6 +13,7 @@
                     <div class="alert alert-danger">{{error}}</div>
                 {% endif %}
                 <form method="post" action="/login" enctype="application/x-www-form-urlencoded">
+                    <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
                     <div class="form-floating mb-3">
                         <input type="text" id="login" name="login" class="form-control" value="{{login}}" placeholder="Login" required>
                         <label for="login">Login</label>

@@ -72,9 +72,10 @@ func (s *Server) saveStateDeleteForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "save_state_delete", pongo2.Context{
-		"user":  context.user,
-		"game":  context.game,
-		"state": context.saveState,
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"game":        context.game,
+		"state":       context.saveState,
 	})
 }
 
