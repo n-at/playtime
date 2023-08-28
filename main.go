@@ -64,7 +64,8 @@ func init() {
 	}
 
 	storageConfig = &storage.Configuration{
-		Path: *dbPathPtr,
+		DatabasePath: *dbPathPtr,
+		UploadsPath:  *uploadsPathPtr,
 	}
 	webConfig = &web.Configuration{
 		AssetsRoot:  "assets",

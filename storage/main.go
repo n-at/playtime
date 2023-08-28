@@ -9,7 +9,8 @@ import (
 )
 
 type Configuration struct {
-	Path string
+	DatabasePath string
+	UploadsPath  string
 }
 
 type Storage struct {
@@ -18,7 +19,7 @@ type Storage struct {
 }
 
 func New(config *Configuration) (*Storage, error) {
-	s, err := bolthold.Open(config.Path, 0666, nil)
+	s, err := bolthold.Open(config.DatabasePath, 0666, nil)
 	if err != nil {
 		return nil, err
 	}

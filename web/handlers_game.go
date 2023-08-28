@@ -52,7 +52,7 @@ func (s *Server) gameUpload(c echo.Context) error {
 			EmulatorSettings:         storage.DefaultEmulatorSettings(""),
 		}
 
-		if err := s.saveUploadedFile(file, game.Id, ""); err != nil {
+		if err := s.storage.SaveUploadedFile(file, game.Id, ""); err != nil {
 			return err
 		}
 

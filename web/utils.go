@@ -41,7 +41,7 @@ func (s *Server) getCoreByGameId(user *storage.User, gameId string) (string, err
 ///////////////////////////////////////////////////////////////////////////////
 
 func (s *Server) saveStateWithData(saveState storage.SaveState) (storage.SaveStateWithData, error) {
-	uploadPath, err := getUploadPath(saveState.Id)
+	uploadPath, err := storage.GetUploadPath(saveState.Id)
 	if err != nil {
 		return storage.SaveStateWithData{}, err
 	}
@@ -127,7 +127,7 @@ func (s *Server) getLatestSaveStateWithDataByGameId(user *storage.User, gameId s
 ///////////////////////////////////////////////////////////////////////////////
 
 func (s *Server) gameWithData(user *storage.User, game storage.Game) (storage.GameWithData, error) {
-	uploadPath, err := getUploadPath(game.Id)
+	uploadPath, err := storage.GetUploadPath(game.Id)
 	if err != nil {
 		return storage.GameWithData{}, err
 	}
@@ -318,6 +318,19 @@ func guessGamePlatform(ext string) string {
 		}
 	}
 	return ""
+}
+
+func getFileExtension(name string) string {
+	if len(name) == 0 {
+		return ""
+	}
+
+	parts := strings.Split(name, ".")
+	if len(parts) == 1 {
+		return ""
+	}
+
+	return parts[len(parts)-1]
 }
 
 func startsWith(s, prefix string) bool {
