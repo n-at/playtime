@@ -11,6 +11,11 @@ import (
 	"strings"
 )
 
+const (
+	FileExtensionSaveState  = "sav"
+	FileExtensionScreenshot = "png"
+)
+
 func (s *Storage) prepareUploadPath(id string) (string, error) {
 	uploadPath, err := GetUploadPath(id)
 	if err != nil {
@@ -55,6 +60,21 @@ func (s *Storage) SaveUploadedFile(file *multipart.FileHeader, id, extension str
 	}
 
 	return nil
+}
+
+func (s *Storage) removeUploadedFile(id, extension string) error {
+	uploadPath, err := GetUploadPath(id)
+	if err != nil {
+		return err
+	}
+
+	if len(extension) != 0 {
+		id = id + "." + extension
+	}
+
+	fullPath := fmt.Sprintf("%s%c%s%c%s", s.config.UploadsPath, os.PathSeparator, uploadPath, os.PathSeparator, id)
+
+	return os.Remove(fullPath)
 }
 
 func GetUploadPath(id string) (string, error) {

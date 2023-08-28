@@ -44,7 +44,7 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	if err := s.storage.SaveUploadedFile(state, saveState.Id, "sav"); err != nil {
+	if err := s.storage.SaveUploadedFile(state, saveState.Id, storage.FileExtensionSaveState); err != nil {
 		return err
 	}
 
@@ -52,7 +52,7 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 	if err != nil {
 		return err
 	}
-	if err := s.storage.SaveUploadedFile(screenshot, saveState.Id, "png"); err != nil {
+	if err := s.storage.SaveUploadedFile(screenshot, saveState.Id, storage.FileExtensionScreenshot); err != nil {
 		return err
 	}
 

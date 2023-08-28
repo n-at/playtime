@@ -267,11 +267,25 @@ func (s *Storage) GameGetByUploadBatchId(loadBatchId string) ([]Game, error) {
 }
 
 func (s *Storage) GameDeleteById(id string) error {
-	return s.store.Delete(id, Game{})
+	if err := s.store.Delete(id, Game{}); err != nil {
+		return err
+	}
+	return s.removeUploadedFile(id, "")
 }
 
 func (s *Storage) GameDeleteByUserId(userId string) error {
-	return s.store.DeleteMatching(Game{}, bolthold.Where("UserId").Eq(userId))
+	games, err := s.GameGetByUserId(userId)
+	if err != nil {
+		return err
+	}
+
+	for _, game := range games {
+		if err := s.GameDeleteById(game.Id); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func gameSorted(games []Game) []Game {
@@ -327,6 +341,22 @@ func (s *Storage) SaveStateGetById(id string) (SaveState, error) {
 	return ss, nil
 }
 
+func (s *Storage) saveStateGetByUserId(userId string) ([]SaveState, error) {
+	var ss []SaveState
+	if err := s.store.Find(&ss, bolthold.Where("UserId").Eq(userId)); err != nil {
+		return nil, err
+	}
+	return ss, nil
+}
+
+func (s *Storage) saveStateGetByGameId(gameId string) ([]SaveState, error) {
+	var ss []SaveState
+	if err := s.store.Find(&ss, bolthold.Where("GameId").Eq(gameId)); err != nil {
+		return nil, err
+	}
+	return ss, nil
+}
+
 func (s *Storage) SaveStateGetByGameIdAndCore(gameId, core string) ([]SaveState, error) {
 	var ss []SaveState
 	if err := s.store.Find(&ss, bolthold.Where("GameId").Eq(gameId).And("Core").Eq(core)); err != nil {
@@ -347,15 +377,39 @@ func (s *Storage) SaveStateGetLatestByGameIdAndCore(gameId, core string) (SaveSt
 }
 
 func (s *Storage) SaveStateDeleteById(id string) error {
-	return s.store.Delete(id, SaveState{})
+	if err := s.store.Delete(id, SaveState{}); err != nil {
+		return err
+	}
+	if err := s.removeUploadedFile(id, FileExtensionSaveState); err != nil {
+		return err
+	}
+	return s.removeUploadedFile(id, FileExtensionScreenshot)
 }
 
 func (s *Storage) SaveStateDeleteByUserId(userId string) error {
-	return s.store.DeleteMatching(SaveState{}, bolthold.Where("UserId").Eq(userId))
+	states, err := s.saveStateGetByUserId(userId)
+	if err != nil {
+		return err
+	}
+	for _, state := range states {
+		if err := s.SaveStateDeleteById(state.Id); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func (s *Storage) SaveStateDeleteByGameId(gameId string) error {
-	return s.store.DeleteMatching(SaveState{}, bolthold.Where("GameId").Eq(gameId))
+	states, err := s.saveStateGetByGameId(gameId)
+	if err != nil {
+		return err
+	}
+	for _, state := range states {
+		if err := s.SaveStateDeleteById(state.Id); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 func saveStateSorted(states []SaveState) []SaveState {
