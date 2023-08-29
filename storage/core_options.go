@@ -601,66 +601,6 @@ var CoreOptionsPCSXRearmed = []CoreOption{
 	{Id: "pcsx_rearmed_gunconadjustratioy", Name: "pcsx_rearmed_gunconadjustratioy", Variants: "0.75|0.76|0.77|0.78|0.79|0.80|0.81|0.82|0.83|0.84|0.85|0.86|0.87|0.88|0.89|0.90|0.91|0.92|0.93|0.94|0.95|0.96|0.97|0.98|0.99|1.00|1.01|1.02|1.03|1.04|1.05|1.06|1.07|1.08|1.09|1.10|1.11|1.12|1.13|1.14|1.15|1.16|1.17|1.18|1.19|1.20|1.21|1.22|1.23|1.24|1.25", Default: "1.00"},
 }
 
-// CoreOptionsPicoDrive https://docs.libretro.com/library/picodrive/
-var CoreOptionsPicoDrive = []CoreOption{
-	{
-		Id:       "picodrive_input1",
-		Name:     "Input device 1",
-		Variants: "3 button pad|6 button pad|None",
-		Default:  "3 button pad",
-	}, {
-		Id:       "picodrive_input2",
-		Name:     "Input device 2",
-		Variants: "3 button pad|6 button pad|None",
-		Default:  "3 button pad",
-	}, {
-		Id:       "picodrive_sprlim",
-		Name:     "No sprite limit",
-		Variants: "disabled|enabled",
-		Default:  "disabled",
-	}, {
-		Id:       "picodrive_ramcart",
-		Name:     "MegaCD RAM cart",
-		Variants: "disabled|enabled",
-		Default:  "disabled",
-	}, {
-		Id:       "picodrive_region",
-		Name:     "Region",
-		Variants: "Auto|Japan NTSC|Japan PAL|US|Europe",
-		Default:  "Auto",
-	}, {
-		Id:       "picodrive_aspect",
-		Name:     "Core-provided aspect ratio",
-		Variants: "PAR|4|3|CRT",
-		Default:  "PAR",
-	}, {
-		Id:       "picodrive_overscan",
-		Name:     "Show Overscan",
-		Variants: "disabled|enabled",
-		Default:  "disabled",
-	}, {
-		Id:       "picodrive_overclk68k",
-		Name:     "68k overclock",
-		Variants: "disabled|+25%|+50%|+75%|+100%|+200%|+400%",
-		Default:  "disabled",
-	}, {
-		Id:       "picodrive_drc",
-		Name:     "Dynamic recompilers",
-		Variants: "enabled|disabled",
-		Default:  "enabled",
-	}, {
-		Id:       "picodrive_audio_filter",
-		Name:     "Audio filter",
-		Variants: "disabled|low-pass",
-		Default:  "disabled",
-	}, {
-		Id:       "picodrive_lowpass_range",
-		Name:     "Low-pass filter %",
-		Variants: "60|65|70|75|80|85|90|95|5|10|15|20|25|30|35|40|45|50|55",
-		Default:  "60",
-	},
-}
-
 // CoreOptionsProSystem https://docs.libretro.com/library/prosystem/
 var CoreOptionsProSystem = []CoreOption{}
 
@@ -810,8 +750,6 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsYabause
 	case "genesis_plus_gx":
 		return CoreOptionsGenesisPlusGX
-	case "picodrive":
-		return CoreOptionsPicoDrive
 	case "mupen64plus_next":
 		return CoreOptionsMupen64Plus
 	case "opera":
