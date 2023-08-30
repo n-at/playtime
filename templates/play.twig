@@ -72,6 +72,9 @@
     {% if emulator_settings.Threads %}
         EJS_threads = true;
     {% endif %}
+    {% if emulator_settings.DisableCue %}
+        EJS_disableCue = true;
+    {% endif %}
 
     {% if save_state.StateFileDownloadLink %}
         EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';

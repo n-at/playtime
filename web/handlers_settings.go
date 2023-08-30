@@ -198,6 +198,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		SlowMotionMode:         c.FormValue("slow-motion-mode") == "1",
 		Rewind:                 c.FormValue("rewind-enabled") == "1",
 		Threads:                c.FormValue("threads") == "1",
+		DisableCue:             c.FormValue("disable-cue") == "1",
 		Buttons:                buttons,
 		Controls:               controls,
 		CoreOptions:            coreOptionsValues,
