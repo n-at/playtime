@@ -36,6 +36,8 @@
     {% include "../platform_settings/controls/jaguar.twig" with control_template="../control_scheme/control.twig" %}
 {% elif platform_id == "pce" %}
     {% include "../platform_settings/controls/pce.twig" with control_template="../control_scheme/control.twig" %}
+{% elif platform_id == "ngp" %}
+    {% include "../platform_settings/controls/ngp.twig" with control_template="../control_scheme/control.twig" %}
 {% else %}
     {# a5200, mame2003, arcade #}
     {% include "../platform_settings/controls/default.twig" with control_template="../control_scheme/control.twig" %}

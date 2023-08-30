@@ -616,6 +616,17 @@
             {region: 'right', top: 55, left: -20, input: 0, id:'ii', text: 'II', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: 55, right: 0,  input: 8, id:'i',  text: 'I',  cls: 'btn-outline-secondary', circle: true},
         ],
+        'ngp': [
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, right: -15, input: 3, id:'option',  text: 'option',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -20, input: 0, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 0,  input: 8, id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
+        ],
         'gb':      'nes',
         'nds':     'snes',
         'sega32x': 'segaMD',

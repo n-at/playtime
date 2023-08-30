@@ -89,6 +89,7 @@ var (
 		"mame2003",
 		"arcade",
 		"pce",
+		"ngp",
 	}
 
 	Platforms = map[string]Platform{
@@ -202,6 +203,11 @@ var (
 			Name:       "NEC TurboGrafx-16 / SuperGrafx / PC Engine",
 			Extensions: []string{"pce"},
 		},
+		"ngp": {
+			Id:         "ngp",
+			Name:       "SNK Neo Geo Pocket",
+			Extensions: []string{"ngp", "ngc"},
+		},
 		"": {
 			Id:         "",
 			Name:       "Undefined",
@@ -232,6 +238,7 @@ var (
 		"atari7800":  {"prosystem"},
 		"atari2600":  {"stella2014"},
 		"pce":        {"mednafen_pce"},
+		"ngp":        {"mednafen_ngp"},
 	}
 
 	Bioses = map[string][]Bios{
@@ -554,6 +561,7 @@ var (
 				Description: "Game Express CD Card",
 			},
 		},
+		"ngp": {},
 	}
 
 	//Configuration reference: https://retropie.org.uk/docs/RetroArch-Configuration
@@ -783,6 +791,16 @@ var (
 		Down:   "arrowdown",
 		Left:   "arrowleft",
 		Right:  "arrowright",
+	}
+
+	DefaultControlsNeoGeoPocket = EmulatorControlsMapping{
+		A:     "x",     //B
+		B:     "z",     //A
+		Start: "enter", //Option
+		Up:    "arrowup",
+		Down:  "arrowdown",
+		Left:  "arrowleft",
+		Right: "arrowright",
 	}
 
 	DefaultControlsOther = EmulatorControlsMapping{
@@ -1276,6 +1294,26 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Controls: [4]EmulatorControls{
 				{
 					Keyboard: DefaultControlsPCEngine,
+				},
+			},
+		}
+
+	case "ngp":
+		return EmulatorSettings{
+			Core:              Cores["ngp"][0],
+			Bios:              "",
+			ColorScheme:       DefaultColorScheme,
+			ColorBackground:   DefaultColorBackground,
+			CacheLimit:        DefaultCacheLimit,
+			Volume:            DefaultVolume,
+			FastForwardRatio:  DefaultFastForwardRatio,
+			SlowMotionRatio:   DefaultSlowMotionRatio,
+			RewindGranularity: DefaultRewindGranularity,
+			Shader:            Shaders[0].Value,
+			Buttons:           DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsNeoGeoPocket,
 				},
 			},
 		}

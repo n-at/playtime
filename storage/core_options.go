@@ -728,6 +728,10 @@ var CoreOptionsBeetlePCE = []CoreOption{
 	{Id: "pce_ocmultiplier", Name: "pce_ocmultiplier", Variants: "1|2|3|4|5|6|7|8|9|10|20|30|40|50", Default: "1"},
 }
 
+var CoreOptionsBeetleNGP = []CoreOption{
+	{Id: "ngp_language", Name: "ngp_language", Variants: "english|japanese", Default: "english"},
+}
+
 func CoreOptionsByCore(core string) []CoreOption {
 	switch core {
 	case "fceumm":
@@ -780,6 +784,8 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsParallelN64
 	case "mednafen_pce":
 		return CoreOptionsBeetlePCE
+	case "mednafen_ngp":
+		return CoreOptionsBeetleNGP
 	}
 	return []CoreOption{}
 }
