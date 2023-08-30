@@ -775,8 +775,8 @@ var (
 	}
 
 	DefaultControlsPCEngine = EmulatorControlsMapping{
-		A:      "z",     //I
-		B:      "x",     //II
+		A:      "x",     //I
+		B:      "z",     //II
 		Select: "v",     //Select
 		Start:  "enter", //Run
 		Up:     "arrowup",

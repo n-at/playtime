@@ -35,6 +35,8 @@
         {% include "controls/lynx.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "jaguar" %}
         {% include "controls/jaguar.twig" with control_template="controls/control.twig" %}
+    {% elif platform_id == "pce" %}
+        {% include "controls/pce.twig" with control_template="controls/control.twig" %}
     {% else %}
         {# a5200, mame2003, arcade #}
         {% include "controls/default.twig" with control_template="controls/control.twig" %}
