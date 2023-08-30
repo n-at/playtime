@@ -88,3 +88,9 @@ wget -O "3do/3do_arcade_saot.bin" "https://github.com/Abdess/retroarch_system/ra
 
 mkdir atari7800
 wget -O "atari7800/7800_BIOS_U.rom" 'https://github.com/Abdess/retroarch_system/raw/libretro/Atari%20-%207800/7800%20BIOS%20(U).rom'
+
+mkdir pce
+wget -O "pce/syscard3.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/syscard3.pce"
+wget -O "pce/syscard2.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/syscard2.pce"
+wget -O "pce/syscard1.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/syscard1.pce"
+wget -O "pce/gexpress.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/gexpress.pce"

@@ -710,6 +710,24 @@ var CoreOptionsParallelN64 = []CoreOption{
 	{Id: "parallel-n64-boot-device", Name: "parallel-n64-boot-device", Variants: "Default|64DD IPL", Default: "Default"},
 }
 
+var CoreOptionsBeetlePCE = []CoreOption{
+	{Id: "pce_palette", Name: "pce_palette", Variants: "RGB|Composite", Default: "RGB"},
+	{Id: "pce_psgrevision", Name: "pce_psgrevision", Variants: "HuC6280|HuC6280A", Default: "HuC6280A"},
+	{Id: "pce_mouse_sensitivity", Name: "pce_mouse_sensitivity", Variants: "0.125|0.250|0.375|0.500|0.625|0.750|0.875|1.000|1.125|1.25|1.50|1.75|2.00|2.25|2.50|2.75|3.00|3.25|3.50|3.75|4.00|4.25|4.50|4.75|5.00", Default: "1.25"},
+	{Id: "pce_default_joypad_type_p1", Name: "pce_default_joypad_type_p1", Variants: "2 Buttons|6 Buttons", Default: "2 Buttons"},
+	{Id: "pce_default_joypad_type_p2", Name: "pce_default_joypad_type_p2", Variants: "2 Buttons|6 Buttons", Default: "2 Buttons"},
+	{Id: "pce_default_joypad_type_p3", Name: "pce_default_joypad_type_p3", Variants: "2 Buttons|6 Buttons", Default: "2 Buttons"},
+	{Id: "pce_default_joypad_type_p4", Name: "pce_default_joypad_type_p4", Variants: "2 Buttons|6 Buttons", Default: "2 Buttons"},
+	{Id: "pce_default_joypad_type_p5", Name: "pce_default_joypad_type_p5", Variants: "2 Buttons|6 Buttons", Default: "2 Buttons"},
+	{Id: "pce_Turbo_Delay", Name: "pce_Turbo_Delay", Variants: "Fast|Medium|Slow", Default: "Fast"},
+	{Id: "pce_cdbios", Name: "pce_cdbios", Variants: "Games Express|System Card 1|System Card 2|System Card 3|System Card 2 US|System Card 3 US", Default: "System Card 3"},
+	{Id: "pce_cdspeed", Name: "pce_cdspeed", Variants: "1|2|4|8", Default: "1"}, {Id: "pce_adpcmextraprec", Name: "pce_adpcmextraprec", Variants: "10-bit|12-bit", Default: "10-bit"},
+	{Id: "pce_adpcmvolume", Name: "pce_adpcmvolume", Variants: "0|10|20|30|40|50|60|70|80|90|100|110|120|130|140|150|160|170|180|190|200", Default: "100"},
+	{Id: "pce_cddavolume", Name: "pce_cddavolume", Variants: "0|10|20|30|40|50|60|70|80|90|100|110|120|130|140|150|160|170|180|190|200", Default: "100"},
+	{Id: "pce_cdpsgvolume", Name: "pce_cdpsgvolume", Variants: "0|10|20|30|40|50|60|70|80|90|100|110|120|130|140|150|160|170|180|190|200", Default: "100"},
+	{Id: "pce_ocmultiplier", Name: "pce_ocmultiplier", Variants: "1|2|3|4|5|6|7|8|9|10|20|30|40|50", Default: "1"},
+}
+
 func CoreOptionsByCore(core string) []CoreOption {
 	switch core {
 	case "fceumm":
@@ -760,6 +778,8 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsStella2014
 	case "parallel_n64":
 		return CoreOptionsParallelN64
+	case "mednafen_pce":
+		return CoreOptionsBeetlePCE
 	}
 	return []CoreOption{}
 }

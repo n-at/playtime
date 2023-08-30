@@ -88,6 +88,7 @@ var (
 		"lynx",
 		"mame2003",
 		"arcade",
+		"pce",
 	}
 
 	Platforms = map[string]Platform{
@@ -196,6 +197,11 @@ var (
 			Name:       "Atari 2600",
 			Extensions: []string{"a26"},
 		},
+		"pce": {
+			Id:         "pce",
+			Name:       "NEC TurboGrafx-16 / SuperGrafx / PC Engine",
+			Extensions: []string{"pce"},
+		},
 		"": {
 			Id:         "",
 			Name:       "Undefined",
@@ -225,6 +231,7 @@ var (
 		"3do":        {"opera"},
 		"atari7800":  {"prosystem"},
 		"atari2600":  {"stella2014"},
+		"pce":        {"mednafen_pce"},
 	}
 
 	Bioses = map[string][]Bios{
@@ -521,6 +528,32 @@ var (
 			},
 		},
 		"atari2600": {},
+		"pce": {
+			Bios{
+				Name:        "syscard3.pce",
+				Url:         "/assets/bios/pce/syscard3.pce",
+				Hash:        "79f5ff55dd10187c7fd7b8daab0b3ffbd1f56a2c",
+				Description: "Super CD-ROM2 System V3.xx",
+			},
+			Bios{
+				Name:        "syscard2.pce",
+				Url:         "/assets/bios/pce/syscard2.pce",
+				Hash:        "88da02e2503f7c32810f5d93a34849d470742b6d",
+				Description: "CD-ROM System V2.xx",
+			},
+			Bios{
+				Name:        "syscard1.pce",
+				Url:         "/assets/bios/pce/syscard2.pce",
+				Hash:        "a39a66da7de6ba94ab84d04eef7afeec7d4ee66a",
+				Description: "CD-ROM System V1.xx",
+			},
+			Bios{
+				Name:        "gexpress.pce",
+				Url:         "/assets/bios/pce/gexpress.pce",
+				Hash:        "014881a959e045e00f4db8f52955200865d40280",
+				Description: "Game Express CD Card",
+			},
+		},
 	}
 
 	//Configuration reference: https://retropie.org.uk/docs/RetroArch-Configuration
@@ -739,6 +772,17 @@ var (
 		Down:   "arrowdown",
 		Left:   "arrowleft",
 		Right:  "arowright",
+	}
+
+	DefaultControlsPCEngine = EmulatorControlsMapping{
+		A:      "z",     //I
+		B:      "x",     //II
+		Select: "v",     //Select
+		Start:  "enter", //Run
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
 	}
 
 	DefaultControlsOther = EmulatorControlsMapping{
@@ -1211,6 +1255,26 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Controls: [4]EmulatorControls{
 				{
 					Keyboard: DefaultControlsAtari2600,
+				},
+			},
+		}
+
+	case "pce":
+		return EmulatorSettings{
+			Core:              Cores["pce"][0],
+			Bios:              "",
+			ColorScheme:       DefaultColorScheme,
+			ColorBackground:   DefaultColorBackground,
+			CacheLimit:        DefaultCacheLimit,
+			Volume:            DefaultVolume,
+			FastForwardRatio:  DefaultFastForwardRatio,
+			SlowMotionRatio:   DefaultSlowMotionRatio,
+			RewindGranularity: DefaultRewindGranularity,
+			Shader:            Shaders[0].Value,
+			Buttons:           DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsPCEngine,
 				},
 			},
 		}

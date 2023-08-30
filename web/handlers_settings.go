@@ -1,7 +1,6 @@
 package web
 
 import (
-	"errors"
 	"fmt"
 	"github.com/flosch/pongo2/v6"
 	"github.com/labstack/echo/v4"
@@ -45,7 +44,7 @@ func (s *Server) settingsByPlatformForm(c echo.Context) error {
 	settings := context.settings
 	platformSettings, ok := settings.EmulatorSettings[platform]
 	if !ok {
-		return errors.New("platform not found")
+		platformSettings = storage.DefaultEmulatorSettings(platform)
 	}
 
 	return c.Render(http.StatusOK, "settings_platform", pongo2.Context{
@@ -70,11 +69,6 @@ func (s *Server) settingsByPlatformSubmit(c echo.Context) error {
 	log.Infof("settingsByPlatformSubmit %s for %s", platform, context.user.Login)
 
 	settings := context.settings
-
-	_, ok := settings.EmulatorSettings[platform]
-	if !ok {
-		return errors.New("platform not found")
-	}
 
 	settings.EmulatorSettings[platform] = settingsCollectFormData(c)
 

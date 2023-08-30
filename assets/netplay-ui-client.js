@@ -443,8 +443,8 @@
 
     const virtualGamepads = {
         'nes': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -455,8 +455,8 @@
             {region: 'right', top: 55, right: 0,  input: 8, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
         ],
         'gba': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -470,8 +470,8 @@
             {region: 'right', top: -80, right: 10, input: 11, id:'r', text: 'R', cls: 'btn-outline-secondary', circle: true},
         ],
         'snes': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -487,8 +487,8 @@
             {region: 'right', top: -80, right: 10, input: 11, id:'r', text: 'R', cls: 'btn-outline-secondary', circle: true},
         ],
         'segaMD': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -503,8 +503,8 @@
             {region: 'right', top: -10,  left: 50,  input: 11, id:'z', text: 'Z', cls: 'btn-outline-secondary', circle: true},
         ],
         'segaMS': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -512,8 +512,8 @@
             {region: 'right', top: 55, right: 0,  input: 8, id:'2', text: '2', cls: 'btn-outline-secondary', circle: true},
         ],
         'segaGG': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -523,8 +523,8 @@
             {region: 'right', top: 55, right: 0,  input: 8, id:'2', text: '2', cls: 'btn-outline-secondary', circle: true},
         ],
         'segaSaturn': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -541,8 +541,8 @@
             {region: 'right', top: -90, right: 10, input: 13, id:'r', text: 'R', cls: 'btn-outline-secondary', circle: true},
         ],
         'atari2600': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -553,8 +553,8 @@
             {region: 'right', top: 55, left: 30, input: 0, id:'fire', icon: 'bi-fire', cls: 'btn-outline-danger', circle: true},
         ],
         'atari7800': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -566,8 +566,8 @@
             {region: 'right', top: 55, right: 0,  input: 8, id:'2', text: '2', cls: 'btn-outline-secondary', circle: true},
         ],
         'lynx': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -579,8 +579,8 @@
             {region: 'right', top: 55, right: 0,  input: 8, id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
         ],
         'jaguar': [
-            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',     icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
-            {region: 'left', top: 110, left: 55,  input: 5, id:'down',   icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
@@ -603,6 +603,18 @@
             {region: 'right', top: 55, left: -80, input: 1,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: 55, left: -15, input: 0,  id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: 55, left: 50,  input: 8,  id:'c', text: 'C', cls: 'btn-outline-secondary', circle: true},
+        ],
+        'pce': [
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'start',  text: 'start',  cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 55, left: -20, input: 0, id:'ii', text: 'II', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 55, right: 0,  input: 8, id:'i',  text: 'I',  cls: 'btn-outline-secondary', circle: true},
         ],
         'gb':      'nes',
         'nds':     'snes',
