@@ -89,6 +89,7 @@ var (
 		"mame2003",
 		"arcade",
 		"pce",
+		"pcfx",
 		"ngp",
 		"ws",
 		"coleco",
@@ -205,6 +206,11 @@ var (
 			Name:       "NEC TurboGrafx-16 / SuperGrafx / PC Engine",
 			Extensions: []string{"pce"},
 		},
+		"pcfx": {
+			Id:         "pcfx",
+			Name:       "NEC PC-FX",
+			Extensions: []string{},
+		},
 		"ngp": {
 			Id:         "ngp",
 			Name:       "SNK Neo Geo Pocket (Color)",
@@ -250,6 +256,7 @@ var (
 		"atari7800":  {"prosystem"},
 		"atari2600":  {"stella2014"},
 		"pce":        {"mednafen_pce"},
+		"pcfx":       {"mednafen_pcfx"},
 		"ngp":        {"mednafen_ngp"},
 		"ws":         {"mednafen_wswan"},
 		"coleco":     {"gearcoleco"},
@@ -575,6 +582,26 @@ var (
 				Description: "Game Express CD Card",
 			},
 		},
+		"pcfx": {
+			Bios{
+				Name:        "pcfx.rom",
+				Url:         "/assets/bios/pcfx/pcfx.rom",
+				Hash:        "08e36edbea28a017f79f8d4f7ff9b6d7",
+				Description: "PC-FX BIOS v1.00",
+			},
+			Bios{
+				Name:        "pcfxbios.bin",
+				Url:         "/assets/bios/pcfx/pcfxbios.bin",
+				Hash:        "08e36edbea28a017f79f8d4f7ff9b6d7",
+				Description: "pcfxbios.bin",
+			},
+			Bios{
+				Name:        "pcfxv101.bin",
+				Url:         "/assets/bios/pcfx/pcfxv101.bin",
+				Hash:        "e2fb7c7220e3a7838c2dd7e401a7f3d8",
+				Description: "pcfxv101.bin",
+			},
+		},
 		"ngp": {},
 		"ws":  {},
 		"coleco": {
@@ -630,10 +657,10 @@ var (
 		A:               "z",
 		B:               "x",
 		Start:           "enter",
-		Up:              "arrowup",   //D-Pad Up
-		Down:            "arrowdown", //D-Pad Down
-		Left:            "arrowleft", //D-Pad Left
-		Right:           "arowright", //D-Pad Right
+		Up:              "arrowup",    //D-Pad Up
+		Down:            "arrowdown",  //D-Pad Down
+		Left:            "arrowleft",  //D-Pad Left
+		Right:           "arrowright", //D-Pad Right
 		L:               "q",
 		R:               "w",
 		LStickUp:        "t", //Stick up
@@ -685,14 +712,14 @@ var (
 		R:               "w",
 		Select:          "v",
 		Start:           "enter",
-		Up:              "arrowup",   //Left D-Pad Up
-		Down:            "arrowdown", //Left D-Pad Down
-		Left:            "arrowleft", //Left D-Pad Left
-		Right:           "arowright", //Left D-Pad Right
-		LStickUp:        "t",         //Right D-Pad Up
-		LStickDown:      "g",         //Right D-Pad Down
-		LStickLeft:      "f",         //Right D-Pad Left
-		LStickRight:     "h",         //Right D-Pad Right
+		Up:              "arrowup",    //Left D-Pad Up
+		Down:            "arrowdown",  //Left D-Pad Down
+		Left:            "arrowleft",  //Left D-Pad Left
+		Right:           "arrowright", //Left D-Pad Right
+		LStickUp:        "t",          //Right D-Pad Up
+		LStickDown:      "g",          //Right D-Pad Down
+		LStickLeft:      "f",          //Right D-Pad Left
+		LStickRight:     "h",          //Right D-Pad Right
 		QuickSaveState:  "",
 		QuickLoadState:  "",
 		ChangeStateSlot: "",
@@ -768,7 +795,7 @@ var (
 		Up:     "arrowup",
 		Down:   "arrowdown",
 		Left:   "arrowleft",
-		Right:  "arowright",
+		Right:  "arrowright",
 	}
 
 	DefaultControlsAtari7800 = EmulatorControlsMapping{
@@ -778,7 +805,7 @@ var (
 		Up:     "arrowup",
 		Down:   "arrowdown",
 		Left:   "arrowleft",
-		Right:  "arowright",
+		Right:  "arrowright",
 	}
 
 	DefaultControlsLynx = EmulatorControlsMapping{
@@ -790,7 +817,7 @@ var (
 		Up:    "arrowup",
 		Down:  "arrowdown",
 		Left:  "arrowleft",
-		Right: "arowright",
+		Right: "arrowright",
 	}
 
 	DefaultControlsJaguar = EmulatorControlsMapping{
@@ -802,7 +829,7 @@ var (
 		Up:     "arrowup",
 		Down:   "arrowdown",
 		Left:   "arrowleft",
-		Right:  "arowright",
+		Right:  "arrowright",
 	}
 
 	DefaultControlsPCEngine = EmulatorControlsMapping{
@@ -831,14 +858,14 @@ var (
 		B:      "x", //B
 		Select: "v",
 		Start:  "enter",
-		Up:     "arrowup",   //X Cursor Up
-		Down:   "arrowdown", //X Cursor Down
-		Left:   "arrowleft", //X Cursor Left
-		Right:  "arowright", //X Cursor Right
-		R2:     "t",         //Y Cursor Up
-		L2:     "g",         //Y Cursor Down
-		L:      "f",         //Y Cursor Left
-		R:      "h",         //Y Cursor Right
+		Up:     "arrowup",    //X Cursor Up
+		Down:   "arrowdown",  //X Cursor Down
+		Left:   "arrowleft",  //X Cursor Left
+		Right:  "arrowright", //X Cursor Right
+		R2:     "t",          //Y Cursor Up
+		L2:     "g",          //Y Cursor Down
+		L:      "f",          //Y Cursor Left
+		R:      "h",          //Y Cursor Right
 	}
 
 	DefaultControlsColecoVision = EmulatorControlsMapping{
@@ -847,7 +874,7 @@ var (
 		Up:     "arrowup",
 		Down:   "arrowdown",
 		Left:   "arrowleft",
-		Right:  "arowright",
+		Right:  "arrowright",
 		X:      "q", //1
 		Y:      "w", //2
 		R:      "e", //3
@@ -860,6 +887,23 @@ var (
 		Start:  "p", //#
 	}
 
+	DefaultControlsPCFX = EmulatorControlsMapping{
+		A:      "c", //I
+		B:      "x", //II
+		X:      "z", //III
+		Y:      "d", //IV
+		L:      "s", //V
+		R:      "a", //VI
+		Select: "v",
+		Start:  "enter", //Run
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arrowright",
+		L2:     "q", //Mode 1
+		R2:     "w", //Mode 2
+	}
+
 	DefaultControlsOther = EmulatorControlsMapping{
 		B:               "x",
 		Y:               "s",
@@ -868,7 +912,7 @@ var (
 		Up:              "arrowup",
 		Down:            "arrowdown",
 		Left:            "arrowleft",
-		Right:           "arowright",
+		Right:           "arrowright",
 		A:               "z",
 		X:               "a",
 		L:               "q",
@@ -1351,6 +1395,27 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Controls: [4]EmulatorControls{
 				{
 					Keyboard: DefaultControlsPCEngine,
+				},
+			},
+		}
+
+	case "pcfx":
+		return EmulatorSettings{
+			Core:              Cores["pcfx"][0],
+			Bios:              Bioses["pcfx"][0].Name,
+			ColorScheme:       DefaultColorScheme,
+			ColorBackground:   DefaultColorBackground,
+			CacheLimit:        DefaultCacheLimit,
+			Volume:            DefaultVolume,
+			FastForwardRatio:  DefaultFastForwardRatio,
+			SlowMotionRatio:   DefaultSlowMotionRatio,
+			RewindGranularity: DefaultRewindGranularity,
+			Shader:            Shaders[0].Value,
+			Buttons:           DefaultButtons,
+			DisableCue:        true,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsPCFX,
 				},
 			},
 		}

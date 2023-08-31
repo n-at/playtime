@@ -37,6 +37,8 @@
         {% include "controls/jaguar.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "pce" %}
         {% include "controls/pce.twig" with control_template="controls/control.twig" %}
+    {% elif platform_id == "pcfx" %}
+        {% include "controls/pcfx.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "ngp" %}
         {% include "controls/ngp.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "ws" %}

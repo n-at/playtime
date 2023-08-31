@@ -728,6 +728,12 @@ var CoreOptionsBeetlePCE = []CoreOption{
 	{Id: "pce_ocmultiplier", Name: "pce_ocmultiplier", Variants: "1|2|3|4|5|6|7|8|9|10|20|30|40|50", Default: "1"},
 }
 
+var CoreOptionsBeetlePCFX = []CoreOption{
+	{Id: "pcfx_high_dotclock_width", Name: "pcfx_high_dotclock_width", Variants: "256|341|1024", Default: "1024"},
+	{Id: "pcfx_resamp_quality", Name: "pcfx_resamp_quality", Variants: "0|1|2|3|4|5", Default: "3"},
+	{Id: "pcfx_mouse_sensitivity", Name: "pcfx_mouse_sensitivity", Variants: "1.00|1.25|1.50|1.75|2.00|2.25|2.50|2.75|3.00|3.25|3.50|3.75|4.00|4.25|4.50|4.75|5.00", Default: "1.25"},
+}
+
 var CoreOptionsBeetleNGP = []CoreOption{
 	{Id: "ngp_language", Name: "ngp_language", Variants: "english|japanese", Default: "english"},
 }
@@ -793,6 +799,8 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsParallelN64
 	case "mednafen_pce":
 		return CoreOptionsBeetlePCE
+	case "mednafen_pcfx":
+		return CoreOptionsBeetlePCFX
 	case "mednafen_ngp":
 		return CoreOptionsBeetleNGP
 	}

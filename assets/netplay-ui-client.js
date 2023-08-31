@@ -611,10 +611,29 @@
             {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
 
             {region: 'center', top: 105, left:  -15, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
-            {region: 'center', top: 105, right: -15, input: 3, id:'start',  text: 'start',  cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'run',    text: 'run',    cls: 'btn-outline-secondary', small: true},
 
             {region: 'right', top: 55, left: -20, input: 0, id:'ii', text: 'II', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: 55, right: 0,  input: 8, id:'i',  text: 'I',  cls: 'btn-outline-secondary', circle: true},
+        ],
+        'pcfx': [
+            {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 110, left: 55,  input: 5, id:'down',  icon: 'bi-caret-down-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 0,   input: 6, id:'left',  icon: 'bi-caret-left-fill',  cls: 'btn-outline-secondary', square: true},
+            {region: 'left', top: 55,  left: 110, input: 7, id:'right', icon: 'bi-caret-right-fill', cls: 'btn-outline-secondary', square: true},
+
+            {region: 'center', top: 105, left:  -15, input: 2, id:'select', text: 'select', cls: 'btn-outline-secondary', small: true},
+            {region: 'center', top: 105, right: -15, input: 3, id:'run',    text: 'run',    cls: 'btn-outline-secondary', small: true},
+
+            {region: 'right', top: 75,   left: 50,  input: 8,  id:'i',   text: 'I',   cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 75,   left: -15, input: 0,  id:'ii',  text: 'II',  cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 75,   left: -80, input: 9,  id:'iii', text: 'III', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -10,  left: 50,  input: 1,  id:'iv',  text: 'IV',  cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -10,  left: -15, input: 10, id:'v',   text: 'V',   cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -10,  left: -80, input: 11, id:'vi',  text: 'VI',  cls: 'btn-outline-secondary', circle: true},
+
+            {region: 'left',  top: -90, left:  10, input: 12, id:'m1', text: 'M1', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: -90, right: 10, input: 13, id:'m2', text: 'M2', cls: 'btn-outline-secondary', circle: true},
         ],
         'ngp': [
             {region: 'left', top: 0,   left: 55,  input: 4, id:'up',    icon: 'bi-caret-up-fill',    cls: 'btn-outline-secondary', square: true},

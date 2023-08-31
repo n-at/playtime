@@ -97,3 +97,8 @@ wget -O "pce/gexpress.pce" "https://github.com/Abdess/retroarch_system/raw/libre
 
 mkdir coleco
 wget -O "coleco/colecovision.rom" "https://github.com/Abdess/retroarch_system/raw/libretro/Coleco%20-%20ColecoVision/colecovision.rom"
+
+mkdir pcfx
+wget -O "pcfx/pcfx.rom" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC-FX/pcfx.rom"
+wget -O "pcfx/pcfxbios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC-FX/pcfxbios.bin"
+wget -O "pcfx/pcfxv101.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC-FX/pcfxv101.bin"
