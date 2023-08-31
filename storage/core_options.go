@@ -681,9 +681,6 @@ var CoreOptionsYabause = []CoreOption{
 	},
 }
 
-// CoreOptionsPPSSPP https://docs.libretro.com/library/ppsspp/ TODO
-var CoreOptionsPPSSPP = []CoreOption{}
-
 // CoreOptionsParallelN64 (extracted from emulator)
 var CoreOptionsParallelN64 = []CoreOption{
 	{Id: "parallel-n64-cpucore", Name: "parallel-n64-cpucore", Variants: "cached_interpreter|pure_interpreter", Default: "cached_interpreter"},
@@ -803,6 +800,10 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsBeetlePCFX
 	case "mednafen_ngp":
 		return CoreOptionsBeetleNGP
+	case "mednafen_wswan":
+		return CoreOptionsBeetleWSwan
+	case "gearcoleco":
+		return CoreOptionsGearcoleco
 	}
 	return []CoreOption{}
 }
