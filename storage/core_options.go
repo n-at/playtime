@@ -732,6 +732,15 @@ var CoreOptionsBeetleNGP = []CoreOption{
 	{Id: "ngp_language", Name: "ngp_language", Variants: "english|japanese", Default: "english"},
 }
 
+var CoreOptionsBeetleWSwan = []CoreOption{
+	{Id: "wswan_frameskip_threshold", Name: "wswan_frameskip_threshold", Variants: "15|18|21|24|27|30|33|36|39|42|45|48|51|54|57|60", Default: "33"},
+	{Id: "wswan_sound_sample_rate", Name: "wswan_sound_sample_rate", Variants: "11025|22050|44100|48000", Default: "44100"},
+}
+
+var CoreOptionsGearcoleco = []CoreOption{
+	{Id: "gearcoleco_timing", Name: "gearcoleco_timing", Variants: "Auto|NTSC (60 Hz)|PAL (50 Hz)", Default: "Auto"},
+}
+
 func CoreOptionsByCore(core string) []CoreOption {
 	switch core {
 	case "fceumm":

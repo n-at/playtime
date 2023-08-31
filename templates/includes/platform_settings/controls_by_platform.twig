@@ -39,6 +39,10 @@
         {% include "controls/pce.twig" with control_template="controls/control.twig" %}
     {% elif platform_id == "ngp" %}
         {% include "controls/ngp.twig" with control_template="controls/control.twig" %}
+    {% elif platform_id == "ws" %}
+        {% include "controls/ws.twig" with control_template="controls/control.twig" %}
+    {% elif platform_id == "coleco" %}
+        {% include "controls/coleco.twig" with control_template="controls/control.twig" %}
     {% else %}
         {# a5200, mame2003, arcade #}
         {% include "controls/default.twig" with control_template="controls/control.twig" %}

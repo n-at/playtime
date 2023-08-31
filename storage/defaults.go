@@ -90,6 +90,8 @@ var (
 		"arcade",
 		"pce",
 		"ngp",
+		"ws",
+		"coleco",
 	}
 
 	Platforms = map[string]Platform{
@@ -205,8 +207,18 @@ var (
 		},
 		"ngp": {
 			Id:         "ngp",
-			Name:       "SNK Neo Geo Pocket",
+			Name:       "SNK Neo Geo Pocket (Color)",
 			Extensions: []string{"ngp", "ngc"},
+		},
+		"ws": {
+			Id:         "ws",
+			Name:       "Bandai WonderSwan (Color)",
+			Extensions: []string{"ws", "wsc"},
+		},
+		"coleco": {
+			Id:         "coleco",
+			Name:       "ColecoVision",
+			Extensions: []string{"col"},
 		},
 		"": {
 			Id:         "",
@@ -239,6 +251,8 @@ var (
 		"atari2600":  {"stella2014"},
 		"pce":        {"mednafen_pce"},
 		"ngp":        {"mednafen_ngp"},
+		"ws":         {"mednafen_wswan"},
+		"coleco":     {"gearcoleco"},
 	}
 
 	Bioses = map[string][]Bios{
@@ -562,6 +576,15 @@ var (
 			},
 		},
 		"ngp": {},
+		"ws":  {},
+		"coleco": {
+			Bios{
+				Name:        "colecovision.rom",
+				Url:         "/assets/bios/coleco/colecovision.rom",
+				Hash:        "2c66f5911e5b42b8ebe113403548eee7",
+				Description: "ColecoVision BIOS",
+			},
+		},
 	}
 
 	//Configuration reference: https://retropie.org.uk/docs/RetroArch-Configuration
@@ -801,6 +824,40 @@ var (
 		Down:  "arrowdown",
 		Left:  "arrowleft",
 		Right: "arrowright",
+	}
+
+	DefaultControlsWonderSwan = EmulatorControlsMapping{
+		A:      "z", //A
+		B:      "x", //B
+		Select: "v",
+		Start:  "enter",
+		Up:     "arrowup",   //X Cursor Up
+		Down:   "arrowdown", //X Cursor Down
+		Left:   "arrowleft", //X Cursor Left
+		Right:  "arowright", //X Cursor Right
+		R2:     "t",         //Y Cursor Up
+		L2:     "g",         //Y Cursor Down
+		L:      "f",         //Y Cursor Left
+		R:      "h",         //Y Cursor Right
+	}
+
+	DefaultControlsColecoVision = EmulatorControlsMapping{
+		A:      "z", //Left Button
+		B:      "x", //Right Button
+		Up:     "arrowup",
+		Down:   "arrowdown",
+		Left:   "arrowleft",
+		Right:  "arowright",
+		X:      "q", //1
+		Y:      "w", //2
+		R:      "e", //3
+		L:      "r", //4
+		R2:     "t", //5
+		L2:     "y", //6
+		R3:     "u", //7
+		L3:     "i", //8
+		Select: "o", //*
+		Start:  "p", //#
 	}
 
 	DefaultControlsOther = EmulatorControlsMapping{
@@ -1314,6 +1371,46 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Controls: [4]EmulatorControls{
 				{
 					Keyboard: DefaultControlsNeoGeoPocket,
+				},
+			},
+		}
+
+	case "ws":
+		return EmulatorSettings{
+			Core:              Cores["ws"][0],
+			Bios:              "",
+			ColorScheme:       DefaultColorScheme,
+			ColorBackground:   DefaultColorBackground,
+			CacheLimit:        DefaultCacheLimit,
+			Volume:            DefaultVolume,
+			FastForwardRatio:  DefaultFastForwardRatio,
+			SlowMotionRatio:   DefaultSlowMotionRatio,
+			RewindGranularity: DefaultRewindGranularity,
+			Shader:            Shaders[0].Value,
+			Buttons:           DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsWonderSwan,
+				},
+			},
+		}
+
+	case "coleco":
+		return EmulatorSettings{
+			Core:              Cores["coleco"][0],
+			Bios:              Bioses["coleco"][0].Name,
+			ColorScheme:       DefaultColorScheme,
+			ColorBackground:   DefaultColorBackground,
+			CacheLimit:        DefaultCacheLimit,
+			Volume:            DefaultVolume,
+			FastForwardRatio:  DefaultFastForwardRatio,
+			SlowMotionRatio:   DefaultSlowMotionRatio,
+			RewindGranularity: DefaultRewindGranularity,
+			Shader:            Shaders[0].Value,
+			Buttons:           DefaultButtons,
+			Controls: [4]EmulatorControls{
+				{
+					Keyboard: DefaultControlsColecoVision,
 				},
 			},
 		}
