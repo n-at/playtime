@@ -956,528 +956,208 @@ var (
 )
 
 func DefaultEmulatorSettings(systemType string) EmulatorSettings {
+	settings := EmulatorSettings{}
+	controls := EmulatorControlsMapping{}
+
 	switch systemType {
 
 	case "nes":
-		return EmulatorSettings{
-			Core:              Cores["nes"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsNes,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["nes"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsNes
 
 	case "snes":
-		return EmulatorSettings{
-			Core:              Cores["snes"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSnes,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["snes"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsSnes
 
 	case "gb":
-		return EmulatorSettings{
-			Core:              Cores["gb"][0],
-			Bios:              Bioses["gb"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsGb,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["gb"][0],
+			Bios: Bioses["gb"][0].Name,
 		}
+		controls = DefaultControlsGb
 
 	case "gba":
-		return EmulatorSettings{
-			Core:              Cores["gba"][0],
-			Bios:              Bioses["gba"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsGba,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["gba"][0],
+			Bios: Bioses["gba"][0].Name,
 		}
+		controls = DefaultControlsGba
 
 	case "vb":
-		return EmulatorSettings{
-			Core:              Cores["vb"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsVb,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["vb"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsVb
 
 	case "nds":
-		return EmulatorSettings{
-			Core:              Cores["nds"][0],
-			Bios:              Bioses["nds"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsNds,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["nds"][0],
+			Bios: Bioses["nds"][0].Name,
 		}
+		controls = DefaultControlsNds
 
 	case "a5200":
-		return EmulatorSettings{
-			Core:              Cores["a5200"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsOther,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["a5200"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsOther
 
 	case "mame2003":
-		return EmulatorSettings{
-			Core:              Cores["mame2003"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsOther,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["mame2003"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsOther
 
 	case "arcade":
-		return EmulatorSettings{
-			Core:              Cores["arcade"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsOther,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["arcade"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsOther
 
 	case "psx":
-		return EmulatorSettings{
-			Core:              Cores["psx"][0],
-			Bios:              Bioses["psx"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsOther,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["psx"][0],
+			Bios: Bioses["psx"][0].Name,
 		}
+		controls = DefaultControlsOther
 
 	case "jaguar":
-		return EmulatorSettings{
-			Core:              Cores["jaguar"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsJaguar,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["jaguar"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsJaguar
 
 	case "lynx":
-		return EmulatorSettings{
-			Core:              Cores["lynx"][0],
-			Bios:              Bioses["lynx"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsLynx,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["lynx"][0],
+			Bios: Bioses["lynx"][0].Name,
 		}
+		controls = DefaultControlsLynx
 
 	case "segaSaturn":
-		return EmulatorSettings{
-			Core:              Cores["segaSaturn"][0],
-			Bios:              Bioses["segaSaturn"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSegaSaturn,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["segaSaturn"][0],
+			Bios: Bioses["segaSaturn"][0].Name,
 		}
+		controls = DefaultControlsSegaSaturn
 
 	case "segaMS":
-		return EmulatorSettings{
-			Core:              Cores["segaMS"][0],
-			Bios:              Bioses["segaMS"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSegaMS,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["segaMS"][0],
+			Bios: Bioses["segaMS"][0].Name,
 		}
+		controls = DefaultControlsSegaMS
 
 	case "segaMD":
-		return EmulatorSettings{
-			Core:              Cores["segaMD"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSegaMD,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["segaMD"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsSegaMD
 
 	case "segaGG":
-		return EmulatorSettings{
-			Core:              Cores["segaGG"][0],
-			Bios:              Bioses["segaGG"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSegaGG,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["segaGG"][0],
+			Bios: Bioses["segaGG"][0].Name,
 		}
+		controls = DefaultControlsSegaGG
 
 	case "segaCD":
-		return EmulatorSettings{
-			Core:              Cores["segaCD"][0],
-			Bios:              Bioses["segaCD"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsSegaMD,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["segaCD"][0],
+			Bios: Bioses["segaCD"][0].Name,
 		}
+		controls = DefaultControlsSegaMD
 
 	case "n64":
-		return EmulatorSettings{
-			Core:              Cores["n64"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsN64,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["n64"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsN64
 
 	case "3do":
-		return EmulatorSettings{
-			Core:              Cores["3do"][0],
-			Bios:              Bioses["3do"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControls3do,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["3do"][0],
+			Bios: Bioses["3do"][0].Name,
 		}
+		controls = DefaultControls3do
 
 	case "atari7800":
-		return EmulatorSettings{
-			Core:              Cores["atari7800"][0],
-			Bios:              Bioses["atari7800"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsAtari7800,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["atari7800"][0],
+			Bios: Bioses["atari7800"][0].Name,
 		}
+		controls = DefaultControlsAtari7800
 
 	case "atari2600":
-		return EmulatorSettings{
-			Core:              Cores["atari2600"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsAtari2600,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["atari2600"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsAtari2600
 
 	case "pce":
-		return EmulatorSettings{
-			Core:              Cores["pce"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsPCEngine,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["pce"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsPCEngine
 
 	case "pcfx":
-		return EmulatorSettings{
-			Core:              Cores["pcfx"][0],
-			Bios:              Bioses["pcfx"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsPCFX,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["pcfx"][0],
+			Bios: Bioses["pcfx"][0].Name,
 		}
+		controls = DefaultControlsPCFX
 
 	case "ngp":
-		return EmulatorSettings{
-			Core:              Cores["ngp"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsNeoGeoPocket,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["ngp"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsNeoGeoPocket
 
 	case "ws":
-		return EmulatorSettings{
-			Core:              Cores["ws"][0],
-			Bios:              "",
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsWonderSwan,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["ws"][0],
+			Bios: "",
 		}
+		controls = DefaultControlsWonderSwan
 
 	case "coleco":
-		return EmulatorSettings{
-			Core:              Cores["coleco"][0],
-			Bios:              Bioses["coleco"][0].Name,
-			ColorScheme:       DefaultColorScheme,
-			ColorBackground:   DefaultColorBackground,
-			CacheLimit:        DefaultCacheLimit,
-			Volume:            DefaultVolume,
-			FastForwardRatio:  DefaultFastForwardRatio,
-			SlowMotionRatio:   DefaultSlowMotionRatio,
-			RewindGranularity: DefaultRewindGranularity,
-			Shader:            Shaders[0].Value,
-			Buttons:           DefaultButtons,
-			Controls: [4]EmulatorControls{
-				{
-					Keyboard: DefaultControlsColecoVision,
-				},
-			},
+		settings = EmulatorSettings{
+			Core: Cores["coleco"][0],
+			Bios: Bioses["coleco"][0].Name,
 		}
+		controls = DefaultControlsColecoVision
 	}
 
-	return EmulatorSettings{}
+	settings.ColorScheme = DefaultColorScheme
+	settings.ColorBackground = DefaultColorBackground
+	settings.CacheLimit = DefaultCacheLimit
+	settings.Volume = DefaultVolume
+	settings.FastForwardRatio = DefaultFastForwardRatio
+	settings.SlowMotionRatio = DefaultSlowMotionRatio
+	settings.RewindGranularity = DefaultRewindGranularity
+	settings.Shader = Shaders[0].Value
+	settings.Buttons = DefaultButtons
+	settings.Controls = [4]EmulatorControls{
+		{
+			Keyboard: controls,
+		},
+	}
+
+	return settings
 }
