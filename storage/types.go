@@ -34,6 +34,7 @@ type Game struct {
 	Platform                 string `boltholdIndex:"Platform"`
 	NetplayEnabled           bool
 	NetplaySessionId         string
+	DisableCue               bool
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
 }
@@ -74,7 +75,6 @@ type EmulatorSettings struct {
 	SlowMotionMode         bool
 	Rewind                 bool
 	Threads                bool
-	DisableCue             bool
 }
 
 type EmulatorControls struct {

@@ -133,6 +133,7 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	game := context.game
 	game.Name = c.FormValue("name")
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
+	game.DisableCue = c.FormValue("disable-cue") == "1"
 	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
 
 	newPlatform := c.FormValue("platform")

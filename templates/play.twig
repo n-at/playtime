@@ -72,7 +72,8 @@
     {% if emulator_settings.Threads %}
         EJS_threads = true;
     {% endif %}
-    {% if emulator_settings.DisableCue %}
+
+    {% if game.DisableCue %}
         EJS_disableCue = true;
     {% endif %}
 

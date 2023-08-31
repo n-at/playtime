@@ -13,6 +13,13 @@
     <label for="platform">Platform</label>
 </div>
 
+<div class="mb-3">
+    <div class="form-check form-switch">
+        <input type="checkbox" id="disable-cue" name="disable-cue" class="form-check-input" value="1" {% if game.DisableCue %}checked{% endif %}>
+        <label for="disable-cue">Disable .cue</label>
+    </div>
+</div>
+
 {% if netplay_enabled %}
     <div class="mb-3">
         <div class="form-check form-switch">

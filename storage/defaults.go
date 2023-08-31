@@ -1391,7 +1391,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			RewindGranularity: DefaultRewindGranularity,
 			Shader:            Shaders[0].Value,
 			Buttons:           DefaultButtons,
-			DisableCue:        true,
 			Controls: [4]EmulatorControls{
 				{
 					Keyboard: DefaultControlsPCEngine,
@@ -1412,7 +1411,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			RewindGranularity: DefaultRewindGranularity,
 			Shader:            Shaders[0].Value,
 			Buttons:           DefaultButtons,
-			DisableCue:        true,
 			Controls: [4]EmulatorControls{
 				{
 					Keyboard: DefaultControlsPCFX,
