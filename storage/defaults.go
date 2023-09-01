@@ -108,7 +108,7 @@ var (
 		},
 		"gb": {
 			Id:         "gb",
-			Name:       "Nintendo Game Boy",
+			Name:       "Nintendo Game Boy (Color)",
 			Extensions: []string{"gb", "gbc"},
 		},
 		"gba": {
