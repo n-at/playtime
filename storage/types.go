@@ -137,6 +137,33 @@ type EmulatorButtons struct {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+const (
+	GamepadControlB           = "BUTTON_2"
+	GamepadControlY           = "BUTTON_4"
+	GamepadControlSelect      = "SELECT"
+	GamepadControlStart       = "START"
+	GamepadControlUp          = "DPAD_UP"
+	GamepadControlDown        = "DPAD_DOWN"
+	GamepadControlLeft        = "DPAD_LEFT"
+	GamepadControlRight       = "DPAD_RIGHT"
+	GamepadControlA           = "BUTTON_1"
+	GamepadControlX           = "BUTTON_3"
+	GamepadControlL           = "LEFT_TOP_SHOULDER"
+	GamepadControlR           = "RIGHT_TOP_SHOULDER"
+	GamepadControlL2          = "LEFT_BOTTOM_SHOULDER"
+	GamepadControlR2          = "RIGHT_BOTTOM_SHOULDER"
+	GamepadControlL3          = "LEFT_STICK"
+	GamepadControlR3          = "RIGHT_STICK"
+	GamepadControlLStickUp    = "LEFT_STICK_Y:-1"
+	GamepadControlLStickDown  = "LEFT_STICK_Y:+1"
+	GamepadControlLStickLeft  = "LEFT_STICK_X:-1"
+	GamepadControlLStickRight = "LEFT_STICK_X:+1"
+	GamepadControlRStickUp    = "RIGHT_STICK_Y:-1"
+	GamepadControlRStickDown  = "RIGHT_STICK_Y:+1"
+	GamepadControlRStickLeft  = "RIGHT_STICK_X:-1"
+	GamepadControlRStickRight = "RIGHT_STICK_X:+1"
+)
+
 type Platform struct {
 	Id         string
 	Name       string

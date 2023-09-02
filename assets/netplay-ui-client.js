@@ -68,6 +68,25 @@
     // Controls
     ///////////////////////////////////////////////////////////////////////////
 
+    const ButtonLabels = {
+        0: 'BUTTON_1',
+        1: 'BUTTON_2',
+        2: 'BUTTON_3',
+        3: 'BUTTON_4',
+        4: 'LEFT_TOP_SHOULDER',
+        5: 'RIGHT_TOP_SHOULDER',
+        6: 'LEFT_BOTTOM_SHOULDER',
+        7: 'RIGHT_BOTTOM_SHOULDER',
+        8: 'SELECT',
+        9: 'START',
+        10: 'LEFT_STICK',
+        11: 'RIGHT_STICK',
+        12: 'DPAD_UP',
+        13: 'DPAD_DOWN',
+        14: 'DPAD_LEFT',
+        15: 'DPAD_RIGHT',
+    };
+
     let gamepadId = null;
     let gamepadPrevState = {};
 
@@ -134,7 +153,11 @@
         const pressedButtons = [];
         gamepad.buttons.forEach((button, buttonIdx) => {
             if (button.pressed) {
-                pressedButtons.push(buttonIdx.toString());
+                if (ButtonLabels[buttonIdx] !== undefined) {
+                    pressedButtons.push(ButtonLabels[buttonIdx]);
+                } else {
+                    pressedButtons.push(`GAMEPAD_${buttonIdx}`);
+                }
             }
         });
         gamepad.axes.forEach((axisValue, axisIdx) => {
@@ -146,7 +169,7 @@
             if (value === 0) {
                 return;
             }
-            pressedButtons.push(`${name}:${value}`);
+            pressedButtons.push(`${name}:${value < 0 ? '-1' : '+1'}`);
         });
 
         //map state
@@ -184,7 +207,7 @@
     // Control scheme
     ///////////////////////////////////////////////////////////////////////////
 
-    const controlSchemeMapping = {
+    const ControlSchemeMapping = {
         0: 'b',
         1: 'y',
         2: 'select',
@@ -238,7 +261,7 @@
 
     function saveControlScheme() {
         for (let buttonId in window.ControlScheme) {
-            const buttonName = controlSchemeMapping[buttonId];
+            const buttonName = ControlSchemeMapping[buttonId];
 
             const keyboardInput = document.querySelector(`input.keyboard[data-btn="${buttonName}"]`);
             if (keyboardInput) {
@@ -270,7 +293,7 @@
 
     function renderFormControls() {
         for (let buttonId in window.ControlScheme) {
-            const buttonName = controlSchemeMapping[buttonId];
+            const buttonName = ControlSchemeMapping[buttonId];
 
             const keyboardInput = document.querySelector(`input.keyboard[data-btn="${buttonName}"]`);
             if (keyboardInput) {

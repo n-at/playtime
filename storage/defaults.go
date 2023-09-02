@@ -616,322 +616,410 @@ var (
 
 	//Configuration reference: https://retropie.org.uk/docs/RetroArch-Configuration
 
-	DefaultControlsNes = EmulatorControlsMapping{
-		A:      "z",
-		B:      "x",
-		Select: "v",
-		Start:  "enter",
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsNes = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z",
+			B:      "x",
+			Select: "v",
+			Start:  "enter",
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsGb = EmulatorControlsMapping{
-		A:      "z",
-		B:      "x",
-		Select: "v",
-		Start:  "enter",
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsGb = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z",
+			B:      "x",
+			Select: "v",
+			Start:  "enter",
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsSnes = EmulatorControlsMapping{
-		A:      "z",
-		B:      "x",
-		X:      "a",
-		Y:      "s",
-		L:      "q",
-		R:      "w",
-		Select: "v",
-		Start:  "enter",
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsSnes = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z",
+			B:      "x",
+			X:      "a",
+			Y:      "s",
+			L:      "q",
+			R:      "w",
+			Select: "v",
+			Start:  "enter",
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsN64 = EmulatorControlsMapping{
-		A:               "z",
-		B:               "x",
-		Start:           "enter",
-		Up:              "arrowup",    //D-Pad Up
-		Down:            "arrowdown",  //D-Pad Down
-		Left:            "arrowleft",  //D-Pad Left
-		Right:           "arrowright", //D-Pad Right
-		L:               "q",
-		R:               "w",
-		LStickUp:        "t", //Stick up
-		LStickDown:      "g", //Stick Down
-		LStickLeft:      "f", //Stick Left
-		LStickRight:     "h", //Stick Right
-		RStickUp:        "i", //C-Pad Up
-		RStickDown:      "k", //C-Pad Down
-		RStickLeft:      "j", //C-Pad Left
-		RStickRight:     "l", //C-Pad Right
-		QuickSaveState:  "",
-		QuickLoadState:  "",
-		ChangeStateSlot: "",
+	DefaultControlsN64 = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:           "z",
+			B:           "x",
+			Start:       "enter",
+			Up:          "arrowup",    //D-Pad Up
+			Down:        "arrowdown",  //D-Pad Down
+			Left:        "arrowleft",  //D-Pad Left
+			Right:       "arrowright", //D-Pad Right
+			L:           "q",
+			R:           "w",
+			LStickUp:    "t", //Stick up
+			LStickDown:  "g", //Stick Down
+			LStickLeft:  "f", //Stick Left
+			LStickRight: "h", //Stick Right
+			RStickUp:    "i", //C-Pad Up
+			RStickDown:  "k", //C-Pad Down
+			RStickLeft:  "j", //C-Pad Left
+			RStickRight: "l", //C-Pad Right
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsGba = EmulatorControlsMapping{
-		A:      "z",
-		B:      "x",
-		L:      "a",
-		R:      "s",
-		Select: "v",
-		Start:  "enter",
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsGba = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z",
+			B:      "x",
+			L:      "a",
+			R:      "s",
+			Select: "v",
+			Start:  "enter",
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsNds = EmulatorControlsMapping{
-		A:      "z",
-		B:      "x",
-		X:      "a",
-		Y:      "s",
-		Select: "v",
-		Start:  "enter",
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
-		L:      "q",
-		R:      "w",
-		L3:     "", //Microphone
+	DefaultControlsNds = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z",
+			B:      "x",
+			X:      "a",
+			Y:      "s",
+			Select: "v",
+			Start:  "enter",
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+			L:      "q",
+			R:      "w",
+			L3:     "", //Microphone
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsVb = EmulatorControlsMapping{
-		A:               "z",
-		B:               "x",
-		L:               "q",
-		R:               "w",
-		Select:          "v",
-		Start:           "enter",
-		Up:              "arrowup",    //Left D-Pad Up
-		Down:            "arrowdown",  //Left D-Pad Down
-		Left:            "arrowleft",  //Left D-Pad Left
-		Right:           "arrowright", //Left D-Pad Right
-		LStickUp:        "t",          //Right D-Pad Up
-		LStickDown:      "g",          //Right D-Pad Down
-		LStickLeft:      "f",          //Right D-Pad Left
-		LStickRight:     "h",          //Right D-Pad Right
-		QuickSaveState:  "",
-		QuickLoadState:  "",
-		ChangeStateSlot: "",
+	DefaultControlsVb = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:           "z",
+			B:           "x",
+			L:           "q",
+			R:           "w",
+			Select:      "v",
+			Start:       "enter",
+			Up:          "arrowup",    //Left D-Pad Up
+			Down:        "arrowdown",  //Left D-Pad Down
+			Left:        "arrowleft",  //Left D-Pad Left
+			Right:       "arrowright", //Left D-Pad Right
+			LStickUp:    "t",          //Right D-Pad Up
+			LStickDown:  "g",          //Right D-Pad Down
+			LStickLeft:  "f",          //Right D-Pad Left
+			LStickRight: "h",          //Right D-Pad Right
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsSegaMS = EmulatorControlsMapping{
-		B:     "z", //BUTTON 1 / START
-		A:     "x", //BUTTON 2
-		Up:    "arrowup",
-		Down:  "arrowdown",
-		Left:  "arrowleft",
-		Right: "arrowright",
+	DefaultControlsSegaMS = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			B:     "z", //BUTTON 1 / START
+			A:     "x", //BUTTON 2
+			Up:    "arrowup",
+			Down:  "arrowdown",
+			Left:  "arrowleft",
+			Right: "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsSegaMD = EmulatorControlsMapping{
-		Y:      "z", //A
-		B:      "x", //B
-		A:      "c", //C
-		L:      "a", //X
-		X:      "s", //Y
-		R:      "d", //Z
-		Select: "v", //Mode
-		Start:  "enter",
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsSegaMD = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			Y:      "z", //A
+			B:      "x", //B
+			A:      "c", //C
+			L:      "a", //X
+			X:      "s", //Y
+			R:      "d", //Z
+			Select: "v", //Mode
+			Start:  "enter",
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsSegaGG = EmulatorControlsMapping{
-		B:     "z", //BUTTON 1
-		A:     "x", //BUTTON 2
-		Start: "enter",
-		Up:    "arrowup",
-		Down:  "arrowdown",
-		Left:  "arrowleft",
-		Right: "arrowright",
+	DefaultControlsSegaGG = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			B:     "z", //BUTTON 1
+			A:     "x", //BUTTON 2
+			Start: "enter",
+			Up:    "arrowup",
+			Down:  "arrowdown",
+			Left:  "arrowleft",
+			Right: "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsSegaSaturn = EmulatorControlsMapping{
-		Y:     "z", //A
-		B:     "x", //B
-		A:     "c", //C
-		X:     "a", //X
-		L:     "s", //Y
-		R:     "d", //Z
-		L2:    "q", //L
-		R2:    "w", //R
-		Start: "enter",
-		Up:    "arrowup",
-		Down:  "arrowdown",
-		Left:  "arrowleft",
-		Right: "arrowright",
+	DefaultControlsSegaSaturn = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			Y:     "z", //A
+			B:     "x", //B
+			A:     "c", //C
+			X:     "a", //X
+			L:     "s", //Y
+			R:     "d", //Z
+			L2:    "q", //L
+			R2:    "w", //R
+			Start: "enter",
+			Up:    "arrowup",
+			Down:  "arrowdown",
+			Left:  "arrowleft",
+			Right: "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControls3do = EmulatorControlsMapping{
-		Y:      "z",     //A
-		B:      "x",     //B
-		A:      "c",     //C
-		L:      "a",     //L
-		R:      "s",     //R
-		Select: "v",     //X
-		Start:  "enter", //P
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControls3do = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			Y:      "z",     //A
+			B:      "x",     //B
+			A:      "c",     //C
+			L:      "a",     //L
+			R:      "s",     //R
+			Select: "v",     //X
+			Start:  "enter", //P
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsAtari2600 = EmulatorControlsMapping{
-		B:      "x", //Fire
-		Select: "v", //Select
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsAtari2600 = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			B:      "x", //Fire
+			Select: "v", //Select
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsAtari7800 = EmulatorControlsMapping{
-		B:      "x", //Fire 1
-		A:      "z", //Fire 2
-		Select: "v", //Select
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsAtari7800 = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			B:      "x", //Fire 1
+			A:      "z", //Fire 2
+			Select: "v", //Select
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsLynx = EmulatorControlsMapping{
-		A:     "z",
-		B:     "x",
-		L:     "a", //Option 1
-		R:     "s", //Option 2
-		Start: "enter",
-		Up:    "arrowup",
-		Down:  "arrowdown",
-		Left:  "arrowleft",
-		Right: "arrowright",
+	DefaultControlsLynx = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:     "z",
+			B:     "x",
+			L:     "a", //Option 1
+			R:     "s", //Option 2
+			Start: "enter",
+			Up:    "arrowup",
+			Down:  "arrowdown",
+			Left:  "arrowleft",
+			Right: "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsJaguar = EmulatorControlsMapping{
-		A:      "z",     //A
-		B:      "x",     //B
-		Y:      "c",     //C
-		Select: "v",     //Pause
-		Start:  "enter", //Option
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsJaguar = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z",     //A
+			B:      "x",     //B
+			Y:      "c",     //C
+			Select: "v",     //Pause
+			Start:  "enter", //Option
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsPCEngine = EmulatorControlsMapping{
-		A:      "x",     //I
-		B:      "z",     //II
-		Select: "v",     //Select
-		Start:  "enter", //Run
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
+	DefaultControlsPCEngine = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "x",     //I
+			B:      "z",     //II
+			Select: "v",     //Select
+			Start:  "enter", //Run
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsNeoGeoPocket = EmulatorControlsMapping{
-		A:     "x",     //B
-		B:     "z",     //A
-		Start: "enter", //Option
-		Up:    "arrowup",
-		Down:  "arrowdown",
-		Left:  "arrowleft",
-		Right: "arrowright",
+	DefaultControlsNeoGeoPocket = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:     "x",     //B
+			B:     "z",     //A
+			Start: "enter", //Option
+			Up:    "arrowup",
+			Down:  "arrowdown",
+			Left:  "arrowleft",
+			Right: "arrowright",
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsWonderSwan = EmulatorControlsMapping{
-		A:      "z", //A
-		B:      "x", //B
-		Select: "v",
-		Start:  "enter",
-		Up:     "arrowup",    //X Cursor Up
-		Down:   "arrowdown",  //X Cursor Down
-		Left:   "arrowleft",  //X Cursor Left
-		Right:  "arrowright", //X Cursor Right
-		R2:     "t",          //Y Cursor Up
-		L2:     "g",          //Y Cursor Down
-		L:      "f",          //Y Cursor Left
-		R:      "h",          //Y Cursor Right
+	DefaultControlsWonderSwan = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z", //A
+			B:      "x", //B
+			Select: "v",
+			Start:  "enter",
+			Up:     "arrowup",    //X Cursor Up
+			Down:   "arrowdown",  //X Cursor Down
+			Left:   "arrowleft",  //X Cursor Left
+			Right:  "arrowright", //X Cursor Right
+			R2:     "t",          //Y Cursor Up
+			L2:     "g",          //Y Cursor Down
+			L:      "f",          //Y Cursor Left
+			R:      "h",          //Y Cursor Right
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsColecoVision = EmulatorControlsMapping{
-		A:      "z", //Left Button
-		B:      "x", //Right Button
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
-		X:      "q", //1
-		Y:      "w", //2
-		R:      "e", //3
-		L:      "r", //4
-		R2:     "t", //5
-		L2:     "y", //6
-		R3:     "u", //7
-		L3:     "i", //8
-		Select: "o", //*
-		Start:  "p", //#
+	DefaultControlsColecoVision = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "z", //Left Button
+			B:      "x", //Right Button
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+			X:      "q", //1
+			Y:      "w", //2
+			R:      "e", //3
+			L:      "r", //4
+			R2:     "t", //5
+			L2:     "y", //6
+			R3:     "u", //7
+			L3:     "i", //8
+			Select: "o", //*
+			Start:  "p", //#
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsPCFX = EmulatorControlsMapping{
-		A:      "c", //I
-		B:      "x", //II
-		X:      "z", //III
-		Y:      "d", //IV
-		L:      "s", //V
-		R:      "a", //VI
-		Select: "v",
-		Start:  "enter", //Run
-		Up:     "arrowup",
-		Down:   "arrowdown",
-		Left:   "arrowleft",
-		Right:  "arrowright",
-		L2:     "q", //Mode 1
-		R2:     "w", //Mode 2
+	DefaultControlsPCFX = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			A:      "c", //I
+			B:      "x", //II
+			X:      "z", //III
+			Y:      "d", //IV
+			L:      "s", //V
+			R:      "a", //VI
+			Select: "v",
+			Start:  "enter", //Run
+			Up:     "arrowup",
+			Down:   "arrowdown",
+			Left:   "arrowleft",
+			Right:  "arrowright",
+			L2:     "q", //Mode 1
+			R2:     "w", //Mode 2
+		},
+		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
-	DefaultControlsOther = EmulatorControlsMapping{
-		B:               "x",
-		Y:               "s",
-		Select:          "v",
-		Start:           "enter",
-		Up:              "arrowup",
-		Down:            "arrowdown",
-		Left:            "arrowleft",
-		Right:           "arrowright",
-		A:               "z",
-		X:               "a",
-		L:               "q",
-		R:               "w",
-		L2:              "e",
-		R2:              "r",
-		L3:              "",
-		R3:              "",
-		LStickUp:        "t",
-		LStickDown:      "g",
-		LStickLeft:      "f",
-		LStickRight:     "h",
-		RStickUp:        "i",
-		RStickDown:      "k",
-		RStickLeft:      "j",
-		RStickRight:     "l",
-		QuickSaveState:  "",
-		QuickLoadState:  "",
-		ChangeStateSlot: "",
+	DefaultControlsOther = EmulatorControls{
+		Keyboard: EmulatorControlsMapping{
+			B:               "x",
+			Y:               "s",
+			Select:          "v",
+			Start:           "enter",
+			Up:              "arrowup",
+			Down:            "arrowdown",
+			Left:            "arrowleft",
+			Right:           "arrowright",
+			A:               "z",
+			X:               "a",
+			L:               "q",
+			R:               "w",
+			L2:              "e",
+			R2:              "r",
+			L3:              "",
+			R3:              "",
+			LStickUp:        "t",
+			LStickDown:      "g",
+			LStickLeft:      "f",
+			LStickRight:     "h",
+			RStickUp:        "i",
+			RStickDown:      "k",
+			RStickLeft:      "j",
+			RStickRight:     "l",
+			QuickSaveState:  "",
+			QuickLoadState:  "",
+			ChangeStateSlot: "",
+		},
+		Gamepad: EmulatorControlsMapping{
+			B:               GamepadControlB,
+			Y:               GamepadControlY,
+			Select:          GamepadControlSelect,
+			Start:           GamepadControlStart,
+			Up:              GamepadControlUp,
+			Down:            GamepadControlDown,
+			Left:            GamepadControlLeft,
+			Right:           GamepadControlRight,
+			A:               GamepadControlA,
+			X:               GamepadControlX,
+			L:               GamepadControlL,
+			R:               GamepadControlR,
+			L2:              GamepadControlL2,
+			R2:              GamepadControlR2,
+			L3:              GamepadControlL3,
+			R3:              GamepadControlR3,
+			LStickUp:        GamepadControlLStickUp,
+			LStickDown:      GamepadControlLStickDown,
+			LStickLeft:      GamepadControlLStickLeft,
+			LStickRight:     GamepadControlLStickRight,
+			RStickUp:        GamepadControlRStickUp,
+			RStickDown:      GamepadControlRStickDown,
+			RStickLeft:      GamepadControlRStickLeft,
+			RStickRight:     GamepadControlRStickRight,
+			QuickSaveState:  "",
+			QuickLoadState:  "",
+			ChangeStateSlot: "",
+		},
 	}
 
 	DefaultButtons = EmulatorButtons{
@@ -957,7 +1045,7 @@ var (
 
 func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 	settings := EmulatorSettings{}
-	controls := EmulatorControlsMapping{}
+	controls := EmulatorControls{}
 
 	switch systemType {
 
@@ -1153,11 +1241,7 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 	settings.RewindGranularity = DefaultRewindGranularity
 	settings.Shader = Shaders[0].Value
 	settings.Buttons = DefaultButtons
-	settings.Controls = [4]EmulatorControls{
-		{
-			Keyboard: controls,
-		},
-	}
+	settings.Controls = [4]EmulatorControls{controls}
 
 	return settings
 }

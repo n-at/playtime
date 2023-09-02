@@ -1,5 +1,24 @@
 (() => {
 
+    const ButtonLabels = {
+        0: 'BUTTON_1',
+        1: 'BUTTON_2',
+        2: 'BUTTON_3',
+        3: 'BUTTON_4',
+        4: 'LEFT_TOP_SHOULDER',
+        5: 'RIGHT_TOP_SHOULDER',
+        6: 'LEFT_BOTTOM_SHOULDER',
+        7: 'RIGHT_BOTTOM_SHOULDER',
+        8: 'SELECT',
+        9: 'START',
+        10: 'LEFT_STICK',
+        11: 'RIGHT_STICK',
+        12: 'DPAD_UP',
+        13: 'DPAD_DOWN',
+        14: 'DPAD_LEFT',
+        15: 'DPAD_RIGHT',
+    };
+
     let modalKeyboard, modalGamepad;
 
     window.addEventListener('load', () => {
@@ -83,7 +102,11 @@
 
                 gamepad.buttons.forEach((button, buttonIdx) => {
                     if (button.pressed) {
-                        value = buttonIdx;
+                        if (ButtonLabels[buttonIdx] !== undefined) {
+                            value = ButtonLabels[buttonIdx];
+                        } else {
+                            value = `GAMEPAD_${buttonIdx}`;
+                        }
                         active = true;
                     }
                 });
@@ -99,7 +122,7 @@
                     }
 
                     active = true;
-                    value = `${axisName}:${Math.round(axisValue)}`;
+                    value = `${axisName}:${axisValue > 0 ? '+1' : '-1'}`;
                 });
 
                 if (active) {
