@@ -1,0 +1,19 @@
+version: "2"
+
+services:
+  playtime:
+    image: "playtime:latest"
+    container_name: "playtime"
+    volumes:
+      - "./data:/app/data"
+      - "./uploads:/app/uploads"
+    environment:
+      PLAYTIME_TURN_URL: "REPLACE_TURN_URL"
+      PLAYTIME_TURN_USER: "REPLACE_TURN_USER"
+      PLAYTIME_TURN_PASSWORD: "REPLACE_TURN_PASSWORD"
+    restart: always
+
+networks:
+  default:
+    external: true
+    name: "playtime_network"

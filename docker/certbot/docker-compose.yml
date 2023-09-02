@@ -1,0 +1,17 @@
+version: "2"
+
+services:
+  certbot:
+    image: "certbot/certbot:latest"
+    container_name: "certbot"
+    volumes:
+      - "./etc:/etc/letsencrypt"
+      - "./var:/var/lib/letsencrypt"
+      - "./log:/var/log/letsencrypt"
+      - "./webroot:/webroot"
+    command: "certonly -n --webroot -w /webroot --register-unsafely-without-email --agree-tos -d REPLACE_DOMAIN"
+
+networks:
+  default:
+    external: true
+    name: "playtime_network"

@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+  coturn:
+    image: "coturn/coturn:4-debian"
+    container_name: "coturn"
+    volumes:
+      - "./data:/var/lib/coturn"
+      - "./db:/opt/coturn/db"
+      - "./log:/opt/coturn/log"
+      - "./turnserver.conf:/etc/coturn/turnserver.conf:ro"
+      - "../certbot/etc:/etc/letsencrypt:ro"
+    network_mode: "host"
+    restart: always
