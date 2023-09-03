@@ -122,7 +122,9 @@ func (s *Storage) UserEnsureExists() error {
 		Active:   true,
 	}
 
-	_, err = s.UserSave(u)
+	if _, err = s.UserSave(u); err != nil {
+		return err
+	}
 
 	log.Infof(">>> ================================================")
 	log.Infof(">>> created default admin user: login=%s password=%s", u.Login, password)
@@ -144,7 +146,7 @@ func (s *Storage) UserEnsureExists() error {
 		return nil
 	}
 
-	return err
+	return nil
 }
 
 func userSorted(users []User) []User {
