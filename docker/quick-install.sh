@@ -24,23 +24,18 @@ fi
 
 echo ">>>>>>>>>> INSTALL DOCKER <<<<<<<<<<"
 
+apt-get update
+apt-get install -yq git openssl
+
 if ! command -v docker &> /dev/null; then
-  apt-get update
   apt-get install -yq docker.io docker-compose
-else
-  echo "docker is already installed"
 fi
 
 if [ -z "$(docker network ls | grep playtime_network)" ]; then
   docker network create playtime_network
-else
-  echo "docker network is already exists"
 fi
 
 echo ">>>>>>>>>> BUILD PLAYTIME IMAGE <<<<<<<<<<"
-
-apt-get update
-apt-get install -yq git openssl
 
 if [ ! -d build ]; then
   git clone "https://github.com/n-at/playtime" "build"
