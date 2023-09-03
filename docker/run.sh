@@ -23,15 +23,15 @@ fi
 #TURN
 
 if [ -n "${PLAYTIME_TURN_URL}" ]; then
-  PLAYTIME_ARGS="${PLAYTIME_ARGS} -turn-server-url \"${PLAYTIME_TURN_URL}\""
+  PLAYTIME_ARGS="${PLAYTIME_ARGS} -turn-server-url ${PLAYTIME_TURN_URL}"
 fi
 
 if [ -n "${PLAYTIME_TURN_USER}" ]; then
-  PLAYTIME_ARGS="${PLAYTIME_ARGS}  -turn-server-user \"${PLAYTIME_TURN_USER}\""
+  PLAYTIME_ARGS="${PLAYTIME_ARGS}  -turn-server-user ${PLAYTIME_TURN_USER}"
 fi
 
 if [ -n "${PLAYTIME_TURN_PASSWORD}" ]; then
-  PLAYTIME_ARGS="${PLAYTIME_ARGS}  -turn-server-password \"${PLAYTIME_TURN_PASSWORD}\""
+  PLAYTIME_ARGS="${PLAYTIME_ARGS}  -turn-server-password ${PLAYTIME_TURN_PASSWORD}"
 fi
 
 #

@@ -107,3 +107,4 @@ cd router
 cp "../build/docker/router/playtime.conf" "conf/vhost.conf"
 sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" "conf/vhost.conf"
 docker-compose up -d --force-recreate
+cd ..
