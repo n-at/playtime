@@ -14,16 +14,17 @@ For example domain is `playtime.example.com` and IP is `10.10.10.10`.
 Ensure `A` record is correct:
 
 ```bash
-$ dig +short playtime.example.com
-10.10.10.10
+dig +short playtime.example.com
+#should output correct IP address
 ```
 
 On the server, execute:
 
 ```bash
-$ mkdir playtime && cd playtime
-$ wget "https://github.com/n-at/playtime/raw/master/docker/quick-install.sh"
-$ ./quick-install.sh "10.10.10.10" "playtime.example.com"
+mkdir playtime && cd playtime
+wget "https://github.com/n-at/playtime/raw/master/docker/quick-install.sh"
+chmod +x quick-install.sh
+./quick-install.sh "10.10.10.10" "playtime.example.com"
 ```
 
 This script will:
@@ -40,8 +41,8 @@ This script will:
 Go 1.21+ and npm 7+ required.
 
 ```bash
-$ ./install.sh
-$ go build -a -o app
+./install.sh
+go build -a -o app
 ```
 
 ## Configuration

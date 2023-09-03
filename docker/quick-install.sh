@@ -42,7 +42,7 @@ echo ">>>>>>>>>> BUILD PLAYTIME IMAGE <<<<<<<<<<"
 apt-get update
 apt-get install -yq git openssl
 
-if [ ! -x build ]; then
+if [ ! -d build ]; then
   git clone "https://github.com/n-at/playtime" "build"
 fi
 cd build
@@ -55,8 +55,11 @@ mkdir -m 0777 certbot certbot/etc certbot/log certbot/var certbot/webroot
 cd certbot
 cp "../build/docker/certbot/docker-compose.yml" .
 sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" docker-compose.yml
-openssl dhparam -out "etc/dhparam.pem" 2048
 cd ..
+
+if [ ! -f "certbot/etc/dhparam.pem" ]; then
+  openssl dhparam -out "certbot/etc/dhparam.pem" 2048
+fi
 
 mkdir -m 0777 router router/logs router/conf
 cd router
