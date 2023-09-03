@@ -15,7 +15,6 @@
         SignallingIceCandidate: 'signalling-ice-candidate',
         DCInput: 'input',
         DCHeartbeat: 'heartbeat',
-        DCPlayer: 'player',
     };
 
     const ClientErrorType = {
@@ -1038,10 +1037,6 @@
             case MessageType.DCHeartbeat:
                 break;
 
-            case MessageType.DCPlayer:
-                wsSend(this, _messagePlayerChange(destinationClientId, message.player));
-                break;
-
             default:
                 console.log('Unknown control message type', message.type, message);
         }
@@ -1251,18 +1246,6 @@
             code: inputCode,
             value: inputValue,
         }
-    }
-
-    /**
-     * @param {number} player
-     * @returns {{type: string, player}}
-     * @private
-     */
-    function _messageDCPlayer(player) {
-        return {
-            type: MessageType.DCPlayer,
-            player: player,
-        };
     }
 
 })();
