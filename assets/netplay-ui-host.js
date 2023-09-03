@@ -49,7 +49,7 @@
     function wsGreeting() {
         const netplayName = netplay.getName();
         const savedName = window.NetplayLoadClientName(netplayName);
-        if (netplayName !== savedName) {
+        if (savedName && netplayName !== savedName) {
             netplay.setName(savedName);
         }
 

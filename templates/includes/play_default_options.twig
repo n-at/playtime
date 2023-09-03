@@ -24,11 +24,21 @@
         const netplayControls = window.localStorage.playtimeNetplayControls;
         const netplayVirtualGamepad = window.localStorage.playtimeNetplayVirtualGamepad;
         window.localStorage.clear();
-        window.localStorage.__dark_theme = darkTheme;
-        window.localStorage.playtimeNetplayName = netplayName;
-        window.localStorage.playtimeNetplayPlayer = netplayPlayer;
-        window.localStorage.playtimeNetplayControls = netplayControls;
-        window.localStorage.playtimeNetplayVirtualGamepad = netplayVirtualGamepad;
+        if (darkTheme) {
+            window.localStorage.__dark_theme = darkTheme;
+        }
+        if (netplayName) {
+            window.localStorage.playtimeNetplayName = netplayName;
+        }
+        if (netplayPlayer) {
+            window.localStorage.playtimeNetplayPlayer = netplayPlayer;
+        }
+        if (netplayControls) {
+            window.localStorage.playtimeNetplayControls = netplayControls;
+        }
+        if (netplayVirtualGamepad) {
+            window.localStorage.playtimeNetplayVirtualGamepad = netplayVirtualGamepad;
+        }
 
         const coreSettings = {
             settings: {
