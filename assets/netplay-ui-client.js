@@ -10,10 +10,6 @@
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
         document.getElementById('netplay-play').addEventListener('click', play);
 
-        window.addEventListener('keydown', controlsButtonDown);
-        window.addEventListener('keyup', controlsButtonUp);
-        setInterval(controlsPollGamepad, 1000 / 60);
-
         if (fullscreenEnabled()) {
             const fullscreenButton = document.getElementById('netplay-fullscreen');
             fullscreenButton.addEventListener('click', fullscreen);
@@ -24,6 +20,13 @@
         gameEl.addEventListener('play', () => playScreen(false));
         gameEl.addEventListener('pause', () => playScreen(true));
         gameEl.disablePictureInPicture = true;
+
+        const gameOverlayEl = document.getElementById('game-overlay');
+        gameOverlayEl.addEventListener('keydown', controlsButtonDown);
+        gameOverlayEl.addEventListener('keyup', controlsButtonUp);
+        setInterval(controlsPollGamepad, 1000 / 60);
+
+        gameOverlayEl.focus();
 
         loadControlScheme();
         virtualGamepadInit();

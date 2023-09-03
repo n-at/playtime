@@ -15,6 +15,17 @@ body {
     right: 0;
     background-color: #000;
 }
+#game-overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+}
+#game-overlay:focus {
+    outline: none;
+}
 #game {
     display: block;
     margin: 0;
