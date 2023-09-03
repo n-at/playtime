@@ -29,9 +29,9 @@ $ ./quick-install.sh "10.10.10.10" "playtime.example.com"
 This script will:
 
 1. Install docker (if it is not installed)
-2. Run [coturn](https://github.com/coturn/coturn)
+2. Run [coturn](https://github.com/coturn/coturn), a TURN/STUN/ICE server
 3. Get SSL certificate from [Let's Encrypt](https://letsencrypt.org/)
-4. Run playtime
+4. Build and run playtime
 
 `admin` password will be in `playtime/data/admin.password` file.
 
