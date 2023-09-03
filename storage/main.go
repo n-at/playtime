@@ -4,7 +4,10 @@ import (
 	"errors"
 	log "github.com/sirupsen/logrus"
 	"github.com/timshannon/bolthold"
+	"os"
+	"path"
 	"sort"
+	"strings"
 	"time"
 )
 
@@ -124,6 +127,22 @@ func (s *Storage) UserEnsureExists() error {
 	log.Infof(">>> ================================================")
 	log.Infof(">>> created default admin user: login=%s password=%s", u.Login, password)
 	log.Infof(">>> ================================================")
+
+	parts := strings.Split(s.config.DatabasePath, string(os.PathSeparator))
+	parts[len(parts)-1] = "admin.password"
+	f, err := os.OpenFile(path.Join(parts...), os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Errorf("unable to open admin.password file: %s", err)
+		return nil
+	}
+	if _, err := f.WriteString(password); err != nil {
+		log.Errorf("unable to write to admin.password file: %s", err)
+		return nil
+	}
+	if err := f.Close(); err != nil {
+		log.Errorf("unable to close admin.password file: %s", err)
+		return nil
+	}
 
 	return err
 }

@@ -3,7 +3,7 @@ version: "2"
 services:
   coturn:
     image: "coturn/coturn:4-debian"
-    container_name: "coturn"
+    container_name: "playtime-coturn"
     volumes:
       - "./data:/var/lib/coturn"
       - "./db:/opt/coturn/db"

@@ -2,13 +2,46 @@
 
 Personal retro games library + [EmulatorJS](https://emulatorjs.org/).
 
+## Quick installation with script
+
+Prerequisites:
+
+* A server with public IP address (for example, basic droplet on DO) running Ubuntu 22.04
+* A domain with `A` record with IP address of the server
+
+For example domain is `playtime.example.com` and IP is `10.10.10.10`.
+
+Ensure `A` record is correct:
+
+```bash
+$ dig +short playtime.example.com
+10.10.10.10
+```
+
+On the server, execute:
+
+```bash
+$ mkdir playtime && cd playtime
+$ wget "https://github.com/n-at/playtime/raw/master/docker/quick-install.sh"
+$ ./quick-install.sh "10.10.10.10" "playtime.example.com"
+```
+
+This script will:
+
+1. Install docker (if it is not installed)
+2. Run [coturn](https://github.com/coturn/coturn)
+3. Get SSL certificate from [Let's Encrypt](https://letsencrypt.org/)
+4. Run playtime
+
+`admin` password will be in `playtime/data/admin.password` file.
+
 ## Building
 
 Go 1.21+ and npm 7+ required.
 
 ```bash
-./install.sh
-go build -a -o app
+$ ./install.sh
+$ go build -a -o app
 ```
 
 ## Configuration
@@ -47,6 +80,8 @@ TURN server is required for netplay. It can be obtained from:
 * [This list](https://gist.github.com/sagivo/3a4b2f2c7ac6e1b5267c2f1f59ac6c6b)
 * [Open Relay](https://www.metered.ca/tools/openrelay/)
 * Hosted, for example [coturn](https://github.com/coturn/coturn)
+
+For a particular game netplay needs to be enabled in game settings.
 
 ## Uses
 

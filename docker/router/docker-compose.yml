@@ -16,5 +16,5 @@ services:
 
 networks:
   default:
-    external: true
-    name: "playtime_network"
+    external:
+      name: "playtime_network"
