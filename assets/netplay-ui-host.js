@@ -8,12 +8,14 @@
         document.getElementById('netplay-name-change').addEventListener('click', changeSelfName);
 
         _renderJoinQR();
+
+        setInterval(clientCollectStats, 1000);
     });
 
     window.EJS_onGameStart = () => {
         netplay = NetplayClient({
             debug: window.NetplayDebug,
-            gameCanvasEl: document.querySelector('#game canvas'),
+            gameCanvasEl: document.querySelector(`${EJS_player} canvas`),
             gameId: NetplayGameId,
             sessionId: NetplaySessionId,
             host: true,
@@ -37,9 +39,7 @@
             onRTCReconnecting: rtcReconnecting,
             onRTCControlChannelReconnecting: rtcControlReconnecting,
         });
-        netplay.connect();
-
-        setInterval(clientCollectStats, 1000);
+        setTimeout(() => netplay.connect(), 1500);
     };
 
     ///////////////////////////////////////////////////////////////////////////
@@ -160,6 +160,9 @@
     }
 
     function clientCollectStats() {
+        if (!netplay) {
+            return;
+        }
         netplay
             .getClients()
             .forEach(client => {
