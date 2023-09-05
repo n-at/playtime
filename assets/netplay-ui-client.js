@@ -521,7 +521,7 @@
             {region: 'center', top: 105, left:  -15, input: 2, id:'mode',  text: 'mode',  cls: 'btn-outline-secondary', small: true},
             {region: 'center', top: 105, right: -15, input: 3, id:'start', text: 'start', cls: 'btn-outline-secondary', small: true},
 
-            {region: 'right', top: 75,   left: -80, input: 9,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
+            {region: 'right', top: 75,   left: -80, input: 1,  id:'a', text: 'A', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: 75,   left: -15, input: 0,  id:'b', text: 'B', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: 75,   left: 50,  input: 8,  id:'c', text: 'C', cls: 'btn-outline-secondary', circle: true},
             {region: 'right', top: -10,  left: -80, input: 10, id:'x', text: 'X', cls: 'btn-outline-secondary', circle: true},
