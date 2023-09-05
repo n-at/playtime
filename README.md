@@ -74,6 +74,31 @@ Usage of ./app:
         show debug output
 ```
 
+## docker
+
+Build an image:
+
+```bash
+docker image build -t playtime:latest .
+```
+
+Available image environment variables:
+
+* `PLAYTIME_TURN_URL`
+* `PLAYTIME_TURN_USER`
+* `PLAYTIME_TURN_PASSWORD`
+* `PLAYTIME_DEBUG_EMULATOR`
+* `PLAYTIME_DEBUG_TEMPLATES`
+* `PLAYTIME_DEBUG_NETPLAY`
+* `PLAYTIME_VERBOSE`
+
+Exposed volumes:
+
+* `/app/data` - database directory
+* `/app/uploads` - uploads directory
+
+Exposed default port `3000`.
+
 ## Netplay
 
 TURN server is required for netplay. It can be obtained from:
