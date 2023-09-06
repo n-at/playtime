@@ -49,7 +49,7 @@
      */
     window.ShowToastMessage = function(cls, text, delay = 1000) {
         const el = document.createElement('div');
-        el.classList.add('toast', 'align-items-center', 'border-0', `text-bg-${cls}`);
+        el.classList.add('toast', 'align-items-center', 'border-0', 'opacity-50', `text-bg-${cls}`);
         el.role = 'alert';
 
         const flexEl = document.createElement('div');
@@ -57,7 +57,7 @@
         el.append(flexEl);
 
         const bodyEl = document.createElement('div');
-        bodyEl.classList.add('toast-body');
+        bodyEl.classList.add('toast-body', 'p-2');
         bodyEl.innerText = text;
         flexEl.append(bodyEl);
 
