@@ -22,7 +22,7 @@
         const netplayName = window.localStorage.playtimeNetplayName;
         const netplayPlayer = window.localStorage.playtimeNetplayPlayer;
         const netplayControls = window.localStorage.playtimeNetplayControls;
-        const netplayVirtualGamepad = window.localStorage.playtimeNetplayVirtualGamepad;
+        const virtualGamepad = window.localStorage.playtimeVirtualGamepad;
         window.localStorage.clear();
         if (darkTheme) {
             window.localStorage.__dark_theme = darkTheme;
@@ -36,8 +36,8 @@
         if (netplayControls) {
             window.localStorage.playtimeNetplayControls = netplayControls;
         }
-        if (netplayVirtualGamepad) {
-            window.localStorage.playtimeNetplayVirtualGamepad = netplayVirtualGamepad;
+        if (virtualGamepad) {
+            window.localStorage.playtimeVirtualGamepad = virtualGamepad;
         }
 
         const coreSettings = {
