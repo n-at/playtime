@@ -26,6 +26,15 @@
 
     function virtualGamepadShow() {
         EJS_emulator.toggleVirtualGamepad(virtualGamepadVisible);
+
+        const btn = document.getElementById('play-virtual-gamepad-toggle');
+        if (virtualGamepadVisible) {
+            btn.classList.remove('btn-outline-secondary');
+            btn.classList.add('btn-outline-success');
+        } else {
+            btn.classList.remove('btn-outline-success');
+            btn.classList.add('btn-outline-secondary');
+        }
     }
 
 })();

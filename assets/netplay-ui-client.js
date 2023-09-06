@@ -822,6 +822,15 @@
         } else {
             virtualGamepadContainer.classList.add('d-none');
         }
+
+        const btn = document.getElementById('netplay-virtual-gamepad-toggle');
+        if (virtualGamepadVisible) {
+            btn.classList.remove('btn-outline-secondary');
+            btn.classList.add('btn-outline-success');
+        } else {
+            btn.classList.remove('btn-outline-success');
+            btn.classList.add('btn-outline-secondary');
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
