@@ -49,7 +49,7 @@
      */
     window.ShowToastMessage = function(cls, text, delay = 1000) {
         const el = document.createElement('div');
-        el.classList.add('toast', 'align-items-center', 'border-0', 'opacity-50', `text-bg-${cls}`);
+        el.classList.add('toast', 'align-items-center', 'border-0', 'opacity-50', 'mb-1', `text-bg-${cls}`);
         el.role = 'alert';
 
         const flexEl = document.createElement('div');
@@ -69,7 +69,7 @@
         flexEl.append(btnEl);
 
         if (!delay) {
-            delay = 1000;
+            delay = 10000;
         }
 
         document.getElementById('notifications').append(el);
