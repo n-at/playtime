@@ -20,6 +20,10 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     font-size: 1.2em;
 }
+body {
+    font-family: Raleway, Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
 
 /*****************************************************************************/
 

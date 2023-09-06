@@ -13,19 +13,19 @@
     <h1>Games</h1>
     <hr>
 
-    <p>
-        <button id="btn-upload" type="button" class="btn btn-outline-success">
-            <i class="bi bi-plus-circle"></i> Upload games
-        </button>
-    </p>
-
     {% if games_by_platform %}
-        <div class="input-group mb-3">
-            <span class="input-group-text">
-                <i class="bi bi-search"></i>
-            </span>
-            <input type="text" class="form-control" id="games-search" placeholder="Search games" aria-label="Search games">
+        <div class="mb-5 d-flex">
+            <button id="btn-upload" type="button" class="btn btn-outline-success me-3" style="min-width: 120px">
+                <i class="bi bi-plus-circle"></i> Upload
+            </button>
+            <div class="input-group">
+                <span class="input-group-text" title="Filter">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" class="form-control" id="games-search" placeholder="" aria-label="Filter">
+            </div>
         </div>
+
         <div id="games-not-found" class="d-none">
             {% include "includes/empty_state.twig" with icon="bi bi-search" text="No games found" %}
         </div>
@@ -33,7 +33,7 @@
         {% for item in games_by_platform %}
             <div class="game-list-platform">
                 <h3>{{ item.Platform.Name }}</h3>
-                <div class="list-group list-group-hover mb-3">
+                <div class="list-group list-group-hover mb-5">
                     {% for game in item.Games %}
                         <div class="game list-group-item">
                             <div class="row">

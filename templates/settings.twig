@@ -8,10 +8,16 @@
     <h1>Settings</h1>
     <hr>
 
+    {% if netplay_enabled %}
+        <div class="alert alert-info mb-3">
+            <i class="bi bi-globe"></i> Netplay enabled. Activate netplay in the game properties to play
+        </div>
+    {% endif %}
+
     <h2>General</h2>
 
     {% if done %}
-        <p class="alert alert-success">Settings saved</p>
+        <div class="alert alert-success mb-3">Settings saved</div>
     {% endif %}
 
     <form action="/settings" method="post" enctype="application/x-www-form-urlencoded">
