@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en" data-bs-theme="">
 <head>
-    {% include "layout_head.twig" %}
+    {% include "../includes/layout_head.twig" %}
     {% block assets %}{% endblock %}
     <title>{% block title %}PAGE_TITLE{% endblock %}</title>
 </head>
 <body>
 
-{% include "navbar.twig" %}
+{% include "../includes/navbar.twig" %}
 
 <div class="container">
     {% if page_error %}
@@ -17,8 +17,7 @@
         </div>
     {% endif %}
 
-    {% block content %}
-    {% endblock %}
+    {% block content %}{% endblock %}
 </div>
 
 <script src="/assets/theme.js"></script>

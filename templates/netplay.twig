@@ -1,97 +1,97 @@
-<!doctype html>
-<html lang="en" data-bs-theme="dark">
-<head>
-    {% include "includes/layout_head.twig" %}
+{% extends "layouts/layout_play.twig" %}
+
+{% block title %}
+    Netplay {{ game.Name }} - playtime
+{% endblock %}
+
+{% block assets %}
     <link rel="stylesheet" href="/assets/css/netplay.css">
-    <title>Netplay {{ game.Name }} - playtime</title>
-</head>
-<body>
+{% endblock %}
 
-<div id="header" class="container-fluid">
-    <div class="row mt-2">
-        <div class="col-6 col-md-8">
-            {% if user %}
-                <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
-                    <i class="bi bi-chevron-left"></i>
-                </a>
-            {% endif %}
-            <span id="netplay-player" class="lead d-inline-block text-truncate">
-                Player: spectator
-            </span>
+{% block content %}
+    <div id="header" class="container-fluid">
+        <div class="row mt-2">
+            <div class="col-6 col-md-8">
+                {% if user %}
+                    <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                {% endif %}
+                <span id="netplay-player" class="lead d-inline-block text-truncate">
+                    Player: spectator
+                </span>
+            </div>
+            <div class="col-6 col-md-4 text-end">
+                <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+                    <i class="bi bi-globe"></i>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                    <i class="bi bi-controller"></i>
+                </button>
+                <button id="netplay-fullscreen" type="button" class="btn btn-sm btn-outline-secondary d-none" title="Fullscreen">
+                    <i class="bi bi-fullscreen"></i>
+                </button>
+            </div>
         </div>
-        <div class="col-6 col-md-4 text-end">
-            <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+    </div>
+
+    <div id="game-container">
+        <div id="game-overlay" tabindex="0"></div>
+        <video id="game" disablepictureinpicture autoplay playsinline></video>
+
+        <div id="notifications" class="toast-container position-fixed p-3"></div>
+
+        <div id="connection-screen" class="d-none">
+            <div class="connection-screen-content">
                 <i class="bi bi-globe"></i>
-            </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
-                <i class="bi bi-controller"></i>
-            </button>
-            <button id="netplay-fullscreen" type="button" class="btn btn-sm btn-outline-secondary d-none" title="Fullscreen">
-                <i class="bi bi-fullscreen"></i>
-            </button>
-        </div>
-    </div>
-</div>
-
-<div id="game-container">
-    <div id="game-overlay" tabindex="0"></div>
-    <video id="game" disablepictureinpicture autoplay playsinline></video>
-
-    <div id="notifications" class="toast-container position-fixed p-3"></div>
-
-    <div id="connection-screen" class="d-none">
-        <div class="connection-screen-content">
-            <i class="bi bi-globe"></i>
-            <h5 id="connection-screen-status">Connecting to server</h5>
-        </div>
-    </div>
-
-    <div id="play-screen" class="d-none">
-        <div class="play-screen-content">
-            <button type="button" class="btn btn-lg btn-outline-primary" id="netplay-play">
-                <i class="bi bi-play-fill"></i> Start
-            </button>
-        </div>
-    </div>
-
-    <div id="error-screen" class="d-none">
-        <div class="error-screen-content">
-            <i class="bi bi-plug"></i>
-            <h5>Connection lost</h5>
-            <h5>Try to refresh page</h5>
-        </div>
-    </div>
-
-    <div id="virtual-gamepad" class="d-none">
-        <div class="row">
-            <div class="col-4 text-start">
-                <div class="virtual-gamepad-area virtual-gamepad-area-left"></div>
+                <h5 id="connection-screen-status">Connecting to server</h5>
             </div>
-            <div class="col-4 text-center">
-                <div class="virtual-gamepad-area virtual-gamepad-area-center"></div>
+        </div>
+
+        <div id="play-screen" class="d-none">
+            <div class="play-screen-content">
+                <button type="button" class="btn btn-lg btn-outline-primary" id="netplay-play">
+                    <i class="bi bi-play-fill"></i> Start
+                </button>
             </div>
-            <div class="col-4 text-end">
-                <div class="virtual-gamepad-area virtual-gamepad-area-right"></div>
+        </div>
+
+        <div id="error-screen" class="d-none">
+            <div class="error-screen-content">
+                <i class="bi bi-plug"></i>
+                <h5>Connection lost</h5>
+                <h5>Try to refresh page</h5>
+            </div>
+        </div>
+
+        <div id="virtual-gamepad" class="d-none">
+            <div class="row">
+                <div class="col-4 text-start">
+                    <div class="virtual-gamepad-area virtual-gamepad-area-left"></div>
+                </div>
+                <div class="col-4 text-center">
+                    <div class="virtual-gamepad-area virtual-gamepad-area-center"></div>
+                </div>
+                <div class="col-4 text-end">
+                    <div class="virtual-gamepad-area virtual-gamepad-area-right"></div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
-    window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
-    window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
-    window.NetplayDebug = {{ netplay_debug | lower }};
-    window.NetplayGameId = '{{ game.Id }}';
-    window.NetplaySessionId = '{{ game.NetplaySessionId }}';
-    window.GamePlatform = '{{ game.Platform }}';
-</script>
-<script src="/assets/ui-utils.js"></script>
-<script src="/assets/netplay.js"></script>
-<script src="/assets/netplay-ui-client.js"></script>
+    <script>
+        window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
+        window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
+        window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
+        window.NetplayDebug = {{ netplay_debug | lower }};
+        window.NetplayGameId = '{{ game.Id }}';
+        window.NetplaySessionId = '{{ game.NetplaySessionId }}';
+        window.GamePlatform = '{{ game.Platform }}';
+    </script>
+    <script src="/assets/ui-utils.js"></script>
+    <script src="/assets/netplay.js"></script>
+    <script src="/assets/netplay-ui-client.js"></script>
 
-{% include "includes/netplay_control_scheme.twig" %}
-{% include "includes/netplay_netplay.twig" %}
-
-</body>
-</html>
+    {% include "includes/netplay_control_scheme.twig" %}
+    {% include "includes/netplay_netplay.twig" %}
+{% endblock %}

@@ -1,114 +1,114 @@
-<!doctype html>
-<html lang="en" data-bs-theme="dark">
-<head>
-    {% include "includes/layout_head.twig" %}
-    <link rel="stylesheet" href="/assets/css/play.css">
-    <title>Play {{ game.Name }} - playtime</title>
-</head>
-<body>
+{% extends "layouts/layout_play.twig" %}
 
-<div id="header" class="container-fluid">
-    <div class="row mt-2">
-        <div class="col-6">
-            <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
-                <i class="bi bi-chevron-left"></i>
-            </a>
-            <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary ms-3" title="Save game state">
-                <i class="bi bi-box-arrow-down"></i>
-            </button>
-            <button type="button" id="btn-load-state-latest" class="btn btn-sm btn-outline-secondary" title="Load latest game state">
-                <i class="bi bi-box-arrow-up"></i>
-            </button>
-            <button type="button" id="btn-load-state" class="btn btn-sm btn-outline-secondary" title="Load game state">
-                <i class="bi bi-folder2-open"></i>
-            </button>
-        </div>
-        <div class="col-6 text-end">
-            {% if netplay_enabled %}
-                <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
-                    <i class="bi bi-globe"></i>
+{% block title %}
+    Play {{ game.Name }} - playtime
+{% endblock %}
+
+{% block assets %}
+    <link rel="stylesheet" href="/assets/css/play.css">
+{% endblock %}
+
+{% block content %}
+    <div id="header" class="container-fluid">
+        <div class="row mt-2">
+            <div class="col-6">
+                <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
+                    <i class="bi bi-chevron-left"></i>
+                </a>
+                <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary ms-3" title="Save game state">
+                    <i class="bi bi-box-arrow-down"></i>
                 </button>
-            {% endif %}
-            <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
-                <i class="bi bi-controller"></i>
-            </button>
-            {% include "includes/game_menu.twig" with game_menu_title=true %}
+                <button type="button" id="btn-load-state-latest" class="btn btn-sm btn-outline-secondary" title="Load latest game state">
+                    <i class="bi bi-box-arrow-up"></i>
+                </button>
+                <button type="button" id="btn-load-state" class="btn btn-sm btn-outline-secondary" title="Load game state">
+                    <i class="bi bi-folder2-open"></i>
+                </button>
+            </div>
+            <div class="col-6 text-end">
+                {% if netplay_enabled %}
+                    <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+                        <i class="bi bi-globe"></i>
+                    </button>
+                {% endif %}
+                <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                    <i class="bi bi-controller"></i>
+                </button>
+                {% include "includes/game_menu.twig" with game_menu_title=true %}
+            </div>
         </div>
     </div>
-</div>
 
-<div id="container">
-    <div id="game"></div>
-</div>
+    <div id="container">
+        <div id="game"></div>
+    </div>
 
-<div id="notifications" class="toast-container position-fixed p-3"></div>
+    <div id="notifications" class="toast-container position-fixed p-3"></div>
 
-<script>
-    GameId = '{{ game.Id }}';
-    LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
-
-    EJS_pathtodata = '/assets/emulatorjs/';
-    EJS_player = '#game';
-    EJS_core = '{{ emulator_settings.Core }}';
-    EJS_gameUrl = '{{ game.DownloadLink }}';
-    EJS_gameName = '{{ game.Name }}';
-    EJS_color = '{{ emulator_settings.ColorScheme }}';
-    EJS_backgroundColor = '{% if emulator_settings.ColorBackground %}{{ emulator_settings.ColorBackground }}{% else %}#000{% endif %}';
-    EJS_controlScheme = '{{ game.Platform }}';
-    EJS_CacheLimit = {{ emulator_settings.CacheLimit }};
-    EJS_language = '{{ settings.Language }}';
-    EJS_volume = {{ emulator_settings.Volume }};
-    EJS_startOnLoaded = true;
-    EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
-
-    {% if emulator_debug %}
-        EJS_DEBUG_XX = true;
-    {% endif %}
-
-    {% if bios.Url %}
-        EJS_biosUrl = '{{ bios.Url }}';
-    {% endif %}
-
-    {% if emulator_settings.Threads %}
-        EJS_threads = true;
-    {% endif %}
-
-    {% if game.DisableCue %}
-        EJS_disableCue = true;
-    {% endif %}
-
-    {% if save_state.StateFileDownloadLink %}
-        EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';
-    {% endif %}
-
-    _csrf = '{{ _csrf_token }}';
-</script>
-
-{% include "includes/play_controls.twig" %}
-{% include "includes/play_buttons.twig" %}
-{% include "includes/play_default_options.twig" %}
-
-<script src="/assets/emulatorjs/loader.js"></script>
-<script src="/assets/ui-utils.js"></script>
-<script src="/assets/state.js"></script>
-
-{% include "includes/play_control_scheme.twig" %}
-{% include "includes/play_load_state.twig" %}
-
-{% if netplay_enabled %}
     <script>
-        window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
-        window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
-        window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
-        window.NetplayDebug = {{ netplay_debug | lower }};
-        window.NetplayGameId = '{{ game.Id }}';
-        window.NetplaySessionId = '{{ game.NetplaySessionId }}';
-    </script>
-    <script src="/assets/netplay.js"></script>
-    <script src="/assets/netplay-ui-host.js"></script>
-    <script src="/assets/node_modules/awesome-qr/dist/awesome-qr.js"></script>
-    {% include "includes/play_netplay.twig" %}
-{% endif %}
+        GameId = '{{ game.Id }}';
+        LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
 
-</body>
-</html>
+        EJS_pathtodata = '/assets/emulatorjs/';
+        EJS_player = '#game';
+        EJS_core = '{{ emulator_settings.Core }}';
+        EJS_gameUrl = '{{ game.DownloadLink }}';
+        EJS_gameName = '{{ game.Name }}';
+        EJS_color = '{{ emulator_settings.ColorScheme }}';
+        EJS_backgroundColor = '{% if emulator_settings.ColorBackground %}{{ emulator_settings.ColorBackground }}{% else %}#000{% endif %}';
+        EJS_controlScheme = '{{ game.Platform }}';
+        EJS_CacheLimit = {{ emulator_settings.CacheLimit }};
+        EJS_language = '{{ settings.Language }}';
+        EJS_volume = {{ emulator_settings.Volume }};
+        EJS_startOnLoaded = true;
+        EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
+
+        {% if emulator_debug %}
+            EJS_DEBUG_XX = true;
+        {% endif %}
+
+        {% if bios.Url %}
+            EJS_biosUrl = '{{ bios.Url }}';
+        {% endif %}
+
+        {% if emulator_settings.Threads %}
+            EJS_threads = true;
+        {% endif %}
+
+        {% if game.DisableCue %}
+            EJS_disableCue = true;
+        {% endif %}
+
+        {% if save_state.StateFileDownloadLink %}
+            EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';
+        {% endif %}
+
+        _csrf = '{{ _csrf_token }}';
+    </script>
+
+    {% include "includes/play_controls.twig" %}
+    {% include "includes/play_buttons.twig" %}
+    {% include "includes/play_default_options.twig" %}
+
+    <script src="/assets/emulatorjs/loader.js"></script>
+    <script src="/assets/ui-utils.js"></script>
+    <script src="/assets/state.js"></script>
+
+    {% include "includes/play_control_scheme.twig" %}
+    {% include "includes/play_load_state.twig" %}
+
+    {% if netplay_enabled %}
+        <script>
+            window.NetplayTurnServerUrl = '{{ netplay_turn_url }}';
+            window.NetplayTurnServerUser = '{{ netplay_turn_user }}';
+            window.NetplayTurnServerPassword = '{{ netplay_turn_password }}';
+            window.NetplayDebug = {{ netplay_debug | lower }};
+            window.NetplayGameId = '{{ game.Id }}';
+            window.NetplaySessionId = '{{ game.NetplaySessionId }}';
+        </script>
+        <script src="/assets/netplay.js"></script>
+        <script src="/assets/netplay-ui-host.js"></script>
+        <script src="/assets/node_modules/awesome-qr/dist/awesome-qr.js"></script>
+        {% include "includes/play_netplay.twig" %}
+    {% endif %}
+{% endblock %}
