@@ -5,6 +5,24 @@ h2 {
     font-size: 1.5em;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: Comfortaa, Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .navbar-text {
+    font-family: Comfortaa, Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+.empty-state-text {
+    font-family: Comfortaa, Avenir, "Avenir Next", "Helvetica Neue", "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    font-size: 1.2em;
+}
+
+/*****************************************************************************/
+
 html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
     background-color: rgba(255, 255, 255, .05);
 }
@@ -12,9 +30,13 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
     background-color: rgba(0, 0, 0, .05);
 }
 
+/*****************************************************************************/
+
 .card .card-body .card-body-collapse {
     padding: 0 !important;
 }
+
+/*****************************************************************************/
 
 #drop-overlay {
     position: absolute;
@@ -32,6 +54,8 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 .drop-overlay-caption p {
     font-size: 1.5em;
 }
+
+/*****************************************************************************/
 
 #keyboard-control-button, #gamepad-control-button {
     font-size: 1.5em;

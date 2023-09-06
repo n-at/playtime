@@ -28,7 +28,7 @@
     <div class="list-group list-group-hover mb-3">
         {% for platform in platforms %}
             {% if platform.Id %}
-                <a class="list-group-item list-group-item-action" href="/settings/{{ platform.Id }}">{{ platform.Name }}</a>
+                <a class="lead list-group-item list-group-item-action" href="/settings/{{ platform.Id }}">{{ platform.Name }}</a>
             {% endif %}
         {% endfor %}
     </div>
