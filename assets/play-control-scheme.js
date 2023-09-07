@@ -63,12 +63,11 @@
         window.PlaytimeControls = {};
 
         ['0', '1', '2' , '3'].forEach(player => {
-            console.log(gatherInputs(player, ControlSchemeMappingState));
             window.EJS_emulator.controls[player.toString()] = gatherInputs(player, ControlSchemeMapping);
             window.PlaytimeControls[player.toString()] = gatherInputs(player, ControlSchemeMappingState);
         });
 
-        //TODO gather and send to the server
+        uploadHostControlScheme();
     }
 
     function resetHostControlScheme() {
@@ -80,6 +79,27 @@
             }
             assignInputs(player, window.PlaytimeControls[player], ControlSchemeMappingState);
         });
+    }
+
+    function uploadHostControlScheme() {
+        const formData = new FormData();
+        const inputs = gatherInputsToUpload();
+        for (let key in inputs) {
+            formData.append(key, inputs[key]);
+        }
+        formData.append('_playtime_csrf', window._csrf);
+
+        fetch(`/games/controls/${GameId}/save`, {
+            method: 'post',
+            body: formData,
+        })
+            .then(() => {
+                window.FlashButtonIcon('btn-control-scheme', ['btn-outline-secondary'], ['bi-controller'], ['btn-outline-success'], ['bi-check']);
+            })
+            .catch(e => {
+                window.FlashButtonIcon('btn-control-scheme', ['btn-outline-secondary'], ['bi-controller'], ['btn-outline-danger'], ['bi-x']);
+                console.error('game controls save error', e);
+            });
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -176,6 +196,16 @@
         }
 
         return controls;
+    }
+
+    function gatherInputsToUpload() {
+        const inputs = {};
+
+        document.querySelectorAll('input.keyboard, input.gamepad').forEach(input => {
+            inputs[input.name] = input.value;
+        });
+
+        return inputs;
     }
 
 })();

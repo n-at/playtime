@@ -236,3 +236,34 @@ func (s *Server) gameNetplayRefreshId(c echo.Context) error {
 		return c.Redirect(http.StatusFound, "/games")
 	}
 }
+
+func (s *Server) gameControlsSave(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+	game := context.game
+
+	controls := settingsCollectControls(c)
+
+	if game.OverrideEmulatorSettings {
+		game.EmulatorSettings.Controls = controls
+		if _, err := s.storage.GameSave(*game); err != nil {
+			return err
+		}
+	} else {
+		settings, err := s.storage.SettingsGetByUserId(context.session.UserId)
+		if err != nil {
+			return err
+		}
+		platformSettings, ok := settings.EmulatorSettings[game.Platform]
+		if !ok {
+			return errors.New("platform not found")
+		}
+
+		platformSettings.Controls = controls
+		settings.EmulatorSettings[game.Platform] = platformSettings
+		if _, err := s.storage.SettingsSave(settings); err != nil {
+			return err
+		}
+	}
+
+	return c.JSON(http.StatusOK, nil)
+}

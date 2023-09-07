@@ -115,6 +115,55 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		CacheManager: c.FormValue("button-cache-manager") == "1",
 	}
 
+	shader := c.FormValue("shader")
+	shaderFound := false
+	for _, item := range storage.Shaders {
+		if item.Value == shader {
+			shaderFound = true
+		}
+	}
+	if !shaderFound {
+		log.Warnf("wrong shader value: %s", shader)
+		shader = storage.Shaders[0].Value
+	}
+
+	var core = c.FormValue("core")
+	var coreOptions = storage.CoreOptionsByCore(core)
+	coreOptionsValues := make(map[string]string)
+	for _, option := range coreOptions {
+		optionValue := c.FormValue(option.Id)
+		if len(optionValue) != 0 {
+			coreOptionsValues[option.Id] = optionValue
+		}
+	}
+
+	settings := storage.EmulatorSettings{
+		Core:                   core,
+		Bios:                   c.FormValue("bios"),
+		ColorScheme:            c.FormValue("color-scheme"),
+		ColorBackground:        c.FormValue("color-background"),
+		CacheLimit:             cacheLimit,
+		Volume:                 volume,
+		FastForwardRatio:       c.FormValue("ff-ratio"),
+		SlowMotionRatio:        c.FormValue("sm-ratio"),
+		RewindGranularity:      c.FormValue("rewind-granularity"),
+		Shader:                 shader,
+		FPS:                    c.FormValue("fps") == "1",
+		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",
+		StartFullScreen:        c.FormValue("start-full-screen") == "1",
+		FastForwardMode:        c.FormValue("fast-forward-mode") == "1",
+		SlowMotionMode:         c.FormValue("slow-motion-mode") == "1",
+		Rewind:                 c.FormValue("rewind-enabled") == "1",
+		Threads:                c.FormValue("threads") == "1",
+		Buttons:                buttons,
+		Controls:               settingsCollectControls(c),
+		CoreOptions:            coreOptionsValues,
+	}
+
+	return settings
+}
+
+func settingsCollectControls(c echo.Context) [4]storage.EmulatorControls {
 	controls := [4]storage.EmulatorControls{}
 
 	for _, player := range []int{0, 1, 2, 3} {
@@ -159,52 +208,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		}
 	}
 
-	shader := c.FormValue("shader")
-	shaderFound := false
-	for _, item := range storage.Shaders {
-		if item.Value == shader {
-			shaderFound = true
-		}
-	}
-	if !shaderFound {
-		log.Warnf("wrong shader value: %s", shader)
-		shader = storage.Shaders[0].Value
-	}
-
-	var core = c.FormValue("core")
-	var coreOptions = storage.CoreOptionsByCore(core)
-	coreOptionsValues := make(map[string]string)
-	for _, option := range coreOptions {
-		optionValue := c.FormValue(option.Id)
-		if len(optionValue) != 0 {
-			coreOptionsValues[option.Id] = optionValue
-		}
-	}
-
-	settings := storage.EmulatorSettings{
-		Core:                   core,
-		Bios:                   c.FormValue("bios"),
-		ColorScheme:            c.FormValue("color-scheme"),
-		ColorBackground:        c.FormValue("color-background"),
-		CacheLimit:             cacheLimit,
-		Volume:                 volume,
-		FastForwardRatio:       c.FormValue("ff-ratio"),
-		SlowMotionRatio:        c.FormValue("sm-ratio"),
-		RewindGranularity:      c.FormValue("rewind-granularity"),
-		Shader:                 shader,
-		FPS:                    c.FormValue("fps") == "1",
-		VirtualGamepadLeftHand: c.FormValue("virtual-gamepad-left-hand") == "1",
-		StartFullScreen:        c.FormValue("start-full-screen") == "1",
-		FastForwardMode:        c.FormValue("fast-forward-mode") == "1",
-		SlowMotionMode:         c.FormValue("slow-motion-mode") == "1",
-		Rewind:                 c.FormValue("rewind-enabled") == "1",
-		Threads:                c.FormValue("threads") == "1",
-		Buttons:                buttons,
-		Controls:               controls,
-		CoreOptions:            coreOptionsValues,
-	}
-
-	return settings
+	return controls
 }
 
 func settingsReadControlButton(c echo.Context, input string, player int, button string) string {

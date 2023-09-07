@@ -156,6 +156,10 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	gamesNetplay.Use(s.gameRequiredMiddleware)
 	gamesNetplay.GET("/refresh-id", s.gameNetplayRefreshId)
 
+	gamesControls := games.Group("/controls/:game_id")
+	gamesControls.Use(s.gameRequiredMiddleware)
+	gamesControls.POST("/save", s.gameControlsSave)
+
 	uploadBatch := games.Group("/upload-batch/:upload_batch_id")
 	uploadBatch.Use(s.uploadBatchRequiredMiddleware)
 	uploadBatch.GET("", s.gameUploadBatchForm)
