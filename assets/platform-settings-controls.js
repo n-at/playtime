@@ -19,10 +19,12 @@
         15: 'DPAD_RIGHT',
     };
 
+    let modalKeyboardEl;
     let modalKeyboard, modalGamepad;
 
     window.addEventListener('load', () => {
-        modalKeyboard = new bootstrap.Modal(document.getElementById('modal-keyboard-control'), {
+        modalKeyboardEl = document.getElementById('modal-keyboard-control');
+        modalKeyboard = new bootstrap.Modal(modalKeyboardEl, {
             keyboard: false,
         });
 
@@ -54,6 +56,11 @@
             modalKeyboard.hide();
         });
 
+        document.getElementById('modal-keyboard-control').addEventListener('keydown', e => {
+            document.getElementById('keyboard-control-button').innerText = e.key.toLowerCase();
+            e.preventDefault();
+        });
+
         ///////////////////////////////////////////////////////////////////////
 
         document.querySelectorAll('input.gamepad').forEach(input => {
@@ -81,11 +88,6 @@
         });
 
         ///////////////////////////////////////////////////////////////////////
-
-        document.getElementById('modal-keyboard-control').addEventListener('keydown', e => {
-            document.getElementById('keyboard-control-button').innerText = e.key.toLowerCase();
-            e.preventDefault();
-        });
 
         setInterval(() => {
             if (!navigator.getGamepads) {
