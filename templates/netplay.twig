@@ -10,18 +10,18 @@
 
 {% block content %}
     <div id="header" class="container-fluid">
-        <div class="row mt-2">
+        <div class="row mt-2 align-items-start">
             <div class="col-6 col-md-8">
+                <div id="netplay-player" class="lead d-inline-block text-truncate">
+                    Player: spectator
+                </div>
+            </div>
+            <div class="col-6 col-md-4 text-end">
                 {% if user %}
-                    <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
+                    <a href="/games" class="btn btn-sm btn-outline-secondary d-inline-block" title="Back">
                         <i class="bi bi-chevron-left"></i>
                     </a>
                 {% endif %}
-                <span id="netplay-player" class="lead d-inline-block text-truncate">
-                    Player: spectator
-                </span>
-            </div>
-            <div class="col-6 col-md-4 text-end">
                 <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
                     <i class="bi bi-globe"></i>
                 </button>
@@ -87,8 +87,10 @@
         window.NetplayGameId = '{{ game.Id }}';
         window.NetplaySessionId = '{{ game.NetplaySessionId }}';
         window.GamePlatform = '{{ game.Platform }}';
+        window.ControlSchemeVariant = 'client';
     </script>
     <script src="/assets/ui-utils.js"></script>
+    <script src="/assets/play-control-scheme.js"></script>
     <script src="/assets/netplay.js"></script>
     <script src="/assets/netplay-ui-client.js"></script>
 

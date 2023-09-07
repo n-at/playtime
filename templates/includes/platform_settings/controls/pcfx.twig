@@ -8,37 +8,37 @@
 {% endblock %}
 
 {% block controls_keyboard %}
-    {% include control_template with input="keyboard" btn_id="a"                   btn_title="I"                 btn_value=controls.Keyboard.A %}
-    {% include control_template with input="keyboard" btn_id="b"                   btn_title="II"                btn_value=controls.Keyboard.B %}
-    {% include control_template with input="keyboard" btn_id="x"                   btn_title="III"               btn_value=controls.Keyboard.X %}
-    {% include control_template with input="keyboard" btn_id="y"                   btn_title="IV"                btn_value=controls.Keyboard.Y %}
-    {% include control_template with input="keyboard" btn_id="l"                   btn_title="V"                 btn_value=controls.Keyboard.L %}
-    {% include control_template with input="keyboard" btn_id="r"                   btn_title="VI"                btn_value=controls.Keyboard.R %}
-    {% include control_template with input="keyboard" btn_id="select"              btn_title="Select"            btn_value=controls.Keyboard.Select %}
-    {% include control_template with input="keyboard" btn_id="start"               btn_title="Run"               btn_value=controls.Keyboard.Start %}
-    {% include control_template with input="keyboard" btn_id="up"                  btn_title="Up"                btn_value=controls.Keyboard.Up %}
-    {% include control_template with input="keyboard" btn_id="down"                btn_title="Down"              btn_value=controls.Keyboard.Down %}
-    {% include control_template with input="keyboard" btn_id="left"                btn_title="Left"              btn_value=controls.Keyboard.Left %}
-    {% include control_template with input="keyboard" btn_id="right"               btn_title="Right"             btn_value=controls.Keyboard.Right %}
-    {% include control_template with input="keyboard" btn_id="l2"                  btn_title="Mode 1"            btn_value=controls.Keyboard.L2 %}
-    {% include control_template with input="keyboard" btn_id="r2"                  btn_title="Mode 2"            btn_value=controls.Keyboard.R2 %}
+    {% include "control.twig" with input="keyboard" btn_id="a"                   btn_title="I"                 btn_value=controls.Keyboard.A %}
+    {% include "control.twig" with input="keyboard" btn_id="b"                   btn_title="II"                btn_value=controls.Keyboard.B %}
+    {% include "control.twig" with input="keyboard" btn_id="x"                   btn_title="III"               btn_value=controls.Keyboard.X %}
+    {% include "control.twig" with input="keyboard" btn_id="y"                   btn_title="IV"                btn_value=controls.Keyboard.Y %}
+    {% include "control.twig" with input="keyboard" btn_id="l"                   btn_title="V"                 btn_value=controls.Keyboard.L %}
+    {% include "control.twig" with input="keyboard" btn_id="r"                   btn_title="VI"                btn_value=controls.Keyboard.R %}
+    {% include "control.twig" with input="keyboard" btn_id="select"              btn_title="Select"            btn_value=controls.Keyboard.Select %}
+    {% include "control.twig" with input="keyboard" btn_id="start"               btn_title="Run"               btn_value=controls.Keyboard.Start %}
+    {% include "control.twig" with input="keyboard" btn_id="up"                  btn_title="Up"                btn_value=controls.Keyboard.Up %}
+    {% include "control.twig" with input="keyboard" btn_id="down"                btn_title="Down"              btn_value=controls.Keyboard.Down %}
+    {% include "control.twig" with input="keyboard" btn_id="left"                btn_title="Left"              btn_value=controls.Keyboard.Left %}
+    {% include "control.twig" with input="keyboard" btn_id="right"               btn_title="Right"             btn_value=controls.Keyboard.Right %}
+    {% include "control.twig" with input="keyboard" btn_id="l2"                  btn_title="Mode 1"            btn_value=controls.Keyboard.L2 %}
+    {% include "control.twig" with input="keyboard" btn_id="r2"                  btn_title="Mode 2"            btn_value=controls.Keyboard.R2 %}
     {% include "common_keyboard_controls.twig" %}
 {% endblock %}
 
 {% block controls_gamepad %}
-    {% include control_template with input="gamepad" btn_id="a"                   btn_title="I"                 btn_value=controls.Gamepad.A %}
-    {% include control_template with input="gamepad" btn_id="b"                   btn_title="II"                btn_value=controls.Gamepad.B %}
-    {% include control_template with input="gamepad" btn_id="x"                   btn_title="III"               btn_value=controls.Gamepad.X %}
-    {% include control_template with input="gamepad" btn_id="y"                   btn_title="IV"                btn_value=controls.Gamepad.Y %}
-    {% include control_template with input="gamepad" btn_id="l"                   btn_title="V"                 btn_value=controls.Gamepad.L %}
-    {% include control_template with input="gamepad" btn_id="r"                   btn_title="VI"                btn_value=controls.Gamepad.R %}
-    {% include control_template with input="gamepad" btn_id="select"              btn_title="Select"            btn_value=controls.Gamepad.Select %}
-    {% include control_template with input="gamepad" btn_id="start"               btn_title="Run"               btn_value=controls.Gamepad.Start %}
-    {% include control_template with input="gamepad" btn_id="up"                  btn_title="Up"                btn_value=controls.Gamepad.Up %}
-    {% include control_template with input="gamepad" btn_id="down"                btn_title="Down"              btn_value=controls.Gamepad.Down %}
-    {% include control_template with input="gamepad" btn_id="left"                btn_title="Left"              btn_value=controls.Gamepad.Left %}
-    {% include control_template with input="gamepad" btn_id="right"               btn_title="Right"             btn_value=controls.Gamepad.Right %}
-    {% include control_template with input="gamepad" btn_id="l2"                  btn_title="Mode 1"            btn_value=controls.Gamepad.L2 %}
-    {% include control_template with input="gamepad" btn_id="r2"                  btn_title="Mode 2"            btn_value=controls.Gamepad.R2 %}
+    {% include "control.twig" with input="gamepad" btn_id="a"                   btn_title="I"                 btn_value=controls.Gamepad.A %}
+    {% include "control.twig" with input="gamepad" btn_id="b"                   btn_title="II"                btn_value=controls.Gamepad.B %}
+    {% include "control.twig" with input="gamepad" btn_id="x"                   btn_title="III"               btn_value=controls.Gamepad.X %}
+    {% include "control.twig" with input="gamepad" btn_id="y"                   btn_title="IV"                btn_value=controls.Gamepad.Y %}
+    {% include "control.twig" with input="gamepad" btn_id="l"                   btn_title="V"                 btn_value=controls.Gamepad.L %}
+    {% include "control.twig" with input="gamepad" btn_id="r"                   btn_title="VI"                btn_value=controls.Gamepad.R %}
+    {% include "control.twig" with input="gamepad" btn_id="select"              btn_title="Select"            btn_value=controls.Gamepad.Select %}
+    {% include "control.twig" with input="gamepad" btn_id="start"               btn_title="Run"               btn_value=controls.Gamepad.Start %}
+    {% include "control.twig" with input="gamepad" btn_id="up"                  btn_title="Up"                btn_value=controls.Gamepad.Up %}
+    {% include "control.twig" with input="gamepad" btn_id="down"                btn_title="Down"              btn_value=controls.Gamepad.Down %}
+    {% include "control.twig" with input="gamepad" btn_id="left"                btn_title="Left"              btn_value=controls.Gamepad.Left %}
+    {% include "control.twig" with input="gamepad" btn_id="right"               btn_title="Right"             btn_value=controls.Gamepad.Right %}
+    {% include "control.twig" with input="gamepad" btn_id="l2"                  btn_title="Mode 1"            btn_value=controls.Gamepad.L2 %}
+    {% include "control.twig" with input="gamepad" btn_id="r2"                  btn_title="Mode 2"            btn_value=controls.Gamepad.R2 %}
     {% include "common_gamepad_controls.twig" %}
 {% endblock %}

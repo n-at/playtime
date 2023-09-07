@@ -8,33 +8,33 @@
 {% endblock %}
 
 {% block controls_keyboard %}
-    {% include control_template with input="keyboard" btn_id="a"                   btn_title="A"                   btn_value=controls.Keyboard.A %}
-    {% include control_template with input="keyboard" btn_id="b"                   btn_title="B"                   btn_value=controls.Keyboard.B %}
-    {% include control_template with input="keyboard" btn_id="select"              btn_title="Select"              btn_value=controls.Keyboard.Select %}
-    {% include control_template with input="keyboard" btn_id="start"               btn_title="Start"               btn_value=controls.Keyboard.Start %}
-    {% include control_template with input="keyboard" btn_id="up"                  btn_title="X Cursor Up"         btn_value=controls.Keyboard.Up %}
-    {% include control_template with input="keyboard" btn_id="down"                btn_title="X Cursor Down"       btn_value=controls.Keyboard.Down %}
-    {% include control_template with input="keyboard" btn_id="left"                btn_title="X Cursor Left"       btn_value=controls.Keyboard.Left %}
-    {% include control_template with input="keyboard" btn_id="right"               btn_title="X Cursor Right"      btn_value=controls.Keyboard.Right %}
-    {% include control_template with input="keyboard" btn_id="r2"                  btn_title="Y Cursor Up"         btn_value=controls.Keyboard.R2 %}
-    {% include control_template with input="keyboard" btn_id="l2"                  btn_title="Y Cursor Down"       btn_value=controls.Keyboard.L2 %}
-    {% include control_template with input="keyboard" btn_id="l"                   btn_title="Y Cursor Left"       btn_value=controls.Keyboard.L %}
-    {% include control_template with input="keyboard" btn_id="r"                   btn_title="Y Cursor Right"      btn_value=controls.Keyboard.R %}
+    {% include "control.twig" with input="keyboard" btn_id="a"                   btn_title="A"                   btn_value=controls.Keyboard.A %}
+    {% include "control.twig" with input="keyboard" btn_id="b"                   btn_title="B"                   btn_value=controls.Keyboard.B %}
+    {% include "control.twig" with input="keyboard" btn_id="select"              btn_title="Select"              btn_value=controls.Keyboard.Select %}
+    {% include "control.twig" with input="keyboard" btn_id="start"               btn_title="Start"               btn_value=controls.Keyboard.Start %}
+    {% include "control.twig" with input="keyboard" btn_id="up"                  btn_title="X Cursor Up"         btn_value=controls.Keyboard.Up %}
+    {% include "control.twig" with input="keyboard" btn_id="down"                btn_title="X Cursor Down"       btn_value=controls.Keyboard.Down %}
+    {% include "control.twig" with input="keyboard" btn_id="left"                btn_title="X Cursor Left"       btn_value=controls.Keyboard.Left %}
+    {% include "control.twig" with input="keyboard" btn_id="right"               btn_title="X Cursor Right"      btn_value=controls.Keyboard.Right %}
+    {% include "control.twig" with input="keyboard" btn_id="r2"                  btn_title="Y Cursor Up"         btn_value=controls.Keyboard.R2 %}
+    {% include "control.twig" with input="keyboard" btn_id="l2"                  btn_title="Y Cursor Down"       btn_value=controls.Keyboard.L2 %}
+    {% include "control.twig" with input="keyboard" btn_id="l"                   btn_title="Y Cursor Left"       btn_value=controls.Keyboard.L %}
+    {% include "control.twig" with input="keyboard" btn_id="r"                   btn_title="Y Cursor Right"      btn_value=controls.Keyboard.R %}
     {% include "common_keyboard_controls.twig" %}
 {% endblock %}
 
 {% block controls_gamepad %}
-    {% include control_template with input="gamepad" btn_id="a"                   btn_title="A"                   btn_value=controls.Gamepad.A %}
-    {% include control_template with input="gamepad" btn_id="b"                   btn_title="B"                   btn_value=controls.Gamepad.B %}
-    {% include control_template with input="gamepad" btn_id="select"              btn_title="Select"              btn_value=controls.Gamepad.Select %}
-    {% include control_template with input="gamepad" btn_id="start"               btn_title="Start"               btn_value=controls.Gamepad.Start %}
-    {% include control_template with input="gamepad" btn_id="up"                  btn_title="X Cursor Up"         btn_value=controls.Gamepad.Up %}
-    {% include control_template with input="gamepad" btn_id="down"                btn_title="X Cursor Down"       btn_value=controls.Gamepad.Down %}
-    {% include control_template with input="gamepad" btn_id="left"                btn_title="X Cursor Left"       btn_value=controls.Gamepad.Left %}
-    {% include control_template with input="gamepad" btn_id="right"               btn_title="X Cursor Right"      btn_value=controls.Gamepad.Right %}
-    {% include control_template with input="gamepad" btn_id="r2"                  btn_title="Y Cursor Up"         btn_value=controls.Gamepad.R2 %}
-    {% include control_template with input="gamepad" btn_id="l2"                  btn_title="Y Cursor Down"       btn_value=controls.Gamepad.L2 %}
-    {% include control_template with input="gamepad" btn_id="l"                   btn_title="Y Cursor Left"       btn_value=controls.Gamepad.L %}
-    {% include control_template with input="gamepad" btn_id="r"                   btn_title="Y Cursor Right"      btn_value=controls.Gamepad.R %}
+    {% include "control.twig" with input="gamepad" btn_id="a"                   btn_title="A"                   btn_value=controls.Gamepad.A %}
+    {% include "control.twig" with input="gamepad" btn_id="b"                   btn_title="B"                   btn_value=controls.Gamepad.B %}
+    {% include "control.twig" with input="gamepad" btn_id="select"              btn_title="Select"              btn_value=controls.Gamepad.Select %}
+    {% include "control.twig" with input="gamepad" btn_id="start"               btn_title="Start"               btn_value=controls.Gamepad.Start %}
+    {% include "control.twig" with input="gamepad" btn_id="up"                  btn_title="X Cursor Up"         btn_value=controls.Gamepad.Up %}
+    {% include "control.twig" with input="gamepad" btn_id="down"                btn_title="X Cursor Down"       btn_value=controls.Gamepad.Down %}
+    {% include "control.twig" with input="gamepad" btn_id="left"                btn_title="X Cursor Left"       btn_value=controls.Gamepad.Left %}
+    {% include "control.twig" with input="gamepad" btn_id="right"               btn_title="X Cursor Right"      btn_value=controls.Gamepad.Right %}
+    {% include "control.twig" with input="gamepad" btn_id="r2"                  btn_title="Y Cursor Up"         btn_value=controls.Gamepad.R2 %}
+    {% include "control.twig" with input="gamepad" btn_id="l2"                  btn_title="Y Cursor Down"       btn_value=controls.Gamepad.L2 %}
+    {% include "control.twig" with input="gamepad" btn_id="l"                   btn_title="Y Cursor Left"       btn_value=controls.Gamepad.L %}
+    {% include "control.twig" with input="gamepad" btn_id="r"                   btn_title="Y Cursor Right"      btn_value=controls.Gamepad.R %}
     {% include "common_gamepad_controls.twig" %}
 {% endblock %}

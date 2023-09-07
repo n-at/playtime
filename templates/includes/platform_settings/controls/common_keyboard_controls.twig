@@ -1,8 +1,7 @@
 {% if not hide_emulator_state_controls %}
-    {% set control_template_ = "../" + control_template %}
-    {% include control_template_ with input="keyboard" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Keyboard.QuickSaveState %}
-    {% include control_template_ with input="keyboard" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Keyboard.QuickLoadState %}
-    {% include control_template_ with input="keyboard" btn_id="fast-forward"        btn_title="Fast Forward"        btn_value=controls.Keyboard.FastForward %}
-    {% include control_template_ with input="keyboard" btn_id="slow-motion"         btn_title="Slow Motion"         btn_value=controls.Keyboard.SlowMotion %}
-    {% include control_template_ with input="keyboard" btn_id="rewind"              btn_title="Rewind"              btn_value=controls.Keyboard.Rewind %}
+    {% include "control.twig" with input="keyboard" btn_id="quick-save-state"    btn_title="Quick Save State"    btn_value=controls.Keyboard.QuickSaveState %}
+    {% include "control.twig" with input="keyboard" btn_id="quick-load-state"    btn_title="Quick Load State"    btn_value=controls.Keyboard.QuickLoadState %}
+    {% include "control.twig" with input="keyboard" btn_id="fast-forward"        btn_title="Fast Forward"        btn_value=controls.Keyboard.FastForward %}
+    {% include "control.twig" with input="keyboard" btn_id="slow-motion"         btn_title="Slow Motion"         btn_value=controls.Keyboard.SlowMotion %}
+    {% include "control.twig" with input="keyboard" btn_id="rewind"              btn_title="Rewind"              btn_value=controls.Keyboard.Rewind %}
 {% endif %}

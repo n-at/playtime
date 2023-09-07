@@ -6,36 +6,23 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-
                 <div id="netplay-virtual-gamepad-control" class="text-center">
                     <button type="button" id="netplay-virtual-gamepad-toggle" class="btn btn-outline-secondary">Toggle virtual gamepad</button>
                     <hr>
                 </div>
-
-                {% if not user %}
-                    {% include "platform_settings/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
-                    <hr>
-                    <div class="text-end">
-                        <button type="button" id="netplay-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
-                        <button type="button" id="netplay-control-scheme-reset" class="btn btn-outline-secondary">Reset</button>
-                    </div>
-                {% else %}
-                    {% include "control_scheme/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
-                    <hr>
-                    <div class="lead text-center">
-                        You can change control scheme in platform or game settings.
-                    </div>
-                {% endif %}
-
+                {% include "platform_settings/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
+            </div>
+            <div class="modal-footer text-end">
+                <button type="button" id="netplay-control-scheme-reset" class="btn btn-outline-secondary">Reset changes</button>
+                <button type="button" id="netplay-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
             </div>
         </div>
     </div>
 </div>
 
-{% if not user %}
-    {% include "form_platform_settings_controls_modals.twig" %}
-    <script src="/assets/platform-settings-controls.js"></script>
-{% endif %}
+{% include "form_platform_settings_controls_modals.twig" %}
+<script src="/assets/platform-settings-controls.js"></script>
+<script src="/assets/play-control-scheme.js"></script>
 
 <script>
     window.ControlScheme = {

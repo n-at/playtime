@@ -42,6 +42,31 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 
 /*****************************************************************************/
 
+#navbar .navbar-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+}
+
+#navbar .navbar-decoration div {
+    width: 5px;
+    height: 19px;
+}
+
+#navbar .navbar-decoration .decor-red {
+    background-color: #dc3545;
+}
+#navbar .navbar-decoration .decor-green {
+    background-color: #198754;
+}
+#navbar .navbar-decoration .decor-blue {
+    background-color: #0d6efd;
+}
+
+
+/*****************************************************************************/
+
 #drop-overlay {
     position: absolute;
     left: 0;

@@ -46,57 +46,56 @@
     <div id="notifications" class="toast-container position-fixed p-3"></div>
 
     <script>
-        GameId = '{{ game.Id }}';
-        LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
+        window.GameId = '{{ game.Id }}';
+        window.LatestStateUrl = '{{ game.LatestSaveState.StateFileDownloadLink }}';
+        window.ControlSchemeVariant = 'host';
+        window._csrf = '{{ _csrf_token }}';
 
-        EJS_pathtodata = '/assets/emulatorjs/';
-        EJS_player = '#game';
-        EJS_core = '{{ emulator_settings.Core }}';
-        EJS_gameUrl = '{{ game.DownloadLink }}';
-        EJS_gameName = '{{ game.Name }}';
-        EJS_color = '{{ emulator_settings.ColorScheme }}';
-        EJS_backgroundColor = '{% if emulator_settings.ColorBackground %}{{ emulator_settings.ColorBackground }}{% else %}#000{% endif %}';
-        EJS_controlScheme = '{{ game.Platform }}';
-        EJS_CacheLimit = {{ emulator_settings.CacheLimit }};
-        EJS_language = '{{ settings.Language }}';
-        EJS_volume = {{ emulator_settings.Volume }};
-        EJS_startOnLoaded = true;
-        EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
+        window.EJS_pathtodata = '/assets/emulatorjs/';
+        window.EJS_player = '#game';
+        window.EJS_core = '{{ emulator_settings.Core }}';
+        window.EJS_gameUrl = '{{ game.DownloadLink }}';
+        window.EJS_gameName = '{{ game.Name }}';
+        window.EJS_color = '{{ emulator_settings.ColorScheme }}';
+        window.EJS_backgroundColor = '{% if emulator_settings.ColorBackground %}{{ emulator_settings.ColorBackground }}{% else %}#000{% endif %}';
+        window.EJS_controlScheme = '{{ game.Platform }}';
+        window.EJS_CacheLimit = {{ emulator_settings.CacheLimit }};
+        window.EJS_language = '{{ settings.Language }}';
+        window.EJS_volume = {{ emulator_settings.Volume }};
+        window.EJS_startOnLoaded = true;
+        window.EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
 
         {% if emulator_debug %}
-            EJS_DEBUG_XX = true;
+            window.EJS_DEBUG_XX = true;
         {% endif %}
 
         {% if bios.Url %}
-            EJS_biosUrl = '{{ bios.Url }}';
+            window.EJS_biosUrl = '{{ bios.Url }}';
         {% endif %}
 
         {% if emulator_settings.Threads %}
-            EJS_threads = true;
+            window.EJS_threads = true;
         {% endif %}
 
         {% if game.DisableCue %}
-            EJS_disableCue = true;
+            window.EJS_disableCue = true;
         {% endif %}
 
         {% if save_state.StateFileDownloadLink %}
-            EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';
+            window.EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';
         {% endif %}
-
-        _csrf = '{{ _csrf_token }}';
     </script>
 
-    {% include "includes/play_controls.twig" %}
     {% include "includes/play_buttons.twig" %}
     {% include "includes/play_default_options.twig" %}
+    {% include "includes/play_control_scheme.twig" %}
+    {% include "includes/play_load_state.twig" %}
 
     <script src="/assets/emulatorjs/loader.js"></script>
     <script src="/assets/ui-utils.js"></script>
-    <script src="/assets/state.js"></script>
+    <script src="/assets/play-states.js"></script>
     <script src="/assets/play-virtual-gamepad.js"></script>
-
-    {% include "includes/play_control_scheme.twig" %}
-    {% include "includes/play_load_state.twig" %}
+    <script src="/assets/play-control-scheme.js"></script>
 
     {% if netplay_enabled %}
         <script>

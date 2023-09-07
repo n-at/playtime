@@ -8,57 +8,57 @@
 {% endblock %}
 
 {% block controls_keyboard %}
-    {% include control_template with input="keyboard" btn_id="a"                   btn_title="Circle"              btn_value=controls.Keyboard.A %}
-    {% include control_template with input="keyboard" btn_id="b"                   btn_title="Cross"               btn_value=controls.Keyboard.B %}
-    {% include control_template with input="keyboard" btn_id="x"                   btn_title="Triangle"            btn_value=controls.Keyboard.X %}
-    {% include control_template with input="keyboard" btn_id="y"                   btn_title="Square"              btn_value=controls.Keyboard.Y %}
-    {% include control_template with input="keyboard" btn_id="select"              btn_title="Select"              btn_value=controls.Keyboard.Select %}
-    {% include control_template with input="keyboard" btn_id="start"               btn_title="Start"               btn_value=controls.Keyboard.Start %}
-    {% include control_template with input="keyboard" btn_id="up"                  btn_title="Up"                  btn_value=controls.Keyboard.Up %}
-    {% include control_template with input="keyboard" btn_id="down"                btn_title="Down"                btn_value=controls.Keyboard.Down %}
-    {% include control_template with input="keyboard" btn_id="left"                btn_title="Left"                btn_value=controls.Keyboard.Left %}
-    {% include control_template with input="keyboard" btn_id="right"               btn_title="Right"               btn_value=controls.Keyboard.Right %}
-    {% include control_template with input="keyboard" btn_id="l"                   btn_title="L"                   btn_value=controls.Keyboard.L %}
-    {% include control_template with input="keyboard" btn_id="r"                   btn_title="R"                   btn_value=controls.Keyboard.R %}
-    {% include control_template with input="keyboard" btn_id="l2"                  btn_title="L2"                  btn_value=controls.Keyboard.L2 %}
-    {% include control_template with input="keyboard" btn_id="r2"                  btn_title="R2"                  btn_value=controls.Keyboard.R2 %}
-    {% include control_template with input="keyboard" btn_id="l3"                  btn_title="L3"                  btn_value=controls.Keyboard.L3 %}
-    {% include control_template with input="keyboard" btn_id="r3"                  btn_title="R3"                  btn_value=controls.Keyboard.R3 %}
-    {% include control_template with input="keyboard" btn_id="l-stick-up"          btn_title="L Stick Up"          btn_value=controls.Keyboard.LStickUp %}
-    {% include control_template with input="keyboard" btn_id="l-stick-down"        btn_title="L Stick Down"        btn_value=controls.Keyboard.LStickDown %}
-    {% include control_template with input="keyboard" btn_id="l-stick-left"        btn_title="L Stick Left"        btn_value=controls.Keyboard.LStickLeft %}
-    {% include control_template with input="keyboard" btn_id="l-stick-right"       btn_title="L Stick Right"       btn_value=controls.Keyboard.LStickRight %}
-    {% include control_template with input="keyboard" btn_id="r-stick-up"          btn_title="R Stick Up"          btn_value=controls.Keyboard.RStickUp %}
-    {% include control_template with input="keyboard" btn_id="r-stick-down"        btn_title="R Stick Down"        btn_value=controls.Keyboard.RStickDown %}
-    {% include control_template with input="keyboard" btn_id="r-stick-left"        btn_title="R Stick Left"        btn_value=controls.Keyboard.RStickLeft %}
-    {% include control_template with input="keyboard" btn_id="r-stick-right"       btn_title="R Stick Right"       btn_value=controls.Keyboard.RStickRight %}
+    {% include "control.twig" with input="keyboard" btn_id="a"                   btn_title="Circle"              btn_value=controls.Keyboard.A %}
+    {% include "control.twig" with input="keyboard" btn_id="b"                   btn_title="Cross"               btn_value=controls.Keyboard.B %}
+    {% include "control.twig" with input="keyboard" btn_id="x"                   btn_title="Triangle"            btn_value=controls.Keyboard.X %}
+    {% include "control.twig" with input="keyboard" btn_id="y"                   btn_title="Square"              btn_value=controls.Keyboard.Y %}
+    {% include "control.twig" with input="keyboard" btn_id="select"              btn_title="Select"              btn_value=controls.Keyboard.Select %}
+    {% include "control.twig" with input="keyboard" btn_id="start"               btn_title="Start"               btn_value=controls.Keyboard.Start %}
+    {% include "control.twig" with input="keyboard" btn_id="up"                  btn_title="Up"                  btn_value=controls.Keyboard.Up %}
+    {% include "control.twig" with input="keyboard" btn_id="down"                btn_title="Down"                btn_value=controls.Keyboard.Down %}
+    {% include "control.twig" with input="keyboard" btn_id="left"                btn_title="Left"                btn_value=controls.Keyboard.Left %}
+    {% include "control.twig" with input="keyboard" btn_id="right"               btn_title="Right"               btn_value=controls.Keyboard.Right %}
+    {% include "control.twig" with input="keyboard" btn_id="l"                   btn_title="L"                   btn_value=controls.Keyboard.L %}
+    {% include "control.twig" with input="keyboard" btn_id="r"                   btn_title="R"                   btn_value=controls.Keyboard.R %}
+    {% include "control.twig" with input="keyboard" btn_id="l2"                  btn_title="L2"                  btn_value=controls.Keyboard.L2 %}
+    {% include "control.twig" with input="keyboard" btn_id="r2"                  btn_title="R2"                  btn_value=controls.Keyboard.R2 %}
+    {% include "control.twig" with input="keyboard" btn_id="l3"                  btn_title="L3"                  btn_value=controls.Keyboard.L3 %}
+    {% include "control.twig" with input="keyboard" btn_id="r3"                  btn_title="R3"                  btn_value=controls.Keyboard.R3 %}
+    {% include "control.twig" with input="keyboard" btn_id="l-stick-up"          btn_title="L Stick Up"          btn_value=controls.Keyboard.LStickUp %}
+    {% include "control.twig" with input="keyboard" btn_id="l-stick-down"        btn_title="L Stick Down"        btn_value=controls.Keyboard.LStickDown %}
+    {% include "control.twig" with input="keyboard" btn_id="l-stick-left"        btn_title="L Stick Left"        btn_value=controls.Keyboard.LStickLeft %}
+    {% include "control.twig" with input="keyboard" btn_id="l-stick-right"       btn_title="L Stick Right"       btn_value=controls.Keyboard.LStickRight %}
+    {% include "control.twig" with input="keyboard" btn_id="r-stick-up"          btn_title="R Stick Up"          btn_value=controls.Keyboard.RStickUp %}
+    {% include "control.twig" with input="keyboard" btn_id="r-stick-down"        btn_title="R Stick Down"        btn_value=controls.Keyboard.RStickDown %}
+    {% include "control.twig" with input="keyboard" btn_id="r-stick-left"        btn_title="R Stick Left"        btn_value=controls.Keyboard.RStickLeft %}
+    {% include "control.twig" with input="keyboard" btn_id="r-stick-right"       btn_title="R Stick Right"       btn_value=controls.Keyboard.RStickRight %}
     {% include "common_keyboard_controls.twig" %}
 {% endblock %}
 
 {% block controls_gamepad %}
-    {% include control_template with input="gamepad" btn_id="a"                   btn_title="Circle"              btn_value=controls.Gamepad.A %}
-    {% include control_template with input="gamepad" btn_id="b"                   btn_title="Cross"               btn_value=controls.Gamepad.B %}
-    {% include control_template with input="gamepad" btn_id="x"                   btn_title="Triangle"            btn_value=controls.Gamepad.X %}
-    {% include control_template with input="gamepad" btn_id="y"                   btn_title="Square"              btn_value=controls.Gamepad.Y %}
-    {% include control_template with input="gamepad" btn_id="select"              btn_title="Select"              btn_value=controls.Gamepad.Select %}
-    {% include control_template with input="gamepad" btn_id="start"               btn_title="Start"               btn_value=controls.Gamepad.Start %}
-    {% include control_template with input="gamepad" btn_id="up"                  btn_title="Up"                  btn_value=controls.Gamepad.Up %}
-    {% include control_template with input="gamepad" btn_id="down"                btn_title="Down"                btn_value=controls.Gamepad.Down %}
-    {% include control_template with input="gamepad" btn_id="left"                btn_title="Left"                btn_value=controls.Gamepad.Left %}
-    {% include control_template with input="gamepad" btn_id="right"               btn_title="Right"               btn_value=controls.Gamepad.Right %}
-    {% include control_template with input="gamepad" btn_id="l"                   btn_title="L"                   btn_value=controls.Gamepad.L %}
-    {% include control_template with input="gamepad" btn_id="r"                   btn_title="R"                   btn_value=controls.Gamepad.R %}
-    {% include control_template with input="gamepad" btn_id="l2"                  btn_title="L2"                  btn_value=controls.Gamepad.L2 %}
-    {% include control_template with input="gamepad" btn_id="r2"                  btn_title="R2"                  btn_value=controls.Gamepad.R2 %}
-    {% include control_template with input="gamepad" btn_id="l3"                  btn_title="L3"                  btn_value=controls.Gamepad.L3 %}
-    {% include control_template with input="gamepad" btn_id="r3"                  btn_title="R3"                  btn_value=controls.Gamepad.R3 %}
-    {% include control_template with input="gamepad" btn_id="l-stick-up"          btn_title="L Stick Up"          btn_value=controls.Gamepad.LStickUp %}
-    {% include control_template with input="gamepad" btn_id="l-stick-down"        btn_title="L Stick Down"        btn_value=controls.Gamepad.LStickDown %}
-    {% include control_template with input="gamepad" btn_id="l-stick-left"        btn_title="L Stick Left"        btn_value=controls.Gamepad.LStickLeft %}
-    {% include control_template with input="gamepad" btn_id="l-stick-right"       btn_title="L Stick Right"       btn_value=controls.Gamepad.LStickRight %}
-    {% include control_template with input="gamepad" btn_id="r-stick-up"          btn_title="R Stick Up"          btn_value=controls.Gamepad.RStickUp %}
-    {% include control_template with input="gamepad" btn_id="r-stick-down"        btn_title="R Stick Down"        btn_value=controls.Gamepad.RStickDown %}
-    {% include control_template with input="gamepad" btn_id="r-stick-left"        btn_title="R Stick Left"        btn_value=controls.Gamepad.RStickLeft %}
-    {% include control_template with input="gamepad" btn_id="r-stick-right"       btn_title="R Stick Right"       btn_value=controls.Gamepad.RStickRight %}
+    {% include "control.twig" with input="gamepad" btn_id="a"                   btn_title="Circle"              btn_value=controls.Gamepad.A %}
+    {% include "control.twig" with input="gamepad" btn_id="b"                   btn_title="Cross"               btn_value=controls.Gamepad.B %}
+    {% include "control.twig" with input="gamepad" btn_id="x"                   btn_title="Triangle"            btn_value=controls.Gamepad.X %}
+    {% include "control.twig" with input="gamepad" btn_id="y"                   btn_title="Square"              btn_value=controls.Gamepad.Y %}
+    {% include "control.twig" with input="gamepad" btn_id="select"              btn_title="Select"              btn_value=controls.Gamepad.Select %}
+    {% include "control.twig" with input="gamepad" btn_id="start"               btn_title="Start"               btn_value=controls.Gamepad.Start %}
+    {% include "control.twig" with input="gamepad" btn_id="up"                  btn_title="Up"                  btn_value=controls.Gamepad.Up %}
+    {% include "control.twig" with input="gamepad" btn_id="down"                btn_title="Down"                btn_value=controls.Gamepad.Down %}
+    {% include "control.twig" with input="gamepad" btn_id="left"                btn_title="Left"                btn_value=controls.Gamepad.Left %}
+    {% include "control.twig" with input="gamepad" btn_id="right"               btn_title="Right"               btn_value=controls.Gamepad.Right %}
+    {% include "control.twig" with input="gamepad" btn_id="l"                   btn_title="L"                   btn_value=controls.Gamepad.L %}
+    {% include "control.twig" with input="gamepad" btn_id="r"                   btn_title="R"                   btn_value=controls.Gamepad.R %}
+    {% include "control.twig" with input="gamepad" btn_id="l2"                  btn_title="L2"                  btn_value=controls.Gamepad.L2 %}
+    {% include "control.twig" with input="gamepad" btn_id="r2"                  btn_title="R2"                  btn_value=controls.Gamepad.R2 %}
+    {% include "control.twig" with input="gamepad" btn_id="l3"                  btn_title="L3"                  btn_value=controls.Gamepad.L3 %}
+    {% include "control.twig" with input="gamepad" btn_id="r3"                  btn_title="R3"                  btn_value=controls.Gamepad.R3 %}
+    {% include "control.twig" with input="gamepad" btn_id="l-stick-up"          btn_title="L Stick Up"          btn_value=controls.Gamepad.LStickUp %}
+    {% include "control.twig" with input="gamepad" btn_id="l-stick-down"        btn_title="L Stick Down"        btn_value=controls.Gamepad.LStickDown %}
+    {% include "control.twig" with input="gamepad" btn_id="l-stick-left"        btn_title="L Stick Left"        btn_value=controls.Gamepad.LStickLeft %}
+    {% include "control.twig" with input="gamepad" btn_id="l-stick-right"       btn_title="L Stick Right"       btn_value=controls.Gamepad.LStickRight %}
+    {% include "control.twig" with input="gamepad" btn_id="r-stick-up"          btn_title="R Stick Up"          btn_value=controls.Gamepad.RStickUp %}
+    {% include "control.twig" with input="gamepad" btn_id="r-stick-down"        btn_title="R Stick Down"        btn_value=controls.Gamepad.RStickDown %}
+    {% include "control.twig" with input="gamepad" btn_id="r-stick-left"        btn_title="R Stick Left"        btn_value=controls.Gamepad.RStickLeft %}
+    {% include "control.twig" with input="gamepad" btn_id="r-stick-right"       btn_title="R Stick Right"       btn_value=controls.Gamepad.RStickRight %}
     {% include "common_gamepad_controls.twig" %}
 {% endblock %}

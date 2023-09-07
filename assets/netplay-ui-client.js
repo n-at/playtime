@@ -5,8 +5,6 @@
     window.addEventListener('load', () => {
         window.addEventListener('resize', setupGameDisplaySize);
         document.getElementById('netplay-name-change').addEventListener('click', changeSelfName);
-        document.getElementById('netplay-control-scheme-save').addEventListener('click', saveControlScheme);
-        document.getElementById('netplay-control-scheme-reset').addEventListener('click', resetControlScheme);
         document.getElementById('netplay-virtual-gamepad-toggle').addEventListener('click', virtualGamepadToggle);
         document.getElementById('netplay-play').addEventListener('click', play);
 
@@ -28,7 +26,6 @@
 
         gameOverlayEl.focus();
 
-        loadControlScheme();
         virtualGamepadInit();
         virtualGamepadLoad();
         setupGameDisplaySize();
@@ -204,110 +201,6 @@
 
     function controlDataChannelOpen() {
         setInterval(() => netplay.sendControlHeartbeat(), 5000);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Control scheme
-    ///////////////////////////////////////////////////////////////////////////
-
-    const ControlSchemeMapping = {
-        0: 'b',
-        1: 'y',
-        2: 'select',
-        3: 'start',
-        4: 'up',
-        5: 'down',
-        6: 'left',
-        7: 'right',
-        8: 'a',
-        9: 'x',
-        10: 'l',
-        11: 'r',
-        12: 'l2',
-        13: 'r2',
-        14: 'l3',
-        15: 'r3',
-        16: 'l-stick-right',
-        17: 'l-stick-left',
-        18: 'l-stick-down',
-        19: 'l-stick-up',
-        20: 'r-stick-right',
-        21: 'r-stick-left',
-        22: 'r-stick-down',
-        23: 'r-stick-up',
-    };
-
-    let defaultControlScheme = {};
-
-    function loadControlScheme() {
-        defaultControlScheme = Object.assign({}, window.ControlScheme);
-
-        if (!window.localStorage || !window.localStorage.playtimeNetplayControls) {
-            return;
-        }
-
-        let controls = {};
-
-        try {
-            controls = JSON.parse(window.localStorage.playtimeNetplayControls);
-            controls = controls[window.GamePlatform];
-        } catch (e) {
-            console.error('Unable to load controls', e);
-            return;
-        }
-        if (!controls) {
-            return;
-        }
-        window.ControlScheme = controls;
-        renderFormControls();
-    }
-
-    function saveControlScheme() {
-        for (let buttonId in window.ControlScheme) {
-            const buttonName = ControlSchemeMapping[buttonId];
-
-            const keyboardInput = document.querySelector(`input.keyboard[data-btn="${buttonName}"]`);
-            if (keyboardInput) {
-                window.ControlScheme[buttonId].value = keyboardInput.value;
-            }
-
-            const gamepadInput = document.querySelector(`input.gamepad[data-btn="${buttonName}"]`);
-            if (gamepadInput) {
-                window.ControlScheme[buttonId].value2 = gamepadInput.value;
-            }
-        }
-
-        if (window.localStorage) {
-            let controls;
-            try {
-                controls = JSON.parse(window.localStorage.playtimeNetplayControls);
-            } catch (e) {
-                controls = {};
-            }
-            controls[window.GamePlatform] = window.ControlScheme;
-            window.localStorage.playtimeNetplayControls = JSON.stringify(controls);
-        }
-    }
-
-    function resetControlScheme() {
-        window.ControlScheme = Object.assign({}, defaultControlScheme);
-        renderFormControls();
-    }
-
-    function renderFormControls() {
-        for (let buttonId in window.ControlScheme) {
-            const buttonName = ControlSchemeMapping[buttonId];
-
-            const keyboardInput = document.querySelector(`input.keyboard[data-btn="${buttonName}"]`);
-            if (keyboardInput) {
-                keyboardInput.value = window.ControlScheme[buttonId].value;
-            }
-
-            const gamepadInput = document.querySelector(`input.gamepad[data-btn="${buttonName}"]`);
-            if (gamepadInput) {
-                gamepadInput.value = window.ControlScheme[buttonId].value2;
-            }
-        }
     }
 
     ///////////////////////////////////////////////////////////////////////////

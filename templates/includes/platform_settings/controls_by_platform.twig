@@ -2,51 +2,51 @@
 
 <div class="mt-3">
     {% if platform_id == "nes" %}
-        {% include "controls/nes.twig" with control_template="controls/control.twig" %}
+        {% include "controls/nes.twig" %}
     {% elif platform_id == "snes" %}
-        {% include "controls/snes.twig" with control_template="controls/control.twig" %}
+        {% include "controls/snes.twig" %}
     {% elif platform_id == "n64" %}
-        {% include "controls/n64.twig" with control_template="controls/control.twig" %}
+        {% include "controls/n64.twig" %}
     {% elif platform_id == "gb" %}
-        {% include "controls/gb.twig" with control_template="controls/control.twig" %}
+        {% include "controls/gb.twig" %}
     {% elif platform_id == "gba" %}
-        {% include "controls/gba.twig" with control_template="controls/control.twig" %}
+        {% include "controls/gba.twig" %}
     {% elif platform_id == "nds" %}
-        {% include "controls/nds.twig" with control_template="controls/control.twig" %}
+        {% include "controls/nds.twig" %}
     {% elif platform_id == "vb" %}
-        {% include "controls/vb.twig" with control_template="controls/control.twig" %}
+        {% include "controls/vb.twig" %}
     {% elif platform_id == "segaMS" %}
-        {% include "controls/segaMS.twig" with control_template="controls/control.twig" %}
+        {% include "controls/segaMS.twig" %}
     {% elif platform_id == "segaMD" or platform_id == "segaCD" or platform_id == "sega32x" %}
-        {% include "controls/segaMD.twig" with control_template="controls/control.twig" %}
+        {% include "controls/segaMD.twig" %}
     {% elif platform_id == "segaGG" %}
-        {% include "controls/segaGG.twig" with control_template="controls/control.twig" %}
+        {% include "controls/segaGG.twig" %}
     {% elif platform_id == "segaSaturn" %}
-        {% include "controls/segaSaturn.twig" with control_template="controls/control.twig" %}
+        {% include "controls/segaSaturn.twig" %}
     {% elif platform_id == "psx" %}
-        {% include "controls/psx.twig" with control_template="controls/control.twig" %}
+        {% include "controls/psx.twig" %}
     {% elif platform_id == "3do" %}
-        {% include "controls/3do.twig" with control_template="controls/control.twig" %}
+        {% include "controls/3do.twig" %}
     {% elif platform_id == "atari7800" %}
-        {% include "controls/atari7800.twig" with control_template="controls/control.twig" %}
+        {% include "controls/atari7800.twig" %}
     {% elif platform_id == "atari2600" %}
-        {% include "controls/atari2600.twig" with control_template="controls/control.twig" %}
+        {% include "controls/atari2600.twig" %}
     {% elif platform_id == "lynx" %}
-        {% include "controls/lynx.twig" with control_template="controls/control.twig" %}
+        {% include "controls/lynx.twig" %}
     {% elif platform_id == "jaguar" %}
-        {% include "controls/jaguar.twig" with control_template="controls/control.twig" %}
+        {% include "controls/jaguar.twig" %}
     {% elif platform_id == "pce" %}
-        {% include "controls/pce.twig" with control_template="controls/control.twig" %}
+        {% include "controls/pce.twig" %}
     {% elif platform_id == "pcfx" %}
-        {% include "controls/pcfx.twig" with control_template="controls/control.twig" %}
+        {% include "controls/pcfx.twig" %}
     {% elif platform_id == "ngp" %}
-        {% include "controls/ngp.twig" with control_template="controls/control.twig" %}
+        {% include "controls/ngp.twig" %}
     {% elif platform_id == "ws" %}
-        {% include "controls/ws.twig" with control_template="controls/control.twig" %}
+        {% include "controls/ws.twig" %}
     {% elif platform_id == "coleco" %}
-        {% include "controls/coleco.twig" with control_template="controls/control.twig" %}
+        {% include "controls/coleco.twig" %}
     {% else %}
         {# a5200, mame2003, arcade #}
-        {% include "controls/default.twig" with control_template="controls/control.twig" %}
+        {% include "controls/default.twig" %}
     {% endif %}
 </div>
