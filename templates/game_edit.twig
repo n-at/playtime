@@ -1,12 +1,12 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Edit game - playtime
+    Game settings - playtime
 {% endblock %}
 
 {% block content %}
 
-    <h1>Edit game</h1>
+    <h1>Game settings</h1>
     <hr>
 
     <form method="post" action="/games/edit/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
