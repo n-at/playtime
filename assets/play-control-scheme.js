@@ -154,7 +154,7 @@
 
             const keyboardInput = document.querySelector(`input.keyboard[data-player="${player}"][data-btn="${buttonName}"]`);
             if (keyboardInput) {
-                keyboardInput.value = controls[buttonId].value;
+                keyboardInput.value = controls[buttonId].value === ' ' ? 'space' : controls[buttonId].value;
             }
 
             const gamepadInput = document.querySelector(`input.gamepad[data-player="${player}"][data-btn="${buttonName}"]`);
@@ -186,7 +186,7 @@
 
             const keyboardInput = document.querySelector(`input.keyboard[data-player="${player}"][data-btn="${buttonName}"]`);
             if (keyboardInput) {
-                controls[buttonId].value = keyboardInput.value;
+                controls[buttonId].value = keyboardInput.value === 'space' ? ' ' : keyboardInput.value;
             }
 
             const gamepadInput = document.querySelector(`input.gamepad[data-player="${player}"][data-btn="${buttonName}"]`);

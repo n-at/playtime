@@ -86,6 +86,16 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 
 /*****************************************************************************/
 
+#keyboard-control-focus {
+    text-transform: uppercase;
+}
+#modal-keyboard-control:focus #keyboard-control-focus {
+    visibility: hidden;
+}
+#modal-keyboard-control #keyboard-control-focus {
+    visibility: visible;
+}
+
 #keyboard-control-button, #gamepad-control-button {
     font-size: 1.5em;
 }

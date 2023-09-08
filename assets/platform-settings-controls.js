@@ -57,7 +57,8 @@
         });
 
         document.getElementById('modal-keyboard-control').addEventListener('keydown', e => {
-            document.getElementById('keyboard-control-button').innerText = e.key.toLowerCase();
+            const key = e.key.toLowerCase();
+            document.getElementById('keyboard-control-button').innerText = key === ' ' ? 'space' : key;
             e.preventDefault();
         });
 

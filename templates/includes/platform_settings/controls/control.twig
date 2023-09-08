@@ -5,7 +5,7 @@
            id="control-{{ input }}-{{ player }}-{{ btn_id }}"
            name="control-{{ input }}-{{ player }}-{{ btn_id }}"
            class="form-control {{ input }}"
-           value="{{ btn_value }}"
+           value="{% if btn_value == ' ' %}space{% else %}{{ btn_value }}{% endif %}"
            placeholder="Button value"
            data-input="{{ input }}"
            data-player="{{ player }}"
