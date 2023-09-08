@@ -7,7 +7,9 @@
     <select id="platform" name="platform" class="form-select">
         <option value="">Undefined</option>
         {% for platform in platforms %}
-            <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
+            {% if platform.Id %}
+                <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
+            {% endif %}
         {% endfor %}
     </select>
     <label for="platform">Platform</label>
@@ -15,8 +17,15 @@
 
 <div class="mb-3">
     <div class="form-check form-switch">
+        <input type="checkbox" id="override-settings" name="override-settings" value="1" class="form-check-input" {% if game.OverrideEmulatorSettings %}checked{% endif %}>
+        <label for="override-settings" class="form-check-label">Override emulation settings</label>
+    </div>
+</div>
+
+<div class="mb-3">
+    <div class="form-check form-switch">
         <input type="checkbox" id="disable-cue" name="disable-cue" class="form-check-input" value="1" {% if game.DisableCue %}checked{% endif %}>
-        <label for="disable-cue">Disable .cue</label>
+        <label for="disable-cue">Disable creation of .cue file</label>
     </div>
 </div>
 
@@ -28,13 +37,6 @@
         </div>
     </div>
 {% endif %}
-
-<div class="mb-3">
-    <div class="form-check form-switch">
-        <input type="checkbox" id="override-settings" name="override-settings" value="1" class="form-check-input" {% if game.OverrideEmulatorSettings %}checked{% endif %}>
-        <label for="override-settings" class="form-check-label">Override emulation settings</label>
-    </div>
-</div>
 
 <hr>
 

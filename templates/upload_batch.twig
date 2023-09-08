@@ -1,16 +1,20 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Upload batch - playtime
+    Upload games - playtime
 {% endblock %}
 
 {% block content %}
-    <h1>Upload batch</h1>
+    <h1>Upload games</h1>
     <hr>
+
+    <p class="lead">
+        Select platforms for uploaded games
+    </p>
 
     <form action="/games/upload-batch/{{ upload_batch.Id }}" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
-        <div class="list-group list-group-hover">
+        <div class="list-group list-group-flush list-group-hover">
             {% for game in games %}
                 <div class="list-group-item">
                     <div class="row">
@@ -22,7 +26,9 @@
                             <select id="platform-{{ game.Id }}" name="platform-{{ game.Id }}" class="form-select">
                                 <option value="">Undefined</option>
                                 {% for platform in platforms %}
-                                    <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
+                                    {% if platform.Id %}
+                                        <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
+                                    {% endif %}
                                 {% endfor %}
                             </select>
                             <label for="platform-{{ game.Id }}" class="d-none">Select game platform</label>
@@ -38,5 +44,4 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
-
 {% endblock %}
