@@ -9,10 +9,12 @@
 {% endblock %}
 
 {% block content %}
+    {% include "includes/header_decoration.twig" with cls="play" %}
+
     <div id="header" class="container-fluid">
         <div class="row mt-2 align-items-start">
             <div class="col-6 col-md-8">
-                <div id="netplay-player" class="lead d-inline-block text-truncate">
+                <div id="netplay-player" class="lead d-inline-block ms-1 text-truncate">
                     Player: spectator
                 </div>
             </div>

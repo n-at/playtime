@@ -42,25 +42,29 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 
 /*****************************************************************************/
 
-#navbar .navbar-decoration {
+#header-decoration {
     position: absolute;
     top: 0;
     left: 0;
     width: 5px;
 }
 
-#navbar .navbar-decoration div {
+#header-decoration div {
     width: 5px;
     height: 19px;
 }
+#header-decoration.play div {
+    width: 5px;
+    height: 16px;
+}
 
-#navbar .navbar-decoration .decor-red {
+#header-decoration .decor-red {
     background-color: #dc3545;
 }
-#navbar .navbar-decoration .decor-green {
+#header-decoration .decor-green {
     background-color: #198754;
 }
-#navbar .navbar-decoration .decor-blue {
+#header-decoration .decor-blue {
     background-color: #0d6efd;
 }
 

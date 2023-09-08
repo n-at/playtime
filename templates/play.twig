@@ -9,10 +9,12 @@
 {% endblock %}
 
 {% block content %}
+    {% include "includes/header_decoration.twig" with cls="play" %}
+
     <div id="header" class="container-fluid">
         <div class="row mt-2">
             <div class="col-6">
-                <a href="/games" class="btn btn-sm btn-outline-secondary" title="Back">
+                <a href="/games" class="btn btn-sm btn-outline-secondary ms-1" title="Back">
                     <i class="bi bi-chevron-left"></i>
                 </a>
                 <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary ms-3" title="Save game state">
