@@ -202,7 +202,7 @@
 
         states.forEach(state => {
             const container = document.createElement('div');
-            container.classList.add('col-12', 'col-sm-6', 'col-lg-4');
+            container.classList.add('col-6', 'col-sm-4', 'col-lg-4');
 
             const card = document.createElement('div');
             card.classList.add('card', 'mb-3');
