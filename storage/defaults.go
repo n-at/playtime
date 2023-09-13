@@ -276,7 +276,7 @@ var (
 				Name:        "BS-X.bin",
 				Url:         "/assets/snes/BS-X.bin",
 				Hash:        "fed4d8242cfbed61343d53d48432aced",
-				Description: "BS-X - Sore wa Namae o Nusumareta Machi no\nMonogatari (Japan) (Rev 1)",
+				Description: "BS-X - Sore wa Namae o Nusumareta Machi no Monogatari (Japan) (Rev 1)",
 			},
 			Bios{
 				Name:        "STBIOS.bin",
@@ -328,22 +328,9 @@ var (
 		"vb": {},
 		"nds": {
 			Bios{
-				Name:        "bios7.bin",
-				Url:         "/assets/bios/nds/bios7.bin",
-				Hash:        "df692a80a5b1bc90728bc3dfc76cd948",
-				Description: "NDS ARM7 BIOS",
-			},
-			Bios{
-				Name:        "bios9.bin",
-				Url:         "/assets/bios/nds/bios9.bin",
-				Hash:        "a392174eb3e572fed6447e956bde4b25",
-				Description: "NDS ARM9 BIOS",
-			},
-			Bios{
-				Name:        "firmware.bin",
-				Url:         "/assets/bios/nds/firmware.bin",
-				Hash:        "145eaef5bd3037cbc247c213bb3da1b3",
-				Description: "NDS Firmware",
+				Name:        "ds.zip",
+				Url:         "/assets/bios/nds/DS.zip",
+				Description: "DS BIOS files",
 			},
 		},
 		"a5200":    {},
@@ -584,22 +571,9 @@ var (
 		},
 		"pcfx": {
 			Bios{
-				Name:        "pcfx.rom",
-				Url:         "/assets/bios/pcfx/pcfx.rom",
-				Hash:        "08e36edbea28a017f79f8d4f7ff9b6d7",
-				Description: "PC-FX BIOS v1.00",
-			},
-			Bios{
-				Name:        "pcfxbios.bin",
-				Url:         "/assets/bios/pcfx/pcfxbios.bin",
-				Hash:        "08e36edbea28a017f79f8d4f7ff9b6d7",
-				Description: "pcfxbios.bin",
-			},
-			Bios{
-				Name:        "pcfxv101.bin",
-				Url:         "/assets/bios/pcfx/pcfxv101.bin",
-				Hash:        "e2fb7c7220e3a7838c2dd7e401a7f3d8",
-				Description: "pcfxv101.bin",
+				Name:        "pcfx.zip",
+				Url:         "/assets/bios/pcfx/pcfx.zip",
+				Description: "PC-FX BIOS",
 			},
 		},
 		"ngp": {},

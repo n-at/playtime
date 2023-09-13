@@ -36,6 +36,11 @@ wget -O "nds/bios7.bin" "https://github.com/Abdess/retroarch_system/raw/libretro
 wget -O "nds/bios9.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Nintendo%20DS/bios9.bin"
 wget -O "nds/firmware.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Nintendo%20DS/firmware.bin"
 
+cd nds
+zip ds.zip firmware.bin bios7.bin bios9.bin
+rm firmware.bin bios7.bin bios9.bin
+cd ..
+
 mkdir psx
 wget -O "psx/scph5500.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph5500.bin"
 wget -O "psx/scph5501.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph5501.bin"
@@ -102,3 +107,8 @@ mkdir pcfx
 wget -O "pcfx/pcfx.rom" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC-FX/pcfx.rom"
 wget -O "pcfx/pcfxbios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC-FX/pcfxbios.bin"
 wget -O "pcfx/pcfxv101.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC-FX/pcfxv101.bin"
+
+cd pcfx
+zip pcfx.zip pcfx.rom pcfxbios.bin pcfxv101.bin
+rm pcfx.rom pcfxbios.bin pcfxv101.bin
+cd ..
