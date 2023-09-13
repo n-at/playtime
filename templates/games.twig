@@ -66,6 +66,11 @@
             </div>
         {% endfor %}
     {% else %}
+        <div class="text-center">
+            <button id="btn-upload" type="button" class="btn btn-outline-success mt-3">
+                <i class="bi bi-plus-circle"></i> Upload games
+            </button>
+        </div>
         {% include "includes/empty_state.twig" with icon="bi bi-joystick" text="No games found" %}
     {% endif %}
 
