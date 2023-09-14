@@ -25,11 +25,21 @@ mkdir gb
 wget -O "gb/gb_bios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Gameboy/gb_bios.bin"
 wget -O "gb/gbc_bios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Gameboy%20Color/gbc_bios.bin"
 
+cd gb
+zip gb.zip *.bin
+rm *.bin
+cd ..
+
 mkdir gba
 wget -O "gba/gb_bios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Gameboy/gb_bios.bin"
 wget -O "gba/gbc_bios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Gameboy%20Color/gbc_bios.bin"
 wget -O "gba/gba_bios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Game%20Boy%20Advance/gba_bios.bin"
 wget -O "gba/sgb_bios.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Super%20Game%20Boy/sgb_bios.bin"
+
+cd gba
+zip gba.zip *.bin
+rm *.bin
+cd ..
 
 mkdir nds
 wget -O "nds/bios7.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Nintendo%20-%20Nintendo%20DS/bios7.bin"
@@ -45,16 +55,21 @@ mkdir psx
 wget -O "psx/scph5500.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph5500.bin"
 wget -O "psx/scph5501.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph5501.bin"
 wget -O "psx/scph5502.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph5502.bin"
-wget -O "psx/PSXONPSP660.BIN" "https://github.com/Abdess/retroarch_system/raw/Other/Sony%20-%20PlayStation/PSXONPSP660.BIN"
 wget -O "psx/scph101.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph101.bin"
 wget -O "psx/scph7001.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph7001.bin"
 wget -O "psx/scph1001.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sony%20-%20PlayStation/scph1001.bin"
+wget -O "psx/psp.bin" "https://github.com/Abdess/retroarch_system/raw/Other/Sony%20-%20PlayStation/PSXONPSP660.BIN"
 
 cd psx
-mkdir PSXONPSP660
-cp "PSXONPSP660.BIN" "PSXONPSP660/scph5500.bin"
-cp "PSXONPSP660.BIN" "PSXONPSP660/scph5501.bin"
-cp "PSXONPSP660.BIN" "PSXONPSP660/scph5502.bin"
+mkdir tmp
+cp "psp.bin" "tmp/scph5500.bin"
+cp "psp.bin" "tmp/scph5501.bin"
+cp "psp.bin" "tmp/scph5502.bin"
+cd tmp
+zip ../psp.zip *.bin
+cd ..
+zip psx.zip scph5500.bin scph5501.bin scph5502.bin scph101.bin scph7001.bin scph1001.bin
+rm -rf tmp *.bin
 cd ..
 
 mkdir lynx
@@ -68,6 +83,11 @@ wget -O "segaMS/bios_E.sms" "https://github.com/Abdess/retroarch_system/raw/libr
 wget -O "segaMS/bios_U.sms" "https://github.com/Abdess/retroarch_system/raw/libretro/Sega%20-%20Master%20System%20-%20Mark%20III/bios_U.sms"
 wget -O "segaMS/bios_J.sms" "https://github.com/Abdess/retroarch_system/raw/libretro/Sega%20-%20Master%20System%20-%20Mark%20III/bios_J.sms"
 
+cd segaMS
+zip segaMS.zip *.sms
+rm *.sms
+cd ..
+
 mkdir segaMD
 wget -O "segaMD/bios_MD.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sega%20-%20Mega%20Drive%20-%20Genesis/bios_MD.bin"
 
@@ -79,6 +99,11 @@ wget -O "segaCD/bios_CD_E.bin" "https://github.com/Abdess/retroarch_system/raw/l
 wget -O "segaCD/bios_CD_U.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sega%20-%20Mega%20CD%20-%20Sega%20CD/bios_CD_U.bin"
 wget -O "segaCD/bios_CD_J.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/Sega%20-%20Mega%20CD%20-%20Sega%20CD/bios_CD_J.bin"
 
+cd segaCD
+zip segaCD.zip *.bin
+rm *.bin
+cd ..
+
 mkdir 3do
 wget -O "3do/panafz1.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz1.bin"
 wget -O "3do/panafz10.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz10.bin"
@@ -86,10 +111,15 @@ wget -O "3do/panafz10-norsa.bin" "https://github.com/Abdess/retroarch_system/raw
 wget -O "3do/panafz10e-anvil.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz10e-anvil.bin"
 wget -O "3do/panafz10e-anvil-norsa.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz10e-anvil-norsa.bin"
 wget -O "3do/panafz1j.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz1j.bin"
-wget -O "3do/panafz1j-norsa.bi" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz1j-norsa.bin"
+wget -O "3do/panafz1j-norsa.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/panafz1j-norsa.bin"
 wget -O "3do/goldstar.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/goldstar.bin"
 wget -O "3do/sanyotry.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/sanyotry.bin"
 wget -O "3do/3do_arcade_saot.bin" "https://github.com/Abdess/retroarch_system/raw/libretro/3DO%20Company%2C%20The%20-%203DO/3do_arcade_saot.bin"
+
+cd 3do
+zip 3do.zip *.bin
+rm *.bin
+cd ..
 
 mkdir atari7800
 wget -O "atari7800/7800_BIOS_U.rom" 'https://github.com/Abdess/retroarch_system/raw/libretro/Atari%20-%207800/7800%20BIOS%20(U).rom'
@@ -99,6 +129,11 @@ wget -O "pce/syscard3.pce" "https://github.com/Abdess/retroarch_system/raw/libre
 wget -O "pce/syscard2.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/syscard2.pce"
 wget -O "pce/syscard1.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/syscard1.pce"
 wget -O "pce/gexpress.pce" "https://github.com/Abdess/retroarch_system/raw/libretro/NEC%20-%20PC%20Engine%20-%20TurboGrafx%2016%20-%20SuperGrafx/gexpress.pce"
+
+cd pce
+zip pce.zip *.pce
+rm *.pce
+cd ..
 
 mkdir coleco
 wget -O "coleco/colecovision.rom" "https://github.com/Abdess/retroarch_system/raw/libretro/Coleco%20-%20ColecoVision/colecovision.rom"
