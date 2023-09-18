@@ -20,26 +20,28 @@
             const player = input.getAttribute('data-player');
             const button = input.getAttribute('data-btn');
 
-            updateKeyDisplay('keyboard', button);
+            updateKeyDisplay('keyboard', player, button);
 
             input.addEventListener('click', () => {
-                document.getElementById('keyboard-control-player').innerText = (parseInt(player)+1).toString();
+                document.getElementById('keyboard-control-player-title').innerText = (parseInt(player)+1).toString();
                 document.getElementById('keyboard-control-title').innerText = title;
-                document.getElementById('keyboard-control-display').innerText = input.value;
-                document.getElementById('keyboard-control-code').value = getValue('keyboard', button);
+                document.getElementById('keyboard-control-display').innerText = input.value ? input.value : 'Not set';
+                document.getElementById('keyboard-control-code').value = getValue('keyboard', player, button);
                 document.getElementById('keyboard-control-button').value = button;
+                document.getElementById('keyboard-control-player').value = player;
                 modalKeyboard.show();
             });
         });
 
         document.getElementById('keyboard-control-clear').addEventListener('click', () => {
-            document.getElementById('keyboard-control-display').innerText = '';
+            document.getElementById('keyboard-control-display').innerText = 'Not set';
             document.getElementById('keyboard-control-code').value = '';
         });
 
         document.getElementById('keyboard-control-save').addEventListener('click', () => {
             const button = document.getElementById('keyboard-control-button').value;
-            setValue('keyboard', button, document.getElementById('keyboard-control-code').value);
+            const player = document.getElementById('keyboard-control-player').value;
+            setValue('keyboard', player, button, document.getElementById('keyboard-control-code').value);
             modalKeyboard.hide();
         });
 
@@ -56,26 +58,29 @@
             const player = input.getAttribute('data-player');
             const button = input.getAttribute('data-btn');
 
-            updateKeyDisplay('gamepad', button);
+            updateKeyDisplay('gamepad', player, button);
 
             input.addEventListener('click', () => {
-                document.getElementById('gamepad-control-player').innerText = (parseInt(player)+1).toString();
+                document.getElementById('gamepad-control-player-title').innerText = (parseInt(player)+1).toString();
                 document.getElementById('gamepad-control-title').innerText = title;
-                document.getElementById('gamepad-control-display').innerText = input.value;
-                document.getElementById('gamepad-control-input').value = getValue('gamepad', button);
+                document.getElementById('gamepad-control-display').innerText = input.value ? input.value : 'Not set';
+                document.getElementById('gamepad-control-input').value = getValue('gamepad', player, button);
                 document.getElementById('gamepad-control-button').value = button;
+                document.getElementById('gamepad-control-player').value = player;
+
                 modalGamepad.show();
             });
         });
 
         document.getElementById('gamepad-control-clear').addEventListener('click', () => {
-            document.getElementById('gamepad-control-display').innerText = '';
+            document.getElementById('gamepad-control-display').innerText = 'Not set';
             document.getElementById('gamepad-control-input').value = '';
         });
 
         document.getElementById('gamepad-control-save').addEventListener('click', () => {
             const button = document.getElementById('gamepad-control-button').value;
-            setValue('gamepad', button, document.getElementById('gamepad-control-input').value);
+            const player = document.getElementById('gamepad-control-player').value;
+            setValue('gamepad', player, button, document.getElementById('gamepad-control-input').value);
             modalGamepad.hide();
         });
 
@@ -271,9 +276,9 @@
         KeyLabels[KeyCodes[key]] = key;
     }
 
-    function updateKeyDisplay(input, btn) {
-        const displayEl = document.querySelector(`input[type="text"][data-input="${input}"][data-btn="${btn}"]`);
-        const valueEl = document.querySelector(`input[type="hidden"][data-input="${input}"][data-btn="${btn}"]`);
+    function updateKeyDisplay(input, player, btn) {
+        const displayEl = document.querySelector(`input[type="text"][data-input="${input}"][data-player="${player}"][data-btn="${btn}"]`);
+        const valueEl = document.querySelector(`input[type="hidden"][data-input="${input}"][data-player="${player}"][data-btn="${btn}"]`);
 
         if (!displayEl || !valueEl) {
             return;
@@ -292,15 +297,15 @@
         const label = KeyLabels[code];
         if (label !== undefined) {
             return `${label} (${code})`;
-        } else if (code) {
+        } else if (code || code !== '') {
             return `Key #${code}`;
         } else {
             return '';
         }
     }
 
-    function getValue(input, button) {
-        const el = document.querySelector(`input[type="hidden"][data-input="${input}"][data-btn="${button}"]`);
+    function getValue(input, player, button) {
+        const el = document.querySelector(`input[type="hidden"][data-input="${input}"][data-player="${player}"][data-btn="${button}"]`);
         if (el) {
             return el.value;
         } else {
@@ -308,12 +313,17 @@
         }
     }
 
-    function setValue(input, button, value) {
-        const el = document.querySelector(`input[type="hidden"][data-input="${input}"][data-btn="${button}"]`);
+    function setValue(input, player, button, value) {
+        const el = document.querySelector(`input[type="hidden"][data-input="${input}"][data-player="${player}"][data-btn="${button}"]`);
         if (el) {
             el.value = value;
         }
-        updateKeyDisplay(input, button);
+        updateKeyDisplay(input, player, button);
     }
+
+    window.PlatformSettingsControls = {
+        getValue,
+        setValue,
+    };
 
 })();

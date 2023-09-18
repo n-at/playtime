@@ -63,6 +63,7 @@
         window.PlaytimeControls = {};
 
         ['0', '1', '2' , '3'].forEach(player => {
+            console.log(gatherInputs(player, ControlSchemeMapping));
             window.EJS_emulator.controls[player.toString()] = gatherInputs(player, ControlSchemeMapping);
             window.PlaytimeControls[player.toString()] = gatherInputs(player, ControlSchemeMappingState);
         });
@@ -151,16 +152,8 @@
     function assignInputs(player, controls, mapping) {
         for (let buttonId in controls) {
             const buttonName = mapping[buttonId];
-
-            const keyboardInput = document.querySelector(`input.keyboard[data-player="${player}"][data-btn="${buttonName}"]`);
-            if (keyboardInput) {
-                keyboardInput.value = controls[buttonId].value === ' ' ? 'space' : controls[buttonId].value;
-            }
-
-            const gamepadInput = document.querySelector(`input.gamepad[data-player="${player}"][data-btn="${buttonName}"]`);
-            if (gamepadInput) {
-                gamepadInput.value = controls[buttonId].value2;
-            }
+            PlatformSettingsControls.setValue('keyboard', player, buttonName, controls[buttonId].keycode ? controls[buttonId].keycode : '');
+            PlatformSettingsControls.setValue('gamepad', player, buttonName, controls[buttonId].value2 ? controls[buttonId].value2 : '');
         }
     }
 
@@ -179,20 +172,17 @@
 
             if (!controls[buttonId]) {
                 controls[buttonId] = {
-                    value: null,
+                    keycode: null,
                     value2: null,
                 };
             }
 
-            const keyboardInput = document.querySelector(`input.keyboard[data-player="${player}"][data-btn="${buttonName}"]`);
-            if (keyboardInput) {
-                controls[buttonId].value = keyboardInput.value === 'space' ? ' ' : keyboardInput.value;
+            controls[buttonId].keycode = parseInt(PlatformSettingsControls.getValue('keyboard', player, buttonName));
+            if (isNaN(controls[buttonId].keycode)) {
+                controls[buttonId].keycode = undefined;
             }
 
-            const gamepadInput = document.querySelector(`input.gamepad[data-player="${player}"][data-btn="${buttonName}"]`);
-            if (gamepadInput) {
-                controls[buttonId].value2 = gamepadInput.value;
-            }
+            controls[buttonId].value2 = PlatformSettingsControls.getValue('gamepad', player, buttonName);
         }
 
         return controls;
@@ -201,7 +191,7 @@
     function gatherInputsToUpload() {
         const inputs = {};
 
-        document.querySelectorAll('input.keyboard, input.gamepad').forEach(input => {
+        document.querySelectorAll('input[type="hidden"][data-input="keyboard"], input[type="hidden"][data-input="gamepad"]').forEach(input => {
             inputs[input.name] = input.value;
         });
 

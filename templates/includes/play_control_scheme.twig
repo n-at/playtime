@@ -89,114 +89,114 @@
         {% for controls in emulator_settings.Controls %}
         "{{ forloop.Counter0 }}": {
             0: {
-                value: "{{ controls.Keyboard.B }}",
+                code: "{{ controls.Keyboard.B }}",
                 value2: "{{ controls.Gamepad.B }}"
             },
             1: {
-                value: "{{ controls.Keyboard.Y }}",
+                code: "{{ controls.Keyboard.Y }}",
                 value2: "{{ controls.Gamepad.Y }}"
             },
             2: {
-                value: "{{ controls.Keyboard.Select }}",
+                code: "{{ controls.Keyboard.Select }}",
                 value2: "{{ controls.Gamepad.Select }}"
             },
             3: {
-                value: "{{ controls.Keyboard.Start }}",
+                code: "{{ controls.Keyboard.Start }}",
                 value2: "{{ controls.Gamepad.Start }}"
             },
             4: {
-                value: "{{ controls.Keyboard.Up }}",
+                code: "{{ controls.Keyboard.Up }}",
                 value2: "{{ controls.Gamepad.Up }}"
             },
             5: {
-                value: "{{ controls.Keyboard.Down }}",
+                code: "{{ controls.Keyboard.Down }}",
                 value2: "{{ controls.Gamepad.Down }}"
             },
             6: {
-                value: "{{ controls.Keyboard.Left }}",
+                code: "{{ controls.Keyboard.Left }}",
                 value2: "{{ controls.Gamepad.Left }}"
             },
             7: {
-                value: "{{ controls.Keyboard.Right }}",
+                code: "{{ controls.Keyboard.Right }}",
                 value2: "{{ controls.Gamepad.Right }}"
             },
             8: {
-                value: "{{ controls.Keyboard.A }}",
+                code: "{{ controls.Keyboard.A }}",
                 value2: "{{ controls.Gamepad.A }}"
             },
             9: {
-                value: "{{ controls.Keyboard.X }}",
+                code: "{{ controls.Keyboard.X }}",
                 value2: "{{ controls.Gamepad.X }}"
             },
             10: {
-                value: "{{ controls.Keyboard.L }}",
+                code: "{{ controls.Keyboard.L }}",
                 value2: "{{ controls.Gamepad.L }}"
             },
             11: {
-                value: "{{ controls.Keyboard.R }}",
+                code: "{{ controls.Keyboard.R }}",
                 value2: "{{ controls.Gamepad.R }}"
             },
             12: {
-                value: "{{ controls.Keyboard.L2 }}",
+                code: "{{ controls.Keyboard.L2 }}",
                 value2: "{{ controls.Gamepad.L2 }}"
             },
             13: {
-                value: "{{ controls.Keyboard.R2 }}",
+                code: "{{ controls.Keyboard.R2 }}",
                 value2: "{{ controls.Gamepad.R2 }}"
             },
             14: {
-                value: "{{ controls.Keyboard.L3 }}",
+                code: "{{ controls.Keyboard.L3 }}",
                 value2: "{{ controls.Gamepad.L3 }}"
             },
             15: {
-                value: "{{ controls.Keyboard.R3 }}",
+                code: "{{ controls.Keyboard.R3 }}",
                 value2: "{{ controls.Gamepad.R3 }}"
             },
             16: {
-                value: "{{ controls.Keyboard.LStickRight }}",
+                code: "{{ controls.Keyboard.LStickRight }}",
                 value2: "{{ controls.Gamepad.LStickRight }}"
             },
             17: {
-                value: "{{ controls.Keyboard.LStickLeft }}",
+                code: "{{ controls.Keyboard.LStickLeft }}",
                 value2: "{{ controls.Gamepad.LStickLeft }}"
             },
             18: {
-                value: "{{ controls.Keyboard.LStickDown }}",
+                code: "{{ controls.Keyboard.LStickDown }}",
                 value2: "{{ controls.Gamepad.LStickDown }}"
             },
             19: {
-                value: "{{ controls.Keyboard.LStickUp }}",
+                code: "{{ controls.Keyboard.LStickUp }}",
                 value2: "{{ controls.Gamepad.LStickUp }}"
             },
             20: {
-                value: "{{ controls.Keyboard.RStickRight }}",
+                code: "{{ controls.Keyboard.RStickRight }}",
                 value2: "{{ controls.Gamepad.RStickRight }}"
             },
             21: {
-                value: "{{ controls.Keyboard.RStickLeft }}",
+                code: "{{ controls.Keyboard.RStickLeft }}",
                 value2: "{{ controls.Gamepad.RStickLeft }}"
             },
             22: {
-                value: "{{ controls.Keyboard.RStickDown }}",
+                code: "{{ controls.Keyboard.RStickDown }}",
                 value2: "{{ controls.Gamepad.RStickDown }}"
             },
             23: {
-                value: "{{ controls.Keyboard.RStickUp }}",
+                code: "{{ controls.Keyboard.RStickUp }}",
                 value2: "{{ controls.Gamepad.RStickUp }}"
             },
             24: {},
             25: {},
             26: {},
             27: {
-                value: "{{ controls.Keyboard.FastForward }}",
+                code: "{{ controls.Keyboard.FastForward }}",
                 value2: "{{ controls.Gamepad.FastForward }}"
             },
             28: {
-                value: "{{ controls.Keyboard.Rewind }}",
+                code: "{{ controls.Keyboard.Rewind }}",
                 value2: "{{ controls.Gamepad.Rewind }}",
             },
             29: {
-                value: "{{ controls.Keyboard.SlowMotion }}",
+                code: "{{ controls.Keyboard.SlowMotion }}",
                 value2: "{{ controls.Gamepad.SlowMotion }}",
             },
         },
@@ -207,14 +207,39 @@
         {% for controls in emulator_settings.Controls %}
         "{{ forloop.Counter0 }}": {
             save: {
-                value: "{{ controls.Keyboard.QuickSaveState }}",
+                code: "{{ controls.Keyboard.QuickSaveState }}",
                 value2: "{{ controls.Gamepad.QuickSaveState }}",
             },
             load: {
-                value: "{{ controls.Keyboard.QuickLoadState }}",
+                code: "{{ controls.Keyboard.QuickLoadState }}",
                 value2: "{{ controls.Gamepad.QuickLoadState }}",
             },
         },
         {% endfor %}
     };
+
+    for (let player in EJS_defaultControls) {
+        const playerControls = EJS_defaultControls[player];
+        for (let idx in playerControls) {
+            const control = playerControls[idx];
+            if (control.code) {
+                control.keycode = parseInt(control.code);
+                if (isNaN(control.keycode)) {
+                    control.keycode = undefined;
+                }
+            }
+        }
+    }
+    for (let player in PlaytimeControls) {
+        const playerControls = PlaytimeControls[player];
+        for (let idx in playerControls) {
+            const control = playerControls[idx];
+            if (control.code) {
+                control.keycode = parseInt(control.code);
+                if (isNaN(control.keycode)) {
+                    control.keycode = undefined;
+                }
+            }
+        }
+    }
 </script>

@@ -22,14 +22,14 @@
         if (e.repeat) {
             return;
         }
-        const key = e.key.toLowerCase();
+        const key = e.keyCode;
         for (let playerIdx = 0; playerIdx < 4; playerIdx++) {
-            if (key === PlaytimeControls[playerIdx].load.value) {
+            if (key === PlaytimeControls[playerIdx].load.keycode) {
                 e.preventDefault();
                 await loadLatestState();
                 return;
             }
-            if (key === PlaytimeControls[playerIdx].save.value) {
+            if (key === PlaytimeControls[playerIdx].save.keycode) {
                 e.preventDefault();
                 await saveState();
                 return;
