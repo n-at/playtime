@@ -417,103 +417,103 @@ var (
 
 	DefaultControlsNes = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z",
-			B:      "x",
-			Select: "v",
-			Start:  "enter",
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			A:      KeyZ,
+			B:      KeyX,
+			Select: KeyV,
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsGb = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z",
-			B:      "x",
-			Select: "v",
-			Start:  "enter",
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			A:      KeyZ,
+			B:      KeyX,
+			Select: KeyV,
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsSnes = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z",
-			B:      "x",
-			X:      "a",
-			Y:      "s",
-			L:      "q",
-			R:      "w",
-			Select: "v",
-			Start:  "enter",
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			A:      KeyZ,
+			B:      KeyX,
+			X:      KeyA,
+			Y:      KeyS,
+			L:      KeyQ,
+			R:      KeyW,
+			Select: KeyV,
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsN64 = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:           "z",
-			B:           "x",
-			Start:       "enter",
-			Up:          "arrowup",    //D-Pad Up
-			Down:        "arrowdown",  //D-Pad Down
-			Left:        "arrowleft",  //D-Pad Left
-			Right:       "arrowright", //D-Pad Right
-			L:           "q",
-			R:           "w",
-			LStickUp:    "t", //Stick up
-			LStickDown:  "g", //Stick Down
-			LStickLeft:  "f", //Stick Left
-			LStickRight: "h", //Stick Right
-			RStickUp:    "i", //C-Pad Up
-			RStickDown:  "k", //C-Pad Down
-			RStickLeft:  "j", //C-Pad Left
-			RStickRight: "l", //C-Pad Right
+			A:           KeyZ,
+			B:           KeyX,
+			Start:       KeyEnter,
+			Up:          KeyArrowUp,    //D-Pad Up
+			Down:        KeyArrowDown,  //D-Pad Down
+			Left:        KeyArrowLeft,  //D-Pad Left
+			Right:       KeyArrowRight, //D-Pad Right
+			L:           KeyQ,
+			R:           KeyW,
+			LStickUp:    KeyT, //Stick up
+			LStickDown:  KeyG, //Stick Down
+			LStickLeft:  KeyF, //Stick Left
+			LStickRight: KeyH, //Stick Right
+			RStickUp:    KeyI, //C-Pad Up
+			RStickDown:  KeyK, //C-Pad Down
+			RStickLeft:  KeyJ, //C-Pad Left
+			RStickRight: KeyL, //C-Pad Right
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsGba = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z",
-			B:      "x",
-			L:      "a",
-			R:      "s",
-			Select: "v",
-			Start:  "enter",
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			A:      KeyZ,
+			B:      KeyX,
+			L:      KeyA,
+			R:      KeyS,
+			Select: KeyV,
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsNds = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z",
-			B:      "x",
-			X:      "a",
-			Y:      "s",
-			Select: "v",
-			Start:  "enter",
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
-			L:      "q",
-			R:      "w",
+			A:      KeyZ,
+			B:      KeyX,
+			X:      KeyA,
+			Y:      KeyS,
+			Select: KeyV,
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
+			L:      KeyQ,
+			R:      KeyW,
 			L3:     "", //Microphone
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
@@ -521,271 +521,271 @@ var (
 
 	DefaultControlsVb = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:           "z",
-			B:           "x",
-			L:           "q",
-			R:           "w",
-			Select:      "v",
-			Start:       "enter",
-			Up:          "arrowup",    //Left D-Pad Up
-			Down:        "arrowdown",  //Left D-Pad Down
-			Left:        "arrowleft",  //Left D-Pad Left
-			Right:       "arrowright", //Left D-Pad Right
-			LStickUp:    "t",          //Right D-Pad Up
-			LStickDown:  "g",          //Right D-Pad Down
-			LStickLeft:  "f",          //Right D-Pad Left
-			LStickRight: "h",          //Right D-Pad Right
+			A:           KeyZ,
+			B:           KeyX,
+			L:           KeyQ,
+			R:           KeyW,
+			Select:      KeyV,
+			Start:       KeyEnter,
+			Up:          KeyArrowUp,    //Left D-Pad Up
+			Down:        KeyArrowDown,  //Left D-Pad Down
+			Left:        KeyArrowLeft,  //Left D-Pad Left
+			Right:       KeyArrowRight, //Left D-Pad Right
+			LStickUp:    KeyT,          //Right D-Pad Up
+			LStickDown:  KeyG,          //Right D-Pad Down
+			LStickLeft:  KeyF,          //Right D-Pad Left
+			LStickRight: KeyH,          //Right D-Pad Right
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsSegaMS = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			B:     "z", //BUTTON 1 / START
-			A:     "x", //BUTTON 2
-			Up:    "arrowup",
-			Down:  "arrowdown",
-			Left:  "arrowleft",
-			Right: "arrowright",
+			B:     KeyZ, //BUTTON 1 / START
+			A:     KeyX, //BUTTON 2
+			Up:    KeyArrowUp,
+			Down:  KeyArrowDown,
+			Left:  KeyArrowLeft,
+			Right: KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsSegaMD = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			Y:      "z", //A
-			B:      "x", //B
-			A:      "c", //C
-			L:      "a", //X
-			X:      "s", //Y
-			R:      "d", //Z
-			Select: "v", //Mode
-			Start:  "enter",
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			Y:      KeyZ, //A
+			B:      KeyX, //B
+			A:      KeyC, //C
+			L:      KeyA, //X
+			X:      KeyS, //Y
+			R:      KeyD, //Z
+			Select: KeyV, //Mode
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsSegaGG = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			B:     "z", //BUTTON 1
-			A:     "x", //BUTTON 2
-			Start: "enter",
-			Up:    "arrowup",
-			Down:  "arrowdown",
-			Left:  "arrowleft",
-			Right: "arrowright",
+			B:     KeyZ, //BUTTON 1
+			A:     KeyX, //BUTTON 2
+			Start: KeyEnter,
+			Up:    KeyArrowUp,
+			Down:  KeyArrowDown,
+			Left:  KeyArrowLeft,
+			Right: KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsSegaSaturn = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			Y:     "z", //A
-			B:     "x", //B
-			A:     "c", //C
-			X:     "a", //X
-			L:     "s", //Y
-			R:     "d", //Z
-			L2:    "q", //L
-			R2:    "w", //R
-			Start: "enter",
-			Up:    "arrowup",
-			Down:  "arrowdown",
-			Left:  "arrowleft",
-			Right: "arrowright",
+			Y:     KeyZ, //A
+			B:     KeyX, //B
+			A:     KeyC, //C
+			X:     KeyA, //X
+			L:     KeyS, //Y
+			R:     KeyD, //Z
+			L2:    KeyQ, //L
+			R2:    KeyW, //R
+			Start: KeyEnter,
+			Up:    KeyArrowUp,
+			Down:  KeyArrowDown,
+			Left:  KeyArrowLeft,
+			Right: KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControls3do = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			Y:      "z",     //A
-			B:      "x",     //B
-			A:      "c",     //C
-			L:      "a",     //L
-			R:      "s",     //R
-			Select: "v",     //X
-			Start:  "enter", //P
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			Y:      KeyZ,     //A
+			B:      KeyX,     //B
+			A:      KeyC,     //C
+			L:      KeyA,     //L
+			R:      KeyS,     //R
+			Select: KeyV,     //X
+			Start:  KeyEnter, //P
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsAtari2600 = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			B:      "x", //Fire
-			Select: "v", //Select
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			B:      KeyX, //Fire
+			Select: KeyV, //Select
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsAtari7800 = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			B:      "x", //Fire 1
-			A:      "z", //Fire 2
-			Select: "v", //Select
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			B:      KeyX, //Fire 1
+			A:      KeyZ, //Fire 2
+			Select: KeyV, //Select
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsLynx = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:     "z",
-			B:     "x",
-			L:     "a", //Option 1
-			R:     "s", //Option 2
-			Start: "enter",
-			Up:    "arrowup",
-			Down:  "arrowdown",
-			Left:  "arrowleft",
-			Right: "arrowright",
+			A:     KeyZ,
+			B:     KeyX,
+			L:     KeyA, //Option 1
+			R:     KeyS, //Option 2
+			Start: KeyEnter,
+			Up:    KeyArrowUp,
+			Down:  KeyArrowDown,
+			Left:  KeyArrowLeft,
+			Right: KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsJaguar = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z",     //A
-			B:      "x",     //B
-			Y:      "c",     //C
-			Select: "v",     //Pause
-			Start:  "enter", //Option
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			A:      KeyZ,     //A
+			B:      KeyX,     //B
+			Y:      KeyC,     //C
+			Select: KeyV,     //Pause
+			Start:  KeyEnter, //Option
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsPCEngine = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "x",     //I
-			B:      "z",     //II
-			Select: "v",     //Select
-			Start:  "enter", //Run
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
+			A:      KeyX,     //I
+			B:      KeyZ,     //II
+			Select: KeyV,     //Select
+			Start:  KeyEnter, //Run
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsNeoGeoPocket = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:     "x",     //B
-			B:     "z",     //A
-			Start: "enter", //Option
-			Up:    "arrowup",
-			Down:  "arrowdown",
-			Left:  "arrowleft",
-			Right: "arrowright",
+			A:     KeyX,     //B
+			B:     KeyZ,     //A
+			Start: KeyEnter, //Option
+			Up:    KeyArrowUp,
+			Down:  KeyArrowDown,
+			Left:  KeyArrowLeft,
+			Right: KeyArrowRight,
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsWonderSwan = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z", //A
-			B:      "x", //B
-			Select: "v",
-			Start:  "enter",
-			Up:     "arrowup",    //X Cursor Up
-			Down:   "arrowdown",  //X Cursor Down
-			Left:   "arrowleft",  //X Cursor Left
-			Right:  "arrowright", //X Cursor Right
-			R2:     "t",          //Y Cursor Up
-			L2:     "g",          //Y Cursor Down
-			L:      "f",          //Y Cursor Left
-			R:      "h",          //Y Cursor Right
+			A:      KeyZ, //A
+			B:      KeyX, //B
+			Select: KeyV,
+			Start:  KeyEnter,
+			Up:     KeyArrowUp,    //X Cursor Up
+			Down:   KeyArrowDown,  //X Cursor Down
+			Left:   KeyArrowLeft,  //X Cursor Left
+			Right:  KeyArrowRight, //X Cursor Right
+			R2:     KeyT,          //Y Cursor Up
+			L2:     KeyG,          //Y Cursor Down
+			L:      KeyF,          //Y Cursor Left
+			R:      KeyH,          //Y Cursor Right
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsColecoVision = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "z", //Left Button
-			B:      "x", //Right Button
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
-			X:      "q", //1
-			Y:      "w", //2
-			R:      "e", //3
-			L:      "r", //4
-			R2:     "t", //5
-			L2:     "y", //6
-			R3:     "u", //7
-			L3:     "i", //8
-			Select: "o", //*
-			Start:  "p", //#
+			A:      KeyZ, //Left Button
+			B:      KeyX, //Right Button
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
+			X:      KeyQ, //1
+			Y:      KeyW, //2
+			R:      KeyE, //3
+			L:      KeyR, //4
+			R2:     KeyT, //5
+			L2:     KeyY, //6
+			R3:     KeyU, //7
+			L3:     KeyI, //8
+			Select: KeyO, //*
+			Start:  KeyP, //#
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsPCFX = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:      "c", //I
-			B:      "x", //II
-			X:      "z", //III
-			Y:      "d", //IV
-			L:      "s", //V
-			R:      "a", //VI
-			Select: "v",
-			Start:  "enter", //Run
-			Up:     "arrowup",
-			Down:   "arrowdown",
-			Left:   "arrowleft",
-			Right:  "arrowright",
-			L2:     "q", //Mode 1
-			R2:     "w", //Mode 2
+			A:      KeyC, //I
+			B:      KeyX, //II
+			X:      KeyZ, //III
+			Y:      KeyD, //IV
+			L:      KeyS, //V
+			R:      KeyA, //VI
+			Select: KeyV,
+			Start:  KeyEnter, //Run
+			Up:     KeyArrowUp,
+			Down:   KeyArrowDown,
+			Left:   KeyArrowLeft,
+			Right:  KeyArrowRight,
+			L2:     KeyQ, //Mode 1
+			R2:     KeyW, //Mode 2
 		},
 		Gamepad: DefaultControlsOther.Gamepad,
 	}
 
 	DefaultControlsOther = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			B:               "x",
-			Y:               "s",
-			Select:          "v",
-			Start:           "enter",
-			Up:              "arrowup",
-			Down:            "arrowdown",
-			Left:            "arrowleft",
-			Right:           "arrowright",
-			A:               "z",
-			X:               "a",
-			L:               "q",
-			R:               "w",
-			L2:              "e",
-			R2:              "r",
+			B:               KeyX,
+			Y:               KeyS,
+			Select:          KeyV,
+			Start:           KeyEnter,
+			Up:              KeyArrowUp,
+			Down:            KeyArrowDown,
+			Left:            KeyArrowLeft,
+			Right:           KeyArrowRight,
+			A:               KeyZ,
+			X:               KeyA,
+			L:               KeyQ,
+			R:               KeyW,
+			L2:              KeyE,
+			R2:              KeyR,
 			L3:              "",
 			R3:              "",
-			LStickUp:        "t",
-			LStickDown:      "g",
-			LStickLeft:      "f",
-			LStickRight:     "h",
-			RStickUp:        "i",
-			RStickDown:      "k",
-			RStickLeft:      "j",
-			RStickRight:     "l",
+			LStickUp:        KeyT,
+			LStickDown:      KeyG,
+			LStickLeft:      KeyF,
+			LStickRight:     KeyH,
+			RStickUp:        KeyI,
+			RStickDown:      KeyK,
+			RStickLeft:      KeyJ,
+			RStickRight:     KeyL,
 			QuickSaveState:  "",
 			QuickLoadState:  "",
 			ChangeStateSlot: "",
