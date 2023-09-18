@@ -2,10 +2,10 @@
 
 <div class="form-floating mb-2">
     <input type="text"
-           id="control-{{ input }}-{{ player }}-{{ btn_id }}"
-           name="control-{{ input }}-{{ player }}-{{ btn_id }}"
+           id="control-{{ input }}-{{ player }}-{{ btn_id }}-display"
+           name="control-{{ input }}-{{ player }}-{{ btn_id }}-display"
            class="form-control {{ input }}"
-           value="{% if btn_value == ' ' %}space{% else %}{{ btn_value }}{% endif %}"
+           value=""
            placeholder="Button value"
            data-input="{{ input }}"
            data-player="{{ player }}"
@@ -13,5 +13,13 @@
            data-title="{{ btn_title }}"
            readonly
            style="cursor: pointer">
-    <label for="control-{{ input }}-{{ player }}-{{ btn_id }}">{{ btn_title }}</label>
+    <label for="control-{{ input }}-{{ player }}-{{ btn_id }}-display">{{ btn_title }}</label>
+    <input type="hidden"
+           id="control-{{ input }}-{{ player }}-{{ btn_id }}"
+           name="control-{{ input }}-{{ player }}-{{ btn_id }}"
+           value="{{ btn_value }}"
+           data-input="{{ input }}"
+           data-player="{{ player }}"
+           data-btn="{{ btn_id }}"
+           data-title="{{ btn_title }}">
 </div>
