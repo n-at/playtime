@@ -94,7 +94,7 @@
         if (netplay.getPlayer() === -1 || e.repeat) {
             return;
         }
-        controlMapButtons(e.key.toLowerCase())
+        controlMapButtons(e.keyCode)
             .forEach(button => netplay.sendControlInput(button, 1.0));
         e.preventDefault();
     }
@@ -103,7 +103,7 @@
         if (netplay.getPlayer() === -1) {
             return;
         }
-        controlMapButtons(e.key.toLowerCase())
+        controlMapButtons(e.keyCode)
             .forEach(button => netplay.sendControlInput(button, 0.0));
         e.preventDefault();
     }
@@ -111,7 +111,7 @@
     function controlMapButtons(value) {
         const buttons = [];
         for (let code in window.ControlScheme) {
-            if (window.ControlScheme[code].value === value) {
+            if (window.ControlScheme[code].keycode === value) {
                 buttons.push(code);
             }
         }
