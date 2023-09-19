@@ -42,6 +42,15 @@
         Disconnected: 'disconnected',
     };
 
+    const Quality = {
+        Best: 'best',
+        High: 'high',
+        Higher: 'higher',
+        Medium: 'medium',
+        Lower: 'lower',
+        Low: 'low',
+    };
+
     const RetryTimeout = 1000;
     const RetryLimit = 10;
 
@@ -74,6 +83,9 @@
 
         //password for TURN/STUN/ICE server (if required)
         turnServerPassword: null,
+
+        //audio and video quality (host only)
+        quality: Quality.Best,
 
         //enable debug output
         debug: false,
@@ -192,6 +204,7 @@
             //media stream tracks (host)
             videoTrack: null,
             audioTrack: null,
+            quality: configuration.quality,
 
             //instance methods
             connect() {
@@ -291,6 +304,14 @@
 
             sendControlHeartbeat() {
                 rtcDCSend(this, this.hostId, _messageDCHeartbeat());
+            },
+
+            setQuality(quality) {
+                this.quality = quality;
+
+                for (let idx in this.clients) {
+                    rtcApplyQuality(this, idx);
+                }
             },
         };
     };
@@ -767,6 +788,7 @@
 
         if (connection.connectionState === 'connected') {
             client.retries[destinationClientId] = 0;
+            rtcApplyQuality(client, destinationClientId);
         }
         if (connection.connectionState === 'failed') {
             client.configuration.onClientError(ClientErrorType.RtcConnection, destinationClientId, new Error('RTC connection failed'));
@@ -931,6 +953,28 @@
         e.track.addEventListener('unmute', () => {
             client.configuration.gameVideoEl.srcObject = e.streams[0];
         }, {once: true});
+    }
+
+    /**
+     * @param {Object} client
+     * @param {string} destinationClientId
+     */
+    function rtcApplyQuality(client, destinationClientId) {
+        if (!client.host || !client.rtcClients[destinationClientId]) {
+            return;
+        }
+
+        _debug(client, 'RTC set encoding quality', destinationClientId, client.quality);
+
+        client.rtcClients[destinationClientId].getSenders().forEach(sender => {
+            const parameters = sender.getParameters();
+
+            parameters.encodings.forEach(encoding => {
+                encoding.maxBitrate = _encodingBitrate(sender.track.kind, client.quality);
+            });
+
+            sender.setParameters(parameters);
+        });
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -1165,6 +1209,47 @@
     function _buildDataChannelLabel() {
         const id = Math.round(Math.random() * 1000000);
         return `control-${id}`;
+    }
+
+    /**
+     * @param {string} type
+     * @param {string} quality
+     * @returns {number}
+     * @private
+     */
+    function _encodingBitrate(type, quality) {
+        if (type === 'video') {
+            switch (quality) {
+                case Quality.High:
+                    return 2 * 1000 * 1000;
+                case Quality.Higher:
+                    return 1200 * 1000;
+                case Quality.Medium:
+                    return 700 * 1000;
+                case Quality.Lower:
+                    return 300 * 1000;
+                case Quality.Low:
+                    return 100 * 1000;
+                default:
+                    return undefined;
+            }
+        }
+        if (type === 'audio') {
+            switch (quality) {
+                case Quality.High:
+                    return 320 * 1000;
+                case Quality.Higher:
+                    return 240 * 1000;
+                case Quality.Medium:
+                    return 128 * 1000;
+                case Quality.Lower:
+                    return 64 * 1000;
+                case Quality.Low:
+                    return 24 * 1000;
+                default:
+                    return undefined;
+            }
+        }
     }
 
     /**

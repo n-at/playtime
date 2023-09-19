@@ -6,6 +6,7 @@
         document.getElementById('netplay-url').value = _buildNetplayUrl();
         document.getElementById('netplay-url-copy').addEventListener('click', _copyNetplayUrl);
         document.getElementById('netplay-name-change').addEventListener('click', changeSelfName);
+        document.getElementById('netplay-quality').addEventListener('change', setQuality);
 
         _renderJoinQR();
 
@@ -390,6 +391,13 @@
         const client = netplay.getClient(clientId);
         const clientName = client ? client.name : 'unknown client';
         window.ShowToastMessage('warning', `Reconnecting to ${clientName}...`);
+    }
+
+    function setQuality() {
+        const el = document.getElementById('netplay-quality');
+        if (netplay) {
+            netplay.setQuality(el.value);
+        }
     }
 
     ///////////////////////////////////////////////////////////////////////////
