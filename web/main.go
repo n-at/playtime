@@ -112,6 +112,8 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	settings.POST("", s.settingsGeneralSubmit)
 	settings.GET("/:platform", s.settingsByPlatformForm)
 	settings.POST("/:platform", s.settingsByPlatformSubmit)
+	settings.GET("/:platform/restore", s.settingsByPlatformRestoreDefaults)
+	settings.POST("/:platform/restore", s.settingsByPlatformRestoreDefaultsSave)
 
 	//users
 	users := e.Group("/users")
@@ -141,6 +143,8 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	gamesEmulationSettings.Use(s.gameRequiredMiddleware)
 	gamesEmulationSettings.GET("", s.gameEmulationSettingsForm)
 	gamesEmulationSettings.POST("", s.gameEmulationSettingsSubmit)
+	gamesEmulationSettings.GET("/restore", s.gameEmulationSettingsRestoreDefaults)
+	gamesEmulationSettings.POST("/restore", s.gameEmulationSettingsRestoreDefaultsSave)
 
 	gamesEdit := games.Group("/edit/:game_id")
 	gamesEdit.Use(s.gameRequiredMiddleware)

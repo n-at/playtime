@@ -20,6 +20,7 @@
         {% include "includes/form_platform_settings.twig" %}
         <hr>
         <div class="mb-3 text-end">
+            <a href="/games/emulation-settings/{{ game.Id }}/restore" class="btn btn-outline-secondary">Restore defaults</a>
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>

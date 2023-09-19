@@ -1,6 +1,7 @@
 package web
 
 import (
+	"errors"
 	"fmt"
 	"github.com/flosch/pongo2/v6"
 	"github.com/labstack/echo/v4"
@@ -40,8 +41,12 @@ func (s *Server) settingsGeneralSubmit(c echo.Context) error {
 
 func (s *Server) settingsByPlatformForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
-
 	platform := c.Param("platform")
+
+	if _, ok := storage.Platforms[platform]; !ok {
+		return errors.New("platform not found")
+	}
+
 	settings := context.settings
 	platformSettings, ok := settings.EmulatorSettings[platform]
 	if !ok {
@@ -67,6 +72,10 @@ func (s *Server) settingsByPlatformSubmit(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 	platform := c.Param("platform")
 
+	if _, ok := storage.Platforms[platform]; !ok {
+		return errors.New("platform not found")
+	}
+
 	log.Infof("settingsByPlatformSubmit %s for %s", platform, context.user.Login)
 
 	settings := context.settings
@@ -78,6 +87,43 @@ func (s *Server) settingsByPlatformSubmit(c echo.Context) error {
 	}
 
 	return c.Redirect(http.StatusFound, "/settings?done=1")
+}
+
+func (s *Server) settingsByPlatformRestoreDefaults(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+	platform := c.Param("platform")
+
+	if _, ok := storage.Platforms[platform]; !ok {
+		return errors.New("platform not found")
+	}
+
+	return c.Render(http.StatusOK, "settings_platform_restore", pongo2.Context{
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"platform":    storage.Platforms[platform],
+	})
+}
+
+func (s *Server) settingsByPlatformRestoreDefaultsSave(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+	platform := c.Param("platform")
+
+	if _, ok := storage.Platforms[platform]; !ok {
+		return errors.New("platform not found")
+	}
+
+	settings, err := s.storage.SettingsGetByUserId(context.user.Id)
+	if err != nil {
+		return err
+	}
+
+	settings.EmulatorSettings[platform] = storage.DefaultEmulatorSettings(platform)
+
+	if _, err := s.storage.SettingsSave(settings); err != nil {
+		return err
+	}
+
+	return c.Redirect(http.StatusFound, "/settings/"+platform)
 }
 
 ///////////////////////////////////////////////////////////////////////////////

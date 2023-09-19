@@ -176,7 +176,6 @@ func (s *Server) gameEmulationSettingsForm(c echo.Context) error {
 
 func (s *Server) gameEmulationSettingsSubmit(c echo.Context) error {
 	context := c.(*PlaytimeContext)
-
 	game := context.game
 
 	if !game.OverrideEmulatorSettings {
@@ -190,6 +189,38 @@ func (s *Server) gameEmulationSettingsSubmit(c echo.Context) error {
 	}
 
 	return c.Redirect(http.StatusFound, "/games")
+}
+
+func (s *Server) gameEmulationSettingsRestoreDefaults(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+	game := context.game
+
+	if !game.OverrideEmulatorSettings {
+		return errors.New("game does not override emulation settings")
+	}
+
+	return c.Render(http.StatusOK, "game_emulation_settings_restore", pongo2.Context{
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"game":        context.game,
+	})
+}
+
+func (s *Server) gameEmulationSettingsRestoreDefaultsSave(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+	game := context.game
+
+	if !game.OverrideEmulatorSettings {
+		return errors.New("game does not override emulation settings")
+	}
+
+	game.EmulatorSettings = storage.DefaultEmulatorSettings(game.Platform)
+
+	if _, err := s.storage.GameSave(*game); err != nil {
+		return err
+	}
+
+	return c.Redirect(http.StatusFound, "/games/emulation-settings/"+game.Id)
 }
 
 func (s *Server) gameDeleteForm(c echo.Context) error {
