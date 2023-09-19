@@ -66,350 +66,313 @@ var (
 		"1", "3", "6", "12", "25", "50", "100",
 	}
 
-	PlatformIds = []string{
-		"nes",
-		"snes",
-		"n64",
-		"gb",
-		"gba",
-		"nds",
-		"vb",
-		"segaMS",
-		"segaMD",
-		"segaGG",
-		"segaCD",
-		"segaSaturn",
-		"psx",
-		"3do",
-		"a5200",
-		"atari7800",
-		"atari2600",
-		"jaguar",
-		"lynx",
-		"mame2003",
-		"arcade",
-		"pce",
-		"pcfx",
-		"ngp",
-		"ws",
-		"coleco",
-	}
-
 	Platforms = map[string]Platform{
 		"nes": {
 			Id:         "nes",
 			Name:       "Nintendo Famicom / NES",
+			Cores:      []string{"fceumm", "nestopia"},
 			Extensions: []string{"nes", "unf", "unif", "fds"},
+			Bios: []Bios{
+				{
+					Name:        "disksys.rom",
+					Url:         "/assets/bios/nes/disksys.rom",
+					Hash:        "ca30b50f880eb660a320674ed365ef7a",
+					Description: "Family Computer Disk System BIOS",
+				},
+			},
 		},
 		"snes": {
 			Id:         "snes",
 			Name:       "Nintendo Super Famicom / SNES",
+			Cores:      []string{"snes9x"},
 			Extensions: []string{"smc", "sfc", "swc", "fig", "bs", "st"},
+			Bios: []Bios{
+				{
+					Name:        "BS-X.bin",
+					Url:         "/assets/snes/BS-X.bin",
+					Hash:        "fed4d8242cfbed61343d53d48432aced",
+					Description: "BS-X - Sore wa Namae o Nusumareta Machi no Monogatari (Japan) (Rev 1)",
+				}, {
+					Name:        "STBIOS.bin",
+					Url:         "/assets/snes/STBIOS.bin",
+					Hash:        "d3a44ba7d42a74d3ac58cb9c14c6a5ca",
+					Description: "Sufami Turbo (Japan)",
+				},
+			},
 		},
 		"gb": {
 			Id:         "gb",
 			Name:       "Nintendo Game Boy (Color)",
+			Cores:      []string{"gambatte", "mgba"},
 			Extensions: []string{"gb", "gbc"},
+			Bios: []Bios{
+				{
+					Name:        "gb.zip",
+					Url:         "/assets/bios/gb/gb.zip",
+					Description: "Game Boy (+Color) BIOS",
+				},
+			},
 		},
 		"gba": {
 			Id:         "gba",
 			Name:       "Nintendo Game Boy Advance",
+			Cores:      []string{"mgba"},
 			Extensions: []string{"gba"},
+			Bios: []Bios{
+				{
+					Name:        "gba.zip",
+					Url:         "/assets/bios/gba/gba.zip",
+					Hash:        "a860e8c0b6d573d191e4ec7db1b1e4f6",
+					Description: "Game Boy Advance (+Original, +Color, +Super) BIOS",
+				},
+			},
 		},
 		"vb": {
 			Id:         "vb",
 			Name:       "Nintendo Virtual Boy",
+			Cores:      []string{"beetle_vb"},
 			Extensions: []string{"vb", "vboy"},
+			Bios:       []Bios{},
 		},
 		"nds": {
 			Id:         "nds",
 			Name:       "Nintendo DS",
+			Cores:      []string{"melonds", "desmume2015"},
 			Extensions: []string{"nds"},
+			Bios: []Bios{
+				{
+					Name:        "ds.zip",
+					Url:         "/assets/bios/nds/DS.zip",
+					Description: "DS BIOS",
+				},
+			},
 		},
 		"a5200": {
 			Id:         "a5200",
 			Name:       "Atari 5200",
+			Cores:      []string{"a5200"},
 			Extensions: []string{"a52"},
+			Bios:       []Bios{},
 		},
 		"mame2003": {
 			Id:         "mame2003",
 			Name:       "MAME 2003",
+			Cores:      []string{"mame2003_plus", "mame2003"},
 			Extensions: []string{},
+			Bios:       []Bios{},
 		},
 		"arcade": {
 			Id:         "arcade",
 			Name:       "Arcade",
+			Cores:      []string{"fbneo", "fbalpha2012_cps1", "fbalpha2012_cps2"},
 			Extensions: []string{},
+			Bios:       []Bios{},
 		},
 		"psx": {
 			Id:         "psx",
 			Name:       "Sony PlayStation",
+			Cores:      []string{"pcsx_rearmed", "mednafen_psx_hw"},
 			Extensions: []string{},
+			Bios: []Bios{
+				{
+					Name:        "psp.zip",
+					Url:         "/assets/bios/psx/psp.zip",
+					Description: "Extracted from a PSP",
+				}, {
+					Name:        "psx.zip",
+					Url:         "/assets/bios/psx/psx.zip",
+					Description: "PS1 BIOS (US, EU, JP)",
+				},
+			},
 		},
 		"jaguar": {
 			Id:         "jaguar",
 			Name:       "Atari Jaguar",
+			Cores:      []string{"virtualjaguar"},
 			Extensions: []string{"j64", "jag"},
+			Bios:       []Bios{},
 		},
 		"lynx": {
 			Id:         "lynx",
 			Name:       "Atari Lynx",
+			Cores:      []string{"handy"},
 			Extensions: []string{"lnx"},
+			Bios: []Bios{
+				{
+					Name:        "lynxboot.img",
+					Url:         "/assets/bios/lynx/lynxboot.img",
+					Hash:        "fcd403db69f54290b51035d82f835e7b",
+					Description: "Lynx Boot Image",
+				},
+			},
 		},
 		"segaSaturn": {
 			Id:         "segaSaturn",
 			Name:       "Sega Saturn",
+			Cores:      []string{"yabause"},
 			Extensions: []string{},
+			Bios: []Bios{
+				{
+					Name:        "saturn_bios.bin",
+					Url:         "/assets/bios/segaSaturn/saturn_bios.bin",
+					Hash:        "af5828fdff51384f99b3c4926be27762",
+					Description: "Saturn BIOS",
+				},
+			},
 		},
 		"segaMS": {
 			Id:         "segaMS",
 			Name:       "Sega Master System",
+			Cores:      []string{"genesis_plus_gx"},
 			Extensions: []string{"sms"},
+			Bios: []Bios{
+				{
+					Name:        "segaMS.zip",
+					Url:         "/assets/bios/segaMS/segaMS.zip",
+					Description: "MasterSystem BIOS (US, EU, JP)",
+				},
+			},
 		},
 		"segaMD": {
 			Id:         "segaMD",
 			Name:       "Sega Mega Drive / Genesis",
+			Cores:      []string{"genesis_plus_gx"},
 			Extensions: []string{"gen", "smd", "md"},
+			Bios: []Bios{
+				{
+					Name:        "bios_MD.bin",
+					Url:         "/assets/bios/segaMD/bios_MD.bin",
+					Hash:        "45e298905a08f9cfb38fd504cd6dbc84",
+					Description: "MegaDrive TMSS startup ROM",
+				},
+			},
 		},
 		"segaGG": {
 			Id:         "segaGG",
 			Name:       "Sega Game Gear",
+			Cores:      []string{"genesis_plus_gx"},
 			Extensions: []string{"gg"},
+			Bios: []Bios{
+				{
+					Name:        "bios.gg",
+					Url:         "/assets/bios/segaGG/bios.gg",
+					Hash:        "672e104c3be3a238301aceffc3b23fd6",
+					Description: "GameGear BIOS (bootrom)",
+				},
+			},
 		},
 		"segaCD": {
 			Id:         "segaCD",
 			Name:       "Sega CD",
+			Cores:      []string{"genesis_plus_gx"},
 			Extensions: []string{},
+			Bios: []Bios{
+				{
+					Name:        "segaCD.zip",
+					Url:         "/assets/bios/segaCD/segaCD.zip",
+					Description: "SegaCD BIOS (US, EU, JP)",
+				},
+			},
 		},
 		"n64": {
 			Id:         "n64",
 			Name:       "Nintendo 64",
+			Cores:      []string{"parallel_n64", "mupen64plus_next"},
 			Extensions: []string{"n64", "v64", "z64", "u1", "ndd"},
+			Bios:       []Bios{},
 		},
 		"3do": {
 			Id:         "3do",
 			Name:       "3DO",
+			Cores:      []string{"opera"},
 			Extensions: []string{},
+			Bios: []Bios{
+				{
+					Name:        "3do.zip",
+					Url:         "/assets/bios/3do/3do.zip",
+					Description: "3DO BIOS Collection",
+				},
+			},
 		},
 		"atari7800": {
 			Id:         "atari7800",
 			Name:       "Atari 7800",
+			Cores:      []string{"prosystem"},
 			Extensions: []string{"a78"},
+			Bios: []Bios{
+				{
+					Name:        "7800_BIOS_U.rom",
+					Url:         "/assets/bios/atari7800/7800_BIOS_U.rom",
+					Hash:        "0763f1ffb006ddbe32e52d497ee848ae",
+					Description: "7800 BIOS",
+				},
+			},
 		},
 		"atari2600": {
 			Id:         "atari2600",
 			Name:       "Atari 2600",
+			Cores:      []string{"stella2014"},
 			Extensions: []string{"a26"},
+			Bios:       []Bios{},
 		},
 		"pce": {
 			Id:         "pce",
 			Name:       "NEC TurboGrafx-16 / SuperGrafx / PC Engine",
+			Cores:      []string{"mednafen_pce"},
 			Extensions: []string{"pce"},
+			Bios: []Bios{
+				{
+					Name:        "pce.zip",
+					Url:         "/assets/bios/pce/pce.zip",
+					Description: "PC Engine BIOS Collection",
+				},
+			},
 		},
 		"pcfx": {
 			Id:         "pcfx",
 			Name:       "NEC PC-FX",
+			Cores:      []string{"mednafen_pcfx"},
 			Extensions: []string{},
+			Bios: []Bios{
+				{
+					Name:        "pcfx.zip",
+					Url:         "/assets/bios/pcfx/pcfx.zip",
+					Description: "PC-FX BIOS",
+				},
+			},
 		},
 		"ngp": {
 			Id:         "ngp",
 			Name:       "SNK Neo Geo Pocket (Color)",
+			Cores:      []string{"mednafen_ngp"},
 			Extensions: []string{"ngp", "ngc"},
+			Bios:       []Bios{},
 		},
 		"ws": {
 			Id:         "ws",
 			Name:       "Bandai WonderSwan (Color)",
+			Cores:      []string{"mednafen_wswan"},
 			Extensions: []string{"ws", "wsc"},
+			Bios:       []Bios{},
 		},
 		"coleco": {
 			Id:         "coleco",
 			Name:       "ColecoVision",
+			Cores:      []string{"gearcoleco"},
 			Extensions: []string{"col"},
+			Bios: []Bios{
+				{
+					Name:        "colecovision.rom",
+					Url:         "/assets/bios/coleco/colecovision.rom",
+					Hash:        "2c66f5911e5b42b8ebe113403548eee7",
+					Description: "ColecoVision BIOS",
+				},
+			},
 		},
 		"": {
 			Id:         "",
 			Name:       "Undefined",
 			Extensions: []string{},
-		},
-	}
-
-	Cores = map[string][]string{
-		"nes":        {"fceumm", "nestopia"},
-		"snes":       {"snes9x"},
-		"gb":         {"gambatte", "mgba"},
-		"gba":        {"mgba"},
-		"vb":         {"beetle_vb"},
-		"nds":        {"melonds", "desmume2015"},
-		"a5200":      {"a5200"},
-		"mame2003":   {"mame2003"},
-		"arcade":     {"fbneo", "fbalpha2012_cps1", "fbalpha2012_cps2"},
-		"psx":        {"pcsx_rearmed", "mednafen_psx_hw"},
-		"jaguar":     {"virtualjaguar"},
-		"lynx":       {"handy"},
-		"segaSaturn": {"yabause"},
-		"segaMS":     {"genesis_plus_gx", "picodrive"},
-		"segaMD":     {"genesis_plus_gx"},
-		"segaGG":     {"genesis_plus_gx"},
-		"segaCD":     {"genesis_plus_gx"},
-		"n64":        {"parallel_n64", "mupen64plus_next"},
-		"3do":        {"opera"},
-		"atari7800":  {"prosystem"},
-		"atari2600":  {"stella2014"},
-		"pce":        {"mednafen_pce"},
-		"pcfx":       {"mednafen_pcfx"},
-		"ngp":        {"mednafen_ngp"},
-		"ws":         {"mednafen_wswan"},
-		"coleco":     {"gearcoleco"},
-	}
-
-	Bioses = map[string][]Bios{
-		"nes": {
-			Bios{
-				Name:        "disksys.rom",
-				Url:         "/assets/bios/nes/disksys.rom",
-				Hash:        "ca30b50f880eb660a320674ed365ef7a",
-				Description: "Family Computer Disk System BIOS",
-			},
-		},
-		"snes": {
-			Bios{
-				Name:        "BS-X.bin",
-				Url:         "/assets/snes/BS-X.bin",
-				Hash:        "fed4d8242cfbed61343d53d48432aced",
-				Description: "BS-X - Sore wa Namae o Nusumareta Machi no Monogatari (Japan) (Rev 1)",
-			},
-			Bios{
-				Name:        "STBIOS.bin",
-				Url:         "/assets/snes/STBIOS.bin",
-				Hash:        "d3a44ba7d42a74d3ac58cb9c14c6a5ca",
-				Description: "Sufami Turbo (Japan)",
-			},
-		},
-		"gb": {
-			Bios{
-				Name:        "gb.zip",
-				Url:         "/assets/bios/gb/gb.zip",
-				Description: "Game Boy (+Color) BIOS",
-			},
-		},
-		"gba": {
-			Bios{
-				Name:        "gba.zip",
-				Url:         "/assets/bios/gba/gba.zip",
-				Hash:        "a860e8c0b6d573d191e4ec7db1b1e4f6",
-				Description: "Game Boy Advance (+Original, +Color, +Super) BIOS",
-			},
-		},
-		"vb": {},
-		"nds": {
-			Bios{
-				Name:        "ds.zip",
-				Url:         "/assets/bios/nds/DS.zip",
-				Description: "DS BIOS",
-			},
-		},
-		"a5200":    {},
-		"mame2003": {},
-		"arcade":   {},
-		"psx": {
-			Bios{
-				Name:        "psp.zip",
-				Url:         "/assets/bios/psx/psp.zip",
-				Description: "Extracted from a PSP",
-			},
-			Bios{
-				Name:        "psx.zip",
-				Url:         "/assets/bios/psx/psx.zip",
-				Description: "PS1 BIOS (US, EU, JP)",
-			},
-		},
-		"jaguar": {},
-		"lynx": {
-			Bios{
-				Name:        "lynxboot.img",
-				Url:         "/assets/bios/lynx/lynxboot.img",
-				Hash:        "fcd403db69f54290b51035d82f835e7b",
-				Description: "Lynx Boot Image",
-			},
-		},
-		"segaSaturn": {
-			Bios{
-				Name:        "saturn_bios.bin",
-				Url:         "/assets/bios/segaSaturn/saturn_bios.bin",
-				Hash:        "af5828fdff51384f99b3c4926be27762",
-				Description: "Saturn BIOS",
-			},
-		},
-		"segaMS": {
-			Bios{
-				Name:        "segaMS.zip",
-				Url:         "/assets/bios/segaMS/segaMS.zip",
-				Description: "MasterSystem BIOS (US, EU, JP)",
-			},
-		},
-		"segaMD": {
-			Bios{
-				Name:        "bios_MD.bin",
-				Url:         "/assets/bios/segaMD/bios_MD.bin",
-				Hash:        "45e298905a08f9cfb38fd504cd6dbc84",
-				Description: "MegaDrive TMSS startup ROM",
-			},
-		},
-		"segaGG": {
-			Bios{
-				Name:        "bios.gg",
-				Url:         "/assets/bios/segaGG/bios.gg",
-				Hash:        "672e104c3be3a238301aceffc3b23fd6",
-				Description: "GameGear BIOS (bootrom)",
-			},
-		},
-		"segaCD": {
-			Bios{
-				Name:        "segaCD.zip",
-				Url:         "/assets/bios/segaCD/segaCD.zip",
-				Description: "SegaCD BIOS (US, EU, JP)",
-			},
-		},
-		"n64": {},
-		"3do": {
-			Bios{
-				Name:        "3do.zip",
-				Url:         "/assets/bios/3do/3do.zip",
-				Description: "3DO BIOS Collection",
-			},
-		},
-		"atari7800": {
-			Bios{
-				Name:        "7800_BIOS_U.rom",
-				Url:         "/assets/bios/atari7800/7800_BIOS_U.rom",
-				Hash:        "0763f1ffb006ddbe32e52d497ee848ae",
-				Description: "7800 BIOS",
-			},
-		},
-		"atari2600": {},
-		"pce": {
-			Bios{
-				Name:        "pce.zip",
-				Url:         "/assets/bios/pce/pce.zip",
-				Description: "PC Engine BIOS Collection",
-			},
-		},
-		"pcfx": {
-			Bios{
-				Name:        "pcfx.zip",
-				Url:         "/assets/bios/pcfx/pcfx.zip",
-				Description: "PC-FX BIOS",
-			},
-		},
-		"ngp": {},
-		"ws":  {},
-		"coleco": {
-			Bios{
-				Name:        "colecovision.rom",
-				Url:         "/assets/bios/coleco/colecovision.rom",
-				Hash:        "2c66f5911e5b42b8ebe113403548eee7",
-				Description: "ColecoVision BIOS",
-			},
 		},
 	}
 
@@ -850,183 +813,183 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 
 	case "nes":
 		settings = EmulatorSettings{
-			Core: Cores["nes"][0],
+			Core: Platforms["nes"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsNes
 
 	case "snes":
 		settings = EmulatorSettings{
-			Core: Cores["snes"][0],
+			Core: Platforms["snes"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsSnes
 
 	case "gb":
 		settings = EmulatorSettings{
-			Core: Cores["gb"][0],
-			Bios: Bioses["gb"][0].Name,
+			Core: Platforms["gb"].Cores[0],
+			Bios: Platforms["gb"].Bios[0].Name,
 		}
 		controls = DefaultControlsGb
 
 	case "gba":
 		settings = EmulatorSettings{
-			Core: Cores["gba"][0],
-			Bios: Bioses["gba"][0].Name,
+			Core: Platforms["gba"].Cores[0],
+			Bios: Platforms["gba"].Bios[0].Name,
 		}
 		controls = DefaultControlsGba
 
 	case "vb":
 		settings = EmulatorSettings{
-			Core: Cores["vb"][0],
+			Core: Platforms["vb"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsVb
 
 	case "nds":
 		settings = EmulatorSettings{
-			Core: Cores["nds"][0],
-			Bios: Bioses["nds"][0].Name,
+			Core: Platforms["nds"].Cores[0],
+			Bios: Platforms["nds"].Bios[0].Name,
 		}
 		controls = DefaultControlsNds
 
 	case "a5200":
 		settings = EmulatorSettings{
-			Core: Cores["a5200"][0],
+			Core: Platforms["a5200"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsOther
 
 	case "mame2003":
 		settings = EmulatorSettings{
-			Core: Cores["mame2003"][0],
+			Core: Platforms["mame2003"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsOther
 
 	case "arcade":
 		settings = EmulatorSettings{
-			Core: Cores["arcade"][0],
+			Core: Platforms["arcade"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsOther
 
 	case "psx":
 		settings = EmulatorSettings{
-			Core: Cores["psx"][0],
-			Bios: Bioses["psx"][0].Name,
+			Core: Platforms["psx"].Cores[0],
+			Bios: Platforms["psx"].Bios[0].Name,
 		}
 		controls = DefaultControlsOther
 
 	case "jaguar":
 		settings = EmulatorSettings{
-			Core: Cores["jaguar"][0],
+			Core: Platforms["jaguar"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsJaguar
 
 	case "lynx":
 		settings = EmulatorSettings{
-			Core: Cores["lynx"][0],
-			Bios: Bioses["lynx"][0].Name,
+			Core: Platforms["lynx"].Cores[0],
+			Bios: Platforms["lynx"].Bios[0].Name,
 		}
 		controls = DefaultControlsLynx
 
 	case "segaSaturn":
 		settings = EmulatorSettings{
-			Core: Cores["segaSaturn"][0],
-			Bios: Bioses["segaSaturn"][0].Name,
+			Core: Platforms["segaSaturn"].Cores[0],
+			Bios: Platforms["segaSaturn"].Bios[0].Name,
 		}
 		controls = DefaultControlsSegaSaturn
 
 	case "segaMS":
 		settings = EmulatorSettings{
-			Core: Cores["segaMS"][0],
-			Bios: Bioses["segaMS"][0].Name,
+			Core: Platforms["segaMS"].Cores[0],
+			Bios: Platforms["segaMS"].Bios[0].Name,
 		}
 		controls = DefaultControlsSegaMS
 
 	case "segaMD":
 		settings = EmulatorSettings{
-			Core: Cores["segaMD"][0],
+			Core: Platforms["segaMD"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsSegaMD
 
 	case "segaGG":
 		settings = EmulatorSettings{
-			Core: Cores["segaGG"][0],
-			Bios: Bioses["segaGG"][0].Name,
+			Core: Platforms["segaGG"].Cores[0],
+			Bios: Platforms["segaGG"].Bios[0].Name,
 		}
 		controls = DefaultControlsSegaGG
 
 	case "segaCD":
 		settings = EmulatorSettings{
-			Core: Cores["segaCD"][0],
-			Bios: Bioses["segaCD"][0].Name,
+			Core: Platforms["segaCD"].Cores[0],
+			Bios: Platforms["segaCD"].Bios[0].Name,
 		}
 		controls = DefaultControlsSegaMD
 
 	case "n64":
 		settings = EmulatorSettings{
-			Core: Cores["n64"][0],
+			Core: Platforms["n64"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsN64
 
 	case "3do":
 		settings = EmulatorSettings{
-			Core: Cores["3do"][0],
-			Bios: Bioses["3do"][0].Name,
+			Core: Platforms["3do"].Cores[0],
+			Bios: Platforms["3do"].Bios[0].Name,
 		}
 		controls = DefaultControls3do
 
 	case "atari7800":
 		settings = EmulatorSettings{
-			Core: Cores["atari7800"][0],
-			Bios: Bioses["atari7800"][0].Name,
+			Core: Platforms["atari7800"].Cores[0],
+			Bios: Platforms["atari7800"].Bios[0].Name,
 		}
 		controls = DefaultControlsAtari7800
 
 	case "atari2600":
 		settings = EmulatorSettings{
-			Core: Cores["atari2600"][0],
+			Core: Platforms["atari2600"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsAtari2600
 
 	case "pce":
 		settings = EmulatorSettings{
-			Core: Cores["pce"][0],
+			Core: Platforms["pce"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsPCEngine
 
 	case "pcfx":
 		settings = EmulatorSettings{
-			Core: Cores["pcfx"][0],
-			Bios: Bioses["pcfx"][0].Name,
+			Core: Platforms["pcfx"].Cores[0],
+			Bios: Platforms["pcfx"].Bios[0].Name,
 		}
 		controls = DefaultControlsPCFX
 
 	case "ngp":
 		settings = EmulatorSettings{
-			Core: Cores["ngp"][0],
+			Core: Platforms["ngp"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsNeoGeoPocket
 
 	case "ws":
 		settings = EmulatorSettings{
-			Core: Cores["ws"][0],
+			Core: Platforms["ws"].Cores[0],
 			Bios: "",
 		}
 		controls = DefaultControlsWonderSwan
 
 	case "coleco":
 		settings = EmulatorSettings{
-			Core: Cores["coleco"][0],
-			Bios: Bioses["coleco"][0].Name,
+			Core: Platforms["coleco"].Cores[0],
+			Bios: Platforms["coleco"].Bios[0].Name,
 		}
 		controls = DefaultControlsColecoVision
 	}

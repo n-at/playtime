@@ -47,7 +47,7 @@ func (s *Server) play(c echo.Context) error {
 
 	bios := storage.Bios{}
 	if len(emulatorSettings.Bios) != 0 {
-		for _, item := range storage.Bioses[game.Platform] {
+		for _, item := range storage.Platforms[game.Platform].Bios {
 			if item.Name == emulatorSettings.Bios {
 				bios = item
 			}

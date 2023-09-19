@@ -285,7 +285,9 @@ const (
 type Platform struct {
 	Id         string
 	Name       string
+	Cores      []string
 	Extensions []string
+	Bios       []Bios
 }
 
 type Bios struct {

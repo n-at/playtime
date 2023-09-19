@@ -811,7 +811,7 @@ func CoreOptionsByCore(core string) []CoreOption {
 func CoreOptionsByPlatform(platform string) map[string][]CoreOption {
 	result := make(map[string][]CoreOption)
 
-	for _, core := range Cores[platform] {
+	for _, core := range Platforms[platform].Cores {
 		result[core] = CoreOptionsByCore(core)
 	}
 
