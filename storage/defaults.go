@@ -137,7 +137,7 @@ var (
 		"nds": {
 			Id:         "nds",
 			Name:       "Nintendo DS",
-			Cores:      []string{"melonds", "desmume2015"},
+			Cores:      []string{"melonds", "desmume2015", "desmume"},
 			Extensions: []string{"nds"},
 			Bios: []Bios{
 				{
