@@ -6,6 +6,7 @@ npm install
 
 mkdir emulatorjs
 git clone https://github.com/EmulatorJS/EmulatorJS _tmp
+cd _tmp && git checkout "23dd44825f7e66f584be788cee75e62366ad1a57" && cd ..
 mv _tmp/data/* emulatorjs
 rm -rf _tmp
 
