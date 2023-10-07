@@ -369,6 +369,20 @@ var (
 				},
 			},
 		},
+		"amiga": {
+			Id:         "amiga",
+			Name:       "Commodore Amiga",
+			Cores:      []string{"puae"},
+			Extensions: []string{"adf", "adz", "dms", "fdi", "ipf"},
+			Bios:       []Bios{},
+		},
+		"c64": {
+			Id:         "c64",
+			Name:       "Commodore 64",
+			Cores:      []string{"vice_x64"},
+			Extensions: []string{"d64", "d6z", "d71", "d7z", "d80", "d81", "d82", "d8z", "g64", "g6z", "g41", "g4z", "x64", "x6z", "nib", "nbz", "d2m", "d4m", "t64", "tap", "tcrt"},
+			Bios:       []Bios{},
+		},
 		"": {
 			Id:         "",
 			Name:       "Undefined",
@@ -992,6 +1006,20 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Bios: Platforms["coleco"].Bios[0].Name,
 		}
 		controls = DefaultControlsColecoVision
+
+	case "amiga":
+		settings = EmulatorSettings{
+			Core: Platforms["amiga"].Cores[0],
+			Bios: "",
+		}
+		controls = DefaultControlsOther
+
+	case "c64":
+		settings = EmulatorSettings{
+			Core: Platforms["c64"].Cores[0],
+			Bios: "",
+		}
+		controls = DefaultControlsOther
 	}
 
 	settings.ColorScheme = DefaultColorScheme
