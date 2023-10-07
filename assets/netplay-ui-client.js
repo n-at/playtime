@@ -94,8 +94,8 @@
         if (netplay.getPlayer() === -1 || e.repeat) {
             return;
         }
-        controlMapButtons(e.keyCode)
-            .forEach(button => netplay.sendControlInput(button, 1.0));
+        const value = window.ControlsTransformKeyboardCode(e.keyCode);
+        controlMapButtons(value).forEach(button => netplay.sendControlInput(button, 1.0));
         e.preventDefault();
     }
 
@@ -103,15 +103,15 @@
         if (netplay.getPlayer() === -1) {
             return;
         }
-        controlMapButtons(e.keyCode)
-            .forEach(button => netplay.sendControlInput(button, 0.0));
+        const value = window.ControlsTransformKeyboardCode(e.keyCode);
+        controlMapButtons(value).forEach(button => netplay.sendControlInput(button, 0.0));
         e.preventDefault();
     }
 
     function controlMapButtons(value) {
         const buttons = [];
         for (let code in window.ControlScheme) {
-            if (window.ControlScheme[code].keycode === value) {
+            if (window.ControlScheme[code].value === value) {
                 buttons.push(code);
             }
         }

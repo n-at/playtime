@@ -22,14 +22,14 @@
         if (e.repeat) {
             return;
         }
-        const key = e.keyCode;
+        const key = window.ControlsTransformKeyboardCode(e.keyCode);
         for (let playerIdx = 0; playerIdx < 4; playerIdx++) {
-            if (key === PlaytimeControls[playerIdx].load.keycode) {
+            if (key === PlaytimeControls[playerIdx].load.value) {
                 e.preventDefault();
                 await loadLatestState();
                 return;
             }
-            if (key === PlaytimeControls[playerIdx].save.keycode) {
+            if (key === PlaytimeControls[playerIdx].save.value) {
                 e.preventDefault();
                 await saveState();
                 return;

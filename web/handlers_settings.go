@@ -259,10 +259,5 @@ func settingsCollectControls(c echo.Context) [4]storage.EmulatorControls {
 
 func settingsReadControlButton(c echo.Context, input string, player int, button string) string {
 	key := fmt.Sprintf("control-%s-%d-%s", input, player, button)
-	value := c.FormValue(key)
-	if value == "space" {
-		return " "
-	} else {
-		return value
-	}
+	return c.FormValue(key)
 }

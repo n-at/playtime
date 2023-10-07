@@ -63,8 +63,7 @@
         window.PlaytimeControls = {};
 
         ['0', '1', '2' , '3'].forEach(player => {
-            console.log(gatherInputs(player, ControlSchemeMapping));
-            window.EJS_emulator.controls[player.toString()] = gatherInputs(player, ControlSchemeMapping);
+            window.EJS_emulator.controls[player.toString()] = toEjsControls(gatherInputs(player, ControlSchemeMapping));
             window.PlaytimeControls[player.toString()] = gatherInputs(player, ControlSchemeMappingState);
         });
 
@@ -74,7 +73,7 @@
     function resetHostControlScheme() {
         ['0', '1', '2' , '3'].forEach(player => {
             if (window.EJS_emulator && window.EJS_emulator.controls) {
-                assignInputs(player, window.EJS_emulator.controls[player], ControlSchemeMapping);
+                assignInputs(player, fromEjsControls(window.EJS_emulator.controls[player]), ControlSchemeMapping);
             } else {
                 assignInputs(player, window.EJS_defaultControls[player], ControlSchemeMapping);
             }
@@ -152,7 +151,7 @@
     function assignInputs(player, controls, mapping) {
         for (let buttonId in controls) {
             const buttonName = mapping[buttonId];
-            PlatformSettingsControls.setValue('keyboard', player, buttonName, controls[buttonId].keycode ? controls[buttonId].keycode : '');
+            PlatformSettingsControls.setValue('keyboard', player, buttonName, controls[buttonId].value ? controls[buttonId].value : '');
             PlatformSettingsControls.setValue('gamepad', player, buttonName, controls[buttonId].value2 ? controls[buttonId].value2 : '');
         }
     }
@@ -172,16 +171,12 @@
 
             if (!controls[buttonId]) {
                 controls[buttonId] = {
-                    keycode: null,
+                    value: null,
                     value2: null,
                 };
             }
 
-            controls[buttonId].keycode = parseInt(PlatformSettingsControls.getValue('keyboard', player, buttonName));
-            if (isNaN(controls[buttonId].keycode)) {
-                controls[buttonId].keycode = undefined;
-            }
-
+            controls[buttonId].value = PlatformSettingsControls.getValue('keyboard', player, buttonName);
             controls[buttonId].value2 = PlatformSettingsControls.getValue('gamepad', player, buttonName);
         }
 
@@ -196,6 +191,28 @@
         });
 
         return inputs;
+    }
+
+    function toEjsControls(controls) {
+        const transformed = Object.assign({}, controls);
+        for (let buttonIdx in controls) {
+            transformed[buttonIdx] = {
+                value: window.ControlsTransformKeyboardValue(controls[buttonIdx].value),
+                value2: controls[buttonIdx].value2,
+            };
+        }
+        return transformed;
+    }
+
+    function fromEjsControls(controls) {
+        const transformed = Object.assign({}, controls);
+        for (let buttonIdx in controls) {
+            transformed[buttonIdx] = {
+                value: window.ControlsTransformKeyboardCode(controls[buttonIdx].value),
+                value2: controls[buttonIdx].value2,
+            }
+        }
+        return transformed;
     }
 
 })();
