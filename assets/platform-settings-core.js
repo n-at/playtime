@@ -2,6 +2,8 @@
 
     const coresWithThreads = [
         'mednafen_psx_hw',
+        'melonds',
+        'mgba',
         'mupen64plus_next',
         'opera',
         'parallel_n64',
