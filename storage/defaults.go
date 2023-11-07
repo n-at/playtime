@@ -805,11 +805,11 @@ var (
 		FullScreen:   true,
 		Volume:       true,
 		Screenshot:   true,
+		ScreenRecord: true,
 		SaveState:    false,
 		LoadState:    false,
 		QuickSave:    false, //only to save in browser
 		QuickLoad:    false, //only to save in browser
-		ScreenRecord: false, //not implemented in EJS
 		Settings:     false, //managed in emulation settings
 		Gamepad:      false, //managed in emulation settings
 		Cheat:        false, //not implemented in playtime

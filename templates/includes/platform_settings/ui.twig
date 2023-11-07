@@ -43,9 +43,6 @@
         {% include "emulator_buttons_button.twig" with btn_id="load-state" btn_title="Load state" btn_value=settings.Buttons.LoadState %}
     </div>
     <div class="col-6 col-sm-3 mb-2">
-        {% include "emulator_buttons_button.twig" with btn_id="screen-record" btn_title="Screen record" btn_value=settings.Buttons.ScreenRecord %}
-    </div>
-    <div class="col-6 col-sm-3 mb-2">
         {% include "emulator_buttons_button.twig" with btn_id="gamepad" btn_title="Gamepad" btn_value=settings.Buttons.Gamepad %}
     </div>
     <div class="col-6 col-sm-3 mb-2">
@@ -68,6 +65,9 @@
     </div>
     <div class="col-6 col-sm-3 mb-2">
         {% include "emulator_buttons_button.twig" with btn_id="screenshot" btn_title="Screenshot" btn_value=settings.Buttons.Screenshot %}
+    </div>
+    <div class="col-6 col-sm-3 mb-2">
+        {% include "emulator_buttons_button.twig" with btn_id="screen-record" btn_title="Screen record" btn_value=settings.Buttons.ScreenRecord %}
     </div>
     <div class="col-6 col-sm-3 mb-2">
         {% include "emulator_buttons_button.twig" with btn_id="cache-manager" btn_title="Cache manager" btn_value=settings.Buttons.CacheManager %}
