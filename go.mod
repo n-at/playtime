@@ -4,10 +4,10 @@ go 1.21
 
 require (
 	github.com/flosch/pongo2/v6 v6.0.0
-	github.com/google/uuid v1.4.0
+	github.com/google/uuid v1.5.0
 	github.com/labstack/echo/v4 v4.11.3
 	github.com/sirupsen/logrus v1.9.3
-	github.com/timshannon/bolthold v0.0.0-20210913165410-232392fc8a6a
+	github.com/timshannon/bolthold v0.0.0-20231129192944-dca5178aa629
 	golang.org/x/crypto v0.16.0
 	nhooyr.io/websocket v1.8.10
 )

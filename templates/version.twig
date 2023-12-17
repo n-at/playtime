@@ -1,0 +1,58 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+    Version - playtime
+{% endblock %}
+
+{% block content %}
+    <h1>Version</h1>
+
+    <div class="mb-3 mt-3 text-center">
+        <img class="img-fluid p-3 border rounded" src="/assets/img/playtime-logo-512.png" alt="playtime logo">
+    </div>
+
+    <dl class="row">
+        <dt class="col-sm-4">Go version</dt>
+        <dd class="col-sm-8">{{ build.GoVersion | default:"-" }}</dd>
+    </dl>
+
+    <h5>Main module</h5>
+    <dl class="row">
+        <dt class="col-sm-4">Path</dt>
+        <dd class="col-sm-8">{{ build.Main.Path | default:"-" }}</dd>
+
+        <dt class="col-sm-4">Version</dt>
+        <dd class="col-sm-8">{{ build.Main.Version | default:"-" }}</dd>
+
+        <dt class="col-sm-4">Checksum</dt>
+        <dd class="col-sm-8">{{ build.Main.Sum | default:"-" }}</dd>
+    </dl>
+
+    <h5>Build settings</h5>
+    <dl class="row">
+        {% for setting in build.Settings %}
+            <dt class="col-sm-4">{{ setting.Key }}</dt>
+            <dd class="col-sm-8">{{ setting.Value | default:"-" }}</dd>
+        {% endfor %}
+    </dl>
+
+    <h5>Dependencies</h5>
+    <table class="table table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>Path</th>
+            <th>Version</th>
+            <th>Checksum</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for module in build.Deps %}
+            <tr>
+                <td>{{ module.Path | default:"-" }}</td>
+                <td>{{ module.Version | default:"-" }}</td>
+                <td>{{ module.Sum | default:"-" }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

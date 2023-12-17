@@ -194,6 +194,12 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	netplay.GET("", s.netplay)
 	netplay.GET("/ws", s.netplayWS)
 
+	//misc
+
+	version := e.Group("/version")
+	version.Use(s.authenticationRequiredMiddleware)
+	version.GET("", s.version)
+
 	//netplay game session heartbeat
 
 	go func() {
