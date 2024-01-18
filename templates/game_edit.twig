@@ -11,6 +11,16 @@
 
     <form method="post" action="/games/edit/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
+
+        <div class="form-floating mb-3">
+            <input type="text" id="original-name" class="form-control" disabled value="{{ game.OriginalFileName }}">
+            <label for="original-name">Original file name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" id="original-size" class="form-control" disabled value="{{ game.OriginalFileSize }}">
+            <label for="original-size">Original file size (bytes)</label>
+        </div>
+
         {% include "includes/form_game.twig" %}
     </form>
 
