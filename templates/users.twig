@@ -41,13 +41,7 @@
 
                         {# Quota #}
                         <div class="col-4 col-md-4 col-lg-3 text-center">
-                            {% if user_item.Quota == 0 %}
-                                <span class="text-success">Unlimited</span>
-                            {% else %}
-                                <span class="text-secondary">
-                                    {{ user_item.QuotaUsed / 1024 / 1024 }} / {{ user_item.Quota / 1024 / 1024 }} MB
-                                </span>
-                            {% endif %}
+                            {% include "includes/quota_display.twig" with total=user_item.Quota used=user_item.QuotaUsed %}
                         </div>
 
                         {# Control #}

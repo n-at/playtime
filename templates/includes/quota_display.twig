@@ -1,0 +1,19 @@
+{# used, total #}
+
+{% if total != 0 %}
+    {% if used >= total %}
+        <span class="text-danger">
+        {{ used / 1024 / 1024 }} / {{ total / 1024 / 1024 }} MB
+    </span>
+        {% elif 0.9 * total <= used %}
+        <span class="text-warning">
+        {{ used / 1024 / 1024 }} / {{ total / 1024 / 1024 }} MB
+    </span>
+    {% else %}
+        <span>
+        {{ used / 1024 / 1024 }} / {{ total / 1024 / 1024 }} MB
+    </span>
+    {% endif %}
+{% else %}
+    <span class="text-success">Unlimited</span>
+{% endif %}

@@ -68,7 +68,7 @@
 
         {% if user.Quota %}
             <div class="mb-5 text-center">
-                {{ user.QuotaUsed / 1024 / 1024 }} / {{ user.Quota / 1024 / 1024 }} MB
+                {% include "includes/quota_display.twig" with total=user.Quota used=user.QuotaUsed %}
             </div>
         {% endif %}
     {% else %}
