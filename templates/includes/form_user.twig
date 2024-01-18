@@ -31,3 +31,14 @@
         <label for="active">Active</label>
     </div>
 </div>
+
+<div class="mb-3">
+    <label for="quota">Disk usage quota</label>
+    <div class="input-group mb-3">
+        <input type="number" id="quota" name="quota" class="form-control" min="0" value="{{ user_control.Quota / 1024 / 1024 }}" required>
+        <span class="input-group-text">MB</span>
+    </div>
+    <p class="text-secondary">
+        0 - unlimited
+    </p>
+</div>

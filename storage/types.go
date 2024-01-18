@@ -6,11 +6,13 @@ import (
 )
 
 type User struct {
-	Id       string `boltholdKey:"Id"`
-	Login    string `boltholdIndex:"Login"`
-	Password string
-	Admin    bool
-	Active   bool
+	Id        string `boltholdKey:"Id"`
+	Login     string `boltholdIndex:"Login"`
+	Password  string
+	Admin     bool
+	Active    bool
+	Quota     int64
+	QuotaUsed int64
 }
 
 type Session struct {
@@ -31,6 +33,7 @@ type Game struct {
 	Name                     string
 	OriginalFileName         string
 	OriginalFileExtension    string
+	OriginalFileSize         int64
 	Platform                 string `boltholdIndex:"Platform"`
 	NetplayEnabled           bool
 	NetplaySessionId         string
@@ -44,6 +47,7 @@ type SaveState struct {
 	UserId  string `boltholdIndex:"UserId"`
 	GameId  string `boltholdIndex:"GameId"`
 	Created time.Time
+	Size    int64
 	Core    string
 }
 

@@ -7,6 +7,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
+	"strconv"
 )
 
 func (s *Server) users(c echo.Context) error {
@@ -44,11 +45,19 @@ func (s *Server) userNewSubmit(c echo.Context) error {
 		return err
 	}
 
+	quota, err := strconv.Atoi(c.FormValue("quota"))
+	if err != nil {
+		log.Errorf("userNewSubmit quota read error: %s", err)
+		return err
+	}
+
 	user := storage.User{
-		Login:    c.FormValue("login"),
-		Password: password,
-		Active:   c.FormValue("active") == "1",
-		Admin:    c.FormValue("admin") == "1",
+		Login:     c.FormValue("login"),
+		Password:  password,
+		Active:    c.FormValue("active") == "1",
+		Admin:     c.FormValue("admin") == "1",
+		Quota:     int64(quota) * 1024 * 1024,
+		QuotaUsed: 0,
 	}
 	if _, err := s.storage.UserSave(user); err != nil {
 		log.Errorf("userNewSubmit user save error: %s", err)
@@ -90,6 +99,14 @@ func (s *Server) userEditSubmit(c echo.Context) error {
 		}
 		user.Password = password
 	}
+
+	quota, err := strconv.Atoi(c.FormValue("quota"))
+	if err != nil {
+		log.Errorf("userNewSubmit quota read error: %s", err)
+		return err
+	}
+
+	user.Quota = int64(quota) * 1024 * 1024
 
 	if _, err := s.storage.UserSave(*user); err != nil {
 		log.Errorf("userEditSubmit user %s save error: %s", context.userControl.Id, err)

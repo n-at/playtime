@@ -24,7 +24,8 @@
             {% for user_item in users %}
                 <li class="list-group-item filter-element">
                     <div class="row">
-                        <div class="col-9 col-md-10 col-lg-11">
+                        {# Name #}
+                        <div class="col-6 col-md-6 col-lg-8">
                             <div class="lead filter-field">
                                 {% if user_item.Active %}
                                     <i class="bi bi-circle-fill text-success" title="Active"></i>
@@ -37,7 +38,20 @@
                                 {{ user_item.Login }}
                             </div>
                         </div>
-                        <div class="col-3 col-md-2 col-lg-1 text-end text-nowrap">
+
+                        {# Quota #}
+                        <div class="col-4 col-md-4 col-lg-3 text-center">
+                            {% if user_item.Quota == 0 %}
+                                <span class="text-success">Unlimited</span>
+                            {% else %}
+                                <span class="text-secondary">
+                                    {{ user_item.QuotaUsed / 1024 / 1024 }} / {{ user_item.Quota / 1024 / 1024 }} MB
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        {# Control #}
+                        <div class="col-2 col-md-2 col-lg-1 text-end text-nowrap">
                             <div class="d-inline-block dropdown">
                                 <button class="btn btn-sm btn-outline-secondary dropdown-toggle"
                                         type="button"

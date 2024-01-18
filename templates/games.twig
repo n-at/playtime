@@ -65,6 +65,12 @@
                 </div>
             </div>
         {% endfor %}
+
+        {% if user.Quota %}
+            <div class="mb-5 text-center">
+                {{ user.QuotaUsed / 1024 / 1024 }} / {{ user.Quota / 1024 / 1024 }} MB
+            </div>
+        {% endif %}
     {% else %}
         <div class="text-center">
             <button id="btn-upload" type="button" class="btn btn-outline-success mt-3">
