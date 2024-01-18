@@ -149,6 +149,24 @@ func (s *Storage) UserEnsureExists() error {
 	return nil
 }
 
+func (s *Storage) userUpdateQuotaUsed(id string, delta int64) error {
+	u, err := s.UserFindById(id)
+	if err != nil {
+		return err
+	}
+
+	u.QuotaUsed += delta
+	if u.QuotaUsed < 0 {
+		u.QuotaUsed = 0
+	}
+
+	if _, err := s.UserSave(u); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func userSorted(users []User) []User {
 	sort.Slice(users, func(i, j int) bool {
 		return users[i].Login < users[j].Login
@@ -238,6 +256,18 @@ func (s *Storage) SettingsDeleteAll() error {
 ///////////////////////////////////////////////////////////////////////////////
 // Game
 
+func (s *Storage) GameUpload(g Game) error {
+	if _, err := s.GameSave(g); err != nil {
+		return err
+	}
+
+	if err := s.userUpdateQuotaUsed(g.UserId, g.OriginalFileSize); err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func (s *Storage) GameSave(g Game) (Game, error) {
 	if len(g.UserId) == 0 {
 		return g, errors.New("userId must not be empty")
@@ -288,10 +318,24 @@ func (s *Storage) GameGetByUploadBatchId(loadBatchId string) ([]Game, error) {
 }
 
 func (s *Storage) GameDeleteById(id string) error {
+	game, err := s.GameGetById(id)
+	if err != nil {
+		return err
+	}
+
 	if err := s.store.Delete(id, Game{}); err != nil {
 		return err
 	}
-	return s.removeUploadedFile(id, "")
+
+	if err := s.removeUploadedFile(id, ""); err != nil {
+		return err
+	}
+
+	if err := s.userUpdateQuotaUsed(game.UserId, -game.OriginalFileSize); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *Storage) GameDeleteByUserId(userId string) error {
@@ -323,6 +367,18 @@ func gameSorted(games []Game) []Game {
 
 ///////////////////////////////////////////////////////////////////////////////
 // SaveState
+
+func (s *Storage) SaveStateUpload(ss SaveState) error {
+	if _, err := s.SaveStateSave(ss); err != nil {
+		return err
+	}
+
+	if err := s.userUpdateQuotaUsed(ss.UserId, ss.Size); err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func (s *Storage) SaveStateSave(ss SaveState) (SaveState, error) {
 	if len(ss.UserId) == 0 {
@@ -398,13 +454,28 @@ func (s *Storage) SaveStateGetLatestByGameIdAndCore(gameId, core string) (SaveSt
 }
 
 func (s *Storage) SaveStateDeleteById(id string) error {
+	state, err := s.SaveStateGetById(id)
+	if err != nil {
+		return err
+	}
+
 	if err := s.store.Delete(id, SaveState{}); err != nil {
 		return err
 	}
+
 	if err := s.removeUploadedFile(id, FileExtensionSaveState); err != nil {
 		return err
 	}
-	return s.removeUploadedFile(id, FileExtensionScreenshot)
+
+	if err := s.removeUploadedFile(id, FileExtensionScreenshot); err != nil {
+		return err
+	}
+
+	if err := s.userUpdateQuotaUsed(state.UserId, -state.Size); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *Storage) SaveStateDeleteByUserId(userId string) error {

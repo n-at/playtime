@@ -39,6 +39,15 @@ func (s *Server) gameUpload(c echo.Context) error {
 		return errors.New("no games uploaded")
 	}
 
+	var uploadSize int64 = 0
+	for _, file := range files {
+		uploadSize += file.Size
+	}
+
+	if context.user.Quota > 0 && context.user.QuotaUsed+uploadSize > context.user.Quota {
+		return errors.New("disk quota exceeded")
+	}
+
 	var gameIds []string
 
 	for _, file := range files {
@@ -48,6 +57,7 @@ func (s *Server) gameUpload(c echo.Context) error {
 			Name:                     file.Filename,
 			OriginalFileName:         file.Filename,
 			OriginalFileExtension:    getFileExtension(file.Filename),
+			OriginalFileSize:         file.Size,
 			Platform:                 "",
 			OverrideEmulatorSettings: false,
 			EmulatorSettings:         storage.DefaultEmulatorSettings(""),
@@ -57,7 +67,7 @@ func (s *Server) gameUpload(c echo.Context) error {
 			return err
 		}
 
-		if _, err := s.storage.GameSave(game); err != nil {
+		if err := s.storage.GameUpload(game); err != nil {
 			return err
 		}
 

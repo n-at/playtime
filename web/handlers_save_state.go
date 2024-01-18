@@ -1,6 +1,7 @@
 package web
 
 import (
+	"errors"
 	"fmt"
 	"github.com/flosch/pongo2/v6"
 	"github.com/labstack/echo/v4"
@@ -56,7 +57,12 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 		return err
 	}
 
-	if _, err := s.storage.SaveStateSave(saveState); err != nil {
+	saveState.Size = state.Size + screenshot.Size
+	if context.user.Quota > 0 && context.user.QuotaUsed+saveState.Size > context.user.Quota {
+		return errors.New("disk quota exceeded")
+	}
+
+	if err := s.storage.SaveStateUpload(saveState); err != nil {
 		return err
 	}
 
