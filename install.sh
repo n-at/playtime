@@ -4,11 +4,70 @@ cd assets
 
 npm install
 
-mkdir emulatorjs
+#download EmulatorJS
+
 git clone https://github.com/EmulatorJS/EmulatorJS _tmp
-cd _tmp && git checkout "1b3a17f6f12a184fc84781c17c692cd7dade1ed5" && cd ..
+cd _tmp
+git checkout "88ec215493a0f543dd0814ec9e9fcf4baff8e407"
+cd data
+mkdir cores
+cd minify
+npm install
+node index.js
+rm -rf node_modules
+cd ../../..
+mkdir emulatorjs
 mv _tmp/data/* emulatorjs
 rm -rf _tmp
+
+cd emulatorjs/cores
+wget "https://cdn.emulatorjs.org/latest/data/cores/a5200-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/beetle_vb-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/desmume-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/desmume2015-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/fbalpha2012_cps1-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/fbalpha2012_cps2-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/fbneo-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/fceumm-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/gambatte-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/gearcoleco-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/genesis_plus_gx-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/handy-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mame2003_plus-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mame2003-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mednafen_ngp-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mednafen_pce-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mednafen_pcfx-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mednafen_psx_hw-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mednafen_psx_hw-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mednafen_wswan-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/melonds-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/melonds-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mgba-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mgba-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mupen64plus_next-legacy-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mupen64plus_next-thread-legacy-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mupen64plus_next-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/mupen64plus_next-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/nestopia-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/opera-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/opera-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/parallel_n64-legacy-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/parallel_n64-thread-legacy-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/parallel_n64-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/parallel_n64-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/pcsx_rearmed-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/pcsx_rearmed-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/picodrive-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/prosystem-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/puae-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/snes9x-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/stella2014-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/vice_x64-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/virtualjaguar-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/yabause-thread-wasm.data"
+wget "https://cdn.emulatorjs.org/latest/data/cores/yabause-wasm.data"
+cd ../..
 
 #download BIOS
 
