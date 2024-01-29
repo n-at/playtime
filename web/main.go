@@ -104,14 +104,20 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	e.HEAD(UploadsWebRoot+"*", s.uploadsHead)
 
 	//authentication
-	e.GET("/login", s.loginForm)
-	e.POST("/login", s.loginSubmit)
-	e.GET("/logout", s.logout)
+	login := e.Group("/login")
+	login.GET("", s.loginForm)
+	login.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	login.POST("", s.loginSubmit)
+
+	logout := e.Group("/logout")
+	logout.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	logout.GET("", s.logout)
 
 	//user profile
 	profile := e.Group("/profile")
 	profile.Use(s.authenticationRequiredMiddleware)
 	profile.GET("", s.profileForm)
+	profile.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	profile.POST("", s.profileSubmit)
 
 	//settings
@@ -119,10 +125,11 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	settings.Use(s.authenticationRequiredMiddleware)
 	settings.Use(s.settingsRequiredMiddleware)
 	settings.GET("", s.settingsGeneralForm)
-	settings.POST("", s.settingsGeneralSubmit)
 	settings.GET("/:platform", s.settingsByPlatformForm)
-	settings.POST("/:platform", s.settingsByPlatformSubmit)
 	settings.GET("/:platform/restore", s.settingsByPlatformRestoreDefaults)
+	settings.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	settings.POST("", s.settingsGeneralSubmit)
+	settings.POST("/:platform", s.settingsByPlatformSubmit)
 	settings.POST("/:platform/restore", s.settingsByPlatformRestoreDefaultsSave)
 
 	//users
@@ -131,63 +138,75 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	users.Use(s.userControlAccessRequiredMiddleware)
 	users.GET("", s.users)
 	users.GET("/new", s.userNewForm)
+	users.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	users.POST("/new", s.userNewSubmit)
 
 	usersEdit := users.Group("/edit/:user_id")
 	usersEdit.Use(s.userControlRequiredMiddleware)
 	usersEdit.GET("", s.userEditForm)
+	usersEdit.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	usersEdit.POST("", s.userEditSubmit)
 
 	usersDelete := users.Group("/delete/:user_id")
 	usersDelete.Use(s.userControlRequiredMiddleware)
 	usersDelete.GET("", s.userDeleteForm)
+	usersDelete.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	usersDelete.POST("", s.userDeleteSubmit)
 
 	//games
 	games := e.Group("/games")
 	games.Use(s.authenticationRequiredMiddleware)
 	games.GET("", s.games)
+	games.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(1)))
 	games.POST("/upload", s.gameUpload)
 
 	gamesEmulationSettings := games.Group("/emulation-settings/:game_id")
 	gamesEmulationSettings.Use(s.gameRequiredMiddleware)
 	gamesEmulationSettings.GET("", s.gameEmulationSettingsForm)
-	gamesEmulationSettings.POST("", s.gameEmulationSettingsSubmit)
 	gamesEmulationSettings.GET("/restore", s.gameEmulationSettingsRestoreDefaults)
+	gamesEmulationSettings.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	gamesEmulationSettings.POST("", s.gameEmulationSettingsSubmit)
 	gamesEmulationSettings.POST("/restore", s.gameEmulationSettingsRestoreDefaultsSave)
 
 	gamesEdit := games.Group("/edit/:game_id")
 	gamesEdit.Use(s.gameRequiredMiddleware)
 	gamesEdit.GET("", s.gameEditForm)
+	gamesEdit.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	gamesEdit.POST("", s.gameEditSubmit)
 
 	gamesDelete := games.Group("/delete/:game_id")
 	gamesDelete.Use(s.gameRequiredMiddleware)
 	gamesDelete.GET("", s.gameDeleteForm)
+	gamesDelete.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	gamesDelete.POST("", s.gameDeleteSubmit)
 
 	gamesNetplay := games.Group("/netplay/:game_id")
 	gamesNetplay.Use(s.gameRequiredMiddleware)
+	gamesNetplay.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	gamesNetplay.GET("/refresh-id", s.gameNetplayRefreshId)
 
 	gamesControls := games.Group("/controls/:game_id")
 	gamesControls.Use(s.gameRequiredMiddleware)
+	gamesControls.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	gamesControls.POST("/save", s.gameControlsSave)
 
 	uploadBatch := games.Group("/upload-batch/:upload_batch_id")
 	uploadBatch.Use(s.uploadBatchRequiredMiddleware)
 	uploadBatch.GET("", s.gameUploadBatchForm)
+	uploadBatch.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	uploadBatch.POST("", s.gameUploadBatchSubmit)
 
 	saveStates := games.Group("/save-states/:game_id")
 	saveStates.Use(s.gameRequiredMiddleware)
 	saveStates.GET("", s.saveStates)
-	saveStates.POST("/upload", s.saveStateUpload)
 	saveStates.GET("/list", s.saveStateList)
+	saveStates.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	saveStates.POST("/upload", s.saveStateUpload)
 
 	saveStateDelete := saveStates.Group("/delete/:save_state_id")
 	saveStateDelete.Use(s.saveStateRequiredMiddleware)
 	saveStateDelete.GET("", s.saveStateDeleteForm)
+	saveStateDelete.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	saveStateDelete.POST("", s.saveStateDeleteSubmit)
 
 	//play
@@ -195,12 +214,14 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	play := e.Group("/play/:game_id")
 	play.Use(s.authenticationRequiredMiddleware)
 	play.Use(s.gameRequiredMiddleware)
+	play.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	play.GET("", s.play)
 
 	//netplay
 
 	netplay := e.Group("/netplay/:game_id/:netplay_session_id")
 	netplay.Use(s.netplayGameRequiredMiddleware)
+	netplay.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	netplay.GET("", s.netplay)
 	netplay.GET("/ws", s.netplayWS)
 
