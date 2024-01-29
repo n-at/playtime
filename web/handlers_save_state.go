@@ -19,9 +19,10 @@ func (s *Server) saveStates(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "save_states", pongo2.Context{
-		"user":   context.user,
-		"game":   context.game,
-		"states": states,
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"game":        context.game,
+		"states":      states,
 	})
 }
 

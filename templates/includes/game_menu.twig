@@ -18,6 +18,10 @@
         {% endif %}
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="{{ game.DownloadLink }}" download="{{ game.OriginalFileName }}">Download</a>
-        <a class="dropdown-item" href="/games/delete/{{game.Id}}">Delete</a>
+        {% if delete_with_modal %}
+            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-{{ game.Id }}">Delete</button>
+        {% else %}
+            <a class="dropdown-item" href="/games/delete/{{game.Id}}">Delete</a>
+        {% endif %}
     </div>
 </div>

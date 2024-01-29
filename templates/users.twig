@@ -60,7 +60,7 @@
                                     </li>
                                     {% if user_item.Id != user.Id %}
                                         <li>
-                                            <a class="dropdown-item" href="/users/delete/{{user_item.Id}}">Delete</a>
+                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-{{user_item.Id}}">Delete</button>
                                         </li>
                                     {% endif %}
                                 </ul>
@@ -70,6 +70,27 @@
                 </li>
             {% endfor %}
         </ul>
+
+        {% for user_item in users %}
+            <div class="modal" id="delete-{{ user_item.Id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <form class="modal-content" method="post" action="/users/delete/{{ user_item.Id }}" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete user</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm deletion of user &quot;{{ user_item.Login }}&quot;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
     {% else %}
         {% include "includes/empty_state.twig" with icon="bi bi-people" text="No users found" %}
     {% endif %}

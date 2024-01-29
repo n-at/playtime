@@ -20,9 +20,10 @@ func (s *Server) users(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "users", pongo2.Context{
-		"user":  context.user,
-		"users": users,
-		"done":  c.Param("done"),
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"users":       users,
+		"done":        c.Param("done"),
 	})
 }
 

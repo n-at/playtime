@@ -17,9 +17,9 @@
                     <div class="card">
                         <div class="position-relative">
                             <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="Screenshot">
-                            <a href="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2" title="Delete">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#delete-{{ state.Id }}" class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2" title="Delete">
                                 <i class="bi bi-trash"></i>
-                            </a>
+                            </button>
                         </div>
                         <div class="card-body text-center">
                             <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-secondary" title="Play from this state">
@@ -30,6 +30,27 @@
                 </div>
             {% endfor %}
         </div>
+
+        {% for state in states %}
+            <div class="modal" id="delete-{{ state.Id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <form class="modal-content" method="post" action="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete save state</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Confirm deletion of save state &quot;{{ state.Created.Format("02.01.2006 15:04:05") }}&quot;</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        {% endfor %}
     {% else %}
         {% include "includes/empty_state.twig" with icon="bi bi-box-arrow-down" text="No save states found" %}
     {% endif %}

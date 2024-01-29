@@ -57,7 +57,7 @@
                                     <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}" title="Play">
                                         <i class="bi bi-play-fill"></i>
                                     </a>
-                                    {% include "includes/game_menu.twig" with game_menu_title=false %}
+                                    {% include "includes/game_menu.twig" with game_menu_title=false delete_with_modal=true %}
                                 </div>
                             </div>
                         </div>
@@ -71,6 +71,29 @@
                 {% include "includes/quota_display.twig" with total=user.Quota used=user.QuotaUsed %}
             </div>
         {% endif %}
+
+        {% for item in games_by_platform %}
+            {% for game in item.Games %}
+                <div class="modal" id="delete-{{ game.Id }}" tabindex="-1">
+                    <div class="modal-dialog">
+                        <form class="modal-content" method="post" action="/games/delete/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
+                            <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Delete game</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Confirm deletion of game &quot;{{ game.Name }}&quot;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endfor %}
     {% else %}
         <div class="text-center">
             <button id="btn-upload" type="button" class="btn btn-outline-success mt-3">
