@@ -137,9 +137,11 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	users.Use(s.authenticationRequiredMiddleware)
 	users.Use(s.userControlAccessRequiredMiddleware)
 	users.GET("", s.users)
-	users.GET("/new", s.userNewForm)
-	users.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
-	users.POST("/new", s.userNewSubmit)
+
+	usersNew := users.Group("/new")
+	usersNew.GET("", s.userNewForm)
+	usersNew.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	usersNew.POST("", s.userNewSubmit)
 
 	usersEdit := users.Group("/edit/:user_id")
 	usersEdit.Use(s.userControlRequiredMiddleware)
@@ -157,8 +159,10 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	games := e.Group("/games")
 	games.Use(s.authenticationRequiredMiddleware)
 	games.GET("", s.games)
-	games.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(1)))
-	games.POST("/upload", s.gameUpload)
+
+	gamesUpload := games.Group("/upload")
+	gamesUpload.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(1)))
+	gamesUpload.POST("", s.gameUpload)
 
 	gamesEmulationSettings := games.Group("/emulation-settings/:game_id")
 	gamesEmulationSettings.Use(s.gameRequiredMiddleware)
@@ -200,8 +204,10 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	saveStates.Use(s.gameRequiredMiddleware)
 	saveStates.GET("", s.saveStates)
 	saveStates.GET("/list", s.saveStateList)
-	saveStates.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
-	saveStates.POST("/upload", s.saveStateUpload)
+
+	saveStatesUpload := saveStates.Group("/upload")
+	saveStatesUpload.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	saveStatesUpload.POST("", s.saveStateUpload)
 
 	saveStateDelete := saveStates.Group("/delete/:save_state_id")
 	saveStateDelete.Use(s.saveStateRequiredMiddleware)
