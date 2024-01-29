@@ -82,9 +82,19 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	}
 
 	e.Use(middleware.CSRFWithConfig(middleware.CSRFConfig{
-		TokenLookup: "form:_playtime_csrf",
-		CookiePath:  "/",
-		CookieName:  "_playtime_csrf",
+		TokenLookup:    "form:_playtime_csrf",
+		CookiePath:     "/",
+		CookieName:     "_playtime_csrf",
+		CookieHTTPOnly: true,
+	}))
+	e.Use(middleware.SecureWithConfig(middleware.SecureConfig{
+		XSSProtection:         "1; mode=block",
+		ContentTypeNosniff:    "nosniff",
+		XFrameOptions:         "SAMEORIGIN",
+		HSTSMaxAge:            0,
+		HSTSExcludeSubdomains: false,
+		HSTSPreloadEnabled:    false,
+		ContentSecurityPolicy: "connect-src 'self' blob:; font-src 'self' data:; form-action 'self'; frame-ancestors 'self'; frame-src 'self'; img-src 'self' data:; manifest-src 'self'; media-src 'self'; object-src 'self'; child-src 'self' blob:",
 	}))
 	e.Use(s.contextCustomizationMiddleware)
 

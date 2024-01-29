@@ -66,7 +66,7 @@ func (s *Server) loginSubmit(c echo.Context) error {
 		})
 	}
 
-	context.SetSessionId(session.Id)
+	context.SetSessionId(session.Id, c.IsTLS())
 
 	return c.Redirect(http.StatusFound, "/")
 }

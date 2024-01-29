@@ -26,11 +26,13 @@ func (c *PlaytimeContext) GetSessionId() string {
 	return cookie.Value
 }
 
-func (c *PlaytimeContext) SetSessionId(id string) {
+func (c *PlaytimeContext) SetSessionId(id string, secure bool) {
 	cookie := &http.Cookie{
-		Name:    SessionCookieName,
-		Value:   id,
-		Expires: time.Now().Add(30 * 24 * time.Hour),
+		Name:     SessionCookieName,
+		Value:    id,
+		Expires:  time.Now().Add(30 * 24 * time.Hour),
+		HttpOnly: true,
+		Secure:   secure,
 	}
 	c.SetCookie(cookie)
 }
