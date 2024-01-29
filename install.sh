@@ -8,7 +8,7 @@ npm install
 
 git clone https://github.com/EmulatorJS/EmulatorJS _tmp
 cd _tmp
-git checkout "88ec215493a0f543dd0814ec9e9fcf4baff8e407"
+git checkout "806623af696f625618f9a073739cb1b6e4742e7c"
 cd data
 mkdir cores
 cd minify
