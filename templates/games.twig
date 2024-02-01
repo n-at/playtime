@@ -68,7 +68,7 @@
 
         {% if user.Quota %}
             <div class="mb-5 text-center">
-                {% include "includes/quota_display.twig" with total=user.Quota used=user.QuotaUsed %}
+                {% include "includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
             </div>
         {% endif %}
 

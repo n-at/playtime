@@ -12,7 +12,7 @@ type User struct {
 	Admin     bool
 	Active    bool
 	Quota     int64
-	QuotaUsed int64
+	quotaUsed int64
 }
 
 type Session struct {
@@ -325,6 +325,10 @@ type SaveStateWithData struct {
 
 func (u *User) CanControlUsers() bool {
 	return u.Admin
+}
+
+func (u *User) GetQuotaUsed() int64 {
+	return u.quotaUsed
 }
 
 func (co CoreOption) VariantsList() []string {

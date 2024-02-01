@@ -59,7 +59,7 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 	}
 
 	saveState.Size = state.Size + screenshot.Size
-	if context.user.Quota > 0 && context.user.QuotaUsed+saveState.Size > context.user.Quota {
+	if context.user.Quota > 0 && context.user.GetQuotaUsed()+saveState.Size > context.user.Quota {
 		return errors.New("disk quota exceeded")
 	}
 

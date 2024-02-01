@@ -8,6 +8,7 @@ import (
 	"path"
 	"sort"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -17,8 +18,10 @@ type Configuration struct {
 }
 
 type Storage struct {
-	store  *bolthold.Store
-	config *Configuration
+	store       *bolthold.Store
+	config      *Configuration
+	quotaUsed   map[string]int64
+	quotaUsedMx sync.RWMutex
 }
 
 func New(config *Configuration) (*Storage, error) {
@@ -28,8 +31,9 @@ func New(config *Configuration) (*Storage, error) {
 	}
 
 	return &Storage{
-		store:  s,
-		config: config,
+		store:     s,
+		config:    config,
+		quotaUsed: make(map[string]int64),
 	}, nil
 }
 
@@ -58,17 +62,33 @@ func (s *Storage) UserSave(u User) (User, error) {
 
 func (s *Storage) UserFindById(id string) (User, error) {
 	var user User
+
 	if err := s.store.FindOne(&user, bolthold.Where(bolthold.Key).Eq(id)); err != nil {
 		return User{}, err
 	}
+
+	quota, err := s.userQuotaUsed(user.Id)
+	if err != nil {
+		return User{}, err
+	}
+	user.quotaUsed = quota
+
 	return user, nil
 }
 
 func (s *Storage) UserFindByLogin(login string) (User, error) {
 	var user User
+
 	if err := s.store.FindOne(&user, bolthold.Where("Login").Eq(login)); err != nil {
 		return User{}, err
 	}
+
+	quota, err := s.userQuotaUsed(user.Id)
+	if err != nil {
+		return User{}, err
+	}
+	user.quotaUsed = quota
+
 	return user, nil
 }
 
@@ -86,9 +106,19 @@ func (s *Storage) UserFindBySessionId(sessionId string) (User, error) {
 
 func (s *Storage) UserFindAll() ([]User, error) {
 	var users []User
+
 	if err := s.store.Find(&users, nil); err != nil {
 		return nil, err
 	}
+
+	for i := 0; i < len(users); i++ {
+		quota, err := s.userQuotaUsed(users[i].Id)
+		if err != nil {
+			return nil, err
+		}
+		users[i].quotaUsed = quota
+	}
+
 	return userSorted(users), nil
 }
 
@@ -149,22 +179,53 @@ func (s *Storage) UserEnsureExists() error {
 	return nil
 }
 
-func (s *Storage) userUpdateQuotaUsed(id string, delta int64) error {
-	u, err := s.UserFindById(id)
+func (s *Storage) userQuotaUsed(id string) (int64, error) {
+	s.quotaUsedMx.RLock()
+	quota, exists := s.quotaUsed[id]
+	s.quotaUsedMx.RUnlock()
+
+	if exists {
+		return quota, nil
+	}
+
+	quota, err := s.userQuotaUsedCalculate(id)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
-	u.QuotaUsed += delta
-	if u.QuotaUsed < 0 {
-		u.QuotaUsed = 0
+	s.quotaUsedMx.Lock()
+	s.quotaUsed[id] = quota
+	s.quotaUsedMx.Unlock()
+
+	return quota, nil
+}
+
+func (s *Storage) userQuotaUsedInvalidate(id string) {
+	s.quotaUsedMx.Lock()
+	delete(s.quotaUsed, id)
+	s.quotaUsedMx.Unlock()
+}
+
+func (s *Storage) userQuotaUsedCalculate(id string) (int64, error) {
+	var size int64 = 0
+
+	result, err := s.store.FindAggregate(&Game{}, bolthold.Where("UserId").Eq(id), "UserId")
+	if err != nil {
+		return 0, err
+	}
+	for _, item := range result {
+		size += int64(item.Sum("OriginalFileSize"))
 	}
 
-	if _, err := s.UserSave(u); err != nil {
-		return err
+	result, err = s.store.FindAggregate(&SaveState{}, bolthold.Where("UserId").Eq(id), "UserId")
+	if err != nil {
+		return 0, err
+	}
+	for _, item := range result {
+		size += int64(item.Sum("Size"))
 	}
 
-	return nil
+	return size, nil
 }
 
 func userSorted(users []User) []User {
@@ -261,9 +322,7 @@ func (s *Storage) GameUpload(g Game) error {
 		return err
 	}
 
-	if err := s.userUpdateQuotaUsed(g.UserId, g.OriginalFileSize); err != nil {
-		return err
-	}
+	s.userQuotaUsedInvalidate(g.UserId)
 
 	return nil
 }
@@ -331,9 +390,7 @@ func (s *Storage) GameDeleteById(id string) error {
 		return err
 	}
 
-	if err := s.userUpdateQuotaUsed(game.UserId, -game.OriginalFileSize); err != nil {
-		return err
-	}
+	s.userQuotaUsedInvalidate(game.UserId)
 
 	return nil
 }
@@ -373,9 +430,7 @@ func (s *Storage) SaveStateUpload(ss SaveState) error {
 		return err
 	}
 
-	if err := s.userUpdateQuotaUsed(ss.UserId, ss.Size); err != nil {
-		return err
-	}
+	s.userQuotaUsedInvalidate(ss.UserId)
 
 	return nil
 }
@@ -471,9 +526,7 @@ func (s *Storage) SaveStateDeleteById(id string) error {
 		return err
 	}
 
-	if err := s.userUpdateQuotaUsed(state.UserId, -state.Size); err != nil {
-		return err
-	}
+	s.userQuotaUsedInvalidate(state.UserId)
 
 	return nil
 }

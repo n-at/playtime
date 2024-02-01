@@ -44,7 +44,7 @@ func (s *Server) gameUpload(c echo.Context) error {
 		uploadSize += file.Size
 	}
 
-	if context.user.Quota > 0 && context.user.QuotaUsed+uploadSize > context.user.Quota {
+	if context.user.Quota > 0 && context.user.GetQuotaUsed()+uploadSize > context.user.Quota {
 		return errors.New("disk quota exceeded")
 	}
 

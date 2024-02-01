@@ -17,12 +17,18 @@ func (s *Server) users(c echo.Context) error {
 		return err
 	}
 
+	quotasUsed := make(map[string]int64)
+	for _, u := range users {
+		quotasUsed[u.Id] = u.GetQuotaUsed()
+	}
+
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "users", pongo2.Context{
 		"_csrf_token": c.Get("csrf"),
 		"user":        context.user,
 		"users":       users,
+		"quotas_used": quotasUsed,
 		"done":        c.Param("done"),
 	})
 }
@@ -53,12 +59,11 @@ func (s *Server) userNewSubmit(c echo.Context) error {
 	}
 
 	user := storage.User{
-		Login:     c.FormValue("login"),
-		Password:  password,
-		Active:    c.FormValue("active") == "1",
-		Admin:     c.FormValue("admin") == "1",
-		Quota:     int64(quota) * 1024 * 1024,
-		QuotaUsed: 0,
+		Login:    c.FormValue("login"),
+		Password: password,
+		Active:   c.FormValue("active") == "1",
+		Admin:    c.FormValue("admin") == "1",
+		Quota:    int64(quota) * 1024 * 1024,
 	}
 	if _, err := s.storage.UserSave(user); err != nil {
 		log.Errorf("userNewSubmit user save error: %s", err)
