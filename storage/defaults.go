@@ -62,7 +62,7 @@ var (
 		"1.5", "2.0", "2.5", "3.0", "3.5", "4.0", "4.5", "5.0", "5.5", "6.0", "6.5", "7.0", "7.5", "8.0", "8.5", "9.0", "9.5", "10.0",
 	}
 
-	RewindGranularities = []string{
+	RewindGranularity = []string{
 		"1", "3", "6", "12", "25", "50", "100",
 	}
 
@@ -379,8 +379,36 @@ var (
 		"c64": {
 			Id:         "c64",
 			Name:       "Commodore 64",
-			Cores:      []string{"vice_x64"},
+			Cores:      []string{"vice_x64", "vice_x64sc"},
 			Extensions: []string{"d64", "d6z", "d71", "d7z", "d80", "d81", "d82", "d8z", "g64", "g6z", "g41", "g4z", "x64", "x6z", "nib", "nbz", "d2m", "d4m", "t64", "tap", "tcrt"},
+			Bios:       []Bios{},
+		},
+		"c128": {
+			Id:         "c128",
+			Name:       "Commodore 128",
+			Cores:      []string{"vice_x128"},
+			Extensions: []string{},
+			Bios:       []Bios{},
+		},
+		"pet": {
+			Id:         "pet",
+			Name:       "Commodore PET",
+			Cores:      []string{"vice_xpet"},
+			Extensions: []string{},
+			Bios:       []Bios{},
+		},
+		"plus4": {
+			Id:         "plus4",
+			Name:       "Commodore Plus/4",
+			Cores:      []string{"vice_xplus4"},
+			Extensions: []string{},
+			Bios:       []Bios{},
+		},
+		"vic20": {
+			Id:         "vic20",
+			Name:       "Commodore VIC-20",
+			Cores:      []string{"vice_xvic"},
+			Extensions: []string{},
 			Bios:       []Bios{},
 		},
 		"": {
@@ -1020,6 +1048,30 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 			Bios: "",
 		}
 		controls = DefaultControlsOther
+
+	case "c128":
+		settings = EmulatorSettings{
+			Core: Platforms["c128"].Cores[0],
+			Bios: "",
+		}
+
+	case "pet":
+		settings = EmulatorSettings{
+			Core: Platforms["pet"].Cores[0],
+			Bios: "",
+		}
+
+	case "plus4":
+		settings = EmulatorSettings{
+			Core: Platforms["plus4"].Cores[0],
+			Bios: "",
+		}
+
+	case "vic20":
+		settings = EmulatorSettings{
+			Core: Platforms["vic20"].Cores[0],
+			Bios: "",
+		}
 	}
 
 	settings.ColorScheme = DefaultColorScheme

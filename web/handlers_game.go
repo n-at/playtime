@@ -180,7 +180,7 @@ func (s *Server) gameEmulationSettingsForm(c echo.Context) error {
 		"core_options":         storage.CoreOptionsByPlatform(platform),
 		"fast_forward_ratios":  storage.FastForwardRatios,
 		"slow_motion_ratios":   storage.SlowMotionRatios,
-		"rewind_granularities": storage.RewindGranularities,
+		"rewind_granularities": storage.RewindGranularity,
 	})
 }
 
