@@ -8,7 +8,7 @@ npm install
 
 git clone https://github.com/EmulatorJS/EmulatorJS _tmp
 cd _tmp
-git checkout "560875cae043d9dd0bf7b12205f00e13300559f5"
+git checkout "895fa3fd61d99b5060454f5bf3d39ab06aba2b25"
 cd data/minify
 npm install
 node index.js
