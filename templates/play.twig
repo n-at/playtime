@@ -66,6 +66,7 @@
         window.EJS_volume = {{ emulator_settings.Volume }};
         window.EJS_startOnLoaded = true;
         window.EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
+        window.EJS_disableLocalStorage = true;
 
         {% if emulator_debug %}
             window.EJS_DEBUG_XX = true;

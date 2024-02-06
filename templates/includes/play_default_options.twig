@@ -16,36 +16,4 @@
         '{{ option }}': '{{ value }}',
         {% endfor %}
     };
-
-    if (window.localStorage) {
-        const darkTheme = window.localStorage.__dark_theme;
-        const netplayName = window.localStorage.playtimeNetplayName;
-        const netplayPlayer = window.localStorage.playtimeNetplayPlayer;
-        const netplayControls = window.localStorage.playtimeNetplayControls;
-        const virtualGamepad = window.localStorage.playtimeVirtualGamepad;
-        window.localStorage.clear();
-        if (darkTheme) {
-            window.localStorage.__dark_theme = darkTheme;
-        }
-        if (netplayName) {
-            window.localStorage.playtimeNetplayName = netplayName;
-        }
-        if (netplayPlayer) {
-            window.localStorage.playtimeNetplayPlayer = netplayPlayer;
-        }
-        if (netplayControls) {
-            window.localStorage.playtimeNetplayControls = netplayControls;
-        }
-        if (virtualGamepad) {
-            window.localStorage.playtimeVirtualGamepad = virtualGamepad;
-        }
-
-        const coreSettings = {
-            settings: {
-                rewindEnabled: EJS_defaultOptions.rewindEnabled,
-            },
-        };
-        const coreSettingsIdx = `ejs-${window.EJS_core}-settings`;
-        window.localStorage[coreSettingsIdx] = JSON.stringify(coreSettings);
-    }
 </script>
