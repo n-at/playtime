@@ -201,6 +201,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		SlowMotionMode:         c.FormValue("slow-motion-mode") == "1",
 		Rewind:                 c.FormValue("rewind-enabled") == "1",
 		Threads:                c.FormValue("threads") == "1",
+		DisableBrowserDB:       c.FormValue("disable-browser-db") == "1",
 		Buttons:                buttons,
 		Controls:               settingsCollectControls(c),
 		CoreOptions:            coreOptionsValues,

@@ -23,3 +23,7 @@
     <input type="checkbox" id="threads" name="threads" class="form-check-input" value="1" {% if settings.Threads %}checked{% endif %}>
     <label for="threads">Use threads</label>
 </div>
+<div class="form-check form-switch">
+    <input type="checkbox" id="disable-browser-db" name="disable-browser-db" class="form-check-input" value="1" {% if settings.DisableBrowserDB %}checked{% endif %}>
+    <label for="disable-browser-db">Disable browser DB</label>
+</div>

@@ -80,6 +80,10 @@
             window.EJS_threads = true;
         {% endif %}
 
+        {% if emulator_settings.DisableBrowserDB %}
+            window.EJS_disableDatabases = true;
+        {% endif %}
+
         {% if game.DisableCue %}
             window.EJS_disableCue = true;
         {% endif %}

@@ -79,6 +79,7 @@ type EmulatorSettings struct {
 	SlowMotionMode         bool
 	Rewind                 bool
 	Threads                bool
+	DisableBrowserDB       bool
 }
 
 type EmulatorControls struct {
