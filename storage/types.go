@@ -138,6 +138,8 @@ type EmulatorButtons struct {
 	QuickLoad    bool
 	Screenshot   bool
 	CacheManager bool
+	ContextMenu  bool
+	RightClick   bool
 }
 
 ///////////////////////////////////////////////////////////////////////////////

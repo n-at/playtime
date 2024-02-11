@@ -844,6 +844,8 @@ var (
 		SaveSavFiles: false,
 		LoadSavFiles: false,
 		CacheManager: false, //managed in emulation settings
+		ContextMenu:  false,
+		RightClick:   true,
 	}
 )
 

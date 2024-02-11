@@ -52,6 +52,12 @@
         {% include "emulator_buttons_button.twig" with btn_id="volume" btn_title="Volume" btn_value=settings.Buttons.Volume %}
     </div>
     <div class="col-6 col-sm-3 mb-2">
+        {% include "emulator_buttons_button.twig" with btn_id="right-click" btn_title="Context menu" btn_value=settings.Buttons.RightClick %}
+    </div>
+    <div class="col-6 col-sm-3 mb-2">
+        {% include "emulator_buttons_button.twig" with btn_id="context-menu" btn_title="Context menu button" btn_value=settings.Buttons.ContextMenu %}
+    </div>
+    <div class="col-6 col-sm-3 mb-2">
         {% include "emulator_buttons_button.twig" with btn_id="save-sav-files" btn_title="Save SAV files" btn_value=settings.Buttons.SaveSavFiles %}
     </div>
     <div class="col-6 col-sm-3 mb-2">

@@ -159,6 +159,8 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		QuickLoad:    c.FormValue("button-quick-load") == "1",
 		Screenshot:   c.FormValue("button-screenshot") == "1",
 		CacheManager: c.FormValue("button-cache-manager") == "1",
+		ContextMenu:  c.FormValue("button-context-menu") == "1",
+		RightClick:   c.FormValue("button-right-click") == "1",
 	}
 
 	shader := c.FormValue("shader")
