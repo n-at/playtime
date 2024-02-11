@@ -82,7 +82,7 @@
 
     async function saveState() {
         const state = await EJS_emulator.gameManager.getState();
-        const screenshot = EJS_emulator.gameManager.screenshot();
+        const screenshot = await EJS_emulator.gameManager.screenshot();
         const response = await uploadState(state, screenshot);
         if (response) {
             window.LatestStateUrl = response.StateFileDownloadLink
