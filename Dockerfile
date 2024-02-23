@@ -1,6 +1,14 @@
 FROM golang:1.22 as builder
+
+ARG PLAYTIME_EJS_REPO_URL
+ARG PLAYTIME_EJS_REVISION
+ARG PLAYTIME_EJS_CORES_URL
+ARG PLAYTIME_EJS_CORES_DIR
+
 ENV DEBIAN_FRONTEND=noninteractive
+
 ADD . /build
+
 RUN apt-get update &&\
     apt-get install -y curl git gpg wget unzip &&\
     curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | gpg --dearmor >> /nodesource-key.gpg &&\
@@ -18,6 +26,7 @@ FROM ubuntu:22.04
 COPY --from=builder /build/assets /app/assets/
 COPY --from=builder /build/templates /app/templates/
 COPY --from=builder /build/app /app/
+
 ADD docker/run.sh /app/
 
 ENV DEBIAN_FRONTEND=noninteractive
