@@ -1,4 +1,4 @@
-FROM golang:1.21 as builder
+FROM golang:1.22 as builder
 ENV DEBIAN_FRONTEND=noninteractive
 ADD . /build
 RUN apt-get update &&\
