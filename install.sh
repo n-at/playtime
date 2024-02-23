@@ -1,14 +1,21 @@
 #!/bin/bash
 
+PLAYTIME_EJS_REPO_URL=${PLAYTIME_EJS_REPO_URL:-"https://github.com/EmulatorJS/EmulatorJS"}
+PLAYTIME_EJS_REVISION=${PLAYTIME_EJS_REVISION:-"0d892cc39ed9d44384a7af1bc2705ae428de5076"}
+PLAYTIME_EJS_CORES_URL=${PLAYTIME_EJS_CORES_URL:-"https://cdn.emulatorjs.org/nightly/data/cores/cores.zip"}
+PLAYTIME_EJS_CORES_DIR=${PLAYTIME_EJS_CORES_DIR:-"./EmulatorJS/data/cores"}
+
+#
+
 cd assets
 
 npm install
 
 #download EmulatorJS
 
-git clone https://github.com/EmulatorJS/EmulatorJS _tmp
+git clone "${PLAYTIME_EJS_REPO_URL}" _tmp
 cd _tmp
-git checkout "2b22ec14c34f28615f75cec7fc421c9e4f22e940"
+git checkout "${PLAYTIME_EJS_REVISION}"
 cd data/minify
 npm install
 node index.js
@@ -19,9 +26,11 @@ mv _tmp/data/* emulatorjs
 rm -rf _tmp
 
 mkdir _tmp && cd _tmp
-wget "https://cdn.emulatorjs.org/nightly/data/cores/cores.zip"
-unzip cores.zip
-mv "./EmulatorJS/data/cores" "../emulatorjs/cores"
+wget -O "cores.zip" "${PLAYTIME_EJS_CORES_URL}"
+unzip "cores.zip"
+rm -f "cores.zip"
+mkdir "../emulatorjs/cores/"
+mv "${PLAYTIME_EJS_CORES_DIR}"/* "../emulatorjs/cores/"
 cd ..
 rm -rf _tmp
 
