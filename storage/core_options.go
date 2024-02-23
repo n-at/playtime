@@ -744,6 +744,12 @@ var CoreOptionsGearcoleco = []CoreOption{
 	{Id: "gearcoleco_timing", Name: "gearcoleco_timing", Variants: "Auto|NTSC (60 Hz)|PAL (50 Hz)", Default: "Auto"},
 }
 
+var CoreOptionsSMSPlus = []CoreOption{
+	{Id: "smsplus_hardware", Name: "smsplus_hardware", Variants: "auto|master system|master system II|game gear|game gear (sms compatibility)|coleco", Default: "auto"},
+	{Id: "smsplus_region", Name: "smsplus_region", Variants: "auto|ntsc-u|pal|ntsc-j", Default: "auto"},
+	{Id: "smsplus_fm_sound", Name: "smsplus_fm_sound", Variants: "auto", Default: "auto"},
+}
+
 func CoreOptionsByCore(core string) []CoreOption {
 	switch core {
 	case "fceumm":
@@ -804,6 +810,8 @@ func CoreOptionsByCore(core string) []CoreOption {
 		return CoreOptionsBeetleWSwan
 	case "gearcoleco":
 		return CoreOptionsGearcoleco
+	case "smsplus":
+		return CoreOptionsSMSPlus
 	}
 	return []CoreOption{}
 }

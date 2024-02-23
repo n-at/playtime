@@ -223,7 +223,7 @@ var (
 		"segaMS": {
 			Id:         "segaMS",
 			Name:       "Sega Master System",
-			Cores:      []string{"genesis_plus_gx"},
+			Cores:      []string{"smsplus", "genesis_plus_gx"},
 			Extensions: []string{"sms"},
 			Bios: []Bios{
 				{
@@ -250,7 +250,7 @@ var (
 		"segaGG": {
 			Id:         "segaGG",
 			Name:       "Sega Game Gear",
-			Cores:      []string{"genesis_plus_gx"},
+			Cores:      []string{"genesis_plus_gx", "smsplus"},
 			Extensions: []string{"gg"},
 			Bios: []Bios{
 				{
