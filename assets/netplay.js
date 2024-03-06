@@ -529,10 +529,10 @@
                 wsMessagePlayerChanged(client, message.player_changed);
                 break;
             case MessageType.SignallingOffer:
-                wsMessageSignallingOffer(client, message.signalling);
+                wsMessageSignallingOfferAnswer(client, message.signalling);
                 break;
             case MessageType.SignallingAnswer:
-                wsMessageSignallingAnswer(client, message.signalling);
+                wsMessageSignallingOfferAnswer(client, message.signalling);
                 break;
             case MessageType.SignallingIceCandidate:
                 wsMessageSignallingIceCandidate(client, message.signalling);
@@ -674,22 +674,7 @@
      * @param {string} message.from_id
      * @param {string} message.sdp
      */
-    function wsMessageSignallingOffer(client, message) {
-        const clientId = message.from_id;
-        const sdp = JSON.parse(atob(message.sdp));
-
-        if (client.rtcClients[clientId]) {
-            rtcHandleRemoteDescription(client, clientId, client.rtcClients[clientId], sdp);
-        }
-    }
-
-    /**
-     * @param {Object} client
-     * @param {Object} message
-     * @param {string} message.from_id
-     * @param {string} message.sdp
-     */
-    function wsMessageSignallingAnswer(client, message) {
+    function wsMessageSignallingOfferAnswer(client, message) {
         const clientId = message.from_id;
         const sdp = JSON.parse(atob(message.sdp));
 

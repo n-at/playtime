@@ -1,4 +1,4 @@
-FROM golang:1.22 as builder
+FROM golang:1.22 AS builder
 
 ARG PLAYTIME_EJS_REPO_URL
 ARG PLAYTIME_EJS_REVISION

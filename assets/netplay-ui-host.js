@@ -38,7 +38,7 @@
             onClientError: errorHandler,
             onWSReconnecting: wsReconnecting,
             onRTCReconnecting: rtcReconnecting,
-            onRTCControlChannelReconnecting: rtcControlReconnecting,
+            onRTCControlChannelReconnecting: rtcReconnecting,
         });
         setTimeout(() => netplay.connect(), 1500);
     };
@@ -143,7 +143,7 @@
     function clientNameChanged(id, newName) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) is now ${name}`);
+            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) is now ${newName}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-name`);
@@ -382,12 +382,6 @@
     }
 
     function rtcReconnecting(clientId) {
-        const client = netplay.getClient(clientId);
-        const clientName = client ? client.name : 'unknown client';
-        window.ShowToastMessage('warning', `Reconnecting to ${clientName}...`);
-    }
-
-    function rtcControlReconnecting(clientId) {
         const client = netplay.getClient(clientId);
         const clientName = client ? client.name : 'unknown client';
         window.ShowToastMessage('warning', `Reconnecting to ${clientName}...`);
