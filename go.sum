@@ -35,6 +35,8 @@ github.com/stretchr/testify v1.8.4 h1:CcVxjf3Q8PM0mHUKJCdn+eZZtm5yQwehR5yeSVQQcU
 github.com/stretchr/testify v1.8.4/go.mod h1:sz/lmYIOXD/1dqDmKjjqLyZ2RngseejIcXlSw2iwfAo=
 github.com/timshannon/bolthold v0.0.0-20231129192944-dca5178aa629 h1:6JyscwjLxdI0S7GTDtcQXpxjsldBYwNXi4jfSpZEMzE=
 github.com/timshannon/bolthold v0.0.0-20231129192944-dca5178aa629/go.mod h1:PCFYfAEfKT+Nd6zWvUpsXduMR1bXFLf0uGSlEF05MCI=
+github.com/timshannon/bolthold v0.0.0-20240314194003-30aac6950928 h1:zjNCuOOhh1TKRU0Ru3PPPJt80z7eReswCao91gBLk00=
+github.com/timshannon/bolthold v0.0.0-20240314194003-30aac6950928/go.mod h1:PCFYfAEfKT+Nd6zWvUpsXduMR1bXFLf0uGSlEF05MCI=
 github.com/valyala/bytebufferpool v1.0.0 h1:GqA5TC/0021Y/b9FG4Oi9Mr3q7XYx6KllzawFIhcdPw=
 github.com/valyala/bytebufferpool v1.0.0/go.mod h1:6bBcMArwyJ5K/AmCkWv1jt77kVWyCJ6HpOuEn7z0Csc=
 github.com/valyala/fasttemplate v1.2.2 h1:lxLXG0uE3Qnshl9QyaK6XJxMXlQZELvChBOCmQD0Loo=

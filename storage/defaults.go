@@ -40,17 +40,41 @@ var (
 			Name:  "4xScaleHQ",
 			Value: "4xScaleHQ.glslp",
 		}, {
-			Name:  "CRT easymode",
-			Value: "crt-easymode.glslp",
+			Name:  "sabr",
+			Value: "SABR",
 		}, {
 			Name:  "CRT aperture",
 			Value: "crt-aperture.glslp",
+		}, {
+			Name:  "CRT easymode",
+			Value: "crt-easymode.glslp",
 		}, {
 			Name:  "CRT geom",
 			Value: "crt-geom.glslp",
 		}, {
 			Name:  "CRT mattias",
 			Value: "crt-mattias.glslp",
+		}, {
+			Name:  "CRT beam",
+			Value: "crt-beam",
+		}, {
+			Name:  "CRT caligari",
+			Value: "crt-caligari",
+		}, {
+			Name:  "CRT lottes",
+			Value: "crt-lottes",
+		}, {
+			Name:  "CRT zfast",
+			Value: "crt-zfast",
+		}, {
+			Name:  "CRT yeetron",
+			Value: "crt-yeetron",
+		}, {
+			Name:  "Bicubic",
+			Value: "bicubic",
+		}, {
+			Name:  "Mix frames",
+			Value: "mix-frames",
 		},
 	}
 
