@@ -3,6 +3,7 @@
         'shader': '{{ emulator_settings.Shader }}',
         'fps': {% if emulator_settings.FPS %}'show'{% else %}'hide'{% endif %},
         'virtual-gamepad-left-handed-mode': {% if emulator_settings.VirtualGamepadLeftHand %}'enabled'{% else %}'disabled'{% endif %},
+        'vsync': {% if emulator_settings.DisableVSync %}'disabled'{% else %}'enabled'{% endif %},
 
         'ff-ratio': '{{ emulator_settings.FastForwardRatio }}',
         'sm-ratio': '{{ emulator_settings.SlowMotionRatio }}',

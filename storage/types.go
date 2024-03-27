@@ -80,6 +80,7 @@ type EmulatorSettings struct {
 	Rewind                 bool
 	Threads                bool
 	DisableBrowserDB       bool
+	DisableVSync           bool
 }
 
 type EmulatorControls struct {
