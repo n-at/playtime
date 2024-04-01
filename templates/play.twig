@@ -84,9 +84,12 @@
             window.EJS_disableDatabases = true;
         {% endif %}
 
-        {% if game.DisableCue %}
+        {% if not game.CueEnabled %}
             window.EJS_disableCue = true;
         {% endif %}
+
+        window.AutoSaveEnabled = {% if game.AutoSaveEnabled %}true{% else %}false{% endif %};
+        window.AutoSaveInterval = {{ game.AutoSaveInterval }};
 
         {% if save_state.StateFileDownloadLink %}
             window.EJS_loadStateURL = '{{ save_state.StateFileDownloadLink }}';

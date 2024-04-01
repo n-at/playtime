@@ -37,7 +37,10 @@ type Game struct {
 	Platform                 string `boltholdIndex:"Platform"`
 	NetplayEnabled           bool
 	NetplaySessionId         string
-	DisableCue               bool
+	CueEnabled               bool
+	AutoSaveEnabled          bool
+	AutoSaveInterval         int
+	AutoSaveCapacity         int
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
 }
@@ -49,6 +52,7 @@ type SaveState struct {
 	Created time.Time
 	Size    int64
 	Core    string
+	IsAuto  bool
 }
 
 type UploadBatch struct {

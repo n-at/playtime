@@ -557,6 +557,23 @@ func (s *Storage) SaveStateDeleteByGameId(gameId string) error {
 	return nil
 }
 
+func (s *Storage) SaveStateDeleteAutoByGameId(gameId string, capacity int) error {
+	var ss []SaveState
+	if err := s.store.Find(&ss, bolthold.Where("GameId").Eq(gameId).And("IsAuto").Eq(true)); err != nil {
+		return err
+	}
+
+	ss = saveStateSorted(ss)
+
+	for i := capacity; i < len(ss); i++ {
+		if err := s.SaveStateDeleteById(ss[i].Id); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func saveStateSorted(states []SaveState) []SaveState {
 	sort.Slice(states, func(i, j int) bool {
 		return states[i].Created.After(states[j].Created)

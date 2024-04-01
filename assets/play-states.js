@@ -3,7 +3,7 @@
     window.addEventListener('load', () => {
         const loadStateModal = new bootstrap.Modal(document.getElementById('modal-load-state'));
 
-        document.getElementById('btn-save-state').addEventListener('click', saveState);
+        document.getElementById('btn-save-state').addEventListener('click', () => saveState(false));
         document.getElementById('btn-load-state-latest').addEventListener('click', loadLatestState);
         document.getElementById('btn-load-state').addEventListener('click', async () => {
             const states = await listStates();
@@ -14,6 +14,10 @@
         document.addEventListener('keydown', keyboardStateControl);
         document.getElementById('game').addEventListener('keydown', keyboardStateControl);
         setInterval(gamepadStateControl, 1000/60);
+
+        if (window.AutoSaveEnabled && window.AutoSaveInterval) {
+            setInterval(() => saveState(true), window.AutoSaveInterval * 1000);
+        }
     });
 
     ///////////////////////////////////////////////////////////////////////////
@@ -31,7 +35,7 @@
             }
             if (key === PlaytimeControls[playerIdx].save.value) {
                 e.preventDefault();
-                await saveState();
+                await saveState(false);
                 return;
             }
         }
@@ -71,7 +75,7 @@
                     return;
                 }
                 if (value === PlaytimeControls[playerIdx].save.value2) {
-                    saveState();
+                    saveState(false);
                     return;
                 }
             }
@@ -80,19 +84,23 @@
 
     ///////////////////////////////////////////////////////////////////////////
 
-    async function saveState() {
+    async function saveState(auto) {
+        if (!EJS_emulator || !EJS_emulator.gameManager) {
+            return;
+        }
         const state = await EJS_emulator.gameManager.getState();
         const screenshot = await EJS_emulator.gameManager.screenshot();
-        const response = await uploadState(state, screenshot);
+        const response = await uploadState(state, screenshot, auto);
         if (response) {
             window.LatestStateUrl = response.StateFileDownloadLink
         }
     }
 
-    async function uploadState(state, screenshot) {
+    async function uploadState(state, screenshot, auto) {
         const formData = new FormData();
         formData.append('state', new Blob([state]));
         formData.append('screenshot', new Blob([screenshot]));
+        formData.append('auto', auto ? "1" : "0");
         formData.append('_playtime_csrf', window._csrf);
 
         try {
@@ -103,7 +111,7 @@
             });
             const json = await response.json();
 
-            stateSaveSuccess();
+            stateSaveSuccess(auto);
 
             return json;
         } catch (e) {
@@ -145,14 +153,24 @@
 
     ///////////////////////////////////////////////////////////////////////////
 
-    function stateSaveSuccess() {
-        window.FlashButtonIcon(
-            'btn-save-state',
-            ['btn-outline-secondary'],
-            ['bi-box-arrow-down'],
-            ['btn-outline-success'],
-            ['bi-check']
-        );
+    function stateSaveSuccess(auto) {
+        if (auto) {
+            window.FlashButtonIcon(
+                'btn-save-state',
+                ['btn-outline-secondary'],
+                ['bi-box-arrow-down'],
+                ['btn-outline-info'],
+                ['bi-check']
+            );
+        } else {
+            window.FlashButtonIcon(
+                'btn-save-state',
+                ['btn-outline-secondary'],
+                ['bi-box-arrow-down'],
+                ['btn-outline-success'],
+                ['bi-check']
+            );
+        }
     }
 
     function stateSaveError() {
@@ -202,15 +220,23 @@
 
         states.forEach(state => {
             const container = document.createElement('div');
-            container.classList.add('col-6', 'col-sm-4', 'col-lg-4');
+            container.classList.add('col-6', 'col-sm-4', 'col-lg-4', 'mb-3');
 
             const card = document.createElement('div');
-            card.classList.add('card', 'mb-3');
+            card.classList.add('card');
 
             const img = document.createElement('img');
             img.classList.add('card-img-top')
             img.src = state.ScreenshotDownloadLink;
             img.alt = 'Screenshot';
+
+            const relativeContainer = document.createElement('div');
+            relativeContainer.classList.add('position-relative');
+
+            const autoSaveBadge = document.createElement('span');
+            autoSaveBadge.classList.add('badge', 'text-bg-info', 'position-absolute', 'top-0', 'start-0', 'm-2');
+            autoSaveBadge.title = 'Auto save';
+            autoSaveBadge.innerText = 'AUTO';
 
             const body = document.createElement('div');
             body.classList.add('card-body', 'text-center');
@@ -225,7 +251,11 @@
             };
 
             body.append(button);
-            card.append(img, body);
+            relativeContainer.append(img);
+            if (state.IsAuto) {
+                relativeContainer.append(autoSaveBadge);
+            }
+            card.append(relativeContainer, body);
             container.append(card);
             stateList.append(container);
         });

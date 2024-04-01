@@ -269,6 +269,30 @@ func (s *Server) sendWebSocketError(ws *websocket.Conn, message string) {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+func (s *Server) getEmulatorSettings(c *PlaytimeContext) (storage.EmulatorSettings, error) {
+	if c.user == nil {
+		return storage.EmulatorSettings{}, errors.New("user is undefined")
+	}
+	if c.game == nil {
+		return storage.EmulatorSettings{}, errors.New("game is undefined")
+	}
+
+	settings, err := s.storage.SettingsGetByUserId(c.user.Id)
+	if err != nil {
+		return storage.EmulatorSettings{}, err
+	}
+
+	game := c.game
+
+	if game.OverrideEmulatorSettings {
+		return game.EmulatorSettings, nil
+	} else {
+		return settings.EmulatorSettings[c.game.Platform], nil
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 func sortedPlatforms() []storage.Platform {
 	var platforms []storage.Platform
 

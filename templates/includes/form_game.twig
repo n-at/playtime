@@ -24,8 +24,8 @@
 
 <div class="mb-3">
     <div class="form-check form-switch">
-        <input type="checkbox" id="disable-cue" name="disable-cue" class="form-check-input" value="1" {% if game.DisableCue %}checked{% endif %}>
-        <label for="disable-cue">Disable creation of .cue file</label>
+        <input type="checkbox" id="cue-enabled" name="cue-enabled" class="form-check-input" value="1" {% if game.CueEnabled %}checked{% endif %}>
+        <label for="cue-enabled">Enable creation of .cue file</label>
     </div>
 </div>
 
@@ -37,6 +37,27 @@
         </div>
     </div>
 {% endif %}
+
+<div class="mb-3">
+    <div class="form-check form-switch">
+        <input type="checkbox" id="auto-save-enabled" name="auto-save-enabled" value="1" class="form-check-input" {% if game.AutoSaveEnabled %}checked{% endif %}>
+        <label for="auto-save-enabled" class="form-check-label">Auto save enabled</label>
+    </div>
+</div>
+<div id="auto-save-options" class="row mb-3 d-none">
+    <div class="col-6">
+        <div class="form-floating">
+            <input type="number" id="auto-save-interval" name="auto-save-interval" class="form-control" value="{{ game.AutoSaveInterval / 60 }}" min="0" step="1" placeholder="5">
+            <label for="auto-save-interval">Auto save interval (minutes)</label>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="form-floating">
+            <input type="number" id="auto-save-capacity" name="auto-save-capacity" class="form-control" value="{{ game.AutoSaveCapacity }}" min="1" step="1" placeholder="10">
+            <label for="auto-save-capacity">Auto save capacity</label>
+        </div>
+    </div>
+</div>
 
 <hr>
 

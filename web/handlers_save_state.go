@@ -28,18 +28,25 @@ func (s *Server) saveStates(c echo.Context) error {
 
 func (s *Server) saveStateUpload(c echo.Context) error {
 	context := c.(*PlaytimeContext)
+	user := context.user
+	game := context.game
 
-	core, err := s.getCoreByGameId(context.user, context.game.Id)
+	core, err := s.getCoreByGameId(user, game.Id)
 	if err != nil {
 		return err
 	}
 
 	saveState := storage.SaveState{
 		Id:      storage.NewId(),
-		UserId:  context.user.Id,
-		GameId:  context.game.Id,
+		UserId:  user.Id,
+		GameId:  game.Id,
 		Core:    core,
 		Created: time.Now(),
+		IsAuto:  c.FormValue("auto") == "1",
+	}
+
+	if saveState.IsAuto && !game.AutoSaveEnabled {
+		return errors.New("auto saves disabled")
 	}
 
 	state, err := c.FormFile("state")
@@ -59,7 +66,7 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 	}
 
 	saveState.Size = state.Size + screenshot.Size
-	if context.user.Quota > 0 && context.user.GetQuotaUsed()+saveState.Size > context.user.Quota {
+	if user.Quota > 0 && user.GetQuotaUsed()+saveState.Size > user.Quota {
 		return errors.New("disk quota exceeded")
 	}
 
@@ -67,7 +74,13 @@ func (s *Server) saveStateUpload(c echo.Context) error {
 		return err
 	}
 
-	saveStateWithData, err := s.getSaveStateWithDataById(context.user, saveState.Id)
+	if saveState.IsAuto {
+		if err := s.storage.SaveStateDeleteAutoByGameId(game.Id, game.AutoSaveCapacity); err != nil {
+			return err
+		}
+	}
+
+	saveStateWithData, err := s.getSaveStateWithDataById(user, saveState.Id)
 	if err != nil {
 		return err
 	}

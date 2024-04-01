@@ -8,6 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
+	"strconv"
 )
 
 func (s *Server) games(c echo.Context) error {
@@ -59,6 +60,10 @@ func (s *Server) gameUpload(c echo.Context) error {
 			OriginalFileExtension:    getFileExtension(file.Filename),
 			OriginalFileSize:         file.Size,
 			Platform:                 "",
+			CueEnabled:               true,
+			AutoSaveEnabled:          false,
+			AutoSaveInterval:         5 * 60,
+			AutoSaveCapacity:         10,
 			OverrideEmulatorSettings: false,
 			EmulatorSettings:         storage.DefaultEmulatorSettings(""),
 		}
@@ -143,8 +148,21 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	game := context.game
 	game.Name = c.FormValue("name")
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
-	game.DisableCue = c.FormValue("disable-cue") == "1"
+	game.CueEnabled = c.FormValue("cue-enabled") == "1"
 	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
+
+	autoSaveInterval, err := strconv.Atoi(c.FormValue("auto-save-interval"))
+	if err != nil {
+		return err
+	}
+	autoSaveCapacity, err := strconv.Atoi(c.FormValue("auto-save-capacity"))
+	if err != nil {
+		return err
+	}
+
+	game.AutoSaveEnabled = c.FormValue("auto-save-enabled") == "1"
+	game.AutoSaveInterval = autoSaveInterval * 60
+	game.AutoSaveCapacity = autoSaveCapacity
 
 	newPlatform := c.FormValue("platform")
 	if game.Platform != newPlatform {

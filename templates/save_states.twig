@@ -20,6 +20,9 @@
                             <button type="button" data-bs-toggle="modal" data-bs-target="#delete-{{ state.Id }}" class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2" title="Delete">
                                 <i class="bi bi-trash"></i>
                             </button>
+                            {% if state.IsAuto %}
+                                <span class="badge text-bg-info position-absolute top-0 start-0 m-2" title="Auto save">AUTO</span>
+                            {% endif %}
                         </div>
                         <div class="card-body text-center">
                             <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-secondary" title="Play from this state">

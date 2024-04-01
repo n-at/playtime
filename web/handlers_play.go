@@ -25,9 +25,9 @@ func (s *Server) play(c echo.Context) error {
 		return err
 	}
 
-	emulatorSettings := settings.EmulatorSettings[game.Platform]
-	if game.OverrideEmulatorSettings {
-		emulatorSettings = game.EmulatorSettings
+	emulatorSettings, err := s.getEmulatorSettings(context)
+	if err != nil {
+		return err
 	}
 
 	saveState := storage.SaveStateWithData{}
