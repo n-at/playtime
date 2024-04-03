@@ -166,7 +166,7 @@ var (
 			Bios: []Bios{
 				{
 					Name:        "ds.zip",
-					Url:         "/assets/bios/nds/DS.zip",
+					Url:         "/assets/bios/nds/ds.zip",
 					Description: "DS BIOS",
 				},
 			},
