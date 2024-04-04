@@ -47,6 +47,22 @@
         {% include "controls/coleco.twig" %}
     {% else %}
         {# a5200, mame2003, arcade #}
+        {% if platform_id == "c64" %}
+            {% set console_img = "c64.png" %}
+            {% set console_img_alt = "Commodore 64" %}
+        {% elif platform_id == "c128" %}
+            {% set console_img = "c128.png" %}
+            {% set console_img_alt = "Commodore 128" %}
+        {% elif platform_id == "pet" %}
+            {% set console_img = "pet.png" %}
+            {% set console_img_alt = "Commodore PET" %}
+        {% elif platform_id == "vic20" %}
+            {% set console_img = "vic.png" %}
+            {% set console_img_alt = "Commodore VIC20" %}
+        {% elif platform_id == "a5200" %}
+            {% set console_img = "a5200.png" %}
+            {% set console_img_alt = "Atari 5200" %}
+        {% endif %}
         {% include "controls/default.twig" %}
     {% endif %}
 </div>

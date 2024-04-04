@@ -9,7 +9,12 @@
 
 <div class="row">
     <div class="col-12 col-sm-5 col-lg-6 text-center">
-        <img src="/assets/img/controller/{{ controller_img }}" alt="{{ controller_img_alt }}" class="img-fluid ps-3 pe-3">
+        {% if controller_img %}
+            <img src="/assets/img/controller/{{ controller_img }}" alt="{{ controller_img_alt }}" class="img-fluid ms-3 me-3 mb-3 p-3">
+        {% endif %}
+        {% if console_img %}
+            <img src="/assets/img/console/{{ console_img }}" alt="{{ console_img_alt }}" class="img-fluid ms-3 me-3 mt-3 p-3">
+        {% endif %}
     </div>
     <div class="col-12 col-sm-7 col-lg-6">
         <ul class="nav nav-underline mb-3" id="controls-{{ platform_id }}-{{ player }}-tabs" role="tablist">
