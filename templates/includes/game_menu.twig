@@ -11,6 +11,13 @@
             <h6 class="p-2">{{ game.Name }}</h6>
             <div class="dropdown-divider"></div>
         {% endif %}
+        {% if game_menu_play %}
+            <a class="dropdown-item" href="/play/{{ game.Id }}">Play</a>
+            {% if game.LatestSaveState.StateFileDownloadLink %}
+                <a class="dropdown-item" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}">Continue from latest save state</a>
+            {% endif %}
+            <div class="dropdown-divider"></div>
+        {% endif %}
         <a class="dropdown-item" href="/games/save-states/{{ game.Id }}">Save states</a>
         <a class="dropdown-item" href="/games/edit/{{game.Id}}">Game settings</a>
         {% if game.OverrideEmulatorSettings %}

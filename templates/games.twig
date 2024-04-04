@@ -45,20 +45,20 @@
                                         {% if game.OverrideEmulatorSettings %}
                                             <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
                                         {% endif %}
-                                        <span class="game-name">{{ game.Name }}</span>
+                                        <a href="/play/{{ game.Id }}" class="game-name">{{ game.Name }}</a>
                                     </div>
                                 </div>
                                 <div class="col-5 col-sm-4 col-md-3 col-lg-2 text-end text-nowrap">
                                     {% if game.LatestSaveState.StateFileDownloadLink %}
-                                        <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Play from latest save state">
+                                        <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Continue from latest save state">
                                             <i class="bi bi-box-arrow-up"></i>
                                         </a>
                                     {% endif %}
-                                    <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}" title="Play">
-                                        <i class="bi bi-play-fill"></i>
-                                    </a>
-                                    {% include "includes/game_menu.twig" with game_menu_title=false delete_with_modal=true %}
+                                    {% include "includes/game_menu.twig" with game_menu_title=false game_menu_play=true delete_with_modal=true %}
                                 </div>
+                            </div>
+                            <div>
+                                {# TODO description, tags, etc #}
                             </div>
                         </div>
                     {% endfor %}
@@ -67,8 +67,10 @@
         {% endfor %}
 
         {% if user.Quota %}
-            <div class="mb-5 text-center">
-                {% include "includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
+            <div class="mb-5 text-end">
+                <span class="badge border border-secondary p-2">
+                    {% include "includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
+                </span>
             </div>
         {% endif %}
 

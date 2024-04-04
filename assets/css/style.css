@@ -68,7 +68,6 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
     background-color: #0d6efd;
 }
 
-
 /*****************************************************************************/
 
 #drop-overlay {
@@ -102,4 +101,14 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
 
 #keyboard-control-button, #gamepad-control-button {
     font-size: 1.5em;
+}
+
+/*****************************************************************************/
+
+a.game-name {
+    color: var(--bs-heading-color);
+    text-decoration: none;
+}
+a.game-name:hover {
+    text-decoration: underline;
 }
