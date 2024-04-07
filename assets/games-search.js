@@ -71,7 +71,7 @@ import Tags from '/assets/node_modules/bootstrap5-tags/tags.js'
         const searchText = escapeRegExpChars(text.trim());
         const re = new RegExp(searchText, 'ig');
 
-        const containerEl = document.getElementById('games');
+        const containerEl = document.getElementById('games-container');
 
         games.forEach(game => {
             if (game.visible) {

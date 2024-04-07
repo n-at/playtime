@@ -43,7 +43,7 @@
             {% include "includes/empty_state.twig" with icon="bi bi-search" text="No games found" %}
         </div>
 
-        <div id="games" class="list-group list-group-hover mb-5">
+        <div id="games-container" class="list-group list-group-hover mb-5">
             {% for game in games %}
                 <div class="game list-group-item">
                     <div class="row">
