@@ -127,14 +127,22 @@ func (s *Server) getLatestSaveStateWithDataByGameId(user *storage.User, gameId s
 ///////////////////////////////////////////////////////////////////////////////
 
 func (s *Server) gameWithData(user *storage.User, game storage.Game) (storage.GameWithData, error) {
-	uploadPath, err := storage.GetUploadPath(game.Id)
+	gameUploadPath, err := storage.GetUploadPath(game.Id)
 	if err != nil {
 		return storage.GameWithData{}, err
 	}
 
 	gameWithData := storage.GameWithData{
 		Game:         game,
-		DownloadLink: fmt.Sprintf("%s/%s/%s", UploadsWebRoot, uploadPath, game.Id),
+		DownloadLink: fmt.Sprintf("%s/%s/%s", UploadsWebRoot, gameUploadPath, game.Id),
+	}
+
+	if len(game.CoverImage) > 0 {
+		coverUploadPath, err := storage.GetUploadPath(game.CoverImage)
+		if err != nil {
+			return storage.GameWithData{}, err
+		}
+		gameWithData.CoverImageLink = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, coverUploadPath, game.CoverImage)
 	}
 
 	core, err := s.getCoreByGameId(user, game.Id)
@@ -176,11 +184,17 @@ func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.GameWithD
 
 	var gamesWithData []storage.GameWithData
 
+	platforms := make(map[string]string)
+	for _, platform := range storage.Platforms {
+		platforms[platform.Id] = platform.Name
+	}
+
 	for i := 0; i < len(games); i++ {
 		gameWithData, err := s.gameWithData(user, games[i])
 		if err != nil {
 			return []storage.GameWithData{}, err
 		}
+		gameWithData.PlatformName = platforms[gameWithData.Platform]
 		gamesWithData = append(gamesWithData, gameWithData)
 	}
 

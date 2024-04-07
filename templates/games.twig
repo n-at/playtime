@@ -13,7 +13,7 @@
     <h1>Games</h1>
     <hr>
 
-    {% if games_by_platform %}
+    {% if games %}
         <div class="mb-5 d-flex">
             <button id="btn-upload" type="button" class="btn btn-outline-success me-3" style="min-width: 120px">
                 <i class="bi bi-plus-circle"></i> Upload
@@ -30,41 +30,48 @@
             {% include "includes/empty_state.twig" with icon="bi bi-search" text="No games found" %}
         </div>
 
-        {% for item in games_by_platform %}
-            <div class="game-list-platform">
-                <h3>{{ item.Platform.Name }}</h3>
-                <div class="list-group list-group-hover mb-5">
-                    {% for game in item.Games %}
-                        <div class="game list-group-item">
-                            <div class="row">
-                                <div class="col-7 col-sm-8 col-md-9 col-lg-10">
-                                    <div class="lead">
-                                        {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
-                                            <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
-                                        {% endif %}
-                                        {% if game.OverrideEmulatorSettings %}
-                                            <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
-                                        {% endif %}
-                                        <a href="/play/{{ game.Id }}" class="game-name">{{ game.Name }}</a>
-                                    </div>
-                                </div>
-                                <div class="col-5 col-sm-4 col-md-3 col-lg-2 text-end text-nowrap">
-                                    {% if game.LatestSaveState.StateFileDownloadLink %}
-                                        <a class="btn btn-sm btn-outline-primary d-inline-block" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}" title="Continue from latest save state">
-                                            <i class="bi bi-box-arrow-up"></i>
-                                        </a>
-                                    {% endif %}
-                                    {% include "includes/game_menu.twig" with game_menu_title=false game_menu_play=true delete_with_modal=true %}
-                                </div>
-                            </div>
-                            <div>
-                                {# TODO description, tags, etc #}
-                            </div>
+        <div class="list-group list-group-hover mb-5">
+            {% for game in games %}
+                <div class="game list-group-item">
+                    <div class="row">
+                        <div class="col-sm-3 col-md-2 text-center">
+                            {% if game.CoverImageLink %}
+                                <img src="{{ game.CoverImageLink }}" alt="Cover image" class="img-fluid d-block">
+                            {% else %}
+                                <i class="bi bi-controller d-inline-block text-secondary mt-1" style="font-size: 3em" title="No cover image"></i>
+                            {% endif %}
                         </div>
-                    {% endfor %}
+                        <div class="col-sm-7 col-md-9">
+                            <div class="lead">
+                                {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
+                                    <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
+                                {% endif %}
+                                {% if game.OverrideEmulatorSettings %}
+                                    <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
+                                {% endif %}
+                                <a href="/play/{{ game.Id }}" class="game-name">{{ game.Name }}</a>
+                            </div>
+                            {% if game.Description %}
+                                <div class="game=description text-secondary mt-2">
+                                    {{ game.Description }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-2 col-md-1 text-end text-nowrap">
+                            {% include "includes/game_menu.twig" with game_menu_title=false game_menu_play=true delete_with_modal=true %}
+                        </div>
+                    </div>
+                    <div>
+                        <div class="game-tags mt-2">
+                            <span class="badge border border-secondary text-body game-tag" role="button">{{ game.PlatformName }}</span>
+                            {% for tag in game.Tags %}
+                                <span class="badge border border-secondary text-body game-tag" role="button">{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
 
         {% if user.Quota %}
             <div class="mb-5 text-end">
@@ -102,7 +109,7 @@
                 <i class="bi bi-plus-circle"></i> Upload games
             </button>
         </div>
-        {% include "includes/empty_state.twig" with icon="bi bi-joystick" text="No games found" %}
+        {% include "includes/empty_state.twig" with icon="bi bi-controller" text="No games found" %}
     {% endif %}
 
     <form id="upload" action="/games/upload" method="post" enctype="multipart/form-data" class="d-none">

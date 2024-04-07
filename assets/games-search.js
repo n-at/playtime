@@ -11,28 +11,19 @@
         const searchText = escapeRegExpChars(text.trim());
         const re = new RegExp(searchText, 'ig');
 
-        let platformFound = false;
+        let gameFound = false;
 
-        document.querySelectorAll('div.game-list-platform').forEach(gameListEl => {
-            let gameFound = false;
-            gameListEl.querySelectorAll('div.game').forEach(gameEl => {
-                const gameName = gameEl.querySelector('span.game-name').innerText;
-                if (!text || gameName.match(re)) {
-                    gameEl.classList.remove('d-none');
-                    gameFound = true;
-                } else {
-                    gameEl.classList.add('d-none');
-                }
-            });
-            if (!gameFound) {
-                gameListEl.classList.add('d-none');
+        document.querySelectorAll('div.game').forEach(gameEl => {
+            const gameName = gameEl.querySelector('a.game-name').innerText;
+            if (!text || gameName.match(re)) {
+                gameEl.classList.remove('d-none');
+                gameFound = true;
             } else {
-                gameListEl.classList.remove('d-none');
-                platformFound = true;
+                gameEl.classList.add('d-none');
             }
         });
 
-        notFound(!platformFound);
+        notFound(!gameFound);
     }
 
     function notFound(value) {

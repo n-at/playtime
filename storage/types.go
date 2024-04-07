@@ -323,7 +323,9 @@ type CoreOption struct {
 type GameWithData struct {
 	Game
 	DownloadLink    string
+	CoverImageLink  string
 	LatestSaveState SaveStateWithData
+	PlatformName    string
 }
 
 type SaveStateWithData struct {

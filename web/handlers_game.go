@@ -19,11 +19,18 @@ func (s *Server) games(c echo.Context) error {
 		return err
 	}
 
+	tags, err := s.storage.GameGetTagsByUserId(context.user.Id)
+	if err != nil {
+		return err
+	}
+
 	return c.Render(http.StatusOK, "games", pongo2.Context{
-		"_csrf_token":       c.Get("csrf"),
-		"user":              context.user,
-		"games_by_platform": s.groupGamesByPlatform(games),
-		"netplay_enabled":   s.config.NetplayEnabled,
+		"_csrf_token":     c.Get("csrf"),
+		"user":            context.user,
+		"games":           games,
+		"tags":            tags,
+		"platforms":       sortedPlatforms(),
+		"netplay_enabled": s.config.NetplayEnabled,
 	})
 }
 
