@@ -96,7 +96,7 @@
             data-allow-new="true"
             data-allow-clear="true"
             data-badge-style="secondary">
-        <option disabled hidden value="">Choose a tag...</option>
+        <option disabled hidden value="">Choose or enter a tag...</option>
         {% for tag in tags %}
             <option value="{{ tag }}" {% if tag in game.Tags %}selected{% endif %}>{{ tag }}</option>
         {% endfor %}
