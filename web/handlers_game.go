@@ -132,11 +132,27 @@ func (s *Server) gameUploadBatchSubmit(c echo.Context) error {
 
 func (s *Server) gameEditForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
+	game := context.game
+
+	if game.AutoSaveInterval == 0 {
+		game.AutoSaveInterval = 5 * 60
+	}
+	if game.AutoSaveCapacity == 0 {
+		game.AutoSaveCapacity = 5
+	}
+	if len(game.CoverImage) > 0 {
+		imgPath, err := storage.GetUploadPath(game.CoverImage)
+		if err == nil {
+			game.CoverImage = fmt.Sprintf("%s/%s/%s", UploadsWebRoot, imgPath, game.CoverImage)
+		} else {
+			game.CoverImage = ""
+		}
+	}
 
 	return c.Render(http.StatusOK, "game_edit", pongo2.Context{
 		"_csrf_token":     c.Get("csrf"),
 		"user":            context.user,
-		"game":            context.game,
+		"game":            game,
 		"platforms":       sortedPlatforms(),
 		"netplay_enabled": s.config.NetplayEnabled,
 	})
@@ -147,6 +163,7 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 
 	game := context.game
 	game.Name = c.FormValue("name")
+	game.Description = c.FormValue("description")
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
 	game.CueEnabled = c.FormValue("cue-enabled") == "1"
 	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
@@ -168,6 +185,20 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	if game.Platform != newPlatform {
 		game.Platform = newPlatform
 		game.EmulatorSettings = storage.DefaultEmulatorSettings(newPlatform)
+	}
+
+	form, err := c.MultipartForm()
+	if err != nil {
+		return err
+	}
+	if cover, ok := form.File["cover-image"]; ok && len(cover) > 0 {
+		game.CoverImage = storage.NewId()
+		if err := s.storage.SaveUploadedFile(cover[0], game.CoverImage, ""); err != nil {
+			return err
+		}
+	}
+	if c.FormValue("cover-image-delete") == "1" {
+		game.CoverImage = ""
 	}
 
 	if _, err := s.storage.GameSave(*game); err != nil {

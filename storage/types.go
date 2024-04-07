@@ -31,6 +31,9 @@ type Game struct {
 	Id                       string `boltholdKey:"Id"`
 	UserId                   string `boltholdIndex:"UserId"`
 	Name                     string
+	Description              string
+	CoverImage               string
+	Tags                     []string
 	OriginalFileName         string
 	OriginalFileExtension    string
 	OriginalFileSize         int64

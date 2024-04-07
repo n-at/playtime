@@ -1,18 +1,50 @@
-<div class="form-floating mb-3">
-    <input type="text" id="name" name="name" class="form-control" value="{{game.Name}}" placeholder="Game name" required>
-    <label for="name">Name</label>
-</div>
-
-<div class="form-floating mb-3">
-    <select id="platform" name="platform" class="form-select">
-        <option value="">Undefined</option>
-        {% for platform in platforms %}
-            {% if platform.Id %}
-                <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-    <label for="platform">Platform</label>
+<div class="row">
+    <div class="col-md-4 col-sm-12">
+        {% if game.CoverImage %}
+            <div class="text-center">
+                <img src="{{ game.CoverImage }}" alt="Cover image" class="img-fluid d-block mb-2">
+            </div>
+            <div class="form-check mb-3">
+                <input type="checkbox" id="cover-image-delete" name="cover-image-delete" value="1" class="form-check-input">
+                <label for="cover-image-delete" class="form-check-label">Delete cover image</label>
+            </div>
+        {% else %}
+            {% include "empty_state.twig" with icon="bi bi-card-image" text="No cover image" %}
+        {% endif %}
+    </div>
+    <div class="col-md-8 col-sm-12">
+        <div class="form-floating mb-3">
+            <input type="text" id="original-name" class="form-control" disabled value="{{ game.OriginalFileName }}">
+            <label for="original-name">Original file name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" id="original-size" class="form-control" disabled value="{{ game.OriginalFileSize }}">
+            <label for="original-size">Original file size (bytes)</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" id="name" name="name" class="form-control" value="{{game.Name}}" placeholder="Game name" required>
+            <label for="name">Name</label>
+        </div>
+        <div class="form-floating mb-3">
+            <select id="platform" name="platform" class="form-select">
+                <option value="">Undefined</option>
+                {% for platform in platforms %}
+                    {% if platform.Id %}
+                        <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <label for="platform">Platform</label>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea id="description" name="description" class="form-control" style="height: 100px">{{ game.Description }}</textarea>
+            <label for="description">Description</label>
+        </div>
+        <div class="mb-3">
+            <label for="cover-image" class="form-label">Upload new cover image</label>
+            <input type="file" id="cover-image" name="cover-image" class="form-control">
+        </div>
+    </div>
 </div>
 
 <div class="mb-3">
@@ -47,7 +79,7 @@
 <div id="auto-save-options" class="row mb-3 d-none">
     <div class="col-6">
         <div class="form-floating">
-            <input type="number" id="auto-save-interval" name="auto-save-interval" class="form-control" value="{{ game.AutoSaveInterval / 60 }}" min="0" step="1" placeholder="5">
+            <input type="number" id="auto-save-interval" name="auto-save-interval" class="form-control" value="{{ game.AutoSaveInterval / 60 }}" min="1" step="1" placeholder="5">
             <label for="auto-save-interval">Auto save interval (minutes)</label>
         </div>
     </div>
