@@ -24,7 +24,7 @@
                 </span>
                 <select class="form-control d-none" id="games-tags" aria-label="Tags" multiple data-allow-clear="true" data-badge-style="secondary">
                     {% for platform in platforms %}
-                        <option value="{{ platform.Name }}">{{ platform.Name }}</option>
+                        <option value="{{ platform }}">{{ platform }}</option>
                     {% endfor %}
                     {% for tag in tags %}
                         <option value="{{ tag }}">{{ tag }}</option>
