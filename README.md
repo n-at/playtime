@@ -119,6 +119,7 @@ For a particular game netplay needs to be enabled in game settings.
 * [twbs/bootstrap](https://github.com/twbs/bootstrap) - MIT
 * [twbs/icons](https://github.com/twbs/icons) - MIT
 * [sumimakito/Awesome-qr.js](https://github.com/sumimakito/Awesome-qr.js) - Apache-2.0
+* [lekoala/bootstrap5-tags](https://github.com/lekoala/bootstrap5-tags) - MIT
 * [@fontsource/comfortaa](https://www.npmjs.com/package/@fontsource/comfortaa) - OFL-1.1
 * [@fontsource/raleway](https://www.npmjs.com/package/@fontsource/raleway) - OFL-1.1
 * [EmulatorJS](https://github.com/EmulatorJS/EmulatorJS) - GPL-3.0 (not included)

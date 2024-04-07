@@ -149,10 +149,16 @@ func (s *Server) gameEditForm(c echo.Context) error {
 		}
 	}
 
+	tags, err := s.storage.GameGetTagsByUserId(context.user.Id)
+	if err != nil {
+		return err
+	}
+
 	return c.Render(http.StatusOK, "game_edit", pongo2.Context{
 		"_csrf_token":     c.Get("csrf"),
 		"user":            context.user,
 		"game":            game,
+		"tags":            tags,
 		"platforms":       sortedPlatforms(),
 		"netplay_enabled": s.config.NetplayEnabled,
 	})
@@ -191,6 +197,7 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	if err != nil {
 		return err
 	}
+
 	if cover, ok := form.File["cover-image"]; ok && len(cover) > 0 {
 		game.CoverImage = storage.NewId()
 		if err := s.storage.SaveUploadedFile(cover[0], game.CoverImage, ""); err != nil {
@@ -199,6 +206,12 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	}
 	if c.FormValue("cover-image-delete") == "1" {
 		game.CoverImage = ""
+	}
+
+	if tags, ok := form.Value["tags[]"]; ok && len(tags) > 0 {
+		game.Tags = tags
+	} else {
+		game.Tags = nil
 	}
 
 	if _, err := s.storage.GameSave(*game); err != nil {

@@ -91,6 +91,23 @@
     </div>
 </div>
 
+<div class="form-floating mb-3">
+    <select class="form-select" id="tags" name="tags[]" multiple
+            data-allow-new="true"
+            data-allow-clear="true"
+            data-badge-style="secondary">
+        <option disabled hidden value="">Choose a tag...</option>
+        {% for tag in tags %}
+            <option value="{{ tag }}" {% if tag in game.Tags %}selected{% endif %}>{{ tag }}</option>
+        {% endfor %}
+    </select>
+    <label for="tags" class="form-label">Tags</label>
+</div>
+<script type="module">
+    import Tags from "/assets/node_modules/bootstrap5-tags/tags.min.js"
+    Tags.init('#tags');
+</script>
+
 <hr>
 
 <div class="mb-3 text-end">

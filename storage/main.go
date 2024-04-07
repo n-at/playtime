@@ -6,6 +6,7 @@ import (
 	"github.com/timshannon/bolthold"
 	"os"
 	"path"
+	"slices"
 	"sort"
 	"strings"
 	"sync"
@@ -408,6 +409,31 @@ func (s *Storage) GameDeleteByUserId(userId string) error {
 	}
 
 	return nil
+}
+
+func (s *Storage) GameGetTagsByUserId(userId string) ([]string, error) {
+	games, err := s.GameGetByUserId(userId)
+	if err != nil {
+		return nil, err
+	}
+
+	tags := make(map[string]bool)
+
+	for _, game := range games {
+		for _, tag := range game.Tags {
+			tags[tag] = true
+		}
+	}
+
+	var tagsList []string
+
+	for tag := range tags {
+		tagsList = append(tagsList, tag)
+	}
+
+	slices.Sort(tagsList)
+
+	return tagsList, nil
 }
 
 func gameSorted(games []Game) []Game {

@@ -13,6 +13,7 @@
     "@fontsource/raleway": "^5.0.8",
     "awesome-qr": "^2.1.5-rc.0",
     "bootstrap": "^5.3.0",
-    "bootstrap-icons": "^1.10.5"
+    "bootstrap-icons": "^1.10.5",
+    "bootstrap5-tags": "^1.7.1"
   }
 }
