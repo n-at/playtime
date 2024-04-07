@@ -4,8 +4,11 @@ import Tags from '/assets/node_modules/bootstrap5-tags/tags.js'
 
     let searchField = null;
     let tagsField = null;
+    let games = [];
 
     window.addEventListener('load', () => {
+        prepareGames();
+
         searchField = document.getElementById('games-search');
         searchField.addEventListener('keyup', doSearch);
 
@@ -27,6 +30,17 @@ import Tags from '/assets/node_modules/bootstrap5-tags/tags.js'
 
         loadSearchParams();
     });
+
+    function prepareGames() {
+        document.querySelectorAll('div.game').forEach(el => {
+            const name = el.querySelector('a.game-name').innerText;
+            const tags = [];
+            el.querySelectorAll('span.game-tag').forEach(tagEl => {
+                tags.push(tagEl.innerText.trim());
+            });
+            games.push({el, name, tags, visible: true});
+        });
+    }
 
     function doSearch() {
         const searchText = searchField.value;
@@ -57,26 +71,33 @@ import Tags from '/assets/node_modules/bootstrap5-tags/tags.js'
         const searchText = escapeRegExpChars(text.trim());
         const re = new RegExp(searchText, 'ig');
 
+        const containerEl = document.getElementById('games');
+
+        games.forEach(game => {
+            if (game.visible) {
+                containerEl.removeChild(game.el);
+            }
+        });
+
         let gameFound = false;
 
-        document.querySelectorAll('div.game').forEach(gameEl => {
-            const gameName = gameEl.querySelector('a.game-name').innerText;
-            const textMatched = !text || gameName.match(re);
+        games.forEach(game => {
+            const textMatched = !text || game.name.match(re);
 
             let tagsCount = 0;
-            gameEl.querySelectorAll('span.game-tag').forEach(tagEl => {
-                const tag = tagEl.innerText.trim();
-                if (tags.includes(tag)) {
+            tags.forEach(tag => {
+                if (game.tags.includes(tag)) {
                     tagsCount++;
                 }
             });
             let tagsMatched = !tags || tags.length === 0 || tagsCount === tags.length;
 
             if (textMatched && tagsMatched) {
-                gameEl.classList.remove('d-none');
+                containerEl.appendChild(game.el);
+                game.visible = true;
                 gameFound = true;
             } else {
-                gameEl.classList.add('d-none');
+                game.visible = false;
             }
         });
 
