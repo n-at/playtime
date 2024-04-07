@@ -6,7 +6,7 @@
 
 {% block assets %}
     <script src="/assets/games-upload.js"></script>
-    <script src="/assets/games-search.js"></script>
+    <script src="/assets/games-search.js" type="module"></script>
 {% endblock %}
 
 {% block content %}
@@ -18,6 +18,19 @@
             <button id="btn-upload" type="button" class="btn btn-outline-success me-3" style="min-width: 120px">
                 <i class="bi bi-plus-circle"></i> Upload
             </button>
+            <div class="input-group me-3">
+                <span class="input-group-text" title="Tags">
+                    <i class="bi bi-tag"></i>
+                </span>
+                <select class="form-control d-none" id="games-tags" aria-label="Tags" multiple data-allow-clear="true" data-badge-style="secondary">
+                    {% for platform in platforms %}
+                        <option value="{{ platform.Name }}">{{ platform.Name }}</option>
+                    {% endfor %}
+                    {% for tag in tags %}
+                        <option value="{{ tag }}">{{ tag }}</option>
+                    {% endfor %}
+                </select>
+            </div>
             <div class="input-group">
                 <span class="input-group-text" title="Filter">
                     <i class="bi bi-search"></i>
