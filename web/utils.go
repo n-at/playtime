@@ -13,13 +13,6 @@ import (
 	"strings"
 )
 
-type gameByPlatform struct {
-	Platform storage.Platform
-	Games    []storage.GameWithData
-}
-
-///////////////////////////////////////////////////////////////////////////////
-
 func (s *Server) getCoreByGameId(user *storage.User, gameId string) (string, error) {
 	settings, err := s.storage.SettingsGetByUserId(user.Id)
 	if err != nil {
@@ -199,31 +192,6 @@ func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.GameWithD
 	}
 
 	return gamesWithData, nil
-}
-
-func (s *Server) groupGamesByPlatform(games []storage.GameWithData) []gameByPlatform {
-	gamesByPlatform := make(map[string]*gameByPlatform)
-
-	for _, game := range games {
-		_, ok := gamesByPlatform[game.Platform]
-		if !ok {
-			gamesByPlatform[game.Platform] = &gameByPlatform{
-				Platform: storage.Platforms[game.Platform],
-			}
-		}
-		gamesByPlatform[game.Platform].Games = append(gamesByPlatform[game.Platform].Games, game)
-	}
-
-	var platforms []gameByPlatform
-	for _, platform := range gamesByPlatform {
-		platforms = append(platforms, *platform)
-	}
-
-	sort.Slice(platforms, func(i, j int) bool {
-		return platforms[i].Platform.Name < platforms[j].Platform.Name
-	})
-
-	return platforms
 }
 
 ///////////////////////////////////////////////////////////////////////////////
