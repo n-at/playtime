@@ -1,33 +1,37 @@
-<div class="form-floating mb-3">
-    <select id="core" name="core" class="form-select">
-        {% for core in cores %}
-            <option value="{{ core }}" {% if core == settings.Core %}selected{% endif %}>{{ core }}</option>
-        {% endfor %}
-    </select>
-    <label for="core">Core</label>
-</div>
-<div class="form-floating mb-3">
-    <select id="bios" name="bios" class="form-select">
-        <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
-        {% for bios in bioses %}
-            <option value="{{ bios.Name }}" {% if bios.Name == settings.Bios %}selected{% endif %}>{{ bios.Description }} ({{ bios.Name }})</option>
-        {% endfor %}
-    </select>
-    <label for="bios">BIOS</label>
-</div>
-<div class="form-floating mb-3">
-    <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}" placeholder="Number">
-    <label for="cache-limit">Cache limit</label>
-</div>
-<div class="form-check form-switch">
-    <input type="checkbox" id="threads" name="threads" class="form-check-input" value="1" {% if settings.Threads %}checked{% endif %}>
-    <label for="threads">Use threads</label>
-</div>
-<div class="form-check form-switch">
-    <input type="checkbox" id="disable-vsync" name="disable-vsync" class="form-check-input" value="1" {% if settings.DisableVSync %}checked{% endif %}>
-    <label for="disable-vsync">Disable VSync</label>
-</div>
-<div class="form-check form-switch">
-    <input type="checkbox" id="disable-browser-db" name="disable-browser-db" class="form-check-input" value="1" {% if settings.DisableBrowserDB %}checked{% endif %}>
-    <label for="disable-browser-db">Disable browser DB</label>
+<div class="row">
+    <div class="offset-md-2 col-md-8 offset-lg-3 col-lg-6">
+        <div class="form-floating mb-3">
+            <select id="core" name="core" class="form-select">
+                {% for core in cores %}
+                    <option value="{{ core }}" {% if core == settings.Core %}selected{% endif %}>{{ core }}</option>
+                {% endfor %}
+            </select>
+            <label for="core">Core</label>
+        </div>
+        <div class="form-floating mb-3">
+            <select id="bios" name="bios" class="form-select">
+                <option value="" {% if settings.Bios == '' %}selected{% endif %}>None</option>
+                {% for bios in bioses %}
+                    <option value="{{ bios.Name }}" {% if bios.Name == settings.Bios %}selected{% endif %}>{{ bios.Description }} ({{ bios.Name }})</option>
+                {% endfor %}
+            </select>
+            <label for="bios">BIOS</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="number" id="cache-limit" name="cache-limit" class="form-control" value="{{ settings.CacheLimit }}" placeholder="Number">
+            <label for="cache-limit">Cache limit</label>
+        </div>
+        <div class="form-check form-switch">
+            <input type="checkbox" id="threads" name="threads" class="form-check-input" value="1" {% if settings.Threads %}checked{% endif %}>
+            <label for="threads">Use threads</label>
+        </div>
+        <div class="form-check form-switch">
+            <input type="checkbox" id="disable-vsync" name="disable-vsync" class="form-check-input" value="1" {% if settings.DisableVSync %}checked{% endif %}>
+            <label for="disable-vsync">Disable VSync</label>
+        </div>
+        <div class="form-check form-switch">
+            <input type="checkbox" id="disable-browser-db" name="disable-browser-db" class="form-check-input" value="1" {% if settings.DisableBrowserDB %}checked{% endif %}>
+            <label for="disable-browser-db">Disable browser DB</label>
+        </div>
+    </div>
 </div>

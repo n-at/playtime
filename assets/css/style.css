@@ -40,6 +40,11 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
     padding: 0 !important;
 }
 
+.input-group .form-control.dropdown {
+    border-top-right-radius: var(--bs-border-radius) !important;
+    border-bottom-right-radius: var(--bs-border-radius) !important;
+}
+
 /*****************************************************************************/
 
 #header-decoration {
