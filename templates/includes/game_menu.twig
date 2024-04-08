@@ -6,9 +6,10 @@
             aria-expanded="false">
         <i class="bi bi-three-dots"></i>
     </button>
-    <div class="dropdown-menu" aria-labelledby="game-menu-{{game.Id}}" style="max-width: 300px;">
+    <div class="dropdown-menu" aria-labelledby="game-menu-{{game.Id}}">
         {% if game_menu_title %}
-            <h6 class="p-2">{{ game.Name }}</h6>
+            <h6 class="dropdown-header">{{ game.Name }}</h6>
+            <h6 class="dropdown-header">{{ game.PlatformName }}</h6>
             <div class="dropdown-divider"></div>
         {% endif %}
         {% if game_menu_play %}

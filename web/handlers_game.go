@@ -8,7 +8,6 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
-	"slices"
 	"strconv"
 )
 
@@ -25,22 +24,12 @@ func (s *Server) games(c echo.Context) error {
 		return err
 	}
 
-	platformsMap := make(map[string]bool)
-	for _, game := range games {
-		platformsMap[game.PlatformName] = true
-	}
-	var platforms []string
-	for platform := range platformsMap {
-		platforms = append(platforms, platform)
-	}
-	slices.Sort(platforms)
-
 	return c.Render(http.StatusOK, "games", pongo2.Context{
 		"_csrf_token":     c.Get("csrf"),
 		"user":            context.user,
 		"games":           games,
 		"tags":            tags,
-		"platforms":       platforms,
+		"platforms":       gamesPlatformTags(games),
 		"netplay_enabled": s.config.NetplayEnabled,
 	})
 }

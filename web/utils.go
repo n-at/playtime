@@ -9,6 +9,7 @@ import (
 	"nhooyr.io/websocket/wsjson"
 	"playtime/storage"
 	"playtime/web/gamesession"
+	"slices"
 	"sort"
 	"strings"
 )
@@ -166,6 +167,9 @@ func (s *Server) getGameWithDataById(user *storage.User, gameId string) (storage
 		return storage.GameWithData{}, err
 	}
 
+	platforms := platformsNames()
+	gameWithData.PlatformName = platforms[game.Platform]
+
 	return gameWithData, nil
 }
 
@@ -177,10 +181,7 @@ func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.GameWithD
 
 	var gamesWithData []storage.GameWithData
 
-	platforms := make(map[string]string)
-	for _, platform := range storage.Platforms {
-		platforms[platform.Id] = platform.Name
-	}
+	platforms := platformsNames()
 
 	for i := 0; i < len(games); i++ {
 		gameWithData, err := s.gameWithData(user, games[i])
@@ -313,6 +314,30 @@ func cleanupName(name string) string {
 		parts = parts[0 : len(parts)-1]
 	}
 	return strings.Join(parts, "")
+}
+
+func platformsNames() map[string]string {
+	platforms := make(map[string]string)
+	for _, platform := range storage.Platforms {
+		platforms[platform.Id] = platform.Name
+	}
+	return platforms
+}
+
+func gamesPlatformTags(games []storage.GameWithData) []string {
+	platformsMap := make(map[string]bool)
+	for _, game := range games {
+		platformsMap[game.PlatformName] = true
+	}
+
+	var platforms []string
+	for platform := range platformsMap {
+		platforms = append(platforms, platform)
+	}
+
+	slices.Sort(platforms)
+
+	return platforms
 }
 
 func guessGamePlatform(ext string) string {
