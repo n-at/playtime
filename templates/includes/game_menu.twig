@@ -15,7 +15,7 @@
         {% if game_menu_play %}
             <a class="dropdown-item" href="/play/{{ game.Id }}">Play</a>
             {% if game.LatestSaveState.StateFileDownloadLink %}
-                <a class="dropdown-item" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}">Continue from latest save state</a>
+                <a class="dropdown-item" href="/play/{{ game.Id }}?state={{ game.LatestSaveState.Id }}">Continue from latest game state</a>
             {% endif %}
             <div class="dropdown-divider"></div>
         {% endif %}
