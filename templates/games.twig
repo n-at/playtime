@@ -54,7 +54,7 @@
                                 <i class="bi bi-controller d-inline-block text-secondary mt-1" style="font-size: 3em" title="No cover image"></i>
                             {% endif %}
                         </div>
-                        <div class="col-sm-7 col-md-9">
+                        <div class="col-sm-7 col-md-8 col-lg-9">
                             <div class="lead">
                                 {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
                                     <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
@@ -70,7 +70,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="col-sm-2 col-md-1 text-end text-nowrap">
+                        <div class="col-sm-2 col-md-2 col-lg-1 text-end text-nowrap">
                             {% include "includes/game_menu.twig" with game_menu_title=false game_menu_play=true delete_with_modal=true %}
                         </div>
                     </div>
