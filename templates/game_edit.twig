@@ -1,7 +1,7 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Game settings - playtime
+    {{ loc("game.edit.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block assets %}
@@ -10,7 +10,7 @@
 
 {% block content %}
 
-    <h1>Game settings</h1>
+    <h1>{{ loc("game.edit.header") }}</h1>
     <hr>
 
     <form method="post" action="/games/edit/{{ game.Id }}" enctype="multipart/form-data">

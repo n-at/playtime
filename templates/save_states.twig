@@ -1,12 +1,12 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Save states - playtime
+    {{ loc("save-states.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Save states</h1>
+    <h1>{{ loc("save-states.header") }}</h1>
     <h2>{{ game.Name }}</h2>
     <hr>
 
@@ -16,16 +16,20 @@
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
                     <div class="card">
                         <div class="position-relative">
-                            <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="Screenshot">
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#delete-{{ state.Id }}" class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2" title="Delete">
+                            <img class="card-img-top" src="{{ state.ScreenshotDownloadLink }}" alt="{{ loc("save-states.screenshot.alt") }}">
+                            <button type="button"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#delete-{{ state.Id }}"
+                                    class="btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-2"
+                                    title="{{ loc("save-states.delete.title") }}">
                                 <i class="bi bi-trash"></i>
                             </button>
                             {% if state.IsAuto %}
-                                <span class="badge text-bg-info position-absolute top-0 start-0 m-2" title="Auto save">AUTO</span>
+                                <span class="badge text-bg-info position-absolute top-0 start-0 m-2" title="{{ loc("save-states.auto.title") }}">{{ loc("save-states.auto") }}</span>
                             {% endif %}
                         </div>
                         <div class="card-body text-center">
-                            <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-secondary" title="Play from this state">
+                            <a href="/play/{{ game.Id }}?state={{ state.Id }}" class="btn btn-sm btn-outline-secondary" title="{{ loc("save-states.play.title") }}">
                                 {{ state.Created.Format("02.01.2006 15:04:05") }}
                             </a>
                         </div>
@@ -40,22 +44,22 @@
                     <form class="modal-content" method="post" action="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" enctype="application/x-www-form-urlencoded">
                         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
                         <div class="modal-header">
-                            <h5 class="modal-title">Delete save state</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title">{{ loc("save-states.delete.header") }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("save-states.delete.close.title") }}"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Confirm deletion of save state &quot;{{ state.Created.Format("02.01.2006 15:04:05") }}&quot;</p>
+                            <p>{{ loc("save-states.delete.confirmation", state.Created.Format("02.01.2006 15:04:05")) }}&quot;</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ loc("save-states.delete.cancel") }}</button>
+                            <button type="submit" class="btn btn-danger">{{ loc("save-states.delete.submit") }}</button>
                         </div>
                     </form>
                 </div>
             </div>
         {% endfor %}
     {% else %}
-        {% include "includes/empty_state.twig" with icon="bi bi-box-arrow-down" text="No save states found" %}
+        {% include "includes/empty_state.twig" with icon="bi bi-box-arrow-down" text=loc("save-states.empty") %}
     {% endif %}
 
 {% endblock %}

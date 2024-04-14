@@ -1,11 +1,11 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Error - playtime
+    {{ loc("error.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
-    <h1>Error {{ error.Code }}</h1>
+    <h1>{{ loc("error.header", error.Code) }}</h1>
     <p>
         {% if error.Message %}
             {{ error.Message }}

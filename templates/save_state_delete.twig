@@ -1,24 +1,24 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Delete save state - playtime
+    {{ loc("save-state.delete.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Delete save state</h1>
+    <h1>{{ loc("save-state.delete.header") }}</h1>
     <h2>{{ game.Name }}</h2>
     <hr>
 
     <p class="lead">
-        Confirm deletion of save state &quot;{{ state.Created.Format("02.01.2006 15:04:05") }}&quot;
+        {{ loc("save-state.delete.confirmation", state.Created.Format("02.01.2006 15:04:05")) }}&quot;
     </p>
     <hr>
 
     <form method="post" action="/games/save-states/{{ game.Id }}/delete/{{ state.Id }}" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <div class="text-end mb-3">
-            <button type="submit" class="btn btn-danger">Delete save state</button>
+            <button type="submit" class="btn btn-danger">{{ loc("save-state.delete.submit") }}</button>
         </div>
     </form>
 

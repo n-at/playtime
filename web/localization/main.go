@@ -84,7 +84,7 @@ func Exists(name string) bool {
 	return ok
 }
 
-func Localize(lang, s string, args ...any) string {
+func Localize(lang, s string, args []any) string {
 	loc, ok := localizations[lang]
 	if !ok {
 		return fmt.Sprintf("unknown l10n language: %s", lang)

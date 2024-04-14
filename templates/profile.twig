@@ -1,37 +1,55 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Profile - playtime
+    {{ loc("profile.title") }} - {{ loc("plaftorm") }}
 {% endblock %}
 
 {% block content %}
-    <h1>Profile</h1>
+    <h1>{{ loc("profile.header") }}</h1>
     <h2>{{ user.Login }}</h2>
 
     <hr>
-    <h3>Change password</h3>
+    <h3>{{ loc("profile.change-password.header") }}</h3>
 
     {% if done %}
-        <p class="alert alert-success">Password changed</p>
+        <p class="alert alert-success">{{ loc("profile.change-password.saved") }}</p>
     {% endif %}
 
     <form method="post" action="/profile" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <div class="form-floating mb-3">
-            <input type="password" id="password" name="password" class="form-control" value="" placeholder="Current password" required>
-            <label for="password">Current password</label>
+            <input type="password"
+                   id="password"
+                   name="password"
+                   class="form-control"
+                   value=""
+                   placeholder="{{ loc("profile.current-password.placeholder") }}"
+                   required>
+            <label for="password">{{ loc("profile.current-password.label") }}</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" id="password1" name="password1" class="form-control" value="" placeholder="New password" required>
-            <label for="password1">New password</label>
+            <input type="password"
+                   id="password1"
+                   name="password1"
+                   class="form-control"
+                   value=""
+                   placeholder="{{ loc("profile.new-password.placeholder") }}"
+                   required>
+            <label for="password1">{{ loc("profile.new-password.label") }}</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="password" id="password2" name="password2" class="form-control" value="" placeholder="New password again" required>
-            <label for="password2">Retype new password</label>
+            <input type="password"
+                   id="password2"
+                   name="password2"
+                   class="form-control"
+                   value=""
+                   placeholder="{{ loc("profile.retype-password.placeholder") }}"
+                   required>
+            <label for="password2">{{ loc("profile.retype-password.label") }}</label>
         </div>
         <hr>
         <div class="mb-3 text-end">
-            <button type="submit" class="btn btn-primary">Change password</button>
+            <button type="submit" class="btn btn-primary">{{ loc("profile.change-password.submit") }}</button>
         </div>
     </form>
 

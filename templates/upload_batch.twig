@@ -1,15 +1,15 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Upload games - playtime
+    {{ loc("game.upload.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
-    <h1>Upload games</h1>
+    <h1>{{ loc("game.upload.header") }}</h1>
     <hr>
 
     <p class="lead">
-        Select platforms for uploaded games
+        {{ loc("game.upload.description") }}
     </p>
 
     <form action="/games/upload-batch/{{ upload_batch.Id }}" method="post" enctype="application/x-www-form-urlencoded">
@@ -19,19 +19,24 @@
                 <div class="list-group-item">
                     <div class="row">
                         <div class="col-8">
-                            <input type="text" id="name-{{ game.Id }}" name="name-{{ game.Id }}" class="form-control" value="{{ game.Name }}" required>
-                            <label for="name-{{ game.Id }}" class="d-none">Game name</label>
+                            <input type="text"
+                                   id="name-{{ game.Id }}"
+                                   name="name-{{ game.Id }}"
+                                   class="form-control"
+                                   value="{{ game.Name }}"
+                                   required>
+                            <label for="name-{{ game.Id }}" class="d-none">{{ loc("game.upload.name.label") }}</label>
                         </div>
                         <div class="col-4">
                             <select id="platform-{{ game.Id }}" name="platform-{{ game.Id }}" class="form-select">
-                                <option value="">Undefined</option>
+                                <option value="">{{ loc("game.upload.platform.undefined") }}</option>
                                 {% for platform in platforms %}
                                     {% if platform.Id %}
                                         <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
-                            <label for="platform-{{ game.Id }}" class="d-none">Select game platform</label>
+                            <label for="platform-{{ game.Id }}" class="d-none">{{ loc("game.upload.platform.label") }}</label>
                         </div>
                     </div>
                 </div>
@@ -41,7 +46,7 @@
         <hr>
 
         <div class="mb-3 text-end">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">{{ loc("game.upload.submit") }}</button>
         </div>
     </form>
 {% endblock %}

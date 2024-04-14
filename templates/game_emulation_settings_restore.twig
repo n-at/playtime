@@ -1,23 +1,21 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Emulation settings restore defaults - playtime
+    {{ loc("game.emulation-settings-restore.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Emulation settings restore defaults</h1>
+    <h1>{{ loc("game.emulation-settings-restore.header") }}</h1>
     <h2>{{ game.Name }}</h2>
     <hr>
 
     <form action="/games/emulation-settings/{{ game.Id }}/restore" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
-        <p>
-            Restore default emulation settings for the game?
-        </p>
+        <p>{{ loc("game.emulation-settings-restore.confirmation") }}</p>
         <hr>
         <div class="mb-3 text-end">
-            <button type="submit" class="btn btn-primary">Restore</button>
+            <button type="submit" class="btn btn-primary">{{ loc("game.emulation-settings-restore.submit") }}</button>
         </div>
     </form>
 

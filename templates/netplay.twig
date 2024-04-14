@@ -1,7 +1,7 @@
 {% extends "layouts/layout_play.twig" %}
 
 {% block title %}
-    Netplay {{ game.Name }} - playtime
+    {{ loc("netplay.title", game.Name) }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block assets %}
@@ -15,22 +15,22 @@
         <div class="row mt-2 align-items-start">
             <div class="col-6 col-md-8">
                 <div id="netplay-player" class="lead d-inline-block ms-1 text-truncate">
-                    Player: spectator
+                    {{ loc("netplay.player") }}: {{ loc("netplay.spectator") }}
                 </div>
             </div>
             <div class="col-6 col-md-4 text-end">
                 {% if user %}
-                    <a href="/games" class="btn btn-sm btn-outline-secondary d-inline-block" title="Back">
+                    <a href="/games" class="btn btn-sm btn-outline-secondary d-inline-block" title="{{ loc("netplay.back.title") }}">
                         <i class="bi bi-chevron-left"></i>
                     </a>
                 {% endif %}
-                <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+                <button type="button" class="btn btn-sm btn-outline-secondary" title="{{ loc("netplay.netplay.title") }}" data-bs-toggle="modal" data-bs-target="#modal-netplay">
                     <i class="bi bi-globe"></i>
                 </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                <button type="button" class="btn btn-sm btn-outline-secondary" title="{{ loc("netplay.controls.title") }}" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
                     <i class="bi bi-controller"></i>
                 </button>
-                <button id="netplay-fullscreen" type="button" class="btn btn-sm btn-outline-secondary d-none" title="Fullscreen">
+                <button id="netplay-fullscreen" type="button" class="btn btn-sm btn-outline-secondary d-none" title="{{ loc("netplay.fullscreen.title") }}">
                     <i class="bi bi-fullscreen"></i>
                 </button>
             </div>
@@ -46,14 +46,14 @@
         <div id="connection-screen" class="d-none">
             <div class="connection-screen-content">
                 <i class="bi bi-globe"></i>
-                <h5 id="connection-screen-status">Connecting to server</h5>
+                <h5 id="connection-screen-status">{{ loc("netplay.connection-screen.connecting") }}</h5>
             </div>
         </div>
 
         <div id="play-screen" class="d-none">
             <div class="play-screen-content">
                 <button type="button" class="btn btn-lg btn-outline-primary" id="netplay-play">
-                    <i class="bi bi-play-fill"></i> Start
+                    <i class="bi bi-play-fill"></i> {{ loc("netplay.play-screen.start") }}
                 </button>
             </div>
         </div>
@@ -61,8 +61,8 @@
         <div id="error-screen" class="d-none">
             <div class="error-screen-content">
                 <i class="bi bi-plug"></i>
-                <h5>Connection lost</h5>
-                <h5>Try to refresh page</h5>
+                <h5>{{ loc("netplay.error-screen.connection-lost") }}</h5>
+                <h5>{{ loc("netplay.error-screen.refresh") }}</h5>
             </div>
         </div>
 

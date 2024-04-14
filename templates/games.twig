@@ -1,7 +1,7 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Games - playtime
+    {{ loc("games.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block assets %}
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Games</h1>
+    <h1>{{ loc("games.header") }}</h1>
     <hr>
 
     {% if games %}
@@ -18,16 +18,21 @@
             <div class="col-sm-12 col-md-3 col-lg-2 mb-2 mb-md-0">
                 <div class="d-grid">
                     <button id="btn-upload" type="button" class="btn btn-outline-success">
-                        <i class="bi bi-plus-circle"></i> Upload
+                        <i class="bi bi-plus-circle"></i> {{ loc("games.upload") }}
                     </button>
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 col-lg-5 mb-2 mb-md-0">
                 <div class="input-group">
-                <span class="input-group-text" title="Tags">
+                <span class="input-group-text" title="{{ loc("games.tags.icon-title") }}">
                     <i class="bi bi-tag"></i>
                 </span>
-                    <select class="form-control d-none" id="games-tags" aria-label="Tags" multiple data-allow-clear="true" data-badge-style="secondary">
+                    <select class="form-control d-none"
+                            id="games-tags"
+                            aria-label="{{ loc("games.tags.label") }}"
+                            multiple
+                            data-allow-clear="true"
+                            data-badge-style="secondary">
                         {% for platform in platforms %}
                             <option value="{{ platform }}">{{ platform }}</option>
                         {% endfor %}
@@ -39,16 +44,20 @@
             </div>
             <div class="col-sm-12 col-md-5 col-lg-5">
                 <div class="input-group">
-                <span class="input-group-text" title="Filter">
+                <span class="input-group-text" title="{{ loc("games.search.icon-title") }}">
                     <i class="bi bi-search"></i>
                 </span>
-                    <input type="text" class="form-control" id="games-search" placeholder="" aria-label="Filter">
+                    <input type="text"
+                           class="form-control"
+                           id="games-search"
+                           placeholder=""
+                           aria-label="{{ loc("games.search.label") }}">
                 </div>
             </div>
         </div>
 
         <div id="games-not-found" class="d-none">
-            {% include "includes/empty_state.twig" with icon="bi bi-search" text="No games found" %}
+            {% include "includes/empty_state.twig" with icon="bi bi-search" text=loc("games.not-found") %}
         </div>
 
         <div id="games-container" class="list-group list-group-hover mb-5">
@@ -57,18 +66,22 @@
                     <div class="row">
                         <div class="col-sm-3 col-md-2 text-center">
                             {% if game.CoverImageLink %}
-                                <img src="{{ game.CoverImageLink }}" alt="Cover image" class="img-fluid d-block mt-1 mb-1">
+                                <img src="{{ game.CoverImageLink }}"
+                                     alt="{{ loc("games.cover-image.alt") }}"
+                                     class="img-fluid d-block mt-1 mb-1">
                             {% else %}
-                                <i class="bi bi-controller d-inline-block text-secondary mt-1" style="font-size: 3em" title="No cover image"></i>
+                                <i class="bi bi-controller d-inline-block text-secondary mt-1"
+                                   style="font-size: 3em"
+                                   title="{{ loc("games.no-cover-image.title") }}"></i>
                             {% endif %}
                         </div>
                         <div class="col-sm-7 col-md-8 col-lg-9">
                             <div class="lead">
                                 {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
-                                    <i class="text-primary bi bi-globe" title="Netplay enabled"></i>
+                                    <i class="text-primary bi bi-globe" title="{{ loc("games.netplay.title") }}"></i>
                                 {% endif %}
                                 {% if game.OverrideEmulatorSettings %}
-                                    <i class="text-warning bi bi-cpu" title="Override emulation settings"></i>
+                                    <i class="text-warning bi bi-cpu" title="{{ loc("games.emulation-settings.title") }}"></i>
                                 {% endif %}
                                 <a href="/play/{{ game.Id }}" class="game-name">{{ game.Name }}</a>
                             </div>
@@ -101,15 +114,15 @@
                         <form class="modal-content" method="post" action="/games/delete/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
                             <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
                             <div class="modal-header">
-                                <h5 class="modal-title">Delete game</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <h5 class="modal-title">{{ loc("games.delete.header") }}</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("games.delete.close.title") }}"></button>
                             </div>
                             <div class="modal-body">
-                                <p>Confirm deletion of game &quot;{{ game.Name }}&quot;</p>
+                                <p>{{ loc("games.delete.confirmation", game.Name) }}</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ loc("games.delete.cancel") }}</button>
+                                <button type="submit" class="btn btn-danger">{{ loc("games.delete.submit") }}</button>
                             </div>
                         </form>
                     </div>
@@ -119,10 +132,10 @@
     {% else %}
         <div class="text-center">
             <button id="btn-upload" type="button" class="btn btn-outline-success mt-3">
-                <i class="bi bi-plus-circle"></i> Upload games
+                <i class="bi bi-plus-circle"></i> {{ loc("games.upload-when-empty") }}
             </button>
         </div>
-        {% include "includes/empty_state.twig" with icon="bi bi-controller" text="No games found" %}
+        {% include "includes/empty_state.twig" with icon="bi bi-controller" text=loc("games.empty") %}
     {% endif %}
 
     <form id="upload" action="/games/upload" method="post" enctype="multipart/form-data" class="d-none">
@@ -133,7 +146,7 @@
     <div id="drop-overlay" class="bg-body-tertiary d-none">
         <div class="drop-overlay-caption text-center">
             <i class="bi bi-download"></i>
-            <p>Drop files to upload</p>
+            <p>{{ loc("games.upload-overlay") }}</p>
         </div>
     </div>
 

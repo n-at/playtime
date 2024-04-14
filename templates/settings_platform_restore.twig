@@ -1,23 +1,23 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Restore defaults for {{ platform.Name }} - playtime
+    {{ loc("settings-platform.restore.title", platform.Name) }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Restore default settings</h1>
+    <h1>{{ loc("settings-platform.restore.header") }}</h1>
     <h2>{{ platform.Name }}</h2>
     <hr>
 
     <form action="/settings/{{ platform.Id }}/restore" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <p>
-            Restore default settings for {{ platform.Name }}?
+            {{ loc("settings-platform.restore.confirmation", platform.Name) }}
         </p>
         <hr>
         <div class="mb-3 text-end">
-            <button type="submit" class="btn btn-primary">Restore</button>
+            <button type="submit" class="btn btn-primary">{{ loc("settings-platform.restore.submit") }}</button>
         </div>
     </form>
 

@@ -1,7 +1,7 @@
 {% extends "layouts/layout_play.twig" %}
 
 {% block title %}
-    Play {{ game.Name }} - playtime
+    {{ loc("play.title", game.Name) }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block assets %}
@@ -14,27 +14,27 @@
     <div id="header" class="container-fluid">
         <div class="row mt-2">
             <div class="col-6">
-                <a href="/games" class="btn btn-sm btn-outline-secondary ms-1" title="Back">
+                <a href="/games" class="btn btn-sm btn-outline-secondary ms-1" title="{{ loc("play.back.title") }}">
                     <i class="bi bi-chevron-left"></i>
                     <i class="bi bi-list-ul"></i>
                 </a>
-                <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary" title="Save game state">
+                <button type="button" id="btn-save-state" class="btn btn-sm btn-outline-secondary" title="{{ loc("play.save-state.title") }}">
                     <i class="bi bi-floppy"></i>
                 </button>
-                <button type="button" id="btn-load-state-latest" class="btn btn-sm btn-outline-secondary" title="Load latest game state">
+                <button type="button" id="btn-load-state-latest" class="btn btn-sm btn-outline-secondary" title="{{ loc("play.load-latest-state.title") }}">
                     <i class="bi bi-upload"></i>
                 </button>
-                <button type="button" id="btn-load-state" class="btn btn-sm btn-outline-secondary" title="Load game state">
+                <button type="button" id="btn-load-state" class="btn btn-sm btn-outline-secondary" title="{{ loc("play.load-state.title") }}">
                     <i class="bi bi-folder2-open"></i>
                 </button>
             </div>
             <div class="col-6 text-end">
                 {% if netplay_enabled %}
-                    <button type="button" class="btn btn-sm btn-outline-secondary" title="Netplay" data-bs-toggle="modal" data-bs-target="#modal-netplay">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" title="{{ loc("play.netplay.title") }}" data-bs-toggle="modal" data-bs-target="#modal-netplay">
                         <i class="bi bi-globe"></i>
                     </button>
                 {% endif %}
-                <button type="button" id="btn-control-scheme" class="btn btn-sm btn-outline-secondary" title="Controls" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
+                <button type="button" id="btn-control-scheme" class="btn btn-sm btn-outline-secondary" title="{{ loc("play.controls.title") }}" data-bs-toggle="modal" data-bs-target="#modal-control-scheme">
                     <i class="bi bi-controller"></i>
                 </button>
                 {% include "includes/game_menu.twig" with game_menu_title=true %}

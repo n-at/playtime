@@ -1,19 +1,20 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Edit user - playtime
+    {{ loc("user.edit.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Edit user</h1>
+    <h1>{{ loc("user.edit.header") }}</h1>
     <hr>
 
     <form method="post" action="/users/edit/{{ user_control.Id }}" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
-        {% include "includes/form_user.twig" with mode="edit" %}<hr>
+        {% include "includes/form_user.twig" with mode="edit" %}
+        <hr>
         <div class="mb-3 text-end">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">{{ loc("user.edit.submit") }}</button>
         </div>
     </form>
 

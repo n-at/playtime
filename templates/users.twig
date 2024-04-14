@@ -1,21 +1,21 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Users - playtime
+    {{ loc("users.title") }} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Users</h1>
+    <h1>{{ loc("users.header") }}</h1>
     <hr>
 
     {% if done %}
-        <p class="alert alert-success">User saved</p>
+        <p class="alert alert-success">{{ loc("users.saved") }}</p>
     {% endif %}
 
     <p>
         <a href="/users/new" class="btn btn-outline-success">
-            <i class="bi bi-plus-circle"></i> New user
+            <i class="bi bi-plus-circle"></i> {{ loc("users.new") }}
         </a>
     </p>
 
@@ -28,12 +28,12 @@
                         <div class="col-6 col-md-6 col-lg-8">
                             <div class="lead filter-field">
                                 {% if user_item.Active %}
-                                    <i class="bi bi-circle-fill text-success" title="Active"></i>
+                                    <i class="bi bi-circle-fill text-success" title="{{ loc("users.active.title") }}"></i>
                                 {% else %}
-                                    <i class="bi bi-circle-fill text-secondary" title="Not active"></i>
+                                    <i class="bi bi-circle-fill text-secondary" title="{{ loc("users.inactive.title") }}"></i>
                                 {% endif %}
                                 {% if user_item.Admin %}
-                                    <i class="bi bi-star text-info" title="Admin"></i>
+                                    <i class="bi bi-star text-info" title="{{ loc("users.admin.title") }}"></i>
                                 {% endif %}
                                 {{ user_item.Login }}
                             </div>
@@ -56,11 +56,16 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="user-menu-{{user_item.Id}}">
                                     <li>
-                                        <a class="dropdown-item" href="/users/edit/{{user_item.Id}}">Edit</a>
+                                        <a class="dropdown-item" href="/users/edit/{{user_item.Id}}">{{ loc("users.menu.edit") }}</a>
                                     </li>
                                     {% if user_item.Id != user.Id %}
                                         <li>
-                                            <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#delete-{{user_item.Id}}">Delete</button>
+                                            <button type="button"
+                                                    class="dropdown-item"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#delete-{{user_item.Id}}">
+                                                {{ loc("users.menu.delete") }}
+                                            </button>
                                         </li>
                                     {% endif %}
                                 </ul>
@@ -77,22 +82,22 @@
                     <form class="modal-content" method="post" action="/users/delete/{{ user_item.Id }}" enctype="application/x-www-form-urlencoded">
                         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
                         <div class="modal-header">
-                            <h5 class="modal-title">Delete user</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <h5 class="modal-title">{{ loc("users.delete.header") }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("users.delete.close.title") }}"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Confirm deletion of user &quot;{{ user_item.Login }}&quot;</p>
+                            <p>{{ loc("users.delete.confirmation", user_item.Login) }}</p>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ loc("users.delete.submit") }}</button>
+                            <button type="submit" class="btn btn-danger">{{ loc("users.delete.cancel") }}</button>
                         </div>
                     </form>
                 </div>
             </div>
         {% endfor %}
     {% else %}
-        {% include "includes/empty_state.twig" with icon="bi bi-people" text="No users found" %}
+        {% include "includes/empty_state.twig" with icon="bi bi-people" text=loc("users.empty") %}
     {% endif %}
 
 {% endblock %}

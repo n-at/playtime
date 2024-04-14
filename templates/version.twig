@@ -1,34 +1,34 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Version - playtime
+    {{ loc("version.title")}} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
-    <h1>Version</h1>
+    <h1>{{ loc("version.header") }}</h1>
 
     <div class="mb-3 mt-3 text-center">
-        <img class="img-fluid p-3 border rounded" src="/assets/img/playtime-logo-512.png" alt="playtime logo">
+        <img class="img-fluid p-3 border rounded" src="/assets/img/playtime-logo-512.png" alt="{{ loc("version.logo.alt") }}">
     </div>
 
     <dl class="row">
-        <dt class="col-sm-4">Go version</dt>
+        <dt class="col-sm-4">{{ loc("version.go") }}</dt>
         <dd class="col-sm-8">{{ build.GoVersion | default:"-" }}</dd>
     </dl>
 
-    <h5>Main module</h5>
+    <h5>{{ loc("version.main-module") }}</h5>
     <dl class="row">
-        <dt class="col-sm-4">Path</dt>
+        <dt class="col-sm-4">{{ loc("version.main-module.path") }}</dt>
         <dd class="col-sm-8">{{ build.Main.Path | default:"-" }}</dd>
 
-        <dt class="col-sm-4">Version</dt>
+        <dt class="col-sm-4">{{ loc("version.main-module.version") }}</dt>
         <dd class="col-sm-8">{{ build.Main.Version | default:"-" }}</dd>
 
-        <dt class="col-sm-4">Checksum</dt>
+        <dt class="col-sm-4">{{ "version.main-module.checksum" }}</dt>
         <dd class="col-sm-8">{{ build.Main.Sum | default:"-" }}</dd>
     </dl>
 
-    <h5>Build settings</h5>
+    <h5>{{ loc("version.build-settings") }}</h5>
     <dl class="row">
         {% for setting in build.Settings %}
             <dt class="col-sm-4">{{ setting.Key }}</dt>
@@ -36,13 +36,13 @@
         {% endfor %}
     </dl>
 
-    <h5>Dependencies</h5>
+    <h5>{{ loc("version.dependencies") }}</h5>
     <table class="table table-condensed table-hover">
         <thead>
         <tr>
-            <th>Path</th>
-            <th>Version</th>
-            <th>Checksum</th>
+            <th>{{ loc("version.dependencies.path") }}</th>
+            <th>{{ loc("version.dependencies.version") }}</th>
+            <th>{{ loc("version.dependencies.checksum") }}</th>
         </tr>
         </thead>
         <tbody>

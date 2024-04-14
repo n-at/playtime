@@ -1,29 +1,29 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Sign in - playtime
+    {{ loc("login.title")}} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
     <div class="col-12 offset-0 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-        <h1>Sign in</h1>
+        <h1>{{ loc("login.header") }}</h1>
         <div class="card">
             <div class="card-body">
                 {% if error %}
-                    <div class="alert alert-danger">{{error}}</div>
+                    <div class="alert alert-danger">{{ error }}</div>
                 {% endif %}
                 <form method="post" action="/login" enctype="application/x-www-form-urlencoded">
                     <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
                     <div class="form-floating mb-3">
-                        <input type="text" id="login" name="login" class="form-control" value="{{login}}" placeholder="Login" required>
-                        <label for="login">Login</label>
+                        <input type="text" id="login" name="login" class="form-control" value="{{ login }}" placeholder="{{ loc("login.login.placeholder") }}" required>
+                        <label for="login">{{ loc("login.login.label") }}</label>
                     </div>
                     <div class="form-floating mb-3">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="{{ loc("login.password.placeholder") }}" required>
+                        <label for="password">{{ loc("login.password.label") }}</label>
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
+                        <button type="submit" class="btn btn-primary">{{ loc("login.submit") }}</button>
                     </div>
                 </form>
             </div>

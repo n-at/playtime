@@ -1,23 +1,23 @@
 {% extends "layouts/layout.twig" %}
 
 {% block title %}
-    Delete game - playtime
+    {{ loc("game.delete.title")}} - {{ loc("brand") }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Delete user</h1>
+    <h1>{{ loc("game.delete.header") }}</h1>
     <hr>
 
     <p class="lead">
-        Confirm deletion of game &quot;{{ game.Name }}&quot;
+        {{ loc("game.delete.confirmation", game.Name) }}
     </p>
     <hr>
 
     <form action="/games/delete/{{ game.Id }}" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
         <div class="text-end mb-3">
-            <button type="submit" class="btn btn-danger">Delete game</button>
+            <button type="submit" class="btn btn-danger">{{ loc("game.delete.submit") }}</button>
         </div>
     </form>
 
