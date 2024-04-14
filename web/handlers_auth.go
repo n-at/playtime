@@ -39,16 +39,18 @@ func (s *Server) loginSubmit(c echo.Context) error {
 	if err != nil || len(user.Id) == 0 {
 		log.Errorf("loginSubmit user %s get user error: %s", login, err)
 		return c.Render(http.StatusOK, "login", pongo2.Context{
-			"login": login,
-			"error": "Incorrect login or password",
+			"_csrf_token": c.Get("csrf"),
+			"login":       login,
+			"error":       "Incorrect login or password",
 		})
 	}
 
 	if !storage.CheckPassword(password, user.Password) {
 		log.Warnf("loginSubmit user %s check password error", login)
 		return c.Render(http.StatusOK, "login", pongo2.Context{
-			"login": login,
-			"error": "Incorrect login or password",
+			"_csrf_token": c.Get("csrf"),
+			"login":       login,
+			"error":       "Incorrect login or password",
 		})
 	}
 
@@ -61,8 +63,9 @@ func (s *Server) loginSubmit(c echo.Context) error {
 	if _, err = s.storage.SessionSave(session); err != nil {
 		log.Errorf("loginSubmit user %s session creation error: %s", login, err)
 		return c.Render(http.StatusOK, "login", pongo2.Context{
-			"login": login,
-			"error": err.Error(),
+			"_csrf_token": c.Get("csrf"),
+			"login":       login,
+			"error":       err.Error(),
 		})
 	}
 
