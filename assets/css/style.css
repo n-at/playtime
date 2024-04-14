@@ -118,7 +118,7 @@ a.game-name:hover {
     text-decoration: underline;
 }
 
-button#theme {
+button#theme, button#localization {
     color: var(--bs-heading-color);
     text-decoration: none;
 }
