@@ -86,14 +86,6 @@
             {% endfor %}
         </div>
 
-        {% if user.Quota %}
-            <div class="mb-5 text-end">
-                <span class="badge border border-secondary p-2">
-                    {% include "includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
-                </span>
-            </div>
-        {% endif %}
-
         {% for item in games_by_platform %}
             {% for game in item.Games %}
                 <div class="modal" id="delete-{{ game.Id }}" tabindex="-1">

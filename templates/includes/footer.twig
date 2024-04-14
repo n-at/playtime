@@ -1,0 +1,40 @@
+<hr class="mt-5 mb-3">
+
+<div class="row mb-3">
+    <div class="col-4 text-start">
+        <div class="dropdown d-inline-block">
+            <button id="theme" class="btn btn-sm btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-circle-half"></i> Theme
+            </button>
+            <ul class="dropdown-menu">
+                <li>
+                    <button id="theme-system-default" type="button" class="dropdown-item">
+                        <i class="bi bi-circle-half"></i> System default
+                    </button>
+                </li>
+                <li>
+                    <button id="theme-light" type="button" class="dropdown-item">
+                        <i class="bi bi-sun"></i> Light
+                    </button>
+                </li>
+                <li>
+                    <button id="theme-dark" type="button" class="dropdown-item">
+                        <i class="bi bi-moon-stars"></i> Dark
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-4 text-center align-items-center">
+        {% if user and user.Quota %}
+            <small>
+                {% include "../includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
+            </small>
+        {% endif %}
+    </div>
+    <div class="col-4 text-end">
+        {# TODO l10n #}
+    </div>
+</div>
+
+<script src="/assets/theme.js"></script>

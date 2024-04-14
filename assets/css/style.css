@@ -117,3 +117,8 @@ a.game-name {
 a.game-name:hover {
     text-decoration: underline;
 }
+
+button#theme {
+    color: var(--bs-heading-color);
+    text-decoration: none;
+}
