@@ -171,5 +171,13 @@
   "version.dependencies": "Dependencies",
   "version.dependencies.path": "Path",
   "version.dependencies.version": "Version",
-  "version.dependencies.checksum": "Checksum"
+  "version.dependencies.checksum": "Checksum",
+
+  "footer.theme": "Theme",
+  "footer.theme.default": "System default",
+  "footer.theme.light": "Light",
+  "footer.theme.dark": "Dark",
+  "footer.language": "Language",
+
+  "quota.unlimited": "Unlimited"
 }

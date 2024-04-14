@@ -1,3 +1,9 @@
 {
-  "__name__": "Русский"
+  "__name__": "Русский",
+
+  "footer.theme": "Тема",
+  "footer.theme.default": "Системная по умолчанию",
+  "footer.theme.light": "Светлая",
+  "footer.theme.dark": "Темная",
+  "footer.language": "Язык"
 }
