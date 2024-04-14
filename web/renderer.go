@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"playtime/web/localization"
 )
 
 type pongo2Renderer struct {
@@ -38,6 +39,18 @@ func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c ech
 	}
 	if err != nil {
 		return err
+	}
+
+	//l10n
+	lang := localization.DefaultLanguageCode
+	langCookie, err := c.Cookie("playtime_l10n")
+	if err == nil && localization.Exists(langCookie.Value) {
+		lang = langCookie.Value
+	}
+	ctx["localization_list"] = localization.List()
+	ctx["localization_lang"] = lang
+	ctx["loc"] = func(s string, args ...any) string {
+		return localization.Localize(lang, s, args)
 	}
 
 	return t.ExecuteWriter(ctx, w)
