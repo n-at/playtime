@@ -6,10 +6,10 @@
                     <option value="{{ shader.Value }}" {% if shader.Value == settings.Shader %}selected{% endif %}>{{ shader.Name }}</option>
                 {% endfor %}
             </select>
-            <label for="shader">Display shader</label>
+            <label for="shader">{{ loc("settings-platform.play.shader.label") }}</label>
         </div>
         <div class="mb-3">
-            <label for="volume">Volume</label>
+            <label for="volume">{{ loc("settings-platform.play.volume.label") }}</label>
             <input type="range" id="volume" name="volume" class="form-range" min="0.0" max="1.0" step="0.01" value="{{ settings.Volume }}">
         </div>
         <div class="mb-3 form-floating">
@@ -18,7 +18,7 @@
                     <option value="{{ ff_ratio }}" {% if settings.FastForwardRatio == ff_ratio %}selected{% endif %}>{{ ff_ratio }}</option>
                 {% endfor %}
             </select>
-            <label for="ff-ratio">Fast Forward ratio</label>
+            <label for="ff-ratio">{{ loc("settings-platform.play.ff-ratio.label") }}</label>
         </div>
         <div class="mb-3 form-floating">
             <select id="sm-ratio" name="sm-ratio" class="form-select">
@@ -26,7 +26,7 @@
                     <option value="{{ sm_ratio }}" {% if settings.SlowMotionRatio == sm_ratio %}selected{% endif %}>{{ sm_ratio }}</option>
                 {% endfor %}
             </select>
-            <label for="sm-ratio">Slow Motion ratio</label>
+            <label for="sm-ratio">{{ loc("settings-platform.play.sm-ratio.label") }}</label>
         </div>
         <div class="mb-3 form-floating">
             <select id="rewind-granularity" name="rewind-granularity" class="form-select">
@@ -34,30 +34,30 @@
                     <option value="{{ granularity }}" {% if settings.RewindGranularity == granularity %}selected{% endif %}>{{ granularity }}</option>
                 {% endfor %}
             </select>
-            <label for="rewind-granularity">Rewind granularity</label>
+            <label for="rewind-granularity">{{ loc("settings-platform.play.rewind-granularity.label") }}</label>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input type="checkbox" id="fast-forward-mode" name="fast-forward-mode" value="1" class="form-check-input" {% if settings.FastForwardMode %}checked{% endif %}>
-                <label for="fast-forward-mode" class="form-check-label">Fast Forward mode</label>
+                <label for="fast-forward-mode" class="form-check-label">{{ loc("settings-platform.play.fast-forward-mode.label") }}</label>
             </div>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input type="checkbox" id="slow-motion-mode" name="slow-motion-mode" value="1" class="form-check-input" {% if settings.SlowMotionMode %}checked{% endif %}>
-                <label for="slow-motion-mode" class="form-check-label">Slow Motion mode</label>
+                <label for="slow-motion-mode" class="form-check-label">{{ loc("settings-platform.play.slow-motion-mode.label") }}</label>
             </div>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input type="checkbox" id="rewind-enabled" name="rewind-enabled" value="1" class="form-check-input" {% if settings.Rewind %}checked{% endif %}>
-                <label for="rewind-enabled" class="form-check-label">Rewind enabled</label>
+                <label for="rewind-enabled" class="form-check-label">{{ loc("settings-platform.play.rewind-enabled.label") }}</label>
             </div>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input type="checkbox" id="virtual-gamepad-left-hand" name="virtual-gamepad-left-hand" value="1" class="form-check-input" {% if settings.VirtualGamepadLeftHand %}checked{% endif %}
-                <label for="virtual-gamepad-left-hand" class="form-check-label">Virtual gamepad left hand</label>
+                <label for="virtual-gamepad-left-hand" class="form-check-label">{{ loc("settings-platform.play.virtual-gamepad-left-hand.label") }}</label>
             </div>
         </div>
     </div>

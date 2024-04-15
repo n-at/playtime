@@ -12,7 +12,7 @@
 <div class="container">
     {% if page_error %}
         <div class="alert alert-danger">
-            <h5 class="alert-heading">Ошибка</h5>
+            <h5 class="alert-heading">{{ loc("error.title") }}</h5>
             <p>{{ page_error.Error() }}</p>
         </div>
     {% endif %}

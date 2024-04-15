@@ -26,7 +26,7 @@
                         type="button"
                         role="tab"
                         aria-controls="controls-{{ platform_id }}-{{ player }}-keyboard"
-                        aria-selected="true">Keyboard</button>
+                        aria-selected="true">{{ loc("settings-platform.controls.keyboard") }}</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link"
@@ -36,7 +36,7 @@
                         type="button"
                         role="tab"
                         aria-controls="controls-{{ platform_id }}-{{ player }}-gamepad"
-                        aria-selected="false">Gamepad</button>
+                        aria-selected="false">{{ loc("settings-platform.controls.gamepad") }}</button>
             </li>
         </ul>
         <div class="tab-content" id="controls-{{ platform_id }}">

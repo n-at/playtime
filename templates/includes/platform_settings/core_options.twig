@@ -17,7 +17,7 @@
                         </div>
                     {% endfor %}
                 {% else %}
-                    {% include "../empty_state.twig" with icon="bi bi-cpu" text="No options for selected core" %}
+                    {% include "../empty_state.twig" with icon="bi bi-cpu" text=loc("settings-platform.core.empty") %}
                 {% endif %}
             </div>
         {% endfor %}

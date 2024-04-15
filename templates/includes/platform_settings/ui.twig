@@ -2,80 +2,80 @@
     <div class="offset-md-1 col-md-10 offset-lg-2 col-lg-8">
         <div class="form-floating mb-3">
             <input type="color" id="color-scheme" name="color-scheme" class="form-control" value="{{ settings.ColorScheme }}" placeholder="Color value">
-            <label for="color-scheme">Color scheme</label>
+            <label for="color-scheme">{{ loc("settings-platform.ui.color-scheme.label") }}</label>
         </div>
         <div class="form-floating mb-3">
             <input type="color" id="color-background" name="color-background" class="form-control" value="{{ settings.ColorBackground }}" placeholder="Color value">
-            <label for="color-background">Color background</label>
+            <label for="color-background">{{ loc("settings-platform.ui.color-background.label") }}</label>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input type="checkbox" id="fps" name="fps" value="1" class="form-check-input" {% if settings.FPS %}checked{% endif %}>
-                <label for="fps" class="form-check-label">Show FPS</label>
+                <label for="fps" class="form-check-label">{{ loc("settings-platform.ui.fps.label") }}</label>
             </div>
         </div>
         <div class="mb-3">
             <div class="form-check form-switch">
                 <input type="checkbox" id="start-full-screen" name="start-full-screen" value="1" class="form-check-input" {% if settings.StartFullScreen %}checked{% endif %}>
-                <label for="start-full-screen" class="form-check-label">Start in full screen</label>
+                <label for="start-full-screen" class="form-check-label">{{ loc("settings-platform.ui.start-in-full-screen.label") }}</label>
             </div>
         </div>
 
-        <h5>Emulator buttons</h5>
+        <h5>{{ loc("settings-platform.ui.buttons") }}</h5>
         <div class="row">
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="play-pause" btn_title="Play / Pause" btn_value=settings.Buttons.PlayPause %}
+                {% include "emulator_buttons_button.twig" with btn_id="play-pause" btn_title=loc("settings-platform.ui.button.play-pause") btn_value=settings.Buttons.PlayPause %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="restart" btn_title="Restart" btn_value=settings.Buttons.Restart %}
+                {% include "emulator_buttons_button.twig" with btn_id="restart" btn_title=loc("settings-platform.ui.button.restart") btn_value=settings.Buttons.Restart %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="mute" btn_title="Mute" btn_value=settings.Buttons.Mute %}
+                {% include "emulator_buttons_button.twig" with btn_id="mute" btn_title=loc("settings-platform.ui.button.mute") btn_value=settings.Buttons.Mute %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="settings" btn_title="Settings" btn_value=settings.Buttons.Settings %}
+                {% include "emulator_buttons_button.twig" with btn_id="settings" btn_title=loc("settings-platform.ui.button.settings") btn_value=settings.Buttons.Settings %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="full-screen" btn_title="Full screen" btn_value=settings.Buttons.FullScreen %}
+                {% include "emulator_buttons_button.twig" with btn_id="full-screen" btn_title=loc("settings-platform.ui.button.full-screen") btn_value=settings.Buttons.FullScreen %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="save-state" btn_title="Save state" btn_value=settings.Buttons.SaveState %}
+                {% include "emulator_buttons_button.twig" with btn_id="save-state" btn_title=loc("settings-platform.ui.button.save-state") btn_value=settings.Buttons.SaveState %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="load-state" btn_title="Load state" btn_value=settings.Buttons.LoadState %}
+                {% include "emulator_buttons_button.twig" with btn_id="load-state" btn_title=loc("settings-platform.ui.button.load-state") btn_value=settings.Buttons.LoadState %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="cheat" btn_title="Cheats" btn_value=settings.Buttons.Cheat %}
+                {% include "emulator_buttons_button.twig" with btn_id="cheat" btn_title=loc("settings-platform.ui.button.cheat") btn_value=settings.Buttons.Cheat %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="volume" btn_title="Volume" btn_value=settings.Buttons.Volume %}
+                {% include "emulator_buttons_button.twig" with btn_id="volume" btn_title=loc("settings-platform.ui.button.volume") btn_value=settings.Buttons.Volume %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="right-click" btn_title="Context menu" btn_value=settings.Buttons.RightClick %}
+                {% include "emulator_buttons_button.twig" with btn_id="right-click" btn_title=loc("settings-platform.ui.button.right-click") btn_value=settings.Buttons.RightClick %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="context-menu" btn_title="Context menu button" btn_value=settings.Buttons.ContextMenu %}
+                {% include "emulator_buttons_button.twig" with btn_id="context-menu" btn_title=loc("settings-platform.ui.button.context-menu") btn_value=settings.Buttons.ContextMenu %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="save-sav-files" btn_title="Save SAV files" btn_value=settings.Buttons.SaveSavFiles %}
+                {% include "emulator_buttons_button.twig" with btn_id="save-sav-files" btn_title=loc("settings-platform.ui.button.save-sav-files") btn_value=settings.Buttons.SaveSavFiles %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="load-sav-files" btn_title="Load SAV files" btn_value=settings.Buttons.LoadSavFiles %}
+                {% include "emulator_buttons_button.twig" with btn_id="load-sav-files" btn_title=loc("settings-platform.ui.button.load-sav-files") btn_value=settings.Buttons.LoadSavFiles %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="quick-save" btn_title="Quick save" btn_value=settings.Buttons.QuickSave %}
+                {% include "emulator_buttons_button.twig" with btn_id="quick-save" btn_title=loc("settings-platform.ui.button.quick-save") btn_value=settings.Buttons.QuickSave %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="quick-load" btn_title="Quick load" btn_value=settings.Buttons.QuickLoad %}
+                {% include "emulator_buttons_button.twig" with btn_id="quick-load" btn_title=loc("settings-platform.ui.button.quick-load") btn_value=settings.Buttons.QuickLoad %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="screenshot" btn_title="Screenshot" btn_value=settings.Buttons.Screenshot %}
+                {% include "emulator_buttons_button.twig" with btn_id="screenshot" btn_title=loc("settings-platform.ui.button.screenshot") btn_value=settings.Buttons.Screenshot %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="screen-record" btn_title="Screen record" btn_value=settings.Buttons.ScreenRecord %}
+                {% include "emulator_buttons_button.twig" with btn_id="screen-record" btn_title=loc("settings-platform.ui.button.screen-record") btn_value=settings.Buttons.ScreenRecord %}
             </div>
             <div class="col-sm-4 col-lg-3 mb-2">
-                {% include "emulator_buttons_button.twig" with btn_id="cache-manager" btn_title="Cache manager" btn_value=settings.Buttons.CacheManager %}
+                {% include "emulator_buttons_button.twig" with btn_id="cache-manager" btn_title=loc("settings-platform.ui.button.cache-manager") btn_value=settings.Buttons.CacheManager %}
             </div>
         </div>
     </div>
