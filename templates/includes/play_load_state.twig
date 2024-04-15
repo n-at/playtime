@@ -2,15 +2,15 @@
     <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Load game state</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">{{ loc("play.load-state.header") }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("play.load-state.close.title") }}"></button>
             </div>
             <div class="modal-body">
 
                 <div id="load-state-list" class="row"></div>
 
                 <div id="load-state-empty" class="d-none">
-                    {% include "empty_state.twig" with icon="bi bi-box-arrow-down" text="No save states found" %}
+                    {% include "empty_state.twig" with icon="bi bi-box-arrow-down" text=loc("play.load-state.empty") %}
                 </div>
             </div>
         </div>

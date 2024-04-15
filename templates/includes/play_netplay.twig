@@ -2,49 +2,49 @@
     <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Netplay</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">{{ loc("play.netplay.header") }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("play.netplay.close.title") }}"></button>
             </div>
             <div class="modal-body">
 
                 <div class="text-center mb-3">
-                    <img id="netplay-qr" src="" alt="Netplay-join">
+                    <img id="netplay-qr" src="" alt="{{ loc("play.netplay.qr.alt") }}">
                 </div>
 
                 <div class="mb-5 input-group">
-                    <a href="/games/netplay/{{ game.Id }}/refresh-id?return-to=play" class="btn btn-outline-secondary" id="netplay-reset-session" title="Reset game session">
+                    <a href="/games/netplay/{{ game.Id }}/refresh-id?return-to=play" class="btn btn-outline-secondary" id="netplay-reset-session" title="{{ loc("play.netplay.reset-game-session.title") }}">
                         <i class="bi bi-arrow-clockwise"></i>
                     </a>
-                    <input type="text" id="netplay-url" class="form-control" value="" readonly aria-label="Netplay URL" aria-describedby="netplay-url-copy">
-                    <button type="button" class="btn btn-outline-secondary" id="netplay-url-copy" title="Copy to clipboard">
+                    <input type="text" id="netplay-url" class="form-control" value="" readonly aria-label="{{ loc("play.netplay.url.label") }}" aria-describedby="netplay-url-copy">
+                    <button type="button" class="btn btn-outline-secondary" id="netplay-url-copy" title="{{ loc("play.netplay.copy.title") }}">
                         <i class="bi bi-clipboard"></i>
                     </button>
                 </div>
 
                 <br>
 
-                <h5>Client</h5>
+                <h5>{{ loc("play.netplay.client") }}</h5>
                 <div class="mb-5 input-group">
                     <div class="form-floating">
-                        <input type="text" id="netplay-name" class="form-control" placeholder="Netplay name">
-                        <label for="netplay-name">Name</label>
+                        <input type="text" id="netplay-name" class="form-control" placeholder="{{ loc("play.netplay.name.placeholder") }}">
+                        <label for="netplay-name">{{ loc("play.netplay.name.label") }}</label>
                     </div>
-                    <button type="button" id="netplay-name-change" class="btn btn-outline-secondary" title="Change name">
+                    <button type="button" id="netplay-name-change" class="btn btn-outline-secondary" title="{{ loc("play.netplay.name.submit.title") }}">
                         <i class="bi bi-check"></i>
                     </button>
                 </div>
 
-                <h5>Game session</h5>
+                <h5>{{ loc("play.netplay.session") }}</h5>
                 <div class="form-floating mb-3">
                     <select id="netplay-quality" class="form-select">
-                        <option value="best">Best</option>
-                        <option value="high">High</option>
-                        <option value="higher">Higher</option>
-                        <option value="medium">Medium</option>
-                        <option value="lower">Lower</option>
-                        <option value="low">Low</option>
+                        <option value="best">{{ loc("play.netplay.quality.best") }}</option>
+                        <option value="high">{{ loc("play.netplay.quality.high") }}</option>
+                        <option value="higher">{{ loc("play.netplay.quality.higher") }}</option>
+                        <option value="medium">{{ loc("play.netplay.quality.medium") }}</option>
+                        <option value="lower">{{ loc("play.netplay.quality.lower") }}</option>
+                        <option value="low">{{ loc("play.netplay.quality.low") }}</option>
                     </select>
-                    <label for="netplay-quality">Streaming quality</label>
+                    <label for="netplay-quality">{{ loc("play.netplay.quality.label") }}</label>
                 </div>
                 <div id="netplay-clients" class="mb-3 list-group list-group-hover">
 

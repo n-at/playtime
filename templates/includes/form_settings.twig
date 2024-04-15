@@ -1,10 +1,8 @@
 <div class="form-floating mb-3">
     <select id="language" name="language" class="form-select">
         {% for language in languages %}
-            <option id="{{ language }}"
-                    {% if settings.Language == language %}selected{% endif %}
-            >{{ language }}</option>
+            <option id="{{ language }}" {% if settings.Language == language %}selected{% endif %}>{{ language }}</option>
         {% endfor %}
     </select>
-    <label for="language">Emulator language</label>
+    <label for="language">{{ loc("settings.general.language.label") }}</label>
 </div>

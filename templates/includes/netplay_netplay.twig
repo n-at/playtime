@@ -2,23 +2,23 @@
     <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Netplay</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">{{ loc("netplay.netplay.header") }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("netplay.netplay.close.title") }}"></button>
             </div>
             <div class="modal-body">
 
-                <h5>Client</h5>
+                <h5>{{ loc("netplay.netplay.client") }}</h5>
                 <div class="mb-5 input-group">
                     <div class="form-floating">
-                        <input type="text" id="netplay-name" class="form-control" placeholder="Netplay name">
-                        <label for="netplay-name">Name</label>
+                        <input type="text" id="netplay-name" class="form-control" placeholder="{{ loc("netplay.netplay.name.placeholder") }}">
+                        <label for="netplay-name">{{ loc("netplay.netplay.name.label") }}</label>
                     </div>
-                    <button type="button" id="netplay-name-change" class="btn btn-outline-secondary" title="Change name">
+                    <button type="button" id="netplay-name-change" class="btn btn-outline-secondary" title="{{ loc("netplay.netplay.name.submit.title") }}">
                         <i class="bi bi-check"></i>
                     </button>
                 </div>
 
-                <h5>Game session</h5>
+                <h5>{{ loc("netplay.netplay.session") }}</h5>
                 <div id="netplay-clients" class="mb-3 list-group list-group-hover">
 
                 </div>

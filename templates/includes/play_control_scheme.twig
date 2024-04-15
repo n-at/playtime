@@ -2,13 +2,13 @@
     <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Controls</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">{{ loc("play.controls.header") }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("play.controls.close.title") }}"></button>
             </div>
             <div class="modal-body">
 
                 <div id="play-virtual-gamepad-control" class="text-center">
-                    <button type="button" id="play-virtual-gamepad-toggle" class="btn btn-outline-secondary">Toggle virtual gamepad</button>
+                    <button type="button" id="play-virtual-gamepad-toggle" class="btn btn-outline-secondary">{{ loc("play.controls.virtual-gamepad-toggle") }}</button>
                     <hr>
                 </div>
 
@@ -22,7 +22,7 @@
                                 role="tab"
                                 aria-controls="scheme-player-0"
                                 aria-selected="true"
-                        >Player 1</button>
+                        >{{ loc("play.controls.player-1") }}</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link"
@@ -33,7 +33,7 @@
                                 role="tab"
                                 aria-controls="scheme-player-1"
                                 aria-selected="false"
-                        >Player 2</button>
+                        >{{ loc("play.controls.player-2") }}</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link"
@@ -44,7 +44,7 @@
                                 role="tab"
                                 aria-controls="scheme-player-2"
                                 aria-selected="false"
-                        >Player 3</button>
+                        >{{ loc("play.controls.player-3") }}</button>
                     </li>
                     <li class="nav-item" role="presentation">
                         <button class="nav-link"
@@ -55,7 +55,7 @@
                                 role="tab"
                                 aria-controls="scheme-player-3"
                                 aria-selected="false"
-                        >Player 4</button>
+                        >{{ loc("play.controls.player-4") }}</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="control-scheme">
@@ -74,8 +74,8 @@
                 </div>
             </div>
             <div class="modal-footer text-end">
-                <button type="button" id="play-control-scheme-reset" class="btn btn-outline-secondary">Reset changes</button>
-                <button type="button" id="play-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                <button type="button" id="play-control-scheme-reset" class="btn btn-outline-secondary">{{ loc("play.controls.reset") }}</button>
+                <button type="button" id="play-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">{{ loc("play.controls.submit") }}</button>
             </div>
         </div>
     </div>

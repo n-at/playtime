@@ -1,44 +1,44 @@
 <div class="form-floating mb-3">
-    <input type="text" id="login" name="login" class="form-control" value="{{user_control.Login}}" placeholder="Unique user name" required>
-    <label for="login">Login</label>
+    <input type="text" id="login" name="login" class="form-control" value="{{user_control.Login}}" placeholder="{{ loc("user.edit.login.placeholder") }}" required>
+    <label for="login">{{ loc("user.edit.login.title") }}</label>
 </div>
 
 {% if mode == "create" %}
     <div class="form-floating mb-3">
-        <input type="password" id="password" name="password" class="form-control" value="" placeholder="User password" required>
-        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" value="" placeholder="{{ loc("user.edit.password.placeholder") }}" required>
+        <label for="password">{{ loc("user.edit.password.label") }}</label>
     </div>
 {% elif mode == "edit" %}
     <div class="form-floating mb-3">
-        <input type="password" id="password" name="password" class="form-control" value="" placeholder="User password">
-        <label for="password">Password</label>
+        <input type="password" id="password" name="password" class="form-control" value="" placeholder="{{ loc("user.edit.password.placeholder") }}">
+        <label for="password">{{ loc("user.edit.password.label") }}</label>
     </div>
     <p class="text-secondary">
-        Leave password field blank to keep current value
+        {{ loc("user.edit.password.description") }}
     </p>
 {% endif %}
 
 <div class="mb-3">
     <div class="form-check form-switch">
         <input type="checkbox" id="admin" name="admin" value="1" class="form-check-input" {% if user_control.Admin %}checked{% endif %}>
-        <label for="admin">Admin</label>
+        <label for="admin">{{ loc("user.edit.admin.label") }}</label>
     </div>
 </div>
 
 <div class="mb-3">
     <div class="form-check form-switch">
         <input type="checkbox" id="active" name="active" value="1" class="form-check-input" {% if user_control.Active %}checked{% endif %}>
-        <label for="active">Active</label>
+        <label for="active">{{ loc("user.edit.active.label") }}</label>
     </div>
 </div>
 
 <div class="mb-3">
-    <label for="quota">Disk usage quota</label>
+    <label for="quota">{{ loc("user.edit.quota.label") }}</label>
     <div class="input-group mb-3">
         <input type="number" id="quota" name="quota" class="form-control" min="0" value="{{ user_control.Quota / 1024 / 1024 }}" required>
-        <span class="input-group-text">MB</span>
+        <span class="input-group-text">{{ loc("quota.mb") }}</span>
     </div>
     <p class="text-secondary">
-        0 - unlimited
+        {{ loc("user.edit.quota.description") }}
     </p>
 </div>

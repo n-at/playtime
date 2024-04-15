@@ -2,19 +2,19 @@
     <div class="modal-dialog modal-lg modal-fullscreen-lg-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Controls</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">{{ loc("netplay.controls.header") }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("netplay.controls.close.title") }}"></button>
             </div>
             <div class="modal-body">
                 <div id="netplay-virtual-gamepad-control" class="text-center">
-                    <button type="button" id="netplay-virtual-gamepad-toggle" class="btn btn-outline-secondary">Toggle virtual gamepad</button>
+                    <button type="button" id="netplay-virtual-gamepad-toggle" class="btn btn-outline-secondary">{{ loc("netplay.controls.virtual-gamepad-toggle") }}</button>
                     <hr>
                 </div>
                 {% include "platform_settings/controls_by_platform.twig" with platform_id=game.Platform player="0" controls=controls hide_emulator_state_controls=true %}
             </div>
             <div class="modal-footer text-end">
-                <button type="button" id="netplay-control-scheme-reset" class="btn btn-outline-secondary">Reset changes</button>
-                <button type="button" id="netplay-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                <button type="button" id="netplay-control-scheme-reset" class="btn btn-outline-secondary">{{ loc("netplay.controls.reset") }}</button>
+                <button type="button" id="netplay-control-scheme-save" class="btn btn-primary" data-bs-dismiss="modal">{{ loc("netplay.controls.submit") }}</button>
             </div>
         </div>
     </div>

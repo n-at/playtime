@@ -1,7 +1,7 @@
 <nav id="navbar" class="navbar navbar-expand-lg bg-body-tertiary mb-3">
     <div class="container-fluid">
 
-        <a class="navbar-brand title" href="/">playtime</a>
+        <a class="navbar-brand title" href="/">{{ loc("brand") }}</a>
 
         <button class="navbar-toggler"
                 type="button"
@@ -9,7 +9,7 @@
                 data-bs-target="#navbar-collapse"
                 aria-controls="navbar-collapse"
                 aria-expanded="false"
-                aria-label="Toggle navigation"
+                aria-label="{{ loc("nav.toggle.title") }}"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -18,24 +18,24 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/games">Games</a>
+                        <a class="nav-link" href="/games">{{ loc("nav.games") }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">Profile</a>
+                        <a class="nav-link" href="/profile">{{ loc("nav.profile") }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/settings">Settings</a>
+                        <a class="nav-link" href="/settings">{{ loc("nav.settings") }}</a>
                     </li>
                     {% if user.CanControlUsers() %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/users">Users</a>
+                            <a class="nav-link" href="/users">{{ loc("nav.users") }}</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/version">Version</a>
+                        <a class="nav-link" href="/version">{{ loc("nav.users") }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="/logout">{{ loc("nav.logout") }}</a>
                     </li>
                 {% endif %}
             </ul>

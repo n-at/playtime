@@ -3,23 +3,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Keyboard for player <span id="keyboard-control-player-title"></span> - <span id="keyboard-control-title"></span>
+                    {{ loc("settings-platform.controls.keyboard.header")}} <span id="keyboard-control-player-title"></span> - <span id="keyboard-control-title"></span>
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("settings-platform.controls.keyboard.close.title") }}"></button>
             </div>
             <div class="modal-body text-center">
-                <div>Press keyboard button to assign</div>
+                <div>{{ loc("settings-platform.controls.keyboard.description") }}</div>
                 <div id="keyboard-control-display" class="mt-5 mb-4 d-inline-block border rounded border-secondary p-3"></div>
                 <input type="hidden" id="keyboard-control-code" value="">
                 <input type="hidden" id="keyboard-control-button" value="">
                 <input type="hidden" id="keyboard-control-player" value="">
-                <div id="keyboard-control-focus" class="text-center">
-                    Click to capture keyboard buttons
-                </div>
+                <div id="keyboard-control-focus" class="text-center">{{ loc("settings-platform.controls.keyboard.focus") }}</div>
             </div>
             <div class="modal-footer">
-                <button id="keyboard-control-clear" type="button" class="btn btn-outline-secondary">Clear</button>
-                <button id="keyboard-control-save" type="button" class="btn btn-primary">Save</button>
+                <button id="keyboard-control-clear" type="button" class="btn btn-outline-secondary">{{ loc("settings-platform.controls.keyboard.clear") }}</button>
+                <button id="keyboard-control-save" type="button" class="btn btn-primary">{{ loc("settings-platform.controls.keyboard.submit") }}</button>
             </div>
         </div>
     </div>
@@ -30,20 +28,20 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    Gamepad for player <span id="gamepad-control-player-title"></span> - <span id="gamepad-control-title"></span>
+                    {{ loc("settings-platform.controls.gamepad.header")}} <span id="gamepad-control-player-title"></span> - <span id="gamepad-control-title"></span>
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("settings-platform.controls.gamepad.close.title") }}"></button>
             </div>
             <div class="modal-body text-center">
-                <h5 id="gamepad-control-name">Gamepad not identified</h5>
+                <h5 id="gamepad-control-name">{{ loc("settings-platform.controls.gamepad.not-found") }}</h5>
                 <div id="gamepad-control-display" class="mt-5 mb-5 d-inline-block border rounded border-secondary p-3"></div>
                 <input type="hidden" id="gamepad-control-input" value="">
                 <input type="hidden" id="gamepad-control-button" value="">
                 <input type="hidden" id="gamepad-control-player" value="">
             </div>
             <div class="modal-footer">
-                <button id="gamepad-control-clear" type="button" class="btn btn-outline-secondary">Clear</button>
-                <button id="gamepad-control-save" type="button" class="btn btn-primary">Save</button>
+                <button id="gamepad-control-clear" type="button" class="btn btn-outline-secondary">{{ loc("settings-platform.controls.gamepad.clear") }}</button>
+                <button id="gamepad-control-save" type="button" class="btn btn-primary">{{ loc("settings-platform.controls.gamepad.submit") }}</button>
             </div>
         </div>
     </div>

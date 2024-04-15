@@ -2,46 +2,46 @@
     <div class="col-md-4 col-sm-12">
         {% if game.CoverImage %}
             <div class="text-center">
-                <img src="{{ game.CoverImage }}" alt="Cover image" class="img-fluid d-block mb-2">
+                <img src="{{ game.CoverImage }}" alt="{{ loc("game.edit.cover-image.alt") }}" class="img-fluid d-block mb-2">
             </div>
             <div class="form-check mb-3">
                 <input type="checkbox" id="cover-image-delete" name="cover-image-delete" value="1" class="form-check-input">
-                <label for="cover-image-delete" class="form-check-label">Delete cover image</label>
+                <label for="cover-image-delete" class="form-check-label">{{ loc("game.edit.cover-image-delete.label") }}</label>
             </div>
         {% else %}
-            {% include "empty_state.twig" with icon="bi bi-card-image" text="No cover image" %}
+            {% include "empty_state.twig" with icon="bi bi-card-image" text=loc("game.edit.cover-image-empty") %}
         {% endif %}
     </div>
     <div class="col-md-8 col-sm-12">
         <div class="form-floating mb-3">
             <input type="text" id="original-name" class="form-control" disabled value="{{ game.OriginalFileName }}">
-            <label for="original-name">Original file name</label>
+            <label for="original-name">{{ loc("game.edit.original-file-name.label") }}</label>
         </div>
         <div class="form-floating mb-3">
             <input type="text" id="original-size" class="form-control" disabled value="{{ game.OriginalFileSize }}">
-            <label for="original-size">Original file size (bytes)</label>
+            <label for="original-size">{{ loc("game.edit.original-file-size.label") }}</label>
         </div>
         <div class="form-floating mb-3">
-            <input type="text" id="name" name="name" class="form-control" value="{{game.Name}}" placeholder="Game name" required>
-            <label for="name">Name</label>
+            <input type="text" id="name" name="name" class="form-control" value="{{game.Name}}" placeholder="{{ loc("game.edit.name.placeholder") }}" required>
+            <label for="name">{{ loc("game.edit.name.label") }}</label>
         </div>
         <div class="form-floating mb-3">
             <select id="platform" name="platform" class="form-select">
-                <option value="">Undefined</option>
+                <option value="">{{ loc("game.edit.platform.undefined") }}</option>
                 {% for platform in platforms %}
                     {% if platform.Id %}
                         <option value="{{ platform.Id }}" {% if platform.Id == game.Platform %}selected{% endif %}>{{ platform.Name }}</option>
                     {% endif %}
                 {% endfor %}
             </select>
-            <label for="platform">Platform</label>
+            <label for="platform">{{ loc("game.edit.platform.label") }}</label>
         </div>
         <div class="form-floating mb-3">
             <textarea id="description" name="description" class="form-control" style="height: 100px">{{ game.Description }}</textarea>
-            <label for="description">Description</label>
+            <label for="description">{{ loc("game.edit.description.label") }}</label>
         </div>
         <div class="mb-3">
-            <label for="cover-image" class="form-label">Upload new cover image</label>
+            <label for="cover-image" class="form-label">{{ loc("game.edit.cover-image.label") }}</label>
             <input type="file" id="cover-image" name="cover-image" class="form-control">
         </div>
     </div>
@@ -50,14 +50,14 @@
 <div class="mb-3">
     <div class="form-check form-switch">
         <input type="checkbox" id="override-settings" name="override-settings" value="1" class="form-check-input" {% if game.OverrideEmulatorSettings %}checked{% endif %}>
-        <label for="override-settings" class="form-check-label">Override emulation settings</label>
+        <label for="override-settings" class="form-check-label">{{ loc("game.edit.override-settings.label") }}</label>
     </div>
 </div>
 
 <div class="mb-3">
     <div class="form-check form-switch">
         <input type="checkbox" id="cue-enabled" name="cue-enabled" class="form-check-input" value="1" {% if game.CueEnabled %}checked{% endif %}>
-        <label for="cue-enabled">Enable creation of .cue file</label>
+        <label for="cue-enabled">{{ loc("game.edit.cue-enabled.label") }}</label>
     </div>
 </div>
 
@@ -65,7 +65,7 @@
     <div class="mb-3">
         <div class="form-check form-switch">
             <input type="checkbox" id="netplay-enabled" name="netplay-enabled" value="1" class="form-check-input" {% if game.NetplayEnabled %}checked{% endif %}>
-            <label for="netplay-enabled" class="form-check-label">Netplay enabled</label>
+            <label for="netplay-enabled" class="form-check-label">{{ loc("game.edit.netplay-enabled.label") }}</label>
         </div>
     </div>
 {% endif %}
@@ -73,20 +73,20 @@
 <div class="mb-3">
     <div class="form-check form-switch">
         <input type="checkbox" id="auto-save-enabled" name="auto-save-enabled" value="1" class="form-check-input" {% if game.AutoSaveEnabled %}checked{% endif %}>
-        <label for="auto-save-enabled" class="form-check-label">Auto save enabled</label>
+        <label for="auto-save-enabled" class="form-check-label">{{ loc("game.edit.auto-save-enabled.label") }}</label>
     </div>
 </div>
 <div id="auto-save-options" class="row mb-3 d-none">
     <div class="col-6">
         <div class="form-floating">
             <input type="number" id="auto-save-interval" name="auto-save-interval" class="form-control" value="{{ game.AutoSaveInterval / 60 }}" min="1" step="1" placeholder="5">
-            <label for="auto-save-interval">Auto save interval (minutes)</label>
+            <label for="auto-save-interval">{{ loc("game.edit.auto-save-interval.label") }}</label>
         </div>
     </div>
     <div class="col-6">
         <div class="form-floating">
             <input type="number" id="auto-save-capacity" name="auto-save-capacity" class="form-control" value="{{ game.AutoSaveCapacity }}" min="1" step="1" placeholder="10">
-            <label for="auto-save-capacity">Auto save capacity</label>
+            <label for="auto-save-capacity">{{ loc("game.edit.auto-save-capacity") }}</label>
         </div>
     </div>
 </div>
@@ -96,12 +96,12 @@
             data-allow-new="true"
             data-allow-clear="true"
             data-badge-style="secondary">
-        <option disabled hidden value="">Choose or enter a tag...</option>
+        <option disabled hidden value="">{{ loc("game.edit.tags.undefined") }}</option>
         {% for tag in tags %}
             <option value="{{ tag }}" {% if tag in game.Tags %}selected{% endif %}>{{ tag }}</option>
         {% endfor %}
     </select>
-    <label for="tags" class="form-label">Tags</label>
+    <label for="tags" class="form-label">{{ loc("game.edit.tags.label") }}</label>
 </div>
 <script type="module">
     import Tags from "/assets/node_modules/bootstrap5-tags/tags.min.js"
@@ -111,5 +111,5 @@
 <hr>
 
 <div class="mb-3 text-end">
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" class="btn btn-primary">{{ loc("game.edit.submit") }}</button>
 </div>
