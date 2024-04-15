@@ -107,27 +107,25 @@
             {% endfor %}
         </div>
 
-        {% for item in games_by_platform %}
-            {% for game in item.Games %}
-                <div class="modal" id="delete-{{ game.Id }}" tabindex="-1">
-                    <div class="modal-dialog">
-                        <form class="modal-content" method="post" action="/games/delete/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
-                            <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
-                            <div class="modal-header">
-                                <h5 class="modal-title">{{ loc("games.delete.header") }}</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("games.delete.close.title") }}"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>{{ loc("games.delete.confirmation", game.Name) }}</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ loc("games.delete.cancel") }}</button>
-                                <button type="submit" class="btn btn-danger">{{ loc("games.delete.submit") }}</button>
-                            </div>
-                        </form>
-                    </div>
+        {% for game in games %}
+            <div class="modal" id="delete-{{ game.Id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <form class="modal-content" method="post" action="/games/delete/{{ game.Id }}" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{{ loc("games.delete.header") }}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ loc("games.delete.close.title") }}"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>{{ loc("games.delete.confirmation", game.Name) }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">{{ loc("games.delete.cancel") }}</button>
+                            <button type="submit" class="btn btn-danger">{{ loc("games.delete.submit") }}</button>
+                        </div>
+                    </form>
                 </div>
-            {% endfor %}
+            </div>
         {% endfor %}
     {% else %}
         <div class="text-center">

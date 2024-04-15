@@ -282,7 +282,7 @@
   "settings-platform.controls.player-4": "Player 4",
   "settings-platform.controls.keyboard": "Keyboard",
   "settings-platform.controls.gamepad": "Gamepad",
-  "settings-platform.controls.not-set": "Not-set",
+  "settings-platform.controls.not-set": "Not set",
 
   "settings-platform.restore.title": "Restore defaults for %s",
   "settings-platform.restore.header": "Restore default settings",
@@ -322,8 +322,8 @@
   "user.edit.quota.label": "Disk usage quota",
   "user.edit.quota.description": "0 - unlimited",
 
-  "user.delete.title": "Edit user",
-  "user.delete.header": "Edit user",
+  "user.delete.title": "Delete user",
+  "user.delete.header": "Delete user",
   "user.delete.confirmation": "Confirm deletion of user \"%s\"",
   "user.delete.submit": "Delete user",
 
