@@ -36,7 +36,7 @@
     <label for="quota">{{ loc("user.edit.quota.label") }}</label>
     <div class="input-group mb-3">
         <input type="number" id="quota" name="quota" class="form-control" min="0" value="{{ user_control.Quota / 1024 / 1024 }}" required>
-        <span class="input-group-text">{{ loc("quota.mb") }}</span>
+        <span class="input-group-text">{{ loc("measure.mb") }}</span>
     </div>
     <p class="text-secondary">
         {{ loc("user.edit.quota.description") }}

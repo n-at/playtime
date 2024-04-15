@@ -60,7 +60,7 @@
             onRTCControlChannelReconnecting: rtcDCReconnecting,
         });
 
-        connectionScreen('Connecting to server');
+        connectionScreen(playtimeLocalization.netplay_connection_connecting);
         netplay.connect();
     });
 
@@ -214,7 +214,7 @@
 
     function selfPlayerChanged(player) {
         const playerDisplay = NetplayPlayerDisplay(netplay.getClientId(), netplay.getHostId(), player);
-        window.ShowToastMessage('primary', `You now play as ${playerDisplay}`);
+        window.ShowToastMessage('primary', `${playtimeLocalization.netplay_event_player_changed} ${playerDisplay}`);
         document.getElementById('netplay-player').innerText = `${netplay.getName()}: ${playerDisplay}`;
         virtualGamepadShow(player);
     }
@@ -259,7 +259,7 @@
 
     function clientConnected(id, name, player) {
         if (id !== netplay.getClientId()) {
-            window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) connected`);
+            window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) ${playtimeLocalization.netplay_event_player_connected}`);
         }
 
         const elId = `netplay-client-${id}`;
@@ -295,10 +295,10 @@
     function clientDisconnected(id) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) disconnected`);
+            window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) ${playtimeLocalization.netplay_event_player_disconnected}`);
         }
         if (id === netplay.getHostId()) {
-            connectionScreen('Awaiting game host');
+            connectionScreen(playtimeLocalization.netplay_connection_awaiting);
             playScreen(false);
         }
 
@@ -311,7 +311,7 @@
     function clientNameChanged(id, name) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) is now ${name}`);
+            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) ${playtimeLocalization.netplay_event_player_name_changed} ${name}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-name`);
@@ -325,7 +325,7 @@
         if (client && id !== netplay.getClientId()) {
             const oldPlayerDisplay = window.NetplayPlayerDisplay(id, netplay.getHostId(), oldPlayer);
             const newPlayerDisplay = window.NetplayPlayerDisplay(id, netplay.getHostId(), newPlayer);
-            window.ShowToastMessage('info', `${client.name} (${oldPlayerDisplay}) is now ${newPlayerDisplay}`);
+            window.ShowToastMessage('info', `${client.name} (${oldPlayerDisplay}) ${playtimeLocalization.netplay_event_player_name_changed} ${newPlayerDisplay}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-player`);
@@ -731,18 +731,18 @@
     ///////////////////////////////////////////////////////////////////////////
 
     function wsConnected() {
-        connectionScreen('Connected to server. Awaiting game host');
+        connectionScreen(playtimeLocalization.netplay_connection_connected);
         errorScreen(false);
     }
 
     function wsReconnecting() {
-        window.ShowToastMessage('warning', 'Reconnecting to server...', 2000);
+        window.ShowToastMessage('warning', playtimeLocalization.netplay_connection_reconnecting_server, 2000);
     }
 
     function rtcConnectionStateChanged(clientId, state) {
         switch (state) {
             case 'connecting':
-                connectionScreen('Connecting to game host');
+                connectionScreen(playtimeLocalization.netplay_connection_connecting_host);
                 break;
             case 'connected':
                 connectionScreen(false);
@@ -753,11 +753,11 @@
     }
 
     function rtcReconnecting() {
-        window.ShowToastMessage('warning', 'Reconnecting to game host...', 2000);
+        window.ShowToastMessage('warning', playtimeLocalization.netplay_connection_reconnecting_host, 2000);
     }
 
     function rtcDCReconnecting() {
-        window.ShowToastMessage('warning', 'Reconnecting to game host...', 2000);
+        window.ShowToastMessage('warning', playtimeLocalization.netplay_connection_reconnecting_host, 2000);
     }
 
     function connectionScreen(display) {
@@ -800,23 +800,23 @@
         }
         switch (type) {
             case 'web-socket':
-                window.ShowToastMessage('danger', 'Server connection error');
+                window.ShowToastMessage('danger', playtimeLocalization.netplay_event_connection_error);
                 break;
             case 'rtc-offer-send':
             case 'rtc-answer-send':
             case 'rtc-ice-connection':
             case 'rtc-control-channel':
-                window.ShowToastMessage('danger', 'Game host connection error');
+                window.ShowToastMessage('danger', playtimeLocalization.netplay_event_host_connection_error);
                 break;
             case 'rtc-answer-receive':
             case 'rtc-ice-candidate-accept':
-                window.ShowToastMessage('warning', 'Game host connection warning');
+                window.ShowToastMessage('warning', playtimeLocalization.netplay_event_host_connection_warning);
                 break;
             case 'rtc-connection':
-                window.ShowToastMessage('danger', 'Game host connection lost');
+                window.ShowToastMessage('danger', playtimeLocalization.netplay_event_host_connection_lost);
                 break;
             case'server':
-                window.ShowToastMessage('danger', `Server error: ${e.message}`);
+                window.ShowToastMessage('danger', `${playtimeLocalization.netplay_event_server_error}: ${e.message}`);
                 break;
         }
     }

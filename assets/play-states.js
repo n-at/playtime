@@ -228,15 +228,15 @@
             const img = document.createElement('img');
             img.classList.add('card-img-top')
             img.src = state.ScreenshotDownloadLink;
-            img.alt = 'Screenshot';
+            img.alt = playtimeLocalization.save_states_screenshot_alt;
 
             const relativeContainer = document.createElement('div');
             relativeContainer.classList.add('position-relative');
 
             const autoSaveBadge = document.createElement('span');
             autoSaveBadge.classList.add('badge', 'text-bg-info', 'position-absolute', 'top-0', 'start-0', 'm-2');
-            autoSaveBadge.title = 'Auto save';
-            autoSaveBadge.innerText = 'AUTO';
+            autoSaveBadge.title = playtimeLocalization.save_states_auto_title;
+            autoSaveBadge.innerText = playtimeLocalization.save_states_auto;
 
             const body = document.createElement('div');
             body.classList.add('card-body', 'text-center');

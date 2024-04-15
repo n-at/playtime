@@ -25,7 +25,7 @@
             input.addEventListener('click', () => {
                 document.getElementById('keyboard-control-player-title').innerText = (parseInt(player)+1).toString();
                 document.getElementById('keyboard-control-title').innerText = title;
-                document.getElementById('keyboard-control-display').innerText = input.value ? input.value : 'Not set';
+                document.getElementById('keyboard-control-display').innerText = input.value ? input.value : playtimeLocalization.settings_controls_not_set;
                 document.getElementById('keyboard-control-code').value = getValue('keyboard', player, button);
                 document.getElementById('keyboard-control-button').value = button;
                 document.getElementById('keyboard-control-player').value = player;
@@ -34,7 +34,7 @@
         });
 
         document.getElementById('keyboard-control-clear').addEventListener('click', () => {
-            document.getElementById('keyboard-control-display').innerText = 'Not set';
+            document.getElementById('keyboard-control-display').innerText = playtimeLocalization.settings_controls_not_set;
             document.getElementById('keyboard-control-code').value = '';
         });
 
@@ -64,7 +64,7 @@
             input.addEventListener('click', () => {
                 document.getElementById('gamepad-control-player-title').innerText = (parseInt(player)+1).toString();
                 document.getElementById('gamepad-control-title').innerText = title;
-                document.getElementById('gamepad-control-display').innerText = input.value ? input.value : 'Not set';
+                document.getElementById('gamepad-control-display').innerText = input.value ? input.value : playtimeLocalization.settings_controls_not_set;
                 document.getElementById('gamepad-control-input').value = getValue('gamepad', player, button);
                 document.getElementById('gamepad-control-button').value = button;
                 document.getElementById('gamepad-control-player').value = player;
@@ -74,7 +74,7 @@
         });
 
         document.getElementById('gamepad-control-clear').addEventListener('click', () => {
-            document.getElementById('gamepad-control-display').innerText = 'Not set';
+            document.getElementById('gamepad-control-display').innerText = playtimeLocalization.settings_controls_not_set;
             document.getElementById('gamepad-control-input').value = '';
         });
 

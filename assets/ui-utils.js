@@ -82,12 +82,12 @@
 
     window.NetplayPlayerDisplay = (clientId, hostId, player) => {
         if (clientId === hostId) {
-            return 'host';
+            return playtimeLocalization.netplay_player_host;
         }
         if (player === -1) {
-            return 'spectator'
+            return playtimeLocalization.netplay_player_spectator;
         }
-        return `player ${player + 1}`;
+        return `${playtimeLocalization.netplay_player_player} ${player + 1}`;
     };
 
     window.NetplayLoadClientName = defaultName => {

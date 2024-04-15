@@ -57,7 +57,7 @@
         //host can play as any player, auto set 0
         netplay.setClientPlayer(netplay.getClientId(), 0);
 
-        window.ShowToastMessage('success', 'Connected to server');
+        window.ShowToastMessage('success', playtimeLocalization.netplay_event_connected);
     }
 
     function selfNameChanged(name) {
@@ -91,7 +91,7 @@
 
     function clientConnected(id, name, player) {
         if (id !== netplay.getClientId()) {
-            window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) connected`);
+            window.ShowToastMessage('success', `${name} (${NetplayPlayerDisplay(id, netplay.getHostId(), player)}) ${playtimeLocalization.netplay_event_player_connected}`);
         }
 
         const elId = `netplay-client-${id}`;
@@ -129,7 +129,7 @@
     function clientDisconnected(id) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) disconnected`);
+            window.ShowToastMessage('warning', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) ${playtimeLocalization.netplay_event_player_disconnected}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}`);
@@ -143,7 +143,7 @@
     function clientNameChanged(id, newName) {
         const client = netplay.getClient(id);
         if (client && id !== netplay.getClientId()) {
-            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) is now ${newName}`);
+            window.ShowToastMessage('info', `${client.name} (${NetplayPlayerDisplay(id, netplay.getHostId(), client.player)}) ${playtimeLocalization.netplay_event_player_name_changed} ${newName}`);
         }
 
         const el = document.getElementById(`netplay-client-${id}-name`);
@@ -350,27 +350,27 @@
 
     function errorHandler(type, clientId, e) {
         const client = netplay.getClient(clientId);
-        const clientName = client ? client.name : 'unknown client';
+        const clientName = client ? client.name : playtimeLocalization.netplay_event_player_unknown_name;
 
         switch (type) {
             case 'web-socket':
-                window.ShowToastMessage('danger', 'Server connection error');
+                window.ShowToastMessage('danger', playtimeLocalization.netplay_event_connection_error);
                 break;
             case 'rtc-offer-send':
             case 'rtc-answer-send':
             case 'rtc-ice-connection':
             case 'rtc-control-channel':
-                window.ShowToastMessage('danger', `${clientName} connection error`);
+                window.ShowToastMessage('danger', `${clientName} ${playtimeLocalization.netplay_event_client_connection_error}`);
                 break;
             case 'rtc-answer-receive':
             case 'rtc-ice-candidate-accept':
-                window.ShowToastMessage('warning', `${clientName} connection warning`);
+                window.ShowToastMessage('warning', `${clientName} ${playtimeLocalization.netplay_event_client_connection_warning}`);
                 break;
             case 'rtc-connection':
-                window.ShowToastMessage('danger', `${clientName} connection lost`);
+                window.ShowToastMessage('danger', `${clientName} ${playtimeLocalization.netplay_event_client_connection_lost}`);
                 break;
             case'server':
-                window.ShowToastMessage('danger', `Server error: ${e.message}`);
+                window.ShowToastMessage('danger', `${playtimeLocalization.netplay_event_server_error}: ${e.message}`);
                 break;
         }
 
@@ -378,13 +378,13 @@
     }
 
     function wsReconnecting() {
-        window.ShowToastMessage('warning', `Reconnecting to server...`);
+        window.ShowToastMessage('warning', playtimeLocalization.netplay_connection_reconnecting_server);
     }
 
     function rtcReconnecting(clientId) {
         const client = netplay.getClient(clientId);
-        const clientName = client ? client.name : 'unknown client';
-        window.ShowToastMessage('warning', `Reconnecting to ${clientName}...`);
+        const clientName = client ? client.name : playtimeLocalization.netplay_event_player_unknown_name;
+        window.ShowToastMessage('warning', `${playtimeLocalization.netplay_connection_reconnecting_client} ${clientName}...`);
     }
 
     function setQuality() {
@@ -432,35 +432,35 @@
 
     function _formatSpeed(value) {
         if (value < 1024) {
-            return `${value} B/s`;
+            return `${value} ${playtimeLocalization.measure_b_s}`;
         }
 
         value /= 1024.0;
         if (value < 1024) {
-            return `${Math.round(value * 10) / 10} kB/s`;
+            return `${Math.round(value * 10) / 10} ${playtimeLocalization.measure_kb_s}`;
         }
 
         value /= 1024.0;
-        return `${Math.round(value * 10) / 10} MB/s`;
+        return `${Math.round(value * 10) / 10} ${playtimeLocalization.measure_mb_s}`;
     }
 
     function _formatBytes(value) {
         if (value < 1024) {
-            return `${value} B`;
+            return `${value} ${playtimeLocalization.measure_b}`;
         }
 
         value /= 1024.0;
         if (value < 1024) {
-            return `${Math.round(value * 10) / 10} kB`;
+            return `${Math.round(value * 10) / 10} ${playtimeLocalization.measure_kb}`;
         }
 
         value /= 1024.0;
         if (value < 1024) {
-            return `${Math.round(value * 10) / 10} MB`;
+            return `${Math.round(value * 10) / 10} ${playtimeLocalization.measure_mb}`;
         }
 
         value /= 1024.0;
-        return `${Math.round(value * 10) / 10} GB`;
+        return `${Math.round(value * 10) / 10} ${playtimeLocalization.measure_gb}`;
     }
 
 })();
