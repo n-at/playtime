@@ -21,6 +21,7 @@
   "login.password.placeholder": "Password",
   "login.password.label": "Password",
   "login.submit": "Sign in",
+  "login.incorrect": "Incorrect login or password",
 
   "games.title": "Games",
   "games.header": "Games",

@@ -42,11 +42,7 @@ func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c ech
 	}
 
 	//l10n
-	lang := localization.DefaultLanguageCode
-	langCookie, err := c.Cookie("playtime-l10n")
-	if err == nil && localization.Exists(langCookie.Value) {
-		lang = langCookie.Value
-	}
+	lang := localization.Code(c)
 	ctx["localization_list"] = localization.List()
 	ctx["localization_lang"] = lang
 	ctx["loc"] = func(s string, args ...any) string {

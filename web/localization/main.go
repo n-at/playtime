@@ -3,6 +3,7 @@ package localization
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
 	"os"
 	"slices"
@@ -82,6 +83,19 @@ func List() []Item {
 func Exists(name string) bool {
 	_, ok := localizations[name]
 	return ok
+}
+
+func Code(c echo.Context) string {
+	langCookie, err := c.Cookie("playtime-l10n")
+	if err == nil && Exists(langCookie.Value) {
+		return langCookie.Value
+	} else {
+		return DefaultLanguageCode
+	}
+}
+
+func LocalizeCtx(c echo.Context, s string, args ...any) string {
+	return Localize(Code(c), s, args)
 }
 
 func Localize(lang, s string, args []any) string {

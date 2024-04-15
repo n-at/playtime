@@ -6,6 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
+	"playtime/web/localization"
 	"time"
 )
 
@@ -41,7 +42,7 @@ func (s *Server) loginSubmit(c echo.Context) error {
 		return c.Render(http.StatusOK, "login", pongo2.Context{
 			"_csrf_token": c.Get("csrf"),
 			"login":       login,
-			"error":       "Incorrect login or password",
+			"error":       localization.LocalizeCtx(c, "login.incorrect"),
 		})
 	}
 
@@ -50,7 +51,7 @@ func (s *Server) loginSubmit(c echo.Context) error {
 		return c.Render(http.StatusOK, "login", pongo2.Context{
 			"_csrf_token": c.Get("csrf"),
 			"login":       login,
-			"error":       "Incorrect login or password",
+			"error":       localization.LocalizeCtx(c, "login.incorrect"),
 		})
 	}
 
@@ -79,7 +80,7 @@ func (s *Server) logout(c echo.Context) error {
 
 	if context.session != nil {
 		if err := s.storage.SessionDeleteById(context.session.Id); err != nil {
-			log.Errorf("logout session selete error: %s", err)
+			log.Errorf("logout session delete error: %s", err)
 		}
 	}
 
