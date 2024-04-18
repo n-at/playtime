@@ -158,7 +158,7 @@
             window.FlashButtonIcon(
                 'btn-save-state',
                 ['btn-outline-secondary'],
-                ['bi-box-arrow-down'],
+                ['bi-floppy'],
                 ['btn-outline-info'],
                 ['bi-check']
             );
@@ -166,7 +166,7 @@
             window.FlashButtonIcon(
                 'btn-save-state',
                 ['btn-outline-secondary'],
-                ['bi-box-arrow-down'],
+                ['bi-floppy'],
                 ['btn-outline-success'],
                 ['bi-check']
             );
@@ -177,7 +177,7 @@
         window.FlashButtonIcon(
             'btn-save-state',
             ['btn-outline-secondary'],
-            ['bi-box-arrow-down'],
+            ['bi-floppy'],
             ['btn-outline-danger'],
             ['bi-x']
         );
@@ -187,7 +187,7 @@
         window.FlashButtonIcon(
             'btn-load-state-latest',
             ['btn-outline-secondary'],
-            ['bi-box-arrow-up'],
+            ['bi-folder2-open'],
             ['btn-outline-success'],
             ['bi-check']
         );
@@ -197,7 +197,7 @@
         window.FlashButtonIcon(
             'btn-load-state-latest',
             ['btn-outline-secondary'],
-            ['bi-box-arrow-up'],
+            ['bi-folder2-open'],
             ['btn-outline-danger'],
             ['bi-x']
         );
