@@ -81,6 +81,7 @@ html[data-bs-theme="dark"] .list-group-hover .list-group-item:hover {
     right: 0;
     top: 0;
     bottom: 0;
+    z-index: 100 !important;
 }
 .drop-overlay-caption {
     margin-top: 45vh;
