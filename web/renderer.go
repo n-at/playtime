@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"playtime/web/localization"
+	"strings"
 )
 
 type pongo2Renderer struct {
@@ -39,6 +40,10 @@ func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c ech
 	}
 	if err != nil {
 		return err
+	}
+
+	ctx["split_description"] = func(s string) []string {
+		return strings.Split(s, "\n")
 	}
 
 	//l10n

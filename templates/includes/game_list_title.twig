@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-sm-9 col-lg-10 col-xl-11">
+        <div class="lead">
+            {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
+                <i class="text-primary bi bi-globe" title="{{ loc("games.netplay.title") }}"></i>
+            {% endif %}
+            {% if game.OverrideEmulatorSettings %}
+                <i class="text-warning bi bi-cpu" title="{{ loc("games.emulation-settings.title") }}"></i>
+            {% endif %}
+            <a href="/play/{{ game.Id }}" class="game-name">{{ game.Name }}</a>
+        </div>
+    </div>
+    <div class="col-sm-3 col-lg-2 col-xl-1 text-end text-nowrap">
+        {% include "game_menu.twig" with game_menu_title=false game_menu_play=true delete_with_modal=true %}
+    </div>
+</div>

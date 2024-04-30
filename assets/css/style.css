@@ -122,3 +122,14 @@ button#theme, button#localization {
     color: var(--bs-heading-color);
     text-decoration: none;
 }
+
+.game-description {
+    text-justify: auto;
+}
+
+.game-tags .game-tag {
+    opacity: .5;
+}
+.game-tags:hover .game-tag {
+    opacity: 1;
+}

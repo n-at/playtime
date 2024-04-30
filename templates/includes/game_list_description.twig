@@ -1,0 +1,7 @@
+{% if game.Description %}
+    <div class="game-description text-secondary mt-2">
+        {% for line in split_description(game.Description) %}
+            <div>{{ line }}</div>
+        {% endfor %}
+    </div>
+{% endif %}

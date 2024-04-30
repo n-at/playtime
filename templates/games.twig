@@ -63,38 +63,24 @@
         <div id="games-container" class="list-group list-group-hover mb-5">
             {% for game in games %}
                 <div class="game list-group-item">
-                    <div class="row">
-                        <div class="col-sm-3 col-md-2 text-center">
-                            {% if game.CoverImageLink %}
+                    {% if game.CoverImageLink %}
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <img src="{{ game.CoverImageLink }}"
                                      alt="{{ loc("games.cover-image.alt") }}"
                                      class="img-fluid d-block mt-1 mb-1">
-                            {% else %}
-                                <i class="bi bi-controller d-inline-block text-secondary mt-1"
-                                   style="font-size: 3em"
-                                   title="{{ loc("games.no-cover-image.title") }}"></i>
-                            {% endif %}
-                        </div>
-                        <div class="col-sm-7 col-md-8 col-lg-9">
-                            <div class="lead">
-                                {% if netplay_enabled and game.NetplayEnabled and game.NetplaySessionId %}
-                                    <i class="text-primary bi bi-globe" title="{{ loc("games.netplay.title") }}"></i>
-                                {% endif %}
-                                {% if game.OverrideEmulatorSettings %}
-                                    <i class="text-warning bi bi-cpu" title="{{ loc("games.emulation-settings.title") }}"></i>
-                                {% endif %}
-                                <a href="/play/{{ game.Id }}" class="game-name">{{ game.Name }}</a>
                             </div>
-                            {% if game.Description %}
-                                <div class="game=description text-secondary mt-2">
-                                    {{ game.Description }}
-                                </div>
-                            {% endif %}
+                            <div class="col-sm-9">
+                               {% include "includes/game_list_title.twig" %}
+                               {% include "includes/game_list_description.twig" %}
+                            </div>
                         </div>
-                        <div class="col-sm-2 col-md-2 col-lg-1 text-end text-nowrap">
-                            {% include "includes/game_menu.twig" with game_menu_title=false game_menu_play=true delete_with_modal=true %}
+                    {% else %}
+                        <div>
+                            {% include "includes/game_list_title.twig" %}
+                            {% include "includes/game_list_description.twig" %}
                         </div>
-                    </div>
+                    {% endif %}
                     <div>
                         <div class="game-tags mt-2">
                             <span class="badge border border-secondary text-body game-tag" role="button">{{ game.PlatformName }}</span>
