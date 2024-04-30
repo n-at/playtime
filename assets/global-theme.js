@@ -21,6 +21,10 @@
         }
 
         const themeSwitcherIconEl = document.querySelector('#theme i.bi');
+        if (!themeSwitcherIconEl) {
+            return;
+        }
+
         themeSwitcherIconEl.classList.remove('bi-circle-half', 'bi-sun', 'bi-moon-stars');
         switch (theme) {
             case ThemeSystemDefault:
@@ -45,15 +49,26 @@
     }
 
     window.addEventListener('load', () => {
-        document.getElementById('theme-system-default').addEventListener('click', () => {
-            setCurrentTheme(ThemeSystemDefault);
-        });
-        document.getElementById('theme-light').addEventListener('click', () => {
-            setCurrentTheme(ThemeLight);
-        });
-        document.getElementById('theme-dark').addEventListener('click', () => {
-            setCurrentTheme(ThemeDark);
-        });
+        const systemBtn = document.getElementById('theme-system-default');
+        if (systemBtn) {
+            systemBtn.addEventListener('click', () => {
+                setCurrentTheme(ThemeSystemDefault);
+            });
+        }
+
+        const lightBtn = document.getElementById('theme-light');
+        if (lightBtn) {
+            lightBtn.addEventListener('click', () => {
+                setCurrentTheme(ThemeLight);
+            });
+        }
+
+        const darkBtn = document.getElementById('theme-dark');
+        if (darkBtn) {
+            darkBtn.addEventListener('click', () => {
+                setCurrentTheme(ThemeDark);
+            });
+        }
 
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
             const newTheme = event.matches ? ThemeDark : ThemeLight;

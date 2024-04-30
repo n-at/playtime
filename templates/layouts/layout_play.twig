@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="dark">
+<html lang="en" data-bs-theme="">
 <head>
     {% include "../includes/layout_head.twig" %}
     {% block assets %}{% endblock %}
@@ -10,6 +10,9 @@
 {% block content %}{% endblock %}
 
 {% include "../includes/script_localization.twig" %}
+
+<script src="/assets/global-theme.js"></script>
+<script src="/assets/global-localization.js"></script>
 
 </body>
 </html>
