@@ -111,6 +111,8 @@ sleep 5
 playtime_password=$(cat "playtime/data/admin.password")
 echo ">>>>>>>>>> DONE <<<<<<<<<<"
 echo ""
+echo "https://${DOMAIN}/"
+echo ""
 echo "Your login: admin"
 echo "Your password: ${playtime_password}"
 echo ""
