@@ -106,3 +106,11 @@ cp "../build/docker/router/playtime.conf" "conf/vhost.conf"
 sed -i "s/REPLACE_DOMAIN/${DOMAIN}/g" "conf/vhost.conf"
 docker-compose up -d --force-recreate
 cd ..
+
+sleep 5
+playtime_password=$(cat "playtime/data/admin.password")
+echo ">>>>>>>>>> DONE <<<<<<<<<<"
+echo ""
+echo "Your login: admin"
+echo "Your password: ${playtime_password}"
+echo ""
