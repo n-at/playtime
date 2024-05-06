@@ -1,54 +1,56 @@
-<hr class="mt-5 mb-3">
+<div class="container">
+    <hr class="mt-5 mb-3">
 
-<div class="row mb-3">
-    <div class="col-4 text-start">
-        <div class="dropdown d-inline-block">
-            <button id="theme" class="btn btn-sm btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-circle-half"></i> {{ loc("footer.theme") }}
-            </button>
-            <ul class="dropdown-menu">
-                <li>
-                    <button id="theme-system-default" type="button" class="dropdown-item">
-                        <i class="bi bi-circle-half"></i> {{ loc("footer.theme.default") }}
-                    </button>
-                </li>
-                <li>
-                    <button id="theme-light" type="button" class="dropdown-item">
-                        <i class="bi bi-sun"></i> {{ loc("footer.theme.light") }}
-                    </button>
-                </li>
-                <li>
-                    <button id="theme-dark" type="button" class="dropdown-item">
-                        <i class="bi bi-moon-stars"></i> {{ loc("footer.theme.dark") }}
-                    </button>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div class="col-4 text-center align-items-center">
-        {% if user and user.Quota %}
-            <small>
-                {% include "../includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
-            </small>
-        {% endif %}
-    </div>
-    <div class="col-4 text-end">
-        <div class="dropdown inline-block">
-            <button id="localization" class="btn btn-sm btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-translate"></i> {{ loc("footer.language") }}
-            </button>
-            <ul class="dropdown-menu">
-                {% for item in localization_list %}
+    <div class="row mb-3">
+        <div class="col-4 text-start">
+            <div class="dropdown d-inline-block">
+                <button id="theme" class="btn btn-sm btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-circle-half"></i> {{ loc("footer.theme") }}
+                </button>
+                <ul class="dropdown-menu">
                     <li>
-                        <button type="button" class="dropdown-item localization" data-lang="{{ item.Code }}">
-                            {% if item.Code == localization_lang %}
-                                <i class="bi bi-check"></i>
-                            {% endif %}
-                            {{ item.Name }}
+                        <button id="theme-system-default" type="button" class="dropdown-item">
+                            <i class="bi bi-circle-half"></i> {{ loc("footer.theme.default") }}
                         </button>
                     </li>
-                {% endfor %}
-            </ul>
+                    <li>
+                        <button id="theme-light" type="button" class="dropdown-item">
+                            <i class="bi bi-sun"></i> {{ loc("footer.theme.light") }}
+                        </button>
+                    </li>
+                    <li>
+                        <button id="theme-dark" type="button" class="dropdown-item">
+                            <i class="bi bi-moon-stars"></i> {{ loc("footer.theme.dark") }}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-4 text-center align-items-center">
+            {% if user and user.Quota %}
+                <small>
+                    {% include "../includes/quota_display.twig" with total=user.Quota used=user.GetQuotaUsed() %}
+                </small>
+            {% endif %}
+        </div>
+        <div class="col-4 text-end">
+            <div class="dropdown inline-block">
+                <button id="localization" class="btn btn-sm btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-translate"></i> {{ loc("footer.language") }}
+                </button>
+                <ul class="dropdown-menu">
+                    {% for item in localization_list %}
+                        <li>
+                            <button type="button" class="dropdown-item localization" data-lang="{{ item.Code }}">
+                                {% if item.Code == localization_lang %}
+                                    <i class="bi bi-check"></i>
+                                {% endif %}
+                                {{ item.Name }}
+                            </button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
     </div>
 </div>
