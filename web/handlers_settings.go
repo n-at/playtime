@@ -15,13 +15,12 @@ func (s *Server) settingsGeneralForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "settings", pongo2.Context{
-		"_csrf_token":     c.Get("csrf"),
-		"user":            context.user,
-		"settings":        context.settings,
-		"done":            c.QueryParam("done"),
-		"languages":       storage.Languages,
-		"platforms":       sortedPlatforms(),
-		"netplay_enabled": s.config.NetplayEnabled,
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"settings":    context.settings,
+		"done":        c.QueryParam("done"),
+		"languages":   storage.Languages,
+		"platforms":   sortedPlatforms(),
 	})
 }
 

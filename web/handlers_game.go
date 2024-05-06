@@ -25,12 +25,11 @@ func (s *Server) games(c echo.Context) error {
 	}
 
 	return c.Render(http.StatusOK, "games", pongo2.Context{
-		"_csrf_token":     c.Get("csrf"),
-		"user":            context.user,
-		"games":           games,
-		"tags":            tags,
-		"platforms":       gamesPlatformTags(games),
-		"netplay_enabled": s.config.NetplayEnabled,
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"games":       games,
+		"tags":        tags,
+		"platforms":   gamesPlatformTags(games),
 	})
 }
 

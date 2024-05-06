@@ -4,6 +4,7 @@
   "brand": "playtime",
 
   "nav.games": "Games",
+  "nav.open": "Open netplay games",
   "nav.profile": "Profile",
   "nav.settings": "Settings",
   "nav.users": "Users",
@@ -356,6 +357,14 @@
   "version.dependencies.path": "Path",
   "version.dependencies.version": "Version",
   "version.dependencies.checksum": "Checksum",
+
+  "open.title": "Open netplay games",
+  "open.header": "Open netplay games",
+  "open.empty": "No active netplay games",
+  "open.no-netplay": "Netplay disabled",
+  "open.login-required.title": "Login required",
+  "open.clients.title": "Connected clients",
+  "open.owner.title": "Game owner",
 
   "footer.theme": "Theme",
   "footer.theme.default": "System default",

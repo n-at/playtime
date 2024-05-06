@@ -14,6 +14,15 @@ import (
 	"strings"
 )
 
+type openGame struct {
+	Game     storage.Game
+	User     storage.User
+	Session  gamesession.SessionGame
+	Platform string
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
 func (s *Server) getCoreByGameId(user *storage.User, gameId string) (string, error) {
 	settings, err := s.storage.SettingsGetByUserId(user.Id)
 	if err != nil {
@@ -193,6 +202,23 @@ func (s *Server) getGamesWithDataByUser(user *storage.User) ([]storage.GameWithD
 	}
 
 	return gamesWithData, nil
+}
+
+func (s *Server) findContextSessionUser(c *PlaytimeContext) (*storage.User, error) {
+	if c.session == nil || len(c.session.UserId) == 0 {
+		return nil, nil
+	}
+
+	u, err := s.storage.UserFindById(c.session.UserId)
+	if err != nil {
+		return nil, err
+	}
+
+	if len(u.Id) != 0 && u.Active {
+		return &u, nil
+	}
+
+	return nil, nil
 }
 
 ///////////////////////////////////////////////////////////////////////////////

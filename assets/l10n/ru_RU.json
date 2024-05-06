@@ -4,6 +4,7 @@
   "brand": "playtime",
 
   "nav.games": "Игры",
+  "nav.open": "Открытые сетевые игры",
   "nav.profile": "Профиль",
   "nav.settings": "Настройки",
   "nav.users": "Пользователи",
@@ -356,6 +357,14 @@
   "version.dependencies.path": "Путь",
   "version.dependencies.version": "Версия",
   "version.dependencies.checksum": "Контрольная сумма",
+
+  "open.title": "Открытые сетевые игры",
+  "open.header": "Открытые сетевые игры",
+  "open.empty": "Нет текущих сетевых игр",
+  "open.no-netplay": "Сетевая игра отключена",
+  "open.login-required.title": "требуется вход",
+  "open.clients.title": "Подключенные клиенты",
+  "open.owner.title": "Владелец игры",
 
   "footer.theme": "Тема",
   "footer.theme.default": "Системная",

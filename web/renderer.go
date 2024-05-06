@@ -46,6 +46,11 @@ func (r pongo2Renderer) Render(w io.Writer, name string, data interface{}, c ech
 		return strings.Split(s, "\n")
 	}
 
+	_, ok = ctx["netplay_enabled"]
+	if !ok {
+		ctx["netplay_enabled"] = r.config.NetplayEnabled
+	}
+
 	//l10n
 	lang := localization.Code(c)
 	ctx["localization_list"] = localization.List()

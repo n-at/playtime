@@ -1,0 +1,42 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+    {{ loc("open.title")}} - {{ loc("brand") }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ loc("open.header") }}</h1>
+    <hr>
+
+    {% if netplay_enabled %}
+        {% if games %}
+            <div class="list-group list-group-hover mb-3">
+                {% for active_game in games %}
+                    <div class="list-group-item">
+                        <div class="lead mb-1">
+                            {% if active_game.Game.NetplayRequireLogin and not user %}
+                                <i class="bi bi-shield-lock" title="{{ loc("open.login-required.title") }}"></i>
+                            {% endif %}
+                            <a href="/netplay/{{ active_game.Game.Id }}/{{ active_game.Game.NetplaySessionId }}" class="game-name">{{ active_game.Game.Name }}</a>
+                        </div>
+                        <div>
+                            <span class="badge border border-secondary text-body game-tag">
+                                {{ active_game.Platform }}
+                            </span>
+                            <span class="ms-3" title="{{ loc("open.clients.title") }}">
+                                <i class="bi bi-people"></i> {{ active_game.Session.Clients }}
+                            </span>
+                            <span class="ms-3" title="{{ loc("open.owner.title") }}">
+                                <i class="bi bi-person-circle"></i> {{ active_game.User.Login }}
+                            </span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            {% include "includes/empty_state.twig" with icon="bi bi-controller" text=loc("open.empty") %}
+        {% endif %}
+    {% else %}
+        {% include "includes/empty_state.twig" with icon="bi bi-globe" text=loc("open.no-netplay") %}
+    {% endif %}
+{% endblock %}

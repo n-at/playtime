@@ -20,6 +20,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/games">{{ loc("nav.games") }}</a>
                     </li>
+                {% endif %}
+                {% if netplay_enabled %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/open">{{ loc("nav.open") }}</a>
+                    </li>
+                {% endif %}
+                {% if user %}
                     <li class="nav-item">
                         <a class="nav-link" href="/profile">{{ loc("nav.profile") }}</a>
                     </li>

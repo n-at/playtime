@@ -123,6 +123,28 @@ func (s *Storage) UserFindAll() ([]User, error) {
 	return userSorted(users), nil
 }
 
+func (s *Storage) UserFindByIds(userIds []string) ([]User, error) {
+	var users []User
+
+	if len(userIds) == 0 {
+		return users, nil
+	}
+
+	if err := s.store.Find(&users, bolthold.Where(bolthold.Key).In(bolthold.Slice(userIds)...)); err != nil {
+		return nil, err
+	}
+
+	for i := 0; i < len(users); i++ {
+		quota, err := s.userQuotaUsed(users[i].Id)
+		if err != nil {
+			return nil, err
+		}
+		users[i].quotaUsed = quota
+	}
+
+	return users, nil
+}
+
 func (s *Storage) UserCount() (int, error) {
 	return s.store.Count(User{}, nil)
 }
@@ -371,6 +393,24 @@ func (s *Storage) GameGetByUploadBatchId(loadBatchId string) ([]Game, error) {
 
 	var games []Game
 	if err := s.store.Find(&games, bolthold.Where(bolthold.Key).In(bolthold.Slice(lb.GameIds)...)); err != nil {
+		return nil, err
+	}
+
+	return gameSorted(games), nil
+}
+
+func (s *Storage) GameGetByIdsWithNetplayOpen(gameIdsFilter []string) ([]Game, error) {
+	var games []Game
+
+	if len(gameIdsFilter) == 0 {
+		return games, nil
+	}
+
+	query := bolthold.Where(bolthold.Key).In(bolthold.Slice(gameIdsFilter)...).
+		And("NetplayEnabled").Eq(true).
+		And("NetplayOpen").Eq(true)
+
+	if err := s.store.Find(&games, query); err != nil {
 		return nil, err
 	}
 

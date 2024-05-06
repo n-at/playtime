@@ -26,22 +26,16 @@ func (s *Server) netplay(c echo.Context) error {
 		return errors.New("netplay for game not available")
 	}
 
-	var user *storage.User
-
-	if pctx.session != nil && len(pctx.session.UserId) != 0 {
-		if pctx.session.UserId == game.UserId {
-			return c.Redirect(http.StatusFound, "/play/"+game.Id)
-		}
-		u, err := s.storage.UserFindById(pctx.session.UserId)
-		if err != nil {
-			return err
-		}
-		if len(u.Id) != 0 && u.Active {
-			user = &u
-		}
+	user, err := s.findContextSessionUser(pctx)
+	if err != nil {
+		return err
 	}
 
-	if game.NetplayRequireLogin && user == nil {
+	if user != nil && user.Id == game.UserId {
+		return c.Redirect(http.StatusFound, "/play/"+game.Id)
+	}
+
+	if user == nil && game.NetplayRequireLogin {
 		return c.Redirect(http.StatusFound, fmt.Sprintf("/login?return=/netplay/%s/%s", game.Id, game.NetplaySessionId))
 	}
 

@@ -15,6 +15,11 @@ type SessionStorage struct {
 	lock     sync.RWMutex
 }
 
+type SessionGame struct {
+	GameId  string
+	Clients int
+}
+
 func NewSessionStorage() *SessionStorage {
 	storage := &SessionStorage{
 		sessions: make(map[string]*GameSession),
@@ -74,4 +79,23 @@ func (s *SessionStorage) GetSessions() []string {
 	}
 
 	return ids
+}
+
+func (s *SessionStorage) GetActiveGames() []SessionGame {
+	s.lock.RLock()
+	defer s.lock.RUnlock()
+
+	var games []SessionGame
+
+	for _, session := range s.sessions {
+		item := SessionGame{
+			GameId:  session.GetGameId(),
+			Clients: session.CountClients(),
+		}
+		if item.Clients > 0 {
+			games = append(games, item)
+		}
+	}
+
+	return games
 }

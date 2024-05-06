@@ -113,6 +113,11 @@ func New(config *Configuration, storage *storage.Storage) *Server {
 	logout.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
 	logout.GET("", s.logout)
 
+	//open netplay games
+	open := e.Group("/open")
+	open.Use(middleware.RateLimiter(middleware.NewRateLimiterMemoryStore(10)))
+	open.GET("", s.open)
+
 	//user profile
 	profile := e.Group("/profile")
 	profile.Use(s.authenticationRequiredMiddleware)
