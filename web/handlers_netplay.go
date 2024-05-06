@@ -57,6 +57,7 @@ func (s *Server) netplayWS(c echo.Context) error {
 	isHost := false
 	hostId := game.UserId
 	clientId := storage.NewId()
+	clientName := storage.GenerateRandomName()
 	sessionId := game.NetplaySessionId
 
 	if pctx.session != nil && len(pctx.session.UserId) != 0 {
@@ -76,7 +77,12 @@ func (s *Server) netplayWS(c echo.Context) error {
 		}
 	}()
 
-	client := gamesession.NewClient(clientId, ws)
+	user, _ := s.findContextSessionUser(pctx)
+	if user != nil && len(user.Login) != 0 {
+		clientName = user.Login
+	}
+
+	client := gamesession.NewClient(clientId, clientName, ws)
 
 	s.gameSessionsMu.Lock() /////////////////////
 
