@@ -16,7 +16,7 @@ git clone "${PLAYTIME_EJS_REPO_URL}" _tmp
 cd _tmp
 git checkout "${PLAYTIME_EJS_REVISION}"
 cd data/minify
-npm install
+npm install --ignore-scripts
 node index.js
 rm -rf node_modules
 cd ../../..

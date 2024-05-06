@@ -68,6 +68,8 @@
   "game.edit.override-settings.label": "Переопределить настройки эмуляции",
   "game.edit.cue-enabled.label": "Включить создание файлов .cue",
   "game.edit.netplay-enabled.label": "Включить сетевую игру",
+  "game.edit.netplay-require-login.label": "Требовать вход для сетевой игры",
+  "game.edit.netplay-open.label": "Показать в списке открытых сетевых игр",
   "game.edit.auto-save-enabled.label": "Включить авто сохранение",
   "game.edit.auto-save-interval.label": "Интервал авто сохранения (минут)",
   "game.edit.auto-save-capacity": "Количество авто сохранений",

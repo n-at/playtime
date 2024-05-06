@@ -68,6 +68,8 @@
   "game.edit.override-settings.label": "Override emulation settings",
   "game.edit.cue-enabled.label": "Enable creation of .cue file",
   "game.edit.netplay-enabled.label": "Netplay enabled",
+  "game.edit.netplay-require-login.label": "Require login for netplay",
+  "game.edit.netplay-open.label": "Show in open netplay games",
   "game.edit.auto-save-enabled.label": "Auto save enabled",
   "game.edit.auto-save-interval.label": "Auto save interval (minutes)",
   "game.edit.auto-save-capacity": "Auto save capacity",

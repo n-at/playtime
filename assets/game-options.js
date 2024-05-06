@@ -10,9 +10,28 @@
         }
     }
 
+    function netplayOptionsVisibility() {
+        const enabled = document.getElementById("netplay-enabled");
+        const el = document.getElementById("netplay-options");
+        if (enabled.checked) {
+            el.classList.remove('d-none');
+        } else {
+            el.classList.add('d-none');
+        }
+    }
+
     window.addEventListener('load', () => {
-        document.getElementById('auto-save-enabled').addEventListener('change', autoSaveOptionsVisibility);
-        autoSaveOptionsVisibility();
+        const autoSaveEnabledEl = document.getElementById('auto-save-enabled');
+        if (autoSaveEnabledEl) {
+            autoSaveEnabledEl.addEventListener('change', autoSaveOptionsVisibility);
+            autoSaveOptionsVisibility();
+        }
+
+        const netplayEnabledEl = document.getElementById('netplay-enabled');
+        if (netplayEnabledEl) {
+            netplayEnabledEl.addEventListener('change', netplayOptionsVisibility);
+            netplayOptionsVisibility();
+        }
     });
 
 })();

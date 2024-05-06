@@ -40,6 +40,8 @@ type Game struct {
 	Platform                 string `boltholdIndex:"Platform"`
 	NetplayEnabled           bool
 	NetplaySessionId         string
+	NetplayRequireLogin      bool
+	NetplayOpen              bool
 	CueEnabled               bool
 	AutoSaveEnabled          bool
 	AutoSaveInterval         int

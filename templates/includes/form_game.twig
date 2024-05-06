@@ -68,6 +68,20 @@
             <label for="netplay-enabled" class="form-check-label">{{ loc("game.edit.netplay-enabled.label") }}</label>
         </div>
     </div>
+    <div id="netplay-options">
+        <div class="mb-3">
+            <div class="form-check form-switch">
+                <input type="checkbox" id="netplay-require-login" name="netplay-require-login" value="1" class="form-check-input" {% if game.NetplayRequireLogin %}checked{% endif %}>
+                <label for="netplay-require-login" class="form-check-label">{{ loc("game.edit.netplay-require-login.label") }}</label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <div class="form-check form-switch">
+                <input type="checkbox" id="netplay-open" name="netplay-open" value="1" class="form-check-input" {% if game.NetplayOpen %}checked{% endif %}>
+                <label for="netplay-open" class="form-check-label">{{ loc("game.edit.netplay-open.label") }}</label>
+            </div>
+        </div>
+    </div>
 {% endif %}
 
 <div class="mb-3">

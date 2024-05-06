@@ -180,6 +180,8 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
 	game.CueEnabled = c.FormValue("cue-enabled") == "1"
 	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
+	game.NetplayRequireLogin = c.FormValue("netplay-require-login") == "1"
+	game.NetplayOpen = c.FormValue("netplay-open") == "1"
 
 	autoSaveInterval, err := strconv.Atoi(c.FormValue("auto-save-interval"))
 	if err != nil {
