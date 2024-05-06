@@ -21,6 +21,18 @@
                     </button>
                 </div>
 
+                {% if game.NetplayRequireLogin %}
+                    <div class="mb-3">
+                        <i class="bi bi-check"></i> {{ loc("play.netplay.login-required") }}
+                    </div>
+                {% endif %}
+
+                {% if game.NetplayOpen %}
+                    <div class="mb-3">
+                        <i class="bi bi-check"></i> {{ loc("play.netplay.open") }}
+                    </div>
+                {% endif %}
+
                 <br>
 
                 <h5>{{ loc("play.netplay.client") }}</h5>

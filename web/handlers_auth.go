@@ -22,6 +22,7 @@ func (s *Server) loginForm(c echo.Context) error {
 
 	return c.Render(http.StatusOK, "login", pongo2.Context{
 		"_csrf_token": c.Get("csrf"),
+		"return":      c.FormValue("return"),
 	})
 }
 
@@ -43,6 +44,7 @@ func (s *Server) loginSubmit(c echo.Context) error {
 			"_csrf_token": c.Get("csrf"),
 			"login":       login,
 			"error":       localization.LocalizeCtx(c, "login.incorrect"),
+			"return":      c.FormValue("return"),
 		})
 	}
 
@@ -52,6 +54,7 @@ func (s *Server) loginSubmit(c echo.Context) error {
 			"_csrf_token": c.Get("csrf"),
 			"login":       login,
 			"error":       localization.LocalizeCtx(c, "login.incorrect"),
+			"return":      c.FormValue("return"),
 		})
 	}
 
@@ -67,12 +70,18 @@ func (s *Server) loginSubmit(c echo.Context) error {
 			"_csrf_token": c.Get("csrf"),
 			"login":       login,
 			"error":       err.Error(),
+			"return":      c.FormValue("return"),
 		})
 	}
 
 	context.SetSessionId(session.Id, c.IsTLS())
 
-	return c.Redirect(http.StatusFound, "/")
+	ret := c.FormValue("return")
+	if len(ret) == 0 {
+		ret = "/"
+	}
+
+	return c.Redirect(http.StatusFound, ret)
 }
 
 func (s *Server) logout(c echo.Context) error {

@@ -3,6 +3,7 @@ package web
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/flosch/pongo2/v6"
 	"github.com/labstack/echo/v4"
 	log "github.com/sirupsen/logrus"
@@ -38,6 +39,10 @@ func (s *Server) netplay(c echo.Context) error {
 		if len(u.Id) != 0 && u.Active {
 			user = &u
 		}
+	}
+
+	if game.NetplayRequireLogin && user == nil {
+		return c.Redirect(http.StatusFound, fmt.Sprintf("/login?return=/netplay/%s/%s", game.Id, game.NetplaySessionId))
 	}
 
 	return c.Render(http.StatusOK, "netplay", pongo2.Context{

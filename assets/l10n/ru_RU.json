@@ -127,6 +127,8 @@
   "play.netplay.quality.medium": "Среднее",
   "play.netplay.quality.lower": "Ниже среднего",
   "play.netplay.quality.low": "Низкое",
+  "play.netplay.login-required": "Для подключения требуется войти",
+  "play.netplay.open": "Показывается в списке открытых сетевых игр",
   "play.controls.title": "Управление",
   "play.controls.header": "Управление",
   "play.controls.close.title": "Закрыть",

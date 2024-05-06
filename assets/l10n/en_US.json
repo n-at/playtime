@@ -127,6 +127,8 @@
   "play.netplay.quality.medium": "Medium",
   "play.netplay.quality.lower": "Lower",
   "play.netplay.quality.low": "Low",
+  "play.netplay.login-required": "Login required to join",
+  "play.netplay.open": "Show in open netplay games",
   "play.controls.title": "Controls",
   "play.controls.header": "Controls",
   "play.controls.close.title": "Close",
