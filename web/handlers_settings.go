@@ -204,6 +204,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		Threads:                c.FormValue("threads") == "1",
 		DisableBrowserDB:       c.FormValue("disable-browser-db") == "1",
 		DisableVSync:           c.FormValue("disable-vsync") == "1",
+		CueEnabled:             c.FormValue("cue-enabled") == "1",
 		Buttons:                buttons,
 		Controls:               settingsCollectControls(c),
 		CoreOptions:            coreOptionsValues,

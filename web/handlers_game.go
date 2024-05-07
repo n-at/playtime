@@ -66,7 +66,6 @@ func (s *Server) gameUpload(c echo.Context) error {
 			OriginalFileExtension:    getFileExtension(file.Filename),
 			OriginalFileSize:         file.Size,
 			Platform:                 "",
-			CueEnabled:               true,
 			AutoSaveEnabled:          false,
 			AutoSaveInterval:         5 * 60,
 			AutoSaveCapacity:         10,
@@ -177,7 +176,6 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	game.Name = c.FormValue("name")
 	game.Description = c.FormValue("description")
 	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
-	game.CueEnabled = c.FormValue("cue-enabled") == "1"
 	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
 	game.NetplayRequireLogin = c.FormValue("netplay-require-login") == "1"
 	game.NetplayOpen = c.FormValue("netplay-open") == "1"

@@ -42,7 +42,6 @@ type Game struct {
 	NetplaySessionId         string
 	NetplayRequireLogin      bool
 	NetplayOpen              bool
-	CueEnabled               bool
 	AutoSaveEnabled          bool
 	AutoSaveInterval         int
 	AutoSaveCapacity         int
@@ -90,6 +89,7 @@ type EmulatorSettings struct {
 	Threads                bool
 	DisableBrowserDB       bool
 	DisableVSync           bool
+	CueEnabled             bool
 }
 
 type EmulatorControls struct {

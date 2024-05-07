@@ -33,5 +33,11 @@
             <input type="checkbox" id="disable-browser-db" name="disable-browser-db" class="form-check-input" value="1" {% if settings.DisableBrowserDB %}checked{% endif %}>
             <label for="disable-browser-db">{{ loc("settings-platform.emulation.disable-browser-db.label") }}</label>
         </div>
+        <div class="mb-3">
+            <div class="form-check form-switch">
+                <input type="checkbox" id="cue-enabled" name="cue-enabled" class="form-check-input" value="1" {% if settings.CueEnabled %}checked{% endif %}>
+                <label for="cue-enabled">{{ loc("settings-platform.emulation.cue-enabled.label") }}</label>
+            </div>
+        </div>
     </div>
 </div>
