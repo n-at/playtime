@@ -214,6 +214,7 @@
   "settings.general.language.label": "Язык эмулятора",
   "settings.general.submit": "Сохранить",
   "settings.platform.header": "Настройки по платформам",
+  "settings.default-game.header": "Настройки по умолчанию для загруженных игр",
 
   "settings-platform.title": "Настройки для %s",
   "settings-platform.header": "Настройки",

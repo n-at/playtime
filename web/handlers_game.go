@@ -55,6 +55,11 @@ func (s *Server) gameUpload(c echo.Context) error {
 		return errors.New("disk quota exceeded")
 	}
 
+	settings, err := s.storage.SettingsGetByUserId(context.user.Id)
+	if err != nil {
+		return err
+	}
+
 	var gameIds []string
 
 	for _, file := range files {
@@ -66,9 +71,12 @@ func (s *Server) gameUpload(c echo.Context) error {
 			OriginalFileExtension:    getFileExtension(file.Filename),
 			OriginalFileSize:         file.Size,
 			Platform:                 "",
-			AutoSaveEnabled:          false,
-			AutoSaveInterval:         5 * 60,
-			AutoSaveCapacity:         10,
+			NetplayEnabled:           settings.DefaultGameSettings.NetplayEnabled,
+			NetplayRequireLogin:      settings.DefaultGameSettings.NetplayRequireLogin,
+			NetplayOpen:              settings.DefaultGameSettings.NetplayOpen,
+			AutoSaveEnabled:          settings.DefaultGameSettings.AutoSaveEnabled,
+			AutoSaveInterval:         settings.DefaultGameSettings.AutoSaveInterval,
+			AutoSaveCapacity:         settings.DefaultGameSettings.AutoSaveCapacity,
 			OverrideEmulatorSettings: false,
 			EmulatorSettings:         storage.DefaultEmulatorSettings(""),
 		}
@@ -139,12 +147,6 @@ func (s *Server) gameEditForm(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 	game := context.game
 
-	if game.AutoSaveInterval == 0 {
-		game.AutoSaveInterval = 5 * 60
-	}
-	if game.AutoSaveCapacity == 0 {
-		game.AutoSaveCapacity = 5
-	}
 	if len(game.CoverImage) > 0 {
 		imgPath, err := storage.GetUploadPath(game.CoverImage)
 		if err == nil {
@@ -172,14 +174,6 @@ func (s *Server) gameEditForm(c echo.Context) error {
 func (s *Server) gameEditSubmit(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
-	game := context.game
-	game.Name = c.FormValue("name")
-	game.Description = c.FormValue("description")
-	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
-	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
-	game.NetplayRequireLogin = c.FormValue("netplay-require-login") == "1"
-	game.NetplayOpen = c.FormValue("netplay-open") == "1"
-
 	autoSaveInterval, err := strconv.Atoi(c.FormValue("auto-save-interval"))
 	if err != nil {
 		return err
@@ -189,6 +183,13 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 		return err
 	}
 
+	game := context.game
+	game.Name = c.FormValue("name")
+	game.Description = c.FormValue("description")
+	game.OverrideEmulatorSettings = c.FormValue("override-settings") == "1"
+	game.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
+	game.NetplayRequireLogin = c.FormValue("netplay-require-login") == "1"
+	game.NetplayOpen = c.FormValue("netplay-open") == "1"
 	game.AutoSaveEnabled = c.FormValue("auto-save-enabled") == "1"
 	game.AutoSaveInterval = autoSaveInterval * 60
 	game.AutoSaveCapacity = autoSaveCapacity

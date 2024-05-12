@@ -62,8 +62,16 @@ func CheckPassword(password, hash string) bool {
 
 func DefaultSettings(userId string) Settings {
 	settings := Settings{
-		UserId:           userId,
-		Language:         DefaultLanguage,
+		UserId:   userId,
+		Language: DefaultLanguage,
+		DefaultGameSettings: Game{
+			NetplayEnabled:      false,
+			NetplayRequireLogin: false,
+			NetplayOpen:         false,
+			AutoSaveEnabled:     false,
+			AutoSaveCapacity:    10,
+			AutoSaveInterval:    5 * 60,
+		},
 		EmulatorSettings: make(map[string]EmulatorSettings),
 	}
 	for system := range Platforms {

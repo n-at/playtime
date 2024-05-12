@@ -54,49 +54,7 @@
     </div>
 </div>
 
-{% if netplay_enabled %}
-    <div class="mb-3">
-        <div class="form-check form-switch">
-            <input type="checkbox" id="netplay-enabled" name="netplay-enabled" value="1" class="form-check-input" {% if game.NetplayEnabled %}checked{% endif %}>
-            <label for="netplay-enabled" class="form-check-label">{{ loc("game.edit.netplay-enabled.label") }}</label>
-        </div>
-    </div>
-    <div id="netplay-options">
-        <div class="mb-3">
-            <div class="form-check form-switch">
-                <input type="checkbox" id="netplay-require-login" name="netplay-require-login" value="1" class="form-check-input" {% if game.NetplayRequireLogin %}checked{% endif %}>
-                <label for="netplay-require-login" class="form-check-label">{{ loc("game.edit.netplay-require-login.label") }}</label>
-            </div>
-        </div>
-        <div class="mb-3">
-            <div class="form-check form-switch">
-                <input type="checkbox" id="netplay-open" name="netplay-open" value="1" class="form-check-input" {% if game.NetplayOpen %}checked{% endif %}>
-                <label for="netplay-open" class="form-check-label">{{ loc("game.edit.netplay-open.label") }}</label>
-            </div>
-        </div>
-    </div>
-{% endif %}
-
-<div class="mb-3">
-    <div class="form-check form-switch">
-        <input type="checkbox" id="auto-save-enabled" name="auto-save-enabled" value="1" class="form-check-input" {% if game.AutoSaveEnabled %}checked{% endif %}>
-        <label for="auto-save-enabled" class="form-check-label">{{ loc("game.edit.auto-save-enabled.label") }}</label>
-    </div>
-</div>
-<div id="auto-save-options" class="row mb-3 d-none">
-    <div class="col-6">
-        <div class="form-floating">
-            <input type="number" id="auto-save-interval" name="auto-save-interval" class="form-control" value="{{ game.AutoSaveInterval / 60 }}" min="1" step="1" placeholder="5">
-            <label for="auto-save-interval">{{ loc("game.edit.auto-save-interval.label") }}</label>
-        </div>
-    </div>
-    <div class="col-6">
-        <div class="form-floating">
-            <input type="number" id="auto-save-capacity" name="auto-save-capacity" class="form-control" value="{{ game.AutoSaveCapacity }}" min="1" step="1" placeholder="10">
-            <label for="auto-save-capacity">{{ loc("game.edit.auto-save-capacity") }}</label>
-        </div>
-    </div>
-</div>
+{% include "form_game_settings.twig" %}
 
 <div class="form-floating mb-3">
     <select class="form-select" id="tags" name="tags[]" multiple

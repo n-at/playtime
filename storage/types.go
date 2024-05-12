@@ -22,9 +22,10 @@ type Session struct {
 }
 
 type Settings struct {
-	UserId           string `boltholdKey:"UserId"`
-	Language         string
-	EmulatorSettings map[string]EmulatorSettings
+	UserId              string `boltholdKey:"UserId"`
+	Language            string
+	DefaultGameSettings Game
+	EmulatorSettings    map[string]EmulatorSettings
 }
 
 type Game struct {

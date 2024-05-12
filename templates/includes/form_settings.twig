@@ -6,3 +6,6 @@
     </select>
     <label for="language">{{ loc("settings.general.language.label") }}</label>
 </div>
+
+<h5>{{ loc("settings.default-game.header") }}</h5>
+{% include "form_game_settings.twig" with game=settings.DefaultGameSettings %}

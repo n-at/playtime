@@ -214,6 +214,7 @@
   "settings.general.language.label": "Emulator language",
   "settings.general.submit": "Save",
   "settings.platform.header": "Settings by platform",
+  "settings.default-game.header": "Default uploaded game settings",
 
   "settings-platform.title": "Settings for %s",
   "settings-platform.header": "Settings",

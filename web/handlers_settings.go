@@ -31,6 +31,23 @@ func (s *Server) settingsGeneralSubmit(c echo.Context) error {
 
 	settings := context.settings
 	settings.Language = c.FormValue("language")
+
+	autoSaveInterval, err := strconv.Atoi(c.FormValue("auto-save-interval"))
+	if err != nil {
+		return err
+	}
+	autoSaveCapacity, err := strconv.Atoi(c.FormValue("auto-save-capacity"))
+	if err != nil {
+		return err
+	}
+
+	settings.DefaultGameSettings.NetplayEnabled = c.FormValue("netplay-enabled") == "1"
+	settings.DefaultGameSettings.NetplayRequireLogin = c.FormValue("netplay-require-login") == "1"
+	settings.DefaultGameSettings.NetplayOpen = c.FormValue("netplay-open") == "1"
+	settings.DefaultGameSettings.AutoSaveEnabled = c.FormValue("auto-save-enabled") == "1"
+	settings.DefaultGameSettings.AutoSaveInterval = autoSaveInterval * 60
+	settings.DefaultGameSettings.AutoSaveCapacity = autoSaveCapacity
+
 	if _, err := s.storage.SettingsSave(*settings); err != nil {
 		return err
 	}
