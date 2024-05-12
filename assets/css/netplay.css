@@ -97,6 +97,7 @@ body {
 }
 #virtual-gamepad .btn {
     position: absolute;
+    border-width: 3px;
 }
 #virtual-gamepad .btn-circle {
     display: inline-block;
