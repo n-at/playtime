@@ -1,6 +1,48 @@
 # playtime
 
-Personal retro games library + [EmulatorJS](https://emulatorjs.org/).
+Personal retro games library + [EmulatorJS](https://emulatorjs.org/) + Netplay.
+
+Features:
+
++ Multiple users with disk usage quota
++ Keyboard and gamepad controls
++ Save states
++ Netplay - up to 4 players
+
+Platforms supported:
+
++ 3DO
++ Arcade
++ Atari 2600
++ Atari 5200
++ Atari 7800 
++ Atari Jaguar
++ Atari Lynx
++ Bandai WonderSwan (Color)
++ ColecoVision
++ Commodore 128
++ Commodore 64
++ Commodore Amiga
++ Commodore PET
++ Commodore Plus/4
++ Commodore VIC-20
++ MAME 2003
++ NEC PC-FX
++ NEC TurboGrafx-16 / SuperGrafx / PC Engine
++ Nintendo 64
++ Nintendo DS
++ Nintendo Famicom / NES
++ Nintendo Game Boy (Color)
++ Nintendo Game Boy Advance
++ Nintendo Super Famicom / SNES
++ Nintendo Virtual Boy
++ SNK Neo Geo Pocket (Color)
++ Sega CD
++ Sega Game Gear
++ Sega Master System
++ Sega Mega Drive / Genesis
++ Sega Saturn
++ Sony PlayStation
 
 ## Quick installation with script
 
