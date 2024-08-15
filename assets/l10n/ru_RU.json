@@ -265,6 +265,7 @@
   "settings-platform.ui.button.screenshot": "Снимок экрана",
   "settings-platform.ui.button.screen-record": "Запись экрана",
   "settings-platform.ui.button.cache-manager": "Управление кешем",
+  "settings-platform.ui.button.exit-emulation": "Выйти из эмуляции",
   "settings-platform.controls.title": "Управление",
   "settings-platform.controls.keyboard.header": "Клавиатура для игрока",
   "settings-platform.controls.keyboard.close.title": "Закрыть",

@@ -132,25 +132,26 @@ type EmulatorControlsMapping struct {
 }
 
 type EmulatorButtons struct {
-	PlayPause    bool
-	Restart      bool
-	Mute         bool
-	Settings     bool
-	FullScreen   bool
-	SaveState    bool
-	LoadState    bool
-	ScreenRecord bool
-	Gamepad      bool
-	Cheat        bool
-	Volume       bool
-	SaveSavFiles bool
-	LoadSavFiles bool
-	QuickSave    bool
-	QuickLoad    bool
-	Screenshot   bool
-	CacheManager bool
-	ContextMenu  bool
-	RightClick   bool
+	PlayPause     bool
+	Restart       bool
+	Mute          bool
+	Settings      bool
+	FullScreen    bool
+	SaveState     bool
+	LoadState     bool
+	ScreenRecord  bool
+	Gamepad       bool
+	Cheat         bool
+	Volume        bool
+	SaveSavFiles  bool
+	LoadSavFiles  bool
+	QuickSave     bool
+	QuickLoad     bool
+	Screenshot    bool
+	CacheManager  bool
+	ContextMenu   bool
+	RightClick    bool
+	ExitEmulation bool
 }
 
 ///////////////////////////////////////////////////////////////////////////////
