@@ -1,7 +1,7 @@
 package gamesession
 
 import (
-	"nhooyr.io/websocket"
+	"github.com/coder/websocket"
 	"playtime/storage"
 	"sync"
 )

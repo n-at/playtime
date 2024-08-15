@@ -3,13 +3,13 @@ module playtime
 go 1.21
 
 require (
+	github.com/coder/websocket v1.8.12
 	github.com/flosch/pongo2/v6 v6.0.0
 	github.com/google/uuid v1.6.0
 	github.com/labstack/echo/v4 v4.12.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/timshannon/bolthold v0.0.0-20240314194003-30aac6950928
 	golang.org/x/crypto v0.26.0
-	nhooyr.io/websocket v1.8.17
 )
 
 require (

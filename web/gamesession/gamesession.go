@@ -3,9 +3,9 @@ package gamesession
 import (
 	"context"
 	"errors"
+	"github.com/coder/websocket"
+	"github.com/coder/websocket/wsjson"
 	log "github.com/sirupsen/logrus"
-	"nhooyr.io/websocket"
-	"nhooyr.io/websocket/wsjson"
 	"sync"
 )
 
