@@ -265,6 +265,7 @@
   "settings-platform.ui.button.screenshot": "Screenshot",
   "settings-platform.ui.button.screen-record": "Screen record",
   "settings-platform.ui.button.cache-manager": "Cache manager",
+  "settings-platform.ui.button.exit-emulation": "Exit emulation",
   "settings-platform.controls.title": "Controls",
   "settings-platform.controls.keyboard.header": "Keyboard for player",
   "settings-platform.controls.keyboard.close.title": "Close",
