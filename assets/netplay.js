@@ -412,8 +412,15 @@
         }
 
         if (!client.audioTrack || client.audioTrack.readyState !== 'live') {
-            if (window.AL && window.AL.currentCtx && window.AL.currentCtx.audioCtx) {
-                const alContext = window.AL.currentCtx;
+            let AL = null;
+            if (window.EJS_emulator && window.EJS_emulator.Module && window.EJS_emulator.Module.AL) {
+                AL = window.EJS_emulator.Module.AL;
+            }
+            if (AL === null && window.AL) {
+                AL = window.AL;
+            }
+            if (AL && AL.currentCtx && AL.currentCtx.audioCtx) {
+                const alContext = AL.currentCtx;
                 const audioContext = alContext.audioCtx;
 
                 const gainNodes = [];
