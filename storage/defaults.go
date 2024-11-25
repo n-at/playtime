@@ -21,11 +21,15 @@ var (
 		"de-GER",
 		"el-GR",
 		"es-ES",
-		"hl-HL",
+		"fa-AF",
+		"hi-HI",
+		"it-IT",
 		"ja-JA",
 		"jv-JV",
 		"ko-KO",
 		"pt-BR",
+		"tr-TR",
+		"vi-VN",
 		"zh-CN",
 	}
 
