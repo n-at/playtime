@@ -1,0 +1,28 @@
+{% extends "layouts/layout.twig" %}
+
+{% block title %}
+    {{ loc("settings.general.title") }} - {{ loc("brand") }}
+{% endblock %}
+
+{% block assets %}
+    <script src="/assets/game-options.js"></script>
+{% endblock %}
+
+{% block content %}
+
+    <h1>{{ loc("settings.general.header") }}</h1>
+    <hr>
+
+    {% if done %}
+        <div class="alert alert-success mb-3">{{ loc("settings.general.saved") }}</div>
+    {% endif %}
+
+    <form action="/settings/general" method="post" enctype="application/x-www-form-urlencoded" class="mb-5">
+        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
+        {% include "includes/form_settings.twig" %}
+        <hr>
+        <div class="mb-3 text-end">
+            <button type="submit" class="btn btn-primary">{{ loc("settings.general.submit") }}</button>
+        </div>
+    </form>
+{% endblock %}

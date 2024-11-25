@@ -11,16 +11,26 @@ import (
 	"strconv"
 )
 
-func (s *Server) settingsGeneralForm(c echo.Context) error {
+func (s *Server) settings(c echo.Context) error {
 	context := c.(*PlaytimeContext)
 
 	return c.Render(http.StatusOK, "settings", pongo2.Context{
 		"_csrf_token": c.Get("csrf"),
 		"user":        context.user,
 		"settings":    context.settings,
+		"platforms":   sortedPlatforms(),
+	})
+}
+
+func (s *Server) settingsGeneralForm(c echo.Context) error {
+	context := c.(*PlaytimeContext)
+
+	return c.Render(http.StatusOK, "settings_general", pongo2.Context{
+		"_csrf_token": c.Get("csrf"),
+		"user":        context.user,
+		"settings":    context.settings,
 		"done":        c.QueryParam("done"),
 		"languages":   storage.Languages,
-		"platforms":   sortedPlatforms(),
 	})
 }
 
@@ -52,7 +62,7 @@ func (s *Server) settingsGeneralSubmit(c echo.Context) error {
 		return err
 	}
 
-	return c.Redirect(http.StatusFound, "/settings?done=1")
+	return c.Redirect(http.StatusFound, "/settings/general?done=1")
 }
 
 func (s *Server) settingsByPlatformForm(c echo.Context) error {

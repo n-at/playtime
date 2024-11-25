@@ -28,18 +28,7 @@
                 {% endif %}
                 {% if user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="/profile">{{ loc("nav.profile") }}</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="/settings">{{ loc("nav.settings") }}</a>
-                    </li>
-                    {% if user.CanControlUsers() %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="/users">{{ loc("nav.users") }}</a>
-                        </li>
-                    {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="/version">{{ loc("nav.version") }}</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">{{ loc("nav.logout") }}</a>

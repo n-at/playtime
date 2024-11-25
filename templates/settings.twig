@@ -4,10 +4,6 @@
     {{ loc("settings.title") }} - {{ loc("brand") }}
 {% endblock %}
 
-{% block assets %}
-    <script src="/assets/game-options.js"></script>
-{% endblock %}
-
 {% block content %}
     <h1>{{ loc("settings.header") }}</h1>
     <hr>
@@ -18,19 +14,14 @@
         </div>
     {% endif %}
 
-    <h2>{{ loc("settings.general.header") }}</h2>
-
-    {% if done %}
-        <div class="alert alert-success mb-3">{{ loc("settings.general.saved") }}</div>
-    {% endif %}
-
-    <form action="/settings" method="post" enctype="application/x-www-form-urlencoded" class="mb-5">
-        <input type="hidden" name="_playtime_csrf" value="{{ _csrf_token }}">
-        {% include "includes/form_settings.twig" %}
-        <div class="text-end">
-            <button type="submit" class="btn btn-primary">{{ loc("settings.general.submit") }}</button>
-        </div>
-    </form>
+    <div class="list-group list-group-hover mb-5">
+        <a class="lead list-group-item list-group-item-action" href="/settings/general">{{ loc("settings.general.title") }}</a>
+        <a class="lead list-group-item list-group-item-action" href="/profile">{{ loc("nav.profile") }}</a>
+        {% if user.CanControlUsers() %}
+            <a class="lead list-group-item list-group-item-action" href="/users">{{ loc("nav.users") }}</a>
+        {% endif %}
+        <a class="lead list-group-item list-group-item-action" href="/version">{{ loc("nav.version") }}</a>
+    </div>
 
     <h2>{{ loc("settings.platform.header") }}</h2>
 
