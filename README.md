@@ -15,7 +15,7 @@ Platforms supported:
 + Arcade
 + Atari 2600
 + Atari 5200
-+ Atari 7800 
++ Atari 7800
 + Atari Jaguar
 + Atari Lynx
 + Bandai WonderSwan (Color)
@@ -42,7 +42,9 @@ Platforms supported:
 + Sega Master System
 + Sega Mega Drive / Genesis
 + Sega Saturn
++ Sinclair ZX Spectrum
 + Sony PlayStation
++ Sony PlayStation Portable
 
 ## Quick installation with script
 

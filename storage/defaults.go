@@ -213,6 +213,13 @@ var (
 				},
 			},
 		},
+		"psp": {
+			Id:         "psp",
+			Name:       "Sony PlayStation Portable",
+			Cores:      []string{"ppsspp"},
+			Extensions: []string{"iso"},
+			Bios:       []Bios{},
+		},
 		"jaguar": {
 			Id:         "jaguar",
 			Name:       "Atari Jaguar",
@@ -437,6 +444,13 @@ var (
 			Name:       "Commodore VIC-20",
 			Cores:      []string{"vice_xvic"},
 			Extensions: []string{},
+			Bios:       []Bios{},
+		},
+		"spectrum": {
+			Id:         "spectrum",
+			Name:       "Sinclair ZX Spectrum",
+			Cores:      []string{"fuse"},
+			Extensions: []string{"z80", "tzx", "tap", "rzx", "scl", "trd"},
 			Bios:       []Bios{},
 		},
 		"": {
@@ -954,6 +968,14 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 		}
 		controls = DefaultControlsOther
 
+	case "psp":
+		settings = EmulatorSettings{
+			Core:    Platforms["psp"].Cores[0],
+			Bios:    "",
+			Threads: true,
+		}
+		controls = DefaultControlsOther
+
 	case "jaguar":
 		settings = EmulatorSettings{
 			Core: Platforms["jaguar"].Cores[0],
@@ -1101,6 +1123,12 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 	case "vic20":
 		settings = EmulatorSettings{
 			Core: Platforms["vic20"].Cores[0],
+			Bios: "",
+		}
+
+	case "spectrum":
+		settings = EmulatorSettings{
+			Core: Platforms["spectrum"].Cores[0],
 			Bios: "",
 		}
 	}

@@ -84,6 +84,7 @@ type EmulatorSettings struct {
 	FastForwardRatio       string
 	SlowMotionRatio        string
 	RewindGranularity      string
+	VideoRotation          int64
 	FastForwardMode        bool
 	SlowMotionMode         bool
 	Rewind                 bool

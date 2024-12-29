@@ -1,14 +1,14 @@
 #!/bin/bash
 
 PLAYTIME_EJS_REPO_URL=${PLAYTIME_EJS_REPO_URL:-"https://github.com/EmulatorJS/EmulatorJS"}
-PLAYTIME_EJS_REVISION=${PLAYTIME_EJS_REVISION:-"3a3eee7d85adb03b7659d9dcdab4d04d6a3e1380"}
-PLAYTIME_EJS_CORES_URL=${PLAYTIME_EJS_CORES_URL:-"https://cdn.emulatorjs.org/nightly/data/cores"}
+PLAYTIME_EJS_REVISION=${PLAYTIME_EJS_REVISION:-"be29680d57015482612f3b492b7952455494be5a"}
+PLAYTIME_EJS_CORES_URL=${PLAYTIME_EJS_CORES_URL:-"https://cdn.emulatorjs.org/stable/data/cores"}
 
 #
 
 cd assets
 
-npm install
+npm install --no-fund --ignore-scripts
 
 #download EmulatorJS
 
@@ -71,6 +71,10 @@ wget "${PLAYTIME_EJS_CORES_URL}/fceumm-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/fceumm-thread-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/fceumm-thread-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/fceumm-wasm.data"
+wget "${PLAYTIME_EJS_CORES_URL}/fuse-legacy-wasm.data"
+wget "${PLAYTIME_EJS_CORES_URL}/fuse-thread-legacy-wasm.data"
+wget "${PLAYTIME_EJS_CORES_URL}/fuse-thread-wasm.data"
+wget "${PLAYTIME_EJS_CORES_URL}/fuse-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/gambatte-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/gambatte-thread-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/gambatte-thread-wasm.data"
@@ -147,6 +151,8 @@ wget "${PLAYTIME_EJS_CORES_URL}/picodrive-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/picodrive-thread-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/picodrive-thread-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/picodrive-wasm.data"
+wget "${PLAYTIME_EJS_CORES_URL}/ppsspp-thread-wasm.data"
+wget "${PLAYTIME_EJS_CORES_URL}/ppsspp-assets.zip"
 wget "${PLAYTIME_EJS_CORES_URL}/prboom-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/prboom-thread-legacy-wasm.data"
 wget "${PLAYTIME_EJS_CORES_URL}/prboom-thread-wasm.data"
@@ -235,6 +241,7 @@ wget "${PLAYTIME_EJS_CORES_URL}/reports/opera.json"
 wget "${PLAYTIME_EJS_CORES_URL}/reports/parallel_n64.json"
 wget "${PLAYTIME_EJS_CORES_URL}/reports/pcsx_rearmed.json"
 wget "${PLAYTIME_EJS_CORES_URL}/reports/picodrive.json"
+wget "${PLAYTIME_EJS_CORES_URL}/reports/ppsspp.json"
 wget "${PLAYTIME_EJS_CORES_URL}/reports/prboom.json"
 wget "${PLAYTIME_EJS_CORES_URL}/reports/prosystem.json"
 wget "${PLAYTIME_EJS_CORES_URL}/reports/puae.json"

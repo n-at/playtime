@@ -25,6 +25,8 @@
         {% include "controls/segaSaturn.twig" %}
     {% elif platform_id == "psx" %}
         {% include "controls/psx.twig" %}
+    {% elif platform_id == "psp" %}
+        {% include "controls/psp.twig" %}
     {% elif platform_id == "3do" %}
         {% include "controls/3do.twig" %}
     {% elif platform_id == "atari7800" %}
@@ -46,7 +48,7 @@
     {% elif platform_id == "coleco" %}
         {% include "controls/coleco.twig" %}
     {% else %}
-        {# a5200, mame2003, arcade #}
+        {# a5200, mame2003, arcade, spectrum #}
         {% if platform_id == "c64" %}
             {% set console_img = "c64.png" %}
             {% set console_img_alt = "Commodore 64" %}
@@ -62,6 +64,9 @@
         {% elif platform_id == "a5200" %}
             {% set console_img = "a5200.png" %}
             {% set console_img_alt = "Atari 5200" %}
+        {% elif platform_id == "spectrum" %}
+            {% set console_img = "spectrum.png" %}
+            {% set console_img_alt = "Sinclair ZX81" %}
         {% endif %}
         {% include "controls/default.twig" %}
     {% endif %}

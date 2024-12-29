@@ -3,12 +3,13 @@ package web
 import (
 	"errors"
 	"fmt"
-	"github.com/flosch/pongo2/v6"
-	"github.com/labstack/echo/v4"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
 	"strconv"
+
+	"github.com/flosch/pongo2/v6"
+	"github.com/labstack/echo/v4"
+	log "github.com/sirupsen/logrus"
 )
 
 func (s *Server) settings(c echo.Context) error {
@@ -167,6 +168,16 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		volume = storage.DefaultVolume
 	}
 
+	videoRotation, err := strconv.ParseInt(c.FormValue("video-rotation"), 10, 64)
+	if err != nil {
+		log.Warnf("unable to read video rotation: %s", err)
+		videoRotation = 0
+	}
+	if videoRotation < 0 || videoRotation > 3 {
+		log.Warnf("wrong video rotation value: %d", videoRotation)
+		videoRotation = 0
+	}
+
 	buttons := storage.EmulatorButtons{
 		PlayPause:     c.FormValue("button-play-pause") == "1",
 		Restart:       c.FormValue("button-restart") == "1",
@@ -233,6 +244,7 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		DisableBrowserDB:       c.FormValue("disable-browser-db") == "1",
 		DisableVSync:           c.FormValue("disable-vsync") == "1",
 		CueEnabled:             c.FormValue("cue-enabled") == "1",
+		VideoRotation:          videoRotation,
 		Buttons:                buttons,
 		Controls:               settingsCollectControls(c),
 		CoreOptions:            coreOptionsValues,

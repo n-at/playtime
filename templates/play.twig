@@ -68,6 +68,7 @@
         window.EJS_startOnLoaded = true;
         window.EJS_fullscreenOnLoaded = {{ emulator_settings.StartFullScreen | lower }};
         window.EJS_disableLocalStorage = true;
+        window.EJS_videoRotation = {{ emulator_settings.VideoRotation }};
 
         {% if emulator_debug %}
             window.EJS_DEBUG_XX = true;

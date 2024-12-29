@@ -235,6 +235,7 @@
   "settings-platform.play.title": "Play",
   "settings-platform.play.shader.label": "Display shader",
   "settings-platform.play.volume.label": "Volume",
+  "settings-platform.play.video-rotation.label": "Video rotation",
   "settings-platform.play.ff-ratio.label": "Fast Forward ratio",
   "settings-platform.play.sm-ratio.label": "Slow Motion ratio",
   "settings-platform.play.rewind-granularity.label": "Rewind granularity",

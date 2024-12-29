@@ -235,6 +235,7 @@
   "settings-platform.play.title": "Игра",
   "settings-platform.play.shader.label": "Шейдер",
   "settings-platform.play.volume.label": "Громкость",
+  "settings-platform.play.video-rotation.label": "Поворот видео",
   "settings-platform.play.ff-ratio.label": "Степень ускорения",
   "settings-platform.play.sm-ratio.label": "Степень замедления",
   "settings-platform.play.rewind-granularity.label": "Скорость перемотки",
