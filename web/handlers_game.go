@@ -3,12 +3,13 @@ package web
 import (
 	"errors"
 	"fmt"
-	"github.com/flosch/pongo2/v6"
-	"github.com/labstack/echo/v4"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"playtime/storage"
 	"strconv"
+
+	"github.com/flosch/pongo2/v6"
+	"github.com/labstack/echo/v4"
+	log "github.com/sirupsen/logrus"
 )
 
 func (s *Server) games(c echo.Context) error {
@@ -77,6 +78,7 @@ func (s *Server) gameUpload(c echo.Context) error {
 			AutoSaveEnabled:          settings.DefaultGameSettings.AutoSaveEnabled,
 			AutoSaveInterval:         settings.DefaultGameSettings.AutoSaveInterval,
 			AutoSaveCapacity:         settings.DefaultGameSettings.AutoSaveCapacity,
+			CueEnabled:               settings.DefaultGameSettings.CueEnabled,
 			OverrideEmulatorSettings: false,
 			EmulatorSettings:         storage.DefaultEmulatorSettings(""),
 		}
@@ -193,6 +195,7 @@ func (s *Server) gameEditSubmit(c echo.Context) error {
 	game.AutoSaveEnabled = c.FormValue("auto-save-enabled") == "1"
 	game.AutoSaveInterval = autoSaveInterval * 60
 	game.AutoSaveCapacity = autoSaveCapacity
+	game.CueEnabled = c.FormValue("cue-enabled") == "1"
 
 	newPlatform := c.FormValue("platform")
 	if game.Platform != newPlatform {

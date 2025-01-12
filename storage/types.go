@@ -46,6 +46,7 @@ type Game struct {
 	AutoSaveEnabled          bool
 	AutoSaveInterval         int
 	AutoSaveCapacity         int
+	CueEnabled               bool
 	OverrideEmulatorSettings bool
 	EmulatorSettings         EmulatorSettings
 }
@@ -91,7 +92,6 @@ type EmulatorSettings struct {
 	Threads                bool
 	DisableBrowserDB       bool
 	DisableVSync           bool
-	CueEnabled             bool
 }
 
 type EmulatorControls struct {

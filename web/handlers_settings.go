@@ -58,6 +58,7 @@ func (s *Server) settingsGeneralSubmit(c echo.Context) error {
 	settings.DefaultGameSettings.AutoSaveEnabled = c.FormValue("auto-save-enabled") == "1"
 	settings.DefaultGameSettings.AutoSaveInterval = autoSaveInterval * 60
 	settings.DefaultGameSettings.AutoSaveCapacity = autoSaveCapacity
+	settings.DefaultGameSettings.CueEnabled = c.FormValue("cue-enabled") == "1"
 
 	if _, err := s.storage.SettingsSave(*settings); err != nil {
 		return err
@@ -243,7 +244,6 @@ func settingsCollectFormData(c echo.Context) storage.EmulatorSettings {
 		Threads:                c.FormValue("threads") == "1",
 		DisableBrowserDB:       c.FormValue("disable-browser-db") == "1",
 		DisableVSync:           c.FormValue("disable-vsync") == "1",
-		CueEnabled:             c.FormValue("cue-enabled") == "1",
 		VideoRotation:          videoRotation,
 		Buttons:                buttons,
 		Controls:               settingsCollectControls(c),

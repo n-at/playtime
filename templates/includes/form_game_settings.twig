@@ -45,3 +45,10 @@
         </div>
     </div>
 </div>
+
+<div class="mb-3">
+    <div class="form-check form-switch">
+        <input type="checkbox" id="cue-enabled" name="cue-enabled" class="form-check-input" value="1" {% if game.CueEnabled %}checked{% endif %}>
+        <label for="cue-enabled">{{ loc("game.edit.cue-enabled.label") }}</label>
+    </div>
+</div>

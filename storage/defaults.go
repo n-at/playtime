@@ -1143,7 +1143,6 @@ func DefaultEmulatorSettings(systemType string) EmulatorSettings {
 	settings.Shader = Shaders[0].Value
 	settings.Buttons = DefaultButtons
 	settings.Controls = [4]EmulatorControls{controls}
-	settings.CueEnabled = true
 
 	return settings
 }
