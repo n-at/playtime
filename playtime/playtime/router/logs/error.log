@@ -1,0 +1,61 @@
+2025/03/12 20:43:34 [notice] 1#1: using the "epoll" event method
+2025/03/12 20:43:34 [notice] 1#1: nginx/1.27.4
+2025/03/12 20:43:34 [notice] 1#1: built by gcc 14.2.0 (Alpine 14.2.0) 
+2025/03/12 20:43:34 [notice] 1#1: OS: Linux 6.8.0-1021-azure
+2025/03/12 20:43:34 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2025/03/12 20:43:34 [notice] 1#1: start worker processes
+2025/03/12 20:43:34 [notice] 1#1: start worker process 20
+2025/03/12 20:43:34 [notice] 1#1: start worker process 21
+2025/03/12 20:43:47 [notice] 1#1: signal 3 (SIGQUIT) received, shutting down
+2025/03/12 20:43:47 [notice] 20#20: gracefully shutting down
+2025/03/12 20:43:47 [notice] 20#20: exiting
+2025/03/12 20:43:47 [notice] 21#21: gracefully shutting down
+2025/03/12 20:43:47 [notice] 21#21: exiting
+2025/03/12 20:43:47 [notice] 20#20: exit
+2025/03/12 20:43:47 [notice] 21#21: exit
+2025/03/12 20:43:47 [notice] 1#1: signal 17 (SIGCHLD) received from 21
+2025/03/12 20:43:47 [notice] 1#1: worker process 20 exited with code 0
+2025/03/12 20:43:47 [notice] 1#1: worker process 21 exited with code 0
+2025/03/12 20:43:47 [notice] 1#1: exit
+2025/03/12 20:43:48 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:43:48 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:43:48 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:43:48 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:43:48 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:43:48 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:43:49 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:43:49 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:43:49 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:43:54 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:43:54 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:43:54 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:43:55 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:43:55 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:43:55 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:43:57 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:43:57 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:43:57 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:44:00 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:44:00 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:44:00 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:44:07 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:44:07 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:44:07 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:44:20 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:44:20 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:44:20 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:44:46 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:44:46 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:44:46 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:45:37 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:45:37 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:45:37 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:46:38 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:46:38 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:46:38 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:47:38 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:47:38 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:47:38 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)
+2025/03/12 20:48:38 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:2
+2025/03/12 20:48:38 [warn] 1#1: the "listen ... http2" directive is deprecated, use the "http2" directive instead in /etc/nginx/conf.d/vhost.conf:3
+2025/03/12 20:48:38 [emerg] 1#1: cannot load certificate "/etc/letsencrypt/live/playtime.example.com/fullchain.pem": BIO_new_file() failed (SSL: error:80000002:system library::No such file or directory:calling fopen(/etc/letsencrypt/live/playtime.example.com/fullchain.pem, r) error:10000080:BIO routines::no such file)

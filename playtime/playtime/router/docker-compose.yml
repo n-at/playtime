@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  router:
+    image: "nginx:1-alpine"
+    container_name: "playtime-router"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./logs:/var/log/nginx"
+      - "./conf:/etc/nginx/conf.d:ro"
+      - "../certbot/webroot:/opt/certbot/webroot:ro"
+      - "../certbot/etc:/etc/letsencrypt:ro"
+    restart: "always"
+
+networks:
+  default:
+    external:
+      name: "playtime_network"

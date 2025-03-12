@@ -1,0 +1,49 @@
+0: (1): INFO: log file opened: /opt/coturn/log/turn_2025-03-12.log
+0: (1): INFO: System cpu num is 2
+0: (1): INFO: System enable num is 2
+0: (1): INFO: Listener address to use: 0.0.0.0
+0: (1): ERROR: You cannot define external IP more than once in the configuration
+0: (1): INFO: Coturn Version Coturn-4.6.3 'Gorst'
+0: (1): INFO: Max number of open files/sockets allowed for this process: 1048576
+0: (1): INFO: Due to the open files/sockets limitation, max supported number of TURN Sessions possible is: 524000 (approximately)
+0: (1): INFO: 
+
+==== Show him the instruments, Practical Frost: ====
+
+0: (1): INFO: OpenSSL compile-time version: OpenSSL 3.0.15 3 Sep 2024 (0x300000f0)
+0: (1): INFO: TLS 1.3 supported
+0: (1): INFO: DTLS 1.2 supported
+0: (1): INFO: TURN/STUN ALPN supported
+0: (1): INFO: Third-party authorization (oAuth) supported
+0: (1): INFO: GCM (AEAD) supported
+0: (1): INFO: SQLite supported, default database location is /var/lib/coturn/turndb
+0: (1): INFO: Redis supported
+0: (1): INFO: PostgreSQL supported
+0: (1): INFO: MySQL supported
+0: (1): INFO: MongoDB supported
+0: (1): INFO: Default Net Engine version: 3 (UDP thread per CPU core)
+0: (1): INFO: Domain name: 
+0: (1): INFO: Default realm: playtime.example.com
+0: (1): WARNING: cannot find certificate file: /etc/letsencrypt/live/playtime.example.com/fullchain.pem (1)
+0: (1): WARNING: cannot start TLS and DTLS listeners because certificate file is not set properly
+0: (1): WARNING: cannot find private key file: /etc/letsencrypt/live/playtime.example.com/privkey.pem (1)
+0: (1): WARNING: cannot start TLS and DTLS listeners because private key file is not set properly
+0: (1): INFO: Certificate file found: /etc/letsencrypt/live/playtime.example.com/fullchain.pem
+0: (1): INFO: Private key file found: /etc/letsencrypt/live/playtime.example.com/privkey.pem
+0: (1): INFO: Relay address to use: 0.0.0.0
+0: (1): WARNING: Cannot create pid file: /var/run/turnserver.pid
+0: (1): INFO: pid file created: /var/tmp/turnserver.pid
+0: (1): INFO: IO method: epoll (with changelist)
+0: (1): INFO: RFC5780 disabled! /NAT behavior discovery/
+0: (1): INFO: Wait for relay ports initialization...
+0: (1): INFO:   relay 0.0.0.0 initialization...
+0: (1): INFO:   relay 0.0.0.0 initialization done
+0: (1): INFO: Relay ports initialization done
+0: (1): INFO: Total General servers: 2
+0: (1): INFO: IPv4. UDP listener opened on: 0.0.0.0:3478
+0: (1): INFO: Total auth threads: 3
+0: (27): DEBUG: turn server id=1 created
+0: (26): DEBUG: turn server id=0 created
+0: (26): INFO: IPv4. TCP listener opened on : 0.0.0.0:3478
+0: (27): INFO: IPv4. TCP listener opened on : 0.0.0.0:3478
+0: (1): INFO: prometheus collector disabled, not started
