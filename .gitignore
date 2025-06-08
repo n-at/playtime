@@ -9,3 +9,4 @@
 /data/
 /uploads/
 /__debug*
+.DS_Store

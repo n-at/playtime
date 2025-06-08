@@ -82,7 +82,7 @@ This script will:
 
 ## Building
 
-Go 1.21+ and npm 7+ required.
+Go 1.24+ and npm 7+ required.
 
 ```bash
 ./install.sh
