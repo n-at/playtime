@@ -5,8 +5,8 @@ services:
     image: "nginx:1-alpine"
     container_name: "playtime-router"
     ports:
-      - "80:80"
-      - "443:443"
+      - "8111:80"
+      - "4443:443"
     volumes:
       - "./logs:/var/log/nginx"
       - "./conf:/etc/nginx/conf.d:ro"
