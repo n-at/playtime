@@ -50,7 +50,7 @@ fi
 echo ">>>>>>>>>> BUILD PLAYTIME IMAGE <<<<<<<<<<"
 
 if [ ! -d build ]; then
-  git clone "https://github.com/n-at/playtime" "build"
+  git clone "https://github.com/lxyongit/playtime.git" "build"
 fi
 cd build
 docker image build -t "playtime:latest" .
