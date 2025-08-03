@@ -2,7 +2,7 @@
 
 PLAYTIME_EJS_REPO_URL=${PLAYTIME_EJS_REPO_URL:-"https://github.com/EmulatorJS/EmulatorJS"}
 PLAYTIME_EJS_REVISION=${PLAYTIME_EJS_REVISION:-"bb51c13eabad53f6ee18828fc80f358a90f6596d"}
-PLAYTIME_EJS_CORES_URL=${PLAYTIME_EJS_CORES_URL:-"https://cdn.emulatorjs.org/4.2.1/data/cores"}
+PLAYTIME_EJS_CORES_URL=${PLAYTIME_EJS_CORES_URL:-"https://cdn.emulatorjs.org/4.1.1/data/cores"}
 
 #
 
