@@ -321,10 +321,24 @@
             return;
         }
 
-        if (!clientControlPressed[clientId]) {
-            clientControlPressed[clientId] = {};
-        }
-        clientControlPressed[clientId][code] = !!value;
+		code = Number(code);
+		value = Number(value);
+
+		if (!clientControlPressed[clientId]) {
+			clientControlPressed[clientId] = {};
+		}
+		clientControlPressed[clientId][code] = !!value;
+
+		if (code >= 16 && code <= 23) {
+			const positiveCodes = [16, 18, 20, 22]; // right/down
+			const negativeCodes = [17, 19, 21, 23]; // left/up
+
+			if (positiveCodes.includes(code)) {
+				value = value > 0 ? 0x7fff : 0;
+			} else if (negativeCodes.includes(code)) {
+				value = value > 0 ? 0 : -0x7fff;
+			}
+		}
 
         EJS_emulator.gameManager.simulateInput(player, code, value);
     }
