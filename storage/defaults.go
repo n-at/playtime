@@ -510,8 +510,8 @@ var (
 
 	DefaultControlsN64 = EmulatorControls{
 		Keyboard: EmulatorControlsMapping{
-			A:           KeyZ,
-			B:           KeyX,
+			B:           KeyZ,
+			Y:           KeyX,
 			Start:       KeyEnter,
 			Up:          KeyArrowUp,    //D-Pad Up
 			Down:        KeyArrowDown,  //D-Pad Down
@@ -524,7 +524,7 @@ var (
 			LStickLeft:  KeyF, //Stick Left
 			LStickRight: KeyH, //Stick Right
 			RStickUp:    KeyI, //C-Pad Up
-			RStickDown:  KeyK, //C-Pad Down
+			A:           KeyK, //C-Pad Down
 			RStickLeft:  KeyJ, //C-Pad Left
 			RStickRight: KeyL, //C-Pad Right
 		},
